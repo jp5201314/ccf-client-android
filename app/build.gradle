@@ -36,5 +36,15 @@ dependencies {
      */
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    /**
+     * dialog的框架
+     */
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+
+    /**
+     * 刷新的控件（上拉刷新，下拉加载 ）
+     */
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 
 }

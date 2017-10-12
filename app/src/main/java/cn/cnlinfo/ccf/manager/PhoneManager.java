@@ -74,6 +74,7 @@ public class PhoneManager {
      * 获取app安装根目录
      *
      * @return
+     * CONTEXT.getPackageName();就是 包名
      */
     @SuppressLint("SdCardPath")
     public static String getAppRootPath() {

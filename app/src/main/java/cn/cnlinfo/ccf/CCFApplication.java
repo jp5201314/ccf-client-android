@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
 
 
@@ -33,6 +36,14 @@ public class CCFApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         EventBus.getDefault().unregister(mContext);
+    }
+
+    //接收EventBus发送来的信息并作相应处理
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showErrorMessage(ErrorMessageEvent errorMessageEvent){
+        String msg = errorMessageEvent.getMsg();
+
+
     }
 
     protected boolean allowLogin(){
