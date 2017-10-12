@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -19,5 +20,8 @@ public class LoginRegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_login_register);
 
 
+        startActivity(new Intent(this,MainPageActivity.class));
     }
+
+
 }

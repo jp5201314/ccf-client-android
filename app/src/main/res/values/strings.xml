@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">碳控因子</string>
+
+    <!--底部按钮值-->
+    <string name="gauage_panel">仪表盘</string>
+    <string name="trading_center">交易中心</string>
+    <string name="cc_mall">CC商城</string>
+    <string name="cc_union">CC联盟</string>
+    <string name="setting_center">设置中心</string>
+
+    <!--页面图标值-->
+    <string name="basic_info">基本信息</string>
+    <string name="register_member">注册会员</string>
+    <string name="contrabution_map">贡献图谱</string>
+    <string name="referral_net">推荐网络</string>
+    <string name="my_paramter">我的参数</string>
+    <string name="platform_paramter">平台参数</string>
+    <string name="running">我要跑步</string>
+    <string name="sys_notice">系统公告</string>
+    <string name="online_wallte">在线钱包</string>
+    <string name="transfer_out">对外互传</string>
+    <string name="transfer_inner">内部互传</string>
+    <string name="user_upgrade">用户升级</string>
+    <string name="cycle_package">循环包</string>
+    <string name="exchange_center">兑换中心</string>
+    <string name="recode_center">记录中心</string>
+    <string name="carbon_benefit">碳控公益</string>
+
 </resources>

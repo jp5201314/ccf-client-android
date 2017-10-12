@@ -14,14 +14,12 @@ import cn.cnlinfo.ccf.R;
  * Created by Administrator on 2017/10/11 0011.
  */
 
-public class CCMallFragment extends BaseFragment {
+public class CCUnionFragment extends BaseFragment {
     private Unbinder unbinder;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_cc_mall,container,false);
+        View view = inflater.inflate(R.layout.fragment_cc_union,container,false);
         unbinder = ButterKnife.bind(this,view);
         return view;
     }
