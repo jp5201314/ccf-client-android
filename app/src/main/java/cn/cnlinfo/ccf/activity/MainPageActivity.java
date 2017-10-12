@@ -2,7 +2,6 @@ package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,11 +18,12 @@ import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
 import cn.cnlinfo.ccf.fragment.SettingCenterFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
+import cn.cnlinfo.ccf.view.StopScrollViewPager;
 
 public class MainPageActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.vp)
-    ViewPager vp;
+    StopScrollViewPager vp;
     @BindView(R.id.tv_gauage_panel)
     TextView tvGauagePanel;
     @BindView(R.id.tv_trading_center)
@@ -43,6 +43,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         unbinder = ButterKnife.bind(this);
+        //设置为false是停止滑动ViewPager切换Fragment
+        vp.setStopScroll(false);
         init();
 
     }

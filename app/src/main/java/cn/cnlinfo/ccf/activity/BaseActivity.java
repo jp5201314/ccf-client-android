@@ -85,11 +85,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-    }
-
-    @Override
     public void finish() {
         AppManage.getInstance().finishActivity(this);
     }

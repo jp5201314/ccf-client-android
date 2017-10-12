@@ -19,9 +19,6 @@ public class LoginRegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
 
-
         startActivity(new Intent(this,MainPageActivity.class));
     }
-
-
 }
