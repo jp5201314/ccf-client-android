@@ -87,19 +87,20 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         int viewId = v.getId();
         switch (viewId){
             case R.id.tv_gauage_panel:
-                vp.setCurrentItem(0);
+                //smoothScroll为false就是去除切换fragment的动画效果
+                vp.setCurrentItem(0,false);
                 break;
             case R.id.tv_trading_center:
-                vp.setCurrentItem(1);
+                vp.setCurrentItem(1,false);
                 break;
             case R.id.tv_cc_mall:
-                vp.setCurrentItem(2);
+                vp.setCurrentItem(2,false);
                 break;
             case R.id.tv_cc_union:
-                vp.setCurrentItem(3);
+                vp.setCurrentItem(3,false);
                 break;
             case R.id.tv_setting_center:
-                vp.setCurrentItem(4);
+                vp.setCurrentItem(4,false);
                 break;
         }
     }

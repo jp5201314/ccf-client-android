@@ -39,4 +39,6 @@ public class StopScrollViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent ev) {
         return isCanScorll&super.onTouchEvent(ev);
     }
+
+
 }
