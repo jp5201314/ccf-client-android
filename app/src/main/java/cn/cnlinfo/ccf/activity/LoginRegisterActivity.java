@@ -1,12 +1,8 @@
 package cn.cnlinfo.ccf.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 
 /**
@@ -19,6 +15,5 @@ public class LoginRegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
 
-        startActivity(new Intent(this,MainPageActivity.class));
     }
 }
