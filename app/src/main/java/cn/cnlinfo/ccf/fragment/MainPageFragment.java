@@ -14,7 +14,7 @@ import cn.cnlinfo.ccf.R;
  * Created by Administrator on 2017/10/11 0011.
  */
 
-public class SettingCenterFragment extends BaseFragment {
+public class MainPageFragment extends BaseFragment {
 
     private Unbinder unbinder;
     @Nullable

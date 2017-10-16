@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
 
+        <!--用户注册见面-->
+        <activity android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait"/>
        <!--主页展示界面-->
         <activity android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait"

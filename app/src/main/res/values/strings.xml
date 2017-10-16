@@ -6,7 +6,7 @@
     <string name="trading_center">交易中心</string>
     <string name="cc_mall">CC商城</string>
     <string name="cc_union">CC联盟</string>
-    <string name="setting_center">设置中心</string>
+    <string name="main_page">主页</string>
 
     <!--页面图标值-->
     <string name="basic_info">基本信息</string>

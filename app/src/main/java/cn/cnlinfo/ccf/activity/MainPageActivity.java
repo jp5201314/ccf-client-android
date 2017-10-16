@@ -16,7 +16,7 @@ import cn.cnlinfo.ccf.adapter.MainPageFragmentAdapter;
 import cn.cnlinfo.ccf.fragment.CCMallFragment;
 import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
-import cn.cnlinfo.ccf.fragment.SettingCenterFragment;
+import cn.cnlinfo.ccf.fragment.MainPageFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
 
@@ -32,8 +32,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     TextView tvCcMall;
     @BindView(R.id.tv_cc_union)
     TextView tvCcUnion;
-    @BindView(R.id.tv_setting_center)
-    TextView tvSettingCenter;
+    @BindView(R.id.tv_main_page)
+    TextView tvMainPage;
 
     private List<Fragment> fragmentList;
     private MainPageFragmentAdapter pageFragmentAdapter;
@@ -57,23 +57,24 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             vp.setAdapter(pageFragmentAdapter);
         }
         registerOnClickListener();
+
     }
 
     private List<Fragment> setFragmentList(){
+        fragmentList.add(new MainPageFragment());
         fragmentList.add(new GaugePanelFragment());
         fragmentList.add(new TradingCenterFragment());
         fragmentList.add(new CCMallFragment());
         fragmentList.add(new CCUnionFragment());
-        fragmentList.add(new SettingCenterFragment());
         return fragmentList;
     }
 
     private void registerOnClickListener(){
+        tvMainPage.setOnClickListener(this);
         tvGauagePanel.setOnClickListener(this);
         tvTradingCenter.setOnClickListener(this);
         tvCcMall.setOnClickListener(this);
         tvCcUnion.setOnClickListener(this);
-        tvSettingCenter.setOnClickListener(this);
     }
 
     @Override
@@ -86,22 +87,23 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         int viewId = v.getId();
         switch (viewId){
-            case R.id.tv_gauage_panel:
-                //smoothScroll为false就是去除切换fragment的动画效果
+            case R.id.tv_main_page:
                 vp.setCurrentItem(0,false);
                 break;
-            case R.id.tv_trading_center:
+            case R.id.tv_gauage_panel:
+                //smoothScroll为false就是去除切换fragment的动画效果
                 vp.setCurrentItem(1,false);
                 break;
-            case R.id.tv_cc_mall:
+            case R.id.tv_trading_center:
                 vp.setCurrentItem(2,false);
                 break;
-            case R.id.tv_cc_union:
+            case R.id.tv_cc_mall:
                 vp.setCurrentItem(3,false);
                 break;
-            case R.id.tv_setting_center:
+            case R.id.tv_cc_union:
                 vp.setCurrentItem(4,false);
                 break;
+
         }
     }
 }
