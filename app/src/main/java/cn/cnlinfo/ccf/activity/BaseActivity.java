@@ -45,6 +45,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class BaseActivity extends AppCompatActivity implements IComponentContainer, IActivityFinish {
 
+    public static String BROADCAST_FLAG = "cn,cnlinfo.ccf.response.message";
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
 
     @Override

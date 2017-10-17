@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -28,7 +30,7 @@ public class CCFApplication extends Application {
         super.onCreate();
         INSTANCE = this;
         mContext = getApplicationContext();
-
+        Logger.init("CCFinal").hideThreadInfo();
         EventBus.getDefault().register(mContext);
     }
 

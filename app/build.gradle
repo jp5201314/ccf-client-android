@@ -50,5 +50,18 @@ dependencies {
     /**
      * OkHttp
      */
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+
+    /**
+     * fastJson
+     */
+    compile 'com.alibaba:fastjson:1.2.37'
+
+    /**
+     * Logger
+     */
+    compile 'com.orhanobut:logger:1.15'
+
+
 }
