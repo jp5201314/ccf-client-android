@@ -11,5 +11,25 @@
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="text_ffffff_18">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="text_ffffff_12">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="text_333_18">
+        <item name="android:textColor">#333</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="text_515151_12">
+        <item name="android:textColor">#515151</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="text_f5543a_12">
+        <item name="android:textColor">#f5543a</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

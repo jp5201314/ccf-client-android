@@ -123,14 +123,17 @@
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_style" />
 
-                    <Button
-                        android:id="@+id/btn_get_verification_code"
+                    <TextView
+                        android:id="@+id/tv_get_verification_code"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="16dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/button_dash_style"
-                        android:text="获取" />
+                        android:background="@drawable/button_style"
+                        android:gravity="center"
+                        android:text="3h18"
+                        android:onClick="gainVerificationCode"
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -143,7 +146,7 @@
                     android:id="@+id/btn_login"
                     android:layout_width="69dp"
                     android:layout_height="22dp"
-                    android:background="@drawable/button_dash_style"
+                    android:background="@drawable/button_style"
                     android:text="登录"
                     android:onClick="toLogin"/>
 
@@ -152,7 +155,7 @@
                     android:layout_width="69dp"
                     android:layout_height="22dp"
                     android:layout_marginLeft="18dp"
-                    android:background="@drawable/button_dash_style"
+                    android:background="@drawable/button_style"
                     android:text="注册"
                     android:onClick="toRegister"
                     />

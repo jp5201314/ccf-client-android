@@ -59,6 +59,7 @@
 
     <color name="color_blue_33b5e5">#33b5e5</color>
     <color name="color_blue_4d8cd6">#4d8cd6</color>
+    <color name="color_blue_0b2841">#0b2841</color>
 
 
 
@@ -68,6 +69,7 @@
 
     <color name="color_yellow_ffbb33">#ffbb33</color>
     <color name="color_yellow_fbb673">#fbb673</color>
+    <color name="color_yellow_f5543a">#f5543a</color>
 
     <color name="color_red_dc6068">#dc6068</color>
     <color name="color_red_fe4a4a">#fe4a4a</color>
