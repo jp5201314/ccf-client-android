@@ -26,8 +26,10 @@ import android.widget.Toast;
 
 import com.flyco.dialog.widget.NormalDialog;
 
+import cc.cloudist.acplibrary.ACProgressFlower;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.inter.IActivityFinish;
 import cn.cnlinfo.ccf.inter.IComponentContainer;
 import cn.cnlinfo.ccf.inter.ILifeCycleComponent;
@@ -47,7 +49,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
 
     public static String BROADCAST_FLAG = "cn,cnlinfo.ccf.response.message";
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
-
+    protected ACProgressFlower waitingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,18 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintResource(color);//通知栏所需颜色
         }
+    }
+    protected void showWaitingDialog(boolean show) {
+        showWaitingDialog(show, getString(R.string.please_wait));
+    }
+
+    protected void showWaitingDialog(boolean show, String waitingNotice) {
+        if (!show) {
+            waitingDialog.dismiss();
+            return;
+        }
+        waitingDialog = DialogCreater.createProgressDialog(this, waitingNotice);
+        waitingDialog.show();
     }
 
     @TargetApi(19)

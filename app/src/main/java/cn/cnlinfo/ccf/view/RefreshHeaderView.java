@@ -1,6 +1,7 @@
 package cn.cnlinfo.ccf.view;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.cnlinfo.ccf.R;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
@@ -56,7 +58,7 @@ public class RefreshHeaderView extends FrameLayout implements PtrUIHandler {
      * @param context
      */
     private void init(Context context) {
-       /* inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
         headView = (ViewGroup) inflater.inflate(R.layout.refresh_animation_header, this, true);
         ivWindmill = (ImageView) headView.findViewById(R.id.iv_windmill);
         ivWindmill.setVisibility(VISIBLE);
@@ -64,7 +66,7 @@ public class RefreshHeaderView extends FrameLayout implements PtrUIHandler {
         AnimationDrawable animationDrawable = (AnimationDrawable) ivWindmill.getBackground();
         if (!animationDrawable.isRunning()) {
             animationDrawable.start();
-        }*/
+        }
     }
 
     @Override

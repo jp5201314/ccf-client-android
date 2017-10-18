@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Language"
                 android:textAllCaps="false"
-                android:textColor="@color/color_white_ffffff"
+                android:textColor="@color/color_white_faf9f9"
                 android:textSize="12sp" />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:gravity="center"
                 android:layout_marginTop="3dp"
                 android:text="中文"
-                android:textColor="@color/color_white_ffffff"
+                android:textColor="@color/color_white_faf9f9"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_marginBottom="6dp"
             android:layout_marginRight="10dp"
             android:text="CC用户管理平台"
-            android:textColor="@color/color_white_ffffff"
+            android:textColor="@color/color_white_faf9f9"
             android:textSize="12sp" />
     </FrameLayout>
 

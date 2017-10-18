@@ -63,5 +63,12 @@ dependencies {
      */
     compile 'com.orhanobut:logger:1.15'
 
-
+    /**
+     *    对话框
+     */
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
+    /**
+     * 进度对话框
+     */
+    compile 'cc.cloudist.acplibrary:library:1.2.1'
 }

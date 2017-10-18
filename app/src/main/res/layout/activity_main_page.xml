@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_white_faf9f9">
 
     <cn.cnlinfo.ccf.view.StopScrollViewPager
         android:id="@+id/vp"
@@ -9,42 +10,46 @@
         android:layout_height="wrap_content">
 
     </cn.cnlinfo.ccf.view.StopScrollViewPager>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="5"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:weightSum="5">
+
         <TextView
             android:id="@+id/tv_main_page"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/main_page"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:drawableTop="@drawable/ic_home_page"
+            android:text="@string/main_page" />
+
         <TextView
             android:id="@+id/tv_gauage_panel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/gauage_panel"
-            android:gravity="center_horizontal"
             android:drawableTop="@drawable/ptr_rotate_arrow"
-            />
+            android:gravity="center_horizontal"
+            android:text="@string/gauage_panel" />
 
         <TextView
             android:id="@+id/tv_trading_center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/trading_center"
+            android:drawableTop="@drawable/ic_trading_center"
             android:gravity="center_horizontal"
-            android:drawableTop="@drawable/ic_trading_center" />
+            android:text="@string/trading_center" />
 
         <TextView
             android:id="@+id/tv_cc_mall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/ic_cc_mall"
             android:gravity="center_horizontal"
             android:text="@string/cc_mall" />
 
@@ -53,8 +58,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/ic_cc_union"
             android:gravity="center_horizontal"
-            android:text="@string/cc_union"/>
+            android:text="@string/cc_union" />
 
 
     </LinearLayout>

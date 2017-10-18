@@ -26,4 +26,7 @@
     <string name="recode_center">记录中心</string>
     <string name="carbon_benefit">碳控公益</string>
 
+    <string name="please_wait">请稍后</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
 </resources>

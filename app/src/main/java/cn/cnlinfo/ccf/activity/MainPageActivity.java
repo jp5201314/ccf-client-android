@@ -57,7 +57,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             vp.setAdapter(pageFragmentAdapter);
         }
         registerOnClickListener();
-
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
     }
 
     private List<Fragment> setFragmentList(){
@@ -89,21 +89,63 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         switch (viewId){
             case R.id.tv_main_page:
                 vp.setCurrentItem(0,false);
+                setTvMainPageBackgroundColor();
                 break;
             case R.id.tv_gauage_panel:
                 //smoothScroll为false就是去除切换fragment的动画效果
                 vp.setCurrentItem(1,false);
+                setTvGauagePanelBackgroundColor();
                 break;
             case R.id.tv_trading_center:
                 vp.setCurrentItem(2,false);
+                setTvTradingCenterBackgroundColor();
+
                 break;
             case R.id.tv_cc_mall:
                 vp.setCurrentItem(3,false);
+                setTvCcMallBackgroundColor();
                 break;
             case R.id.tv_cc_union:
                 vp.setCurrentItem(4,false);
+                setTvCcUnionBackgroundColor();
                 break;
 
         }
+    }
+
+    private void setTvMainPageBackgroundColor(){
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+    }
+    private void setTvGauagePanelBackgroundColor(){
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+    }
+    private void setTvCcUnionBackgroundColor(){
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+    }
+    private void setTvCcMallBackgroundColor(){
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+    }
+    private void setTvTradingCenterBackgroundColor(){
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
     }
 }
