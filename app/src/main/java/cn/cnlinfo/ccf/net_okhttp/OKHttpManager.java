@@ -1,9 +1,12 @@
 package cn.cnlinfo.ccf.net_okhttp;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.cnlinfo.ccf.inter.IObtainCallByTag;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -63,8 +66,28 @@ public class OKHttpManager {
         }
     }
 
-    public static void clearCalls(){
-        calls.clear();
+    public static void findTagCall(String tag, IObtainCallByTag obtainCallByTag){
+        if (calls.size()>0) {
+            for (int i = 0; i < calls.size(); i++) {
+                Call call = calls.get(i);
+                String msg = (String) call.request().tag();
+                if (tag.equals(msg)) {
+                    obtainCallByTag.cancelCallByTag(call);
+                }
+            }
+        }
     }
 
+    public static void cancelAndRemoveAllCalls(){
+        if (calls.size()>0){
+            for (int i = 0; i<calls.size(); i++){
+                Call call = calls.get(i);
+                if (!call.isCanceled()){
+                    call.cancel();
+                    Logger.i(String.valueOf(call.isCanceled()));
+                }
+                calls.remove(i);
+            }
+        }
+    }
 }

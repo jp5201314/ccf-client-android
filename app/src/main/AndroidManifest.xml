@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.cnlinfo.ccf">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".CCFApplication"
         android:allowBackup="true"
@@ -17,13 +19,18 @@
             </intent-filter>
         </activity>
 
-        <!--用户注册见面-->
-        <activity android:name=".activity.RegisterActivity"
-            android:screenOrientation="portrait"/>
-       <!--主页展示界面-->
-        <activity android:name=".activity.MainPageActivity"
+        <!-- 用户注册见面 -->
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <!-- 主页展示界面 -->
+        <activity
+            android:name=".activity.MainPageActivity"
+            android:screenOrientation="portrait" />
+        <!--忘记密码页面-->
+        <activity android:name=".activity.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             />
-
     </application>
+
 </manifest>

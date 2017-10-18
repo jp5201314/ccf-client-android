@@ -13,11 +13,11 @@ public class OkHttpGetRequestBuilder extends OkHttpRequestBuilder{
 
     public OkHttpGetRequestBuilder(String url) {
         super(url);
-       this.addHeader("Content-Type","application/json; charset=utf-8");
         this.addHeader("cache-control", "no-cache");
+        this.addHeader("postman-token", "520f06b1-eb06-287a-effe-aaddcba5c080");
     }
 
-    public String buildParams() {
+    private String buildParams() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : this.getParams().entrySet()) {
             if (entry.getValue() instanceof String) {

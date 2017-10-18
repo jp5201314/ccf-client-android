@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.RegisterActivity">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="225dp"
@@ -35,10 +37,15 @@
                 android:text="邀请码"
                 android:layout_weight="1"
                 />
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_invitation_code"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="11"
+                android:textColor="@drawable/selector_edittext_text_color"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
                 />
@@ -53,12 +60,17 @@
                 android:text="用户名"
                 android:layout_weight="1"
                 />
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/tv_user_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
+                android:gravity="center"
+                android:inputType="text"
+                android:maxLines="1"
+                android:maxLength="11"
+                android:textColor="@drawable/selector_edittext_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -79,6 +91,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="11"
+                android:textColor="@drawable/selector_edittext_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -97,6 +114,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:maxLength="11"
+                android:textColor="@drawable/selector_edittext_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -115,6 +137,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
+                android:gravity="center"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:maxLength="11"
+                android:textColor="@drawable/selector_edittext_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -126,13 +153,37 @@
                 android:layout_height="wrap_content"
                 android:text="验证码"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 />
-            <EditText
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
+                android:layout_marginTop="3dp"
                 android:layout_weight="3"
-                />
+                android:orientation="horizontal">
+
+                <cn.cnlinfo.ccf.view.CleanEditText
+                    android:id="@+id/et_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:maxLength="4"
+                    android:textColor="@drawable/selector_edittext_text_color"
+                    android:background="@drawable/edit_text_style" />
+
+                <Button
+                    android:id="@+id/btn_get_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button_bg"
+                    android:layout_marginLeft="18dp"
+                    android:text="获取"/>
+            </LinearLayout>
         </LinearLayout>
 
         <Button
@@ -140,7 +191,7 @@
             android:layout_width="69dp"
             android:layout_height="22dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_style"
+            android:background="@drawable/selector_button_bg"
             android:layout_marginTop="18dp"
             android:text="注册"/>
     </LinearLayout>

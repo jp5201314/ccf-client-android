@@ -33,6 +33,7 @@ import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.manager.LifeCycleComponentManager;
 import cn.cnlinfo.ccf.manager.PhoneManager;
 import cn.cnlinfo.ccf.manager.SystemBarTintManager;
+import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.view.RefreshHeaderView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -141,8 +142,8 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         super.onDestroy();
         mComponentContainer.onDestroy();
         unregisterReceiver(messageReceiver);
+        OKHttpManager.cancelAndRemoveAllCalls();
     }
-
 
 
     class GlobalErrorMessageReceiver extends BroadcastReceiver{
