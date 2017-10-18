@@ -5,17 +5,15 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
-import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,8 +21,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
-
-import com.flyco.dialog.widget.NormalDialog;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
 import cn.cnlinfo.ccf.R;
@@ -50,10 +46,12 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     public static String BROADCAST_FLAG = "cn,cnlinfo.ccf.response.message";
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
     protected ACProgressFlower waitingDialog;
+    private GlobalErrorMessageReceiver messageReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManage.getInstance().addActivity(this);
+        messageReceiver = new GlobalErrorMessageReceiver();
     }
 
     @Override
@@ -118,8 +116,10 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     @Override
     protected void onResume() {
         super.onResume();
-
         mComponentContainer.onBecomesVisibleFromPartiallyInvisible();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(this.BROADCAST_FLAG);
+        this.registerReceiver(messageReceiver,intentFilter);
     }
 
     @Override
@@ -129,10 +129,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         mComponentContainer.onBecomesPartiallyInvisible();
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
 
     @Override
     public void onStop() {
@@ -144,6 +140,40 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     protected void onDestroy() {
         super.onDestroy();
         mComponentContainer.onDestroy();
+        unregisterReceiver(messageReceiver);
+    }
+
+
+
+    class GlobalErrorMessageReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction()==BROADCAST_FLAG){
+                int num = intent.getIntExtra("TYPE",0);
+                switch(num){
+                    case 0:
+                        break;
+                    case 10000:
+                        toast(intent.getStringExtra("msg"));
+                        break;
+                    case 40000:
+                        break;
+                    case 40001:
+                        break;
+                    case 40004:
+                        break;
+                    case 40005:
+                        break;
+                    case 40006:
+                        break;
+                }
+            }
+        }
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 
 
