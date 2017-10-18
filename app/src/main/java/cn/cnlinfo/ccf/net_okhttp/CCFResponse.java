@@ -5,8 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 public class CCFResponse {
 
     public final static String RETURN_STATUS = "status";
-    public final static String RETURN_DATA = "data";
     public final static String RETURN_STATUSINFO = "statusInfo";
+    public final static String RETURN_DATA = "data";
+
 
     private int status;
 
