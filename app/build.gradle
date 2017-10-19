@@ -24,46 +24,47 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     /**
      * 事件分发
      */
 
-    compile 'org.greenrobot:eventbus:3.0.0'
     /**
-     *View注入框架
+     * View注入框架
      */
-    compile 'com.jakewharton:butterknife:8.8.1'
     /**
      * dialog的框架
      */
-    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     /**
      * 刷新的控件（上拉刷新，下拉加载 ）
      */
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'in.srain.cube:ultra-ptr:1.0.11'
     /**
      * OkHttp
      */
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.6.0'
     /**
      * fastJson
      */
-    compile 'com.alibaba:fastjson:1.2.37'
     /**
      * Logger
      */
-    compile 'com.orhanobut:logger:1.15'
     /**
      *    对话框
      */
-    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     /**
      * 进度对话框
      */
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.alibaba:fastjson:1.2.37'
+    compile 'com.orhanobut:logger:1.15'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

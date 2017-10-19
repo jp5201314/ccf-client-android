@@ -1,5 +1,7 @@
 package cn.cnlinfo.ccf.net_okhttp;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.Map;
 
 import okhttp3.FormBody;
@@ -12,6 +14,9 @@ import okhttp3.Request;
 public class OkHttpPostRequestBuilder extends OkHttpRequestBuilder {
     public OkHttpPostRequestBuilder(String url) {
         super(url);
+        this.addHeader("Content-Type","application/x-www-form-urlencoded");
+        this.addHeader("cache-control", "no-cache");
+        Logger.d(url);
     }
 
     private FormBody buildRequestBody(){
@@ -25,6 +30,6 @@ public class OkHttpPostRequestBuilder extends OkHttpRequestBuilder {
 
     @Override
     protected Request build(String tag) {
-        return this.buildHeaders().url(getUrl()).post(buildRequestBody()).get().tag(tag).build();
+        return this.buildHeaders().url(getUrl()).post(buildRequestBody()).tag(tag).build();
     }
 }

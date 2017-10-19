@@ -56,4 +56,7 @@ public class LoginRegisterActivity extends BaseActivity {
         String str = ObtainVerificationCode.createVerificationCode();
         tvGetVerificationCode.setText(str);
     }
+    public void toForgetPass(View view){
+        startActivity(new Intent(this,ForgetPasswordActivity.class));
+    }
 }

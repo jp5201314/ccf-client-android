@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -20,6 +21,9 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.inter.IObtainCallByTag;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpGetRequestBuilder;
+import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
+import cn.cnlinfo.ccf.net_okhttp.OkHttpRequestBuilder;
+import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -58,11 +62,19 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
         int id = v.getId();
         switch (id){
             case R.id.btn_start:
+              /*
+              /**
+              *测试同步的get post方式
+              /
                 new Thread() {
                     @Override
                     public void run() {
                         super.run();
-                        final Response response = OKHttpManager.syncGet(new OkHttpGetRequestBuilder("https://api.douban.com/v2/movie/top250?start=0&count=10"), "mainfragment");
+                        //final Response response = OKHttpManager.syncGet(new OkHttpGetRequestBuilder("https://api.douban.com/v2/movie/top250?start=0&count=10"), "mainfragment");
+                        OkHttpPostRequestBuilder okHttpPostRequestBuilder =  new OkHttpPostRequestBuilder("http://ccf.hrkji.com/RegUser.asmx/Login");
+                        okHttpPostRequestBuilder.put("username",1001);
+                        okHttpPostRequestBuilder.put("password",123456);
+                        final Response response = OKHttpManager.syncPost(okHttpPostRequestBuilder,"mainfragment");
                         try {
                             final String content = response.body().string();
                             getActivity().runOnUiThread(new Runnable() {
@@ -75,7 +87,90 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
                             e.printStackTrace();
                         }
                     }
-                }.start();
+                }.start();*/
+            /**
+             * 测试异步的get post方式
+             */
+              OKHttpManager.get(new OkHttpGetRequestBuilder("https://api.douban.com/v2/movie/top250?start=0&count=10"), "mainfragment", new UiHandlerCallBack() {
+                  @Override
+                  public void success(JSONObject data) {
+
+                  }
+
+                  @Override
+                  public void error(int status, String message, JSONObject statusInfo) {
+
+                  }
+
+                  @Override
+                  public void progress(int progress) {
+
+                  }
+
+                  @Override
+                  public void failed(int code, String msg) {
+
+                  }
+
+                  @Override
+                  public void onFailure(Call call, IOException e) {
+
+                  }
+
+                  @Override
+                  public void onResponse(Call call, Response response) throws IOException {
+                        final  String content = response.body().string();
+                        Logger.d(content);
+                      getActivity().runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              //tvMainPage.setText(content);
+                          }
+                      });
+
+                  }
+              });
+                OkHttpPostRequestBuilder okHttpPostRequestBuilder =  new OkHttpPostRequestBuilder("http://ccf.hrkji.com/RegUser.asmx/Login");
+                okHttpPostRequestBuilder.put("username",1001);
+                okHttpPostRequestBuilder.put("password",123456);
+                OKHttpManager.post(okHttpPostRequestBuilder, "sdsa", new UiHandlerCallBack() {
+                    @Override
+                    public void success(JSONObject data) {
+
+                    }
+
+                    @Override
+                    public void error(int status, String message, JSONObject statusInfo) {
+
+                    }
+
+                    @Override
+                    public void progress(int progress) {
+
+                    }
+
+                    @Override
+                    public void failed(int code, String msg) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        final String content = response.body().string();
+                        Logger.d(content);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvMainPage.setText(content);
+                            }
+                        });
+                    }
+                });
                 break;
             case R.id.btn_stop:
                 OKHttpManager.findTagCall("mainfragment",this);

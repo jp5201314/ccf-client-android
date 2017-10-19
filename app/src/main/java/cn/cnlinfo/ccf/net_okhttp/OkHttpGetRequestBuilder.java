@@ -14,7 +14,6 @@ public class OkHttpGetRequestBuilder extends OkHttpRequestBuilder{
     public OkHttpGetRequestBuilder(String url) {
         super(url);
         this.addHeader("cache-control", "no-cache");
-        this.addHeader("postman-token", "520f06b1-eb06-287a-effe-aaddcba5c080");
     }
 
     private String buildParams() {

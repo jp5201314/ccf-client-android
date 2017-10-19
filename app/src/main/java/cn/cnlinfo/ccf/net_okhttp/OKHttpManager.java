@@ -40,6 +40,7 @@ public class OKHttpManager {
 
     public static Response syncPost(OkHttpPostRequestBuilder builder, String tag) {
         try {
+           Logger.d(builder.build(tag).toString());
             call = OKHttpManager.getInstance().newCall(builder.build(tag));
             calls.add(call);
             return call.execute();
@@ -58,9 +59,9 @@ public class OKHttpManager {
         }
     }
 
-    public static void post() {
+    public static void post(OkHttpPostRequestBuilder builder,String tag,UiHandlerCallBack callBack) {
         try {
-
+            OKHttpManager.getInstance().newCall(builder.build(tag)).enqueue(callBack);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,7 +85,6 @@ public class OKHttpManager {
                 Call call = calls.get(i);
                 if (!call.isCanceled()){
                     call.cancel();
-                    Logger.i(String.valueOf(call.isCanceled()));
                 }
                 calls.remove(i);
             }

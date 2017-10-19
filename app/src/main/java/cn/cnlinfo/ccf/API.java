@@ -5,4 +5,17 @@ package cn.cnlinfo.ccf;
  */
 
 public class API {
+
+    /**
+     * 测试get方法地址
+     * https://api.douban.com/v2/movie/top250?start=0&count=10
+     */
+
+    /**
+     * 测试post方法地址
+     * http://ccf.hrkji.com/RegUser.asmx/Login
+     * username
+     * password
+     */
+
 }
