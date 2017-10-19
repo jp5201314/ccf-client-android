@@ -16,7 +16,6 @@ public class OkHttpPostRequestBuilder extends OkHttpRequestBuilder {
         super(url);
         this.addHeader("Content-Type","application/x-www-form-urlencoded");
         this.addHeader("cache-control", "no-cache");
-        Logger.d(url);
     }
 
     private FormBody buildRequestBody(){

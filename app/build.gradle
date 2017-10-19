@@ -54,7 +54,6 @@ dependencies {
      * 进度对话框
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
-    compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'

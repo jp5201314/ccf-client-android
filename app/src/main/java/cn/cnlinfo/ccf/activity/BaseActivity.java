@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,8 @@ import cn.cnlinfo.ccf.manager.LifeCycleComponentManager;
 import cn.cnlinfo.ccf.manager.PhoneManager;
 import cn.cnlinfo.ccf.manager.SystemBarTintManager;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
+import cn.cnlinfo.ccf.receiver.GlobalErrorMessageReceiver;
+import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver;
 import cn.cnlinfo.ccf.view.RefreshHeaderView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -48,13 +49,22 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
     protected ACProgressFlower waitingDialog;
     private GlobalErrorMessageReceiver messageReceiver;
+    private NetworkConnectChangedReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManage.getInstance().addActivity(this);
         messageReceiver = new GlobalErrorMessageReceiver();
+        receiver = new NetworkConnectChangedReceiver();
+        registerNetworkConnectChangedReceiver();
     }
-
+    private void registerNetworkConnectChangedReceiver(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        intentFilter.addAction("android.net.wifi.STATE_CHANGE");
+        registerReceiver(receiver,intentFilter);
+    }
     @Override
     public Resources getResources() {
         Resources res = super.getResources();
@@ -142,41 +152,14 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         super.onDestroy();
         mComponentContainer.onDestroy();
         unregisterReceiver(messageReceiver);
+        unregisterReceiver(receiver);
         OKHttpManager.cancelAndRemoveAllCalls();
     }
 
-
-    class GlobalErrorMessageReceiver extends BroadcastReceiver{
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction()==BROADCAST_FLAG){
-                int num = intent.getIntExtra("TYPE",0);
-                switch(num){
-                    case 0:
-                        break;
-                    case 10000:
-                        toast(intent.getStringExtra("msg"));
-                        break;
-                    case 40000:
-                        break;
-                    case 40001:
-                        break;
-                    case 40004:
-                        break;
-                    case 40005:
-                        break;
-                    case 40006:
-                        break;
-                }
-            }
-        }
-    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
     }
-
 
     /**
      * 开始执行contentView动画

@@ -101,9 +101,9 @@ public class DialogCreater {
      */
     public static NormalDialog createNormalDialog(Context context, String title, String content, OnBtnClickL l) {
         final NormalDialog dialog = new NormalDialog(context);
-        dialog.content(content)//
+        dialog.content(content)
                 .title(title)
-                .style(NormalDialog.STYLE_TWO)//
+                .style(NormalDialog.STYLE_TWO)
                 .titleTextSize(18)
                 .contentTextSize(14);
         OnBtnClickL cancelBtnClickL = new OnBtnClickL() {
@@ -120,7 +120,7 @@ public class DialogCreater {
 
 
     /**
-     * 创建确定dialog
+     * 创建一个确定按钮的dialog
      *
      * @param context
      * @param title
@@ -129,7 +129,8 @@ public class DialogCreater {
      */
     public static NormalDialog createTipsDialog(Context context, String title, String content, String btnText, boolean cancelable, OnBtnClickL l) {
         final NormalDialog dialog = new NormalDialog(context);
-        dialog.content(content)//
+        dialog.content(content)
+                .btnNum(1)
                 .title(title)
                 .btnText(btnText)
                 .titleTextSize(18)
@@ -140,6 +141,13 @@ public class DialogCreater {
         dialog.setOnBtnClickL(l);
         return dialog;
     }
+
+    /**
+     *
+     * @param context
+     * @param text
+     * @return
+     */
 
     public static ACProgressFlower createProgressDialog(Context context, String text) {
         return new ACProgressFlower.Builder(context)

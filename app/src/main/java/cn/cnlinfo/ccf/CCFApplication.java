@@ -3,6 +3,7 @@ package cn.cnlinfo.ccf;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import com.orhanobut.logger.Logger;
 
@@ -13,6 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
+import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver;
 
 
 /**
@@ -64,4 +66,6 @@ public class CCFApplication extends Application {
     }
 
     public static synchronized Context getContext(){return mContext;}
+
+
 }
