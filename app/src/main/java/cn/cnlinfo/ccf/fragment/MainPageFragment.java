@@ -2,7 +2,6 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +21,14 @@ import cn.cnlinfo.ccf.inter.IObtainCallByTag;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpGetRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
-import cn.cnlinfo.ccf.net_okhttp.OkHttpRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
 import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/10/11 0011.
  */
 
-public class MainPageFragment extends BaseFragment implements View.OnClickListener,IObtainCallByTag{
+public class MainPageFragment extends BaseFragment implements View.OnClickListener, IObtainCallByTag {
 
     @BindView(R.id.tv_main_page)
     TextView tvMainPage;
@@ -60,7 +57,7 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.btn_start:
               /*
               /**
@@ -88,17 +85,17 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
                         }
                     }
                 }.start();*/
-            /**
-             * 测试异步的get post方式
-             */
-              OKHttpManager.get(new OkHttpGetRequestBuilder("https://api.douban.com/v2/movie/top250?start=0&count=10"), "mainfragment", new UiHandlerCallBack() {
+                /**
+                 * 测试异步的get post方式
+                 */
+             /* OKHttpManager.get(new OkHttpGetRequestBuilder("https://api.douban.com/v2/movie/top250?start=0&count=10"), "mainfragment", new UiHandlerCallBack() {
                   @Override
                   public void success(JSONObject data) {
-
+                    Logger.json(data.toJSONString());
                   }
 
                   @Override
-                  public void error(int status, String message, JSONObject statusInfo) {
+                  public void error(int status, String message) {
 
                   }
 
@@ -117,70 +114,51 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
 
                   }
 
-                  @Override
-                  public void onResponse(Call call, Response response) throws IOException {
-                        final  String content = response.body().string();
-                        Logger.d(content);
-                      getActivity().runOnUiThread(new Runnable() {
-                          @Override
-                          public void run() {
-                              //tvMainPage.setText(content);
-                          }
-                      });
+              });*/
 
-                  }
-              });
-                OkHttpPostRequestBuilder okHttpPostRequestBuilder =  new OkHttpPostRequestBuilder("http://ccf.hrkji.com/RegUser.asmx/Login");
-                okHttpPostRequestBuilder.put("username",1001);
-                okHttpPostRequestBuilder.put("password",123456);
+               /* OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder("http://ccf.hrkji.com/RegUser.asmx/Login");
+                okHttpPostRequestBuilder.put("username", 1001);
+                okHttpPostRequestBuilder.put("password", 123456);
                 OKHttpManager.post(okHttpPostRequestBuilder, "sdsa", new UiHandlerCallBack() {
-                    @Override
-                    public void success(JSONObject data) {
 
-                    }
-
-                    @Override
-                    public void error(int status, String message, JSONObject statusInfo) {
-
-                    }
-
-                    @Override
-                    public void progress(int progress) {
-
-                    }
-
-                    @Override
-                    public void failed(int code, String msg) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        final String content = response.body().string();
-                        Logger.d(content);
-                        getActivity().runOnUiThread(new Runnable() {
                             @Override
-                            public void run() {
-                                tvMainPage.setText(content);
+                            public void onFailure(Call call, IOException e) {
+                                call.cancel();
                             }
-                        });
-                    }
-                });
+
+                            @Override
+                            public void success(JSONObject data) {
+                                Logger.json(data.toJSONString());
+                            }
+
+                            @Override
+                            public void error(int status, String message) {
+
+                            }
+
+                            @Override
+                            public void progress(int progress) {
+
+                            }
+
+                            @Override
+                            public void failed(int code, String msg) {
+
+                            }
+                        }
+                );*/
+
                 break;
             case R.id.btn_stop:
-                OKHttpManager.findTagCall("mainfragment",this);
+                OKHttpManager.findTagCall("mainfragment", this);
                 break;
         }
     }
+
     @Override
     public void cancelCallByTag(Call call) {
-        if (call!=null){
-            if (!call.isCanceled()){
+        if (call != null) {
+            if (!call.isCanceled()) {
                 call.cancel();
                 Logger.i(String.valueOf(call.isCanceled()));
             }

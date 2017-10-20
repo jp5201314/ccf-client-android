@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.cnlinfo.ccf.inter.IObtainCallByTag;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
@@ -59,7 +60,7 @@ public class OKHttpManager {
         }
     }
 
-    public static void post(OkHttpPostRequestBuilder builder,String tag,UiHandlerCallBack callBack) {
+    public static void post(OkHttpPostRequestBuilder builder, String tag, UiHandlerCallBack callBack) {
         try {
             OKHttpManager.getInstance().newCall(builder.build(tag)).enqueue(callBack);
         } catch (Exception e) {

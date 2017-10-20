@@ -4,18 +4,18 @@ import com.alibaba.fastjson.JSONObject;
 
 public class CCFResponse {
 
-    public final static String RETURN_STATUS = "status";
-    public final static String RETURN_STATUSINFO = "statusInfo";
-    public final static String RETURN_DATA = "data";
+    public final static String RETURN_STATUS = "MessageID";
+    public final static String RETURN_STATUSINFO = "Content";
+    public final static String RETURN_DATA = "Data";
 
 
     private int status;
 
     private JSONObject data;
 
-    private JSONObject statusInfo;
+    private String statusInfo;
 
-    public CCFResponse(int status, JSONObject data, JSONObject statusInfo) {
+    public CCFResponse(int status, JSONObject data, String statusInfo) {
         this.status = status;
         this.data = data;
         this.statusInfo = statusInfo;
@@ -33,7 +33,7 @@ public class CCFResponse {
         return this.data;
     }
 
-    public JSONObject getStatusInfo() {
+    public String getStatusInfo() {
         return this.statusInfo;
     }
 }

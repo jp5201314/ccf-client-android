@@ -13,8 +13,8 @@ import java.io.IOException;
 import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.BaseActivity;
+import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Request;
 import okhttp3.Response;
 
 
@@ -22,8 +22,9 @@ import okhttp3.Response;
  * Created by ouarea on 16/2/29.
  */
 
-public abstract class UiHandlerCallBack extends Handler implements Callback {
-    public final static int SUCCESS = 10001;
+public abstract class UiHandlerCallBack extends Handler implements Callback{
+
+     public final static int SUCCESS = 10001;
     public final static int ERROR = 10002;
     public final static int PROGRESS = 10003;
     public final static int FAILED = 10004;
@@ -32,7 +33,6 @@ public abstract class UiHandlerCallBack extends Handler implements Callback {
     public final static int ERROR_JSON = -12;
     public final static int ERROR_RESPONSE = -13;
     public final static int ERROR_RESPONSE_CODE = -14;
-
     protected boolean auto10000 = true;
 
     public UiHandlerCallBack() {
@@ -43,24 +43,27 @@ public abstract class UiHandlerCallBack extends Handler implements Callback {
         this.auto10000 = auto10000;
     }
 
-    public void onFailure(Request request, IOException e) {
+    @Override
+    public void onFailure(Call call, IOException e) {
         sendFailedMessage(FAILED_NETWORK, "无法连接，请检查网络设置");
     }
 
-    public void onResponse(Response response) throws IOException {
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
         if (response != null && response.isSuccessful()) {
             try {
                 CCFResponse ccfResponse = ResponseChecker.explainResponse(response);
                 switch (ccfResponse.getStatus()) {
                     case 0://请求成功
                         sendSuccessData(ccfResponse.getData());
+                        call.cancel();
                         break;
                     case 10000://普通错误
                         sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
                         if (auto10000) {
                             Intent intent10000 = new Intent();
                             intent10000.putExtra("TYPE", 10000);
-                            String message = ccfResponse.getStatusInfo().getString("message");
+                            String message = ccfResponse.getStatusInfo();
                             Logger.e(message);
                             intent10000.putExtra("msg", message);
                             intent10000.setAction(BaseActivity.BROADCAST_FLAG);
@@ -128,34 +131,6 @@ public abstract class UiHandlerCallBack extends Handler implements Callback {
         }
     }
 
-    @Override
-    public void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        switch (msg.what) {
-            case SUCCESS:
-                success((JSONObject) msg.obj);
-                break;
-            case ERROR:
-                JSONObject statusInfoJson = null;
-                String message = "";
-
-                if (null != msg.obj) {
-                    statusInfoJson = (JSONObject) msg.obj;
-                    if (statusInfoJson.containsKey("message")) {
-                        message = statusInfoJson.getString("message");
-                    }
-                }
-                error(msg.arg1, message, statusInfoJson);
-                break;
-            case PROGRESS:
-                progress(msg.arg1);
-                break;
-            case FAILED:
-                failed(msg.arg1, (String) msg.obj);
-                break;
-        }
-    }
-
     public void sendSuccessData(JSONObject data) {
         Message message = new Message();
         message.what = SUCCESS;
@@ -163,7 +138,7 @@ public abstract class UiHandlerCallBack extends Handler implements Callback {
         sendMessage(message);
     }
 
-    public void sendErrorMessage(int status, JSONObject statusInfo) {
+    public void sendErrorMessage(int status, String statusInfo) {
         Message message = new Message();
         message.what = ERROR;
         message.arg1 = status;
@@ -188,9 +163,33 @@ public abstract class UiHandlerCallBack extends Handler implements Callback {
 
     public abstract void success(JSONObject data);
 
-    public abstract void error(int status, String message, JSONObject statusInfo);
+    public abstract void error(int status, String message);
 
     public abstract void progress(int progress);
 
     public abstract void failed(int code, String msg);
+
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what) {
+            case SUCCESS:
+                success((JSONObject) msg.obj);
+                break;
+            case ERROR:
+                String message = "";
+                if (null != msg.obj) {
+                    message = (String) msg.obj;
+
+                }
+                error(msg.arg1, message);
+                break;
+            case PROGRESS:
+                progress(msg.arg1);
+                break;
+            case FAILED:
+                failed(msg.arg1, (String) msg.obj);
+                break;
+        }
+    }
 }
