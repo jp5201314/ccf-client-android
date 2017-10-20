@@ -115,6 +115,32 @@ dependencies {
     })
     /**
      *  事件分发
+<<<<<<< HEAD
+     */
+    /**
+     *  View注入框架
+     */
+    /**
+     *  dialog的框架
+     */
+    /**
+     *  刷新的控件（上拉刷新，下拉加载 ）
+     */
+    /**
+     *  OkHttp
+     */
+    /**
+     *  fastJson
+     */
+    /**
+     *  Logger
+     */
+    /**
+     *     对话框
+     */
+    /**
+     *  进度对话框
+=======
      */
     /**
      *  View注入框架
@@ -140,6 +166,10 @@ dependencies {
     /**
      *  进度对话框
      */
+    /**
+     *  运行时权限
+>>>>>>> guide_page
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -154,5 +184,10 @@ dependencies {
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+<<<<<<< HEAD
+=======
+    compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
+    provided 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
+>>>>>>> guide_page
     compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.37.jar')
 }

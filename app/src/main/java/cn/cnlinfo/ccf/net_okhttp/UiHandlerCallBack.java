@@ -180,7 +180,6 @@ public abstract class UiHandlerCallBack extends Handler implements Callback{
                 String message = "";
                 if (null != msg.obj) {
                     message = (String) msg.obj;
-
                 }
                 error(msg.arg1, message);
                 break;

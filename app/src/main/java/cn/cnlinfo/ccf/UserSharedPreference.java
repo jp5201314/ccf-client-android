@@ -2,6 +2,9 @@ package cn.cnlinfo.ccf;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.orhanobut.logger.Logger;
+
 import cn.cnlinfo.ccf.manager.ACache;
 
 /**
@@ -46,7 +49,7 @@ public class UserSharedPreference {
      * @return boolean
      */
     public boolean hasLogined() {
-        return null != this.getJwtToken();
+        return null!=this.getPhoneAndPassword()||null != this.getJwtToken();
     }
 
     /**
@@ -54,6 +57,7 @@ public class UserSharedPreference {
      */
     public void logout() {
         this.removeJwtToken();
+        this.removePhoneAndPassword();
     }
 
     /**

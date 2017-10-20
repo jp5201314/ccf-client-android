@@ -25,7 +25,6 @@ public class CCFApplication extends Application {
     private static Context mContext;
     private static CCFApplication INSTANCE;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
