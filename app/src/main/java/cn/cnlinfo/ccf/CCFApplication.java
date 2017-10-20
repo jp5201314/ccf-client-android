@@ -3,9 +3,9 @@ package cn.cnlinfo.ccf;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 
 import com.orhanobut.logger.Logger;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -14,7 +14,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
-import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver;
 
 
 /**
@@ -32,6 +31,12 @@ public class CCFApplication extends Application {
         super.onCreate();
         INSTANCE = this;
         mContext = getApplicationContext();
+              /* 初始化talking data*/
+        if (!BuildConfig.DEBUG) {
+            TCAgent.LOG_ON = true;
+            TCAgent.init(this);
+            TCAgent.setReportUncaughtExceptions(true);
+        }
         Logger.init("CCFinal").hideThreadInfo();
         EventBus.getDefault().register(mContext);
     }

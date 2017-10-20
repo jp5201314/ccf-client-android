@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+
+Properties properties = new Properties();
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
@@ -11,47 +15,130 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    aaptOptions {
+        //不允许压缩png图片
+        cruncherEnabled = false
+    }
+    signingConfigs {
+        debug {
+            storeFile file(properties.getProperty("SIGNING_CONFINGS_DEBUG_STORE_FILE"))
+            storePassword properties.getProperty("SIGNING_CONFINGS_DEBUG_STORE_PASSWORD")
+            keyAlias properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_ALIAS")
+            keyPassword properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_PASSWORD")
+        }
+        release {
+            storeFile file(properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_FILE"))
+            storePassword properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_PASSWORD")
+            keyAlias properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_ALIAS")
+            keyPassword properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_PASSWORD")
+        }
+    }
+
+    productFlavors {
+        huawei {
+            resValue "string", "img_app_name", "碳控因子"
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "huawei"]
+        }
+
+        xiaomi {
+            resValue("string", "img_app_name", "碳控因子")
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "xiaomi"]
+        }
+
+        qh360 {
+            resValue("string", "img_app_name", "碳控因子")
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "qh360"]
+        }
+
+        baidu {
+            resValue("string", "img_app_name", "碳控因子")
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "baidu"]
+        }
+
+        yingyongbao {
+            resValue("string", "img_app_name", "碳控因子")
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "yingyongbao"]
+        }
+
+        official {
+            resValue("string", "img_app_name", "碳控因子")
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "official"]
+        }
+    }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
         release {
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        // 多个变体自定义输出配置
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                def fileName
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    if (variant.buildType.name == "debug") {
+                        fileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
+                    } else if (variant.buildType.name == "release") {
+                        fileName = "ccf_V${defaultConfig.versionName}_${variant.productFlavors[0].name}_${generateTime()}_release.apk"
+                    }
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
         }
     }
 }
+static def generateTime() {
+    return new Date().format("yyyy-MM-dd-hh-mm", TimeZone.getDefault())
+}
+
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     /**
-     * 事件分发
-     */
-
-    /**
-     * View注入框架
+     *  事件分发
      */
     /**
-     * dialog的框架
+     *  View注入框架
      */
     /**
-     * 刷新的控件（上拉刷新，下拉加载 ）
+     *  dialog的框架
      */
     /**
-     * OkHttp
+     *  刷新的控件（上拉刷新，下拉加载 ）
      */
     /**
-     * fastJson
+     *  OkHttp
      */
     /**
-     * Logger
+     *  fastJson
      */
     /**
-     *    对话框
+     *  Logger
      */
     /**
-     * 进度对话框
+     *     对话框
+     */
+    /**
+     *  进度对话框
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -67,4 +154,5 @@ dependencies {
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.37.jar')
 }

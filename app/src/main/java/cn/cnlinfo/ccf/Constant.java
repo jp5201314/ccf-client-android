@@ -8,8 +8,8 @@ import cn.cnlinfo.ccf.manager.PhoneManager;
 
 public class Constant {
 
-    private static final String REQUEST_HOST = "https://api.woshichezhu.com/";
-    private static final String REQUEST_HOST_FOR_TEST = "https://dev.api.woshichezhu.com/";
+    private static final String REQUEST_HOST = "http://ccf.hrkji.com/RegUser.asmx/";
+    private static final String REQUEST_HOST_FOR_TEST = "http://ccf.hrkji.com/RegUser.asmx/";
 
     public static final String APP_DIR = PhoneManager.getSdCardRootPath() + "/ccf/";//app文件目录
     public static final String IMAGE_CACHE_DIR_PATH = APP_DIR + "cache/";// 图片缓存地址

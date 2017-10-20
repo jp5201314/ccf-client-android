@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--允许读取wifi网络状态-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许应用以只读的方式访问手机设备的信息，通过获取的信息来唯一标识用户-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"  />
+    <!--获取当前应用是否在显示应用，可以更精准的统计用户活跃-->
+    <uses-permission android:name="android.permission.GET_TASKS"  />
     <application
         android:name=".CCFApplication"
         android:allowBackup="true"
@@ -22,6 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- ********************************************TALKING DATA********************************************************** -->
+
+
+        <!-- TalkingData -->
+        <meta-data
+            android:name="TD_APP_ID"
+            android:value="5349CA59AD0142739106215E4ED1679D" />
+        <meta-data
+            android:name="TD_CHANNEL_ID"
+            android:value="${TD_CHANNEL_ID_VALUE}" />
+
 
         <!-- 用户注册见面 -->
         <activity

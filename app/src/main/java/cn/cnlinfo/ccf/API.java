@@ -18,4 +18,5 @@ public class API {
      * password
      */
 
+    public static final String CCFLOGIN = "Login";
 }
