@@ -24,7 +24,6 @@ public class ResponseChecker {
         if (rst.containsKey(CCFResponse.RETURN_STATUSINFO)) {
             statusInfo = rst.getString(CCFResponse.RETURN_STATUSINFO);
         }
-
         return new CCFResponse(status, data, statusInfo);
     }
 

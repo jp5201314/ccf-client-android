@@ -43,10 +43,24 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         unbinder = ButterKnife.bind(this);
+        validLoadGuidePage();
         //设置为false是停止滑动ViewPager切换Fragment
         vp.setStopScroll(false);
         init();
 
+    }
+
+    /**
+     * 验证是否加载引导页
+     */
+    private void validLoadGuidePage() {
+        if (!validNewVersion()){
+            if (validLogin()){
+
+            }else {
+               finish();
+            }
+        }
     }
 
     private void init(){

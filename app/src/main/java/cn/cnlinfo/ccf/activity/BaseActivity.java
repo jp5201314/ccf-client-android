@@ -21,6 +21,8 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
+
 import cc.cloudist.acplibrary.ACProgressFlower;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
@@ -45,7 +47,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class BaseActivity extends AppCompatActivity implements IComponentContainer, IActivityFinish {
 
-    public static String BROADCAST_FLAG = "cn,cnlinfo.ccf.response.message";
+    public static String BROADCAST_FLAG = "cn.cnlinfo.ccf.response.message";
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
     protected ACProgressFlower waitingDialog;
     private GlobalErrorMessageReceiver messageReceiver;
@@ -57,6 +59,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         messageReceiver = new GlobalErrorMessageReceiver();
         receiver = new NetworkConnectChangedReceiver();
         registerNetworkConnectChangedReceiver();
+        registerGlobalErrorMessageReceiver();
     }
     private void registerNetworkConnectChangedReceiver(){
         IntentFilter intentFilter = new IntentFilter();
@@ -64,6 +67,11 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         intentFilter.addAction("android.net.wifi.STATE_CHANGE");
         registerReceiver(receiver,intentFilter);
+    }
+    private void registerGlobalErrorMessageReceiver(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BROADCAST_FLAG);
+        registerReceiver(messageReceiver,intentFilter);
     }
     @Override
     public Resources getResources() {
@@ -231,10 +239,11 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      */
     protected boolean validNewVersion() {
         int nowVersionCode = PhoneManager.getVersionInfo().versionCode;
-
         UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
         if (userSharedPreference.isNewVersionCode(nowVersionCode)) {
             userSharedPreference.setLatestVersionCode(nowVersionCode);
+            startActivity(new Intent(BaseActivity.this, GuideActivity.class));
+            finish();
             return true;
         }
         return false;
