@@ -16,6 +16,7 @@
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:background="@color/color_gray_faf9f9"
         >
     </com.shizhefei.view.indicator.FixedIndicatorView>
     <cn.cnlinfo.ccf.view.StopScrollViewPager
