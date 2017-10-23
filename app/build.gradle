@@ -184,4 +184,5 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
     provided 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
     compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.37.jar')
+    compile 'com.inkapplications.viewpageindicator:library:2.4.3'
 }

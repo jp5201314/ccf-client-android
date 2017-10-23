@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/FullScreen">
-        <activity
+<!--        <activity
             android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -28,7 +28,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
+
+        <activity android:name=".activity.TestActivity"
+            android:theme="@style/StyledIndicators">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            </activity>
         <!-- ********************************************TALKING DATA********************************************************** -->
 
 
