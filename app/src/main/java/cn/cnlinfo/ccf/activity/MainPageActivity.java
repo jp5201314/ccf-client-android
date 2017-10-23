@@ -2,6 +2,7 @@ package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         unbinder = ButterKnife.bind(this);
         validLoadGuidePage();
         //设置为false是停止滑动ViewPager切换Fragment
-        vp.setStopScroll(false);
+        vp.setStopScroll(true);
         init();
 
     }
@@ -72,6 +73,40 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         }
         registerOnClickListener();
         tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        setTvMainPageBackgroundColor();
+                        break;
+                    case 1:
+                        setTvGauagePanelBackgroundColor();
+                        break;
+                    case 2:
+                        setTvTradingCenterBackgroundColor();
+                        break;
+                    case 3:
+                        setTvCcMallBackgroundColor();
+                        break;
+                    case 4:
+                        setTvCcUnionBackgroundColor();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private List<Fragment> setFragmentList(){
@@ -113,7 +148,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_trading_center:
                 vp.setCurrentItem(2,false);
                 setTvTradingCenterBackgroundColor();
-
                 break;
             case R.id.tv_cc_mall:
                 vp.setCurrentItem(3,false);

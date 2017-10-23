@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="主页"
+        android:layout_gravity="center"
+        android:layout_marginBottom="12dp"
+        style="@style/text_0e1214_17"
+        />
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        >
+    </com.shizhefei.view.indicator.FixedIndicatorView>
+    <cn.cnlinfo.ccf.view.StopScrollViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </cn.cnlinfo.ccf.view.StopScrollViewPager>
+
+</LinearLayout>
