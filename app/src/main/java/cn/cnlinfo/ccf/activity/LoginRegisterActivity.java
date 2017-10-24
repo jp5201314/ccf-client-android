@@ -20,6 +20,8 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User;
@@ -58,13 +60,36 @@ public class LoginRegisterActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         setVerificationCode();
     }
 
+    public void toLogin(View view) {
+        startLogin();
+    }
+
+    public void toRegister(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
+    }
+
+    public void gainVerificationCode(View view) {
+        setVerificationCode();
+    }
+
+    private void setVerificationCode() {
+        String str = ObtainVerificationCode.createVerificationCode();
+        tvGetVerificationCode.setText(str);
+    }
+
+    public void toForgetPass(View view) {
+        startActivity(new Intent(this, ForgetPasswordActivity.class));
+    }
+
+    /**
+     * 开始登陆
+     */
     private void startLogin(){
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
@@ -73,7 +98,7 @@ public class LoginRegisterActivity extends BaseActivity {
             toast("用户名或密码不能为空");
         }else {
             if (verificationCode!=null&&verificationCode.equals(tvGetVerificationCode.getText().toString().trim())){
-                OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder("http://ccf.hrkji.com/RegUser.asmx/Login");
+                OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFLOGIN);
                 okHttpPostRequestBuilder.put("username", username);
                 okHttpPostRequestBuilder.put("password", password);
                 OKHttpManager.post(okHttpPostRequestBuilder, "login", new UiHandlerCallBack() {
@@ -92,13 +117,12 @@ public class LoginRegisterActivity extends BaseActivity {
                                 Logger.d(user.toString());
                                 startActivity(new Intent(LoginRegisterActivity.this, MainPageActivity.class));
                                 LoginRegisterActivity.this.finish();
-                                EventBus.getDefault().post(new ErrorMessageEvent(200,"登录成功"));
+                                showMessage("登录成功");
                             }
 
                             @Override
                             public void error(int status, String message) {
-                                Logger.d(status+"  "+message);
-                            EventBus.getDefault().post(new ErrorMessageEvent(status,message));
+                                showMessage(status,message);
                             }
 
                             @Override
@@ -108,7 +132,7 @@ public class LoginRegisterActivity extends BaseActivity {
 
                             @Override
                             public void failed(int code, String msg) {
-                                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                                showMessage(msg);
                             }
                         }
                 );
@@ -117,27 +141,5 @@ public class LoginRegisterActivity extends BaseActivity {
             }
         }
 
-    }
-
-    public void toLogin(View view) {
-        startLogin();
-    }
-
-
-    public void toRegister(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
-    }
-
-    public void gainVerificationCode(View view) {
-        setVerificationCode();
-    }
-
-    private void setVerificationCode() {
-        String str = ObtainVerificationCode.createVerificationCode();
-        tvGetVerificationCode.setText(str);
-    }
-
-    public void toForgetPass(View view) {
-        startActivity(new Intent(this, ForgetPasswordActivity.class));
     }
 }

@@ -23,4 +23,17 @@ public class ObtainVerificationCode {
         }
         return builder.toString();
     }
+
+
+    public static String createNumVerificationCode() {
+        Random random = new Random();
+        char[]buffer = {'0','1','2','3', '4', '5', '6', '7', '8', '9'};
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 4; i++){
+            int num = random.nextInt(buffer.length-i);
+            char c = buffer[num];
+            builder.append(c);
+        }
+        return builder.toString();
+    }
 }

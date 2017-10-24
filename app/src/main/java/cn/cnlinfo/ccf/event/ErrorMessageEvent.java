@@ -14,6 +14,9 @@ public class ErrorMessageEvent {
 
     public ErrorMessageEvent(){}
 
+    public ErrorMessageEvent(String msg) {
+        this.msg = msg;
+    }
 
     public String getMsg(){
         return msg;

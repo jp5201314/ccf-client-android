@@ -58,63 +58,6 @@ public abstract class UiHandlerCallBack extends Handler implements Callback{
                         sendSuccessData(ccfResponse.getData());
                         call.cancel();
                         break;
-                    case 10000://普通错误
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        if (auto10000) {
-                            Intent intent10000 = new Intent();
-                            intent10000.putExtra("TYPE", 10000);
-                            String message = ccfResponse.getStatusInfo();
-                            Logger.e(message);
-                            intent10000.putExtra("msg", message);
-                            intent10000.setAction(BaseActivity.BROADCAST_FLAG);
-                            CCFApplication.getInstance().sendBroadcast(intent10000);
-                        }
-                        break;
-                    case 40000://JWT_TOKEN不存在
-                        UserSharedPreference.getInstance().removeJwtToken();
-                        UserSharedPreference.getInstance().removeUser();
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        Intent intent40000 = new Intent();
-                        intent40000.putExtra("TYPE", 40000);
-                        intent40000.setAction(BaseActivity.BROADCAST_FLAG);
-                        CCFApplication.getInstance().sendBroadcast(intent40000);
-                        break;
-                    case 40001://JWT_TOKEN不可用
-                        UserSharedPreference.getInstance().removeJwtToken();
-                        UserSharedPreference.getInstance().removeUser();
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        Intent intent40001 = new Intent();
-                        intent40001.putExtra("TYPE", 40001);
-                        intent40001.setAction(BaseActivity.BROADCAST_FLAG);
-                        CCFApplication.getInstance().sendBroadcast(intent40001);
-                        break;
-                    case 40004://JWT_USER未找到
-                        UserSharedPreference.getInstance().removeJwtToken();
-                        UserSharedPreference.getInstance().removeUser();
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        Intent intent40004 = new Intent();
-                        intent40004.putExtra("TYPE", 40004);
-                        intent40004.setAction(BaseActivity.BROADCAST_FLAG);
-                        CCFApplication.getInstance().sendBroadcast(intent40004);
-                        break;
-                    case 40005://JWT_TOKEN过期失效
-                        UserSharedPreference.getInstance().removeJwtToken();
-                        UserSharedPreference.getInstance().removeUser();
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        Intent intent40005 = new Intent();
-                        intent40005.putExtra("TYPE", 40005);
-                        intent40005.setAction(BaseActivity.BROADCAST_FLAG);
-                        CCFApplication.getInstance().sendBroadcast(intent40005);
-                        break;
-                    case 40006://USER_KICKED
-                        sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
-                        Intent intent40006 = new Intent();
-                        intent40006.putExtra("TYPE", 40006);
-                        intent40006.setAction(BaseActivity.BROADCAST_FLAG);
-                        CCFApplication.getInstance().sendBroadcast(intent40006);
-                        UserSharedPreference.getInstance().removeJwtToken();
-                        UserSharedPreference.getInstance().removeUser();
-                        break;
                     default:
                         sendErrorMessage(ccfResponse.getStatus(), ccfResponse.getStatusInfo());
                         break;

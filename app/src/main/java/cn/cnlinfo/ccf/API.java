@@ -19,4 +19,6 @@ public class API {
      */
 
     public static final String CCFLOGIN = "Login";
+
+    public static final String CCFREGISTER = "Register";
 }

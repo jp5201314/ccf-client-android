@@ -23,10 +23,13 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cc.cloudist.acplibrary.ACProgressFlower;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.inter.IActivityFinish;
 import cn.cnlinfo.ccf.inter.IComponentContainer;
 import cn.cnlinfo.ccf.inter.ILifeCycleComponent;
@@ -61,6 +64,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         registerNetworkConnectChangedReceiver();
         registerGlobalErrorMessageReceiver();
     }
+
     private void registerNetworkConnectChangedReceiver(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
@@ -94,6 +98,14 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         showWaitingDialog(show, getString(R.string.please_wait));
     }
 
+
+    protected void showMessage(int status, String message){
+        EventBus.getDefault().post(new ErrorMessageEvent(message));
+    }
+
+    protected void showMessage( String message){
+        EventBus.getDefault().post(new ErrorMessageEvent(message));
+    }
     protected void showWaitingDialog(boolean show, String waitingNotice) {
         if (!show) {
             waitingDialog.dismiss();

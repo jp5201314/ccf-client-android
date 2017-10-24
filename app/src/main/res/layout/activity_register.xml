@@ -44,10 +44,12 @@
                 android:gravity="center"
                 android:inputType="text"
                 android:maxLines="1"
-                android:maxLength="11"
+                android:maxLength="16"
                 android:textColor="@drawable/selector_edittext_text_color"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
+                android:textIsSelectable="true"
+                android:hint="16位字母数字组合"
                 />
         </LinearLayout>
         <LinearLayout
@@ -61,13 +63,14 @@
                 android:layout_weight="1"
                 />
             <cn.cnlinfo.ccf.view.CleanEditText
-                android:id="@+id/tv_user_name"
+                android:id="@+id/et_user_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:inputType="text"
+                android:inputType="textPersonName"
+                android:digits="@string/input_impose_num_lower_case"
                 android:maxLines="1"
                 android:maxLength="11"
                 android:textColor="@drawable/selector_edittext_text_color"
@@ -79,13 +82,12 @@
             android:layout_marginTop="18dp">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="登录密码" />
 
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_login_pass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,7 +110,7 @@
                 android:text="确认密码"
                 android:layout_weight="1"
                 />
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_verify_pass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -131,16 +133,17 @@
                 android:text="手机号"
                 android:layout_weight="1"
                 />
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_phone_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:inputType="phone"
+                android:inputType="phone|number"
                 android:maxLines="1"
                 android:maxLength="11"
+                android:digits="@string/input_impose_num"
                 android:textColor="@drawable/selector_edittext_text_color"
                 />
         </LinearLayout>
@@ -163,16 +166,16 @@
                 android:orientation="horizontal">
 
                 <cn.cnlinfo.ccf.view.CleanEditText
-                    android:id="@+id/et_verification_code"
+                    android:id="@+id/et_verification_code_register"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:background="@drawable/edit_text_style"
                     android:gravity="center"
-                    android:inputType="text"
-                    android:maxLines="1"
+                    android:inputType="number"
                     android:maxLength="4"
-                    android:textColor="@drawable/selector_edittext_text_color"
-                    android:background="@drawable/edit_text_style" />
+                    android:maxLines="1"
+                    android:textColor="@drawable/selector_edittext_text_color" />
 
                 <Button
                     android:id="@+id/btn_get_verification_code"
