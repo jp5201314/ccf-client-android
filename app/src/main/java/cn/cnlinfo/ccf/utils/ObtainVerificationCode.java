@@ -17,7 +17,7 @@ public class ObtainVerificationCode {
                 'u','v', 'w', 'x', 'y','z'};
        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 4; i++){
-            int num = random.nextInt(buffer.length);
+            int num = random.nextInt(buffer.length-i);
             char c = buffer[num];
             builder.append(c);
         }

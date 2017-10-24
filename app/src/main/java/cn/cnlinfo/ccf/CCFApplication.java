@@ -3,6 +3,7 @@ package cn.cnlinfo.ccf;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
@@ -49,9 +50,22 @@ public class CCFApplication extends Application {
     //接收EventBus发送来的信息并作相应处理
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showErrorMessage(ErrorMessageEvent errorMessageEvent){
+        int code = errorMessageEvent.getErrorCode();
         String msg = errorMessageEvent.getMsg();
+        switch (code){
+            case 200:
+                toast(msg);
+                break;
+            case -14:
+                toast(msg);
+
+        }
 
 
+    }
+
+    private void toast(String msg){
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
     protected boolean allowLogin(){

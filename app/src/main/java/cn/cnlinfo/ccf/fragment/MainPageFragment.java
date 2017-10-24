@@ -8,20 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.inter.IObtainCallByTag;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
-import cn.cnlinfo.ccf.net_okhttp.OkHttpGetRequestBuilder;
-import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
-import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
 import okhttp3.Call;
 
 /**
@@ -36,6 +31,8 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
     Button btnStart;
     @BindView(R.id.btn_stop)
     Button btnStop;
+    @BindView(R.id.btn_exit)
+    Button btnExit;
     private Unbinder unbinder;
 
     @Nullable
@@ -45,6 +42,7 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
         unbinder = ButterKnife.bind(this, view);
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
+        btnExit.setOnClickListener(this);
         return view;
     }
 
@@ -151,6 +149,12 @@ public class MainPageFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_stop:
                 OKHttpManager.findTagCall("mainfragment", this);
+                break;
+
+            case R.id.btn_exit:
+                UserSharedPreference.getInstance().removeJwtToken();
+                UserSharedPreference.getInstance().removeUser();
+                getActivity().finish();
                 break;
         }
     }

@@ -15,7 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="取消" />
-
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
