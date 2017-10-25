@@ -48,7 +48,6 @@
                 android:textColor="@drawable/selector_edittext_text_color"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
-                android:textIsSelectable="true"
                 android:hint="16位字母数字组合"
                 />
         </LinearLayout>

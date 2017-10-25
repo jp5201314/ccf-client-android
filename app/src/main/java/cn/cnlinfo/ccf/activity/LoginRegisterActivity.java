@@ -29,8 +29,12 @@ import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
 import cn.cnlinfo.ccf.utils.TimeExchange;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.OkHttpFinal;
+import cn.finalteam.okhttpfinal.RequestParams;
 import okhttp3.Call;
 
 /**
@@ -98,7 +102,7 @@ public class LoginRegisterActivity extends BaseActivity {
             toast("用户名或密码不能为空");
         }else {
             if (verificationCode!=null&&verificationCode.equals(tvGetVerificationCode.getText().toString().trim())){
-                OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFLOGIN);
+               /* OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFLOGIN);
                 okHttpPostRequestBuilder.put("username", username);
                 okHttpPostRequestBuilder.put("password", password);
                 OKHttpManager.post(okHttpPostRequestBuilder, "login", new UiHandlerCallBack() {
@@ -135,7 +139,22 @@ public class LoginRegisterActivity extends BaseActivity {
                                 showMessage(msg);
                             }
                         }
-                );
+                );*/
+
+                RequestParams params = new RequestParams();
+                params.addFormDataPart("username",username);
+                params.addFormDataPart("password",password);
+                HttpRequest.post(Constant.getHost()+API.CCFLOGIN,params,new CCFHttpRequestCallback(){
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+                        Logger.json(data.toJSONString());
+                    }
+
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+                        Logger.d(code+"  "+flag+"  "+msg);
+                    }
+                });
             }else {
                 toast("验证码不正确，请重新输入");
             }

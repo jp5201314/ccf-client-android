@@ -15,6 +15,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
+import cn.finalteam.okhttpfinal.JsonHttpRequestCallback;
+import cn.finalteam.okhttpfinal.OkHttpFinal;
+import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 
 
 /**
@@ -39,6 +42,11 @@ public class CCFApplication extends Application {
         }
         Logger.init("CCFinal").hideThreadInfo();
         EventBus.getDefault().register(mContext);
+
+        OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
+        OkHttpFinal.getInstance().init(builder.build());
+        builder.setDebug(true);
+        OkHttpFinal.getInstance().updateCommonHeader("Accept","application/json");
     }
 
     @Override

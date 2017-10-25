@@ -167,6 +167,9 @@ dependencies {
     /**
      *  运行时权限
      */
+    /**
+     * okhttpfinal
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -184,4 +187,6 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
     provided 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
     compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.37.jar')
+    compile 'cn.finalteam:okhttpfinal:2.0.7'
+
 }

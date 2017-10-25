@@ -20,10 +20,13 @@ import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.EditTextInputFormatUtil;
 import cn.cnlinfo.ccf.utils.NotificationUtil;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by Administrator on 2017/10/16 0016.
@@ -108,7 +111,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 开始注册
      */
     private void startToRegisterr(String userName,String invitationCode,String phoneNum,String pwd){
-        OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFREGISTER);
+       /* OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFREGISTER);
         okHttpPostRequestBuilder.put("strAccounts",userName);
         okHttpPostRequestBuilder.put("strDirectAccounts",invitationCode);
         okHttpPostRequestBuilder.put("telephone",phoneNum);
@@ -136,6 +139,24 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void failed(int code, String msg) {
                 showMessage(msg);
+            }
+        });*/
+
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("strAccounts",userName);
+        params.addFormDataPart("strDirectAccounts",invitationCode);
+        params.addFormDataPart("telephone",phoneNum);
+        params.addFormDataPart("pwd",pwd);
+
+        HttpRequest.post(Constant.getHost()+API.CCFREGISTER,params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                Logger.json(data.toJSONString());
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                Logger.d(code+"   "+flag+"   "+msg);
             }
         });
     }
