@@ -3,7 +3,7 @@
     android:id="@+id/fl_title"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/color_blue_0b2841">
+    android:background="@color/color_black_0e1214">
 
 
     <ImageButton
@@ -13,22 +13,23 @@
         android:layout_gravity="center_vertical|left"
         android:background="@null"
         android:layout_marginLeft="18dp"
-        android:src="@drawable/ic_back" />
+        android:src="@drawable/ic_back"
+        android:onClick="back"/>
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/text_ffffff_18"
+        style="@style/text_ffffff_15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center"
-        android:layout_marginRight="18dp"
+        android:layout_gravity="center"
         android:text="登录" />
 
-    <!--<ImageButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical|right"-->
-    <!--android:background="@null"-->
-    <!--android:src="@drawable/icon_arrow_left_white" />-->
+<!--    <ImageButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|right"
+    android:background="@null"
+    android:layout_marginRight="18dp"
+    android:src="@drawable/icon_arrow_left_white" />-->
 
 </FrameLayout>

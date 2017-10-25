@@ -41,7 +41,6 @@
             android:name="TD_CHANNEL_ID"
             android:value="${TD_CHANNEL_ID_VALUE}" />
 
-
         <!-- 用户注册见面 -->
         <activity
             android:name=".activity.RegisterActivity"
@@ -55,15 +54,9 @@
         <!-- 忘记密码页面 -->
         <activity
             android:name=".activity.ForgetPasswordActivity"
-            android:screenOrientation="portrait" />
-        <!-- 密保找回页面 -->
-        <activity
-            android:name=".activity.CallBackBySecurityQuestionActivity"
-            android:screenOrientation="portrait" />
-        <!-- 电话号码找回页面 -->
-        <activity
-            android:name=".activity.CallBackByPhoneNumActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/spinner_theme"/>
         <!--引导页-->
         <activity
             android:name=".activity.GuideActivity"

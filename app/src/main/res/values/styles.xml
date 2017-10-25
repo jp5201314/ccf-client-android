@@ -15,6 +15,10 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="text_ffffff_15">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
     <style name="text_ffffff_12">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">12sp</item>
@@ -34,5 +38,19 @@
     <style name="text_0e1214_17">
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">#0e1214</item>
+    </style>
+    <style name="text_333_12">
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="spinner_theme" parent="FullScreen">
+        <!-- spinner style -->
+        <item name="android:dropDownListViewStyle">@style/spinner_style</item>
+    </style>
+    <style name="spinner_style" parent="android:Widget.ListView.DropDown">
+        <!-- 分隔线颜色 -->
+        <item name="android:divider">@color/color_green_81ced3</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">@drawable/selector_btn_forget_pass</item>
     </style>
 </resources>

@@ -163,7 +163,7 @@
                     <Button
                         android:id="@+id/btn_login"
                         android:layout_width="69dp"
-                        android:layout_height="22dp"
+                        android:layout_height="32dp"
                         android:background="@drawable/selector_button_bg"
                         android:text="登录"
                         android:onClick="toLogin"/>
@@ -171,7 +171,7 @@
                     <Button
                         android:id="@+id/btn_register"
                         android:layout_width="69dp"
-                        android:layout_height="22dp"
+                        android:layout_height="32dp"
                         android:layout_marginLeft="18dp"
                         android:background="@drawable/selector_button_bg"
                         android:text="注册"
