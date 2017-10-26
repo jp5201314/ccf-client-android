@@ -78,6 +78,7 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
         toast(getString(rsId));
     }
 
+
     protected void toast(String str) {
         Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
     }
