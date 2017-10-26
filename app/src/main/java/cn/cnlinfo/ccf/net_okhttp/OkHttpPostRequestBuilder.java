@@ -1,7 +1,5 @@
 package cn.cnlinfo.ccf.net_okhttp;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.Map;
 
 import okhttp3.FormBody;

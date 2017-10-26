@@ -148,9 +148,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     protected void onResume() {
         super.onResume();
         mComponentContainer.onBecomesVisibleFromPartiallyInvisible();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(this.BROADCAST_FLAG);
-        this.registerReceiver(messageReceiver,intentFilter);
+        registerNetworkConnectChangedReceiver();
     }
 
     @Override

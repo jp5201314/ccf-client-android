@@ -24,7 +24,7 @@ import okhttp3.Response;
 
 public abstract class UiHandlerCallBack extends Handler implements Callback{
 
-     public final static int SUCCESS = 10001;
+    public final static int SUCCESS = 10001;
     public final static int ERROR = 10002;
     public final static int PROGRESS = 10003;
     public final static int FAILED = 10004;
