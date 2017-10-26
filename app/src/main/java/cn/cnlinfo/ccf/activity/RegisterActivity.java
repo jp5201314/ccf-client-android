@@ -111,7 +111,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 开始注册
      */
     private void startToRegisterr(String userName,String invitationCode,String phoneNum,String pwd){
-       /* OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFREGISTER);
+        OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFREGISTER);
         okHttpPostRequestBuilder.put("strAccounts",userName);
         okHttpPostRequestBuilder.put("strDirectAccounts",invitationCode);
         okHttpPostRequestBuilder.put("telephone",phoneNum);
@@ -140,9 +140,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void failed(int code, String msg) {
                 showMessage(msg);
             }
-        });*/
+        });
 
-        RequestParams params = new RequestParams();
+ /*       RequestParams params = new RequestParams();
         params.addFormDataPart("strAccounts",userName);
         params.addFormDataPart("strDirectAccounts",invitationCode);
         params.addFormDataPart("telephone",phoneNum);
@@ -158,6 +158,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             protected void onDataError(int code, boolean flag, String msg) {
                 Logger.d(code+"   "+flag+"   "+msg);
             }
-        });
+        });*/
     }
 }

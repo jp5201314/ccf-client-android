@@ -2,4 +2,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
     android:layout_height="3dp"
-    android:background="@color/color_green_3bb4bc" />
+    android:background="@color/color_blue_4d8cd6" />

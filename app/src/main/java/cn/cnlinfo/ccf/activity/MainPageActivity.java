@@ -72,7 +72,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             vp.setAdapter(pageFragmentAdapter);
         }
         registerOnClickListener();
-        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -162,7 +162,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void setTvMainPageBackgroundColor(){
-        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
@@ -170,7 +170,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     }
     private void setTvGauagePanelBackgroundColor(){
         tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
-        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
@@ -178,7 +178,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     private void setTvCcUnionBackgroundColor(){
         tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
-        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
     }
@@ -186,7 +186,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
-        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
     }
     private void setTvTradingCenterBackgroundColor(){
@@ -194,6 +194,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvGauagePanel.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
-        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_red_fe4a4a));
+        tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
     }
 }
