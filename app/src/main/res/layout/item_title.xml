@@ -5,7 +5,6 @@
     android:layout_height="48dp"
     android:background="@color/color_black_0e1214">
 
-
     <ImageButton
         android:id="@+id/ibt_back"
         android:layout_width="36dp"
@@ -24,12 +23,13 @@
         android:layout_gravity="center"
         android:text="登录" />
 
-    <ImageButton
-        android:id="@+id/ibt_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="18dp"
-        android:background="@null" />
-
+        <ImageButton
+            android:id="@+id/ibt_add"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:src="@drawable/icon_add"
+            android:layout_gravity="end|center"
+            android:layout_marginRight="18dp"
+            />
 </FrameLayout>

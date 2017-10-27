@@ -34,4 +34,13 @@
     <string name="input_impose_num_upper_case">0123456789ABCDEFGHIJKLmMNOPQRSTUVWXYZ</string>
     <string name="input_impose_num">0123456789</string>
     <string name="input_impose_num_lower_upper_case">0123456789ABCDEFGHIJKLmMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+
+
+    <!--风险提示语-->
+
+    <string name="dialog_risk_warning_title">风险提示</string>
+    <string name="dialog_risk_warning_text">\t\t尊敬的用户，本平台意在打造为一个全民健身项目，通过碳控因子为用户搭建一个供消服务平台。成为体验会员可以免费通过该平台跑步锻炼身体，同时获取相应碳控因子，分享朋友免费参与可以提高自身步行认证效率。本项目非投资理财项目，循环包可以用消费积分免费兑换，如果您想兑换循环包，或者持有碳控因子。请务必保证自己有风险承担能力，请勿多账户参与。</string>
+    <string name="dialog_risk_warning_name">碳控因子维护组</string>
+    <string name="dialog_risk_warning_date">2017-10-25</string>
+
 </resources>

@@ -50,11 +50,13 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class BaseActivity extends AppCompatActivity implements IComponentContainer, IActivityFinish {
 
-    public static String BROADCAST_FLAG = "cn.cnlinfo.ccf.response.message";
+    public static final String BROADCAST_FLAG = "cn.cnlinfo.ccf.response.message";
+    public static final String BROADCAST_NETWORK_FLAG = "cn.cnlinfo.ccf.net";
     private LifeCycleComponentManager mComponentContainer = new LifeCycleComponentManager();
     protected ACProgressFlower waitingDialog;
     private GlobalErrorMessageReceiver messageReceiver;
     private NetworkConnectChangedReceiver receiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,18 +67,21 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         registerGlobalErrorMessageReceiver();
     }
 
-    private void registerNetworkConnectChangedReceiver(){
+    private void registerNetworkConnectChangedReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         intentFilter.addAction("android.net.wifi.STATE_CHANGE");
-        registerReceiver(receiver,intentFilter);
+        intentFilter.addAction(BROADCAST_NETWORK_FLAG);
+        registerReceiver(receiver, intentFilter);
     }
-    private void registerGlobalErrorMessageReceiver(){
+
+    private void registerGlobalErrorMessageReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BROADCAST_FLAG);
-        registerReceiver(messageReceiver,intentFilter);
+        registerReceiver(messageReceiver, intentFilter);
     }
+
     @Override
     public Resources getResources() {
         Resources res = super.getResources();
@@ -94,18 +99,20 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
             tintManager.setStatusBarTintResource(color);//通知栏所需颜色
         }
     }
+
     protected void showWaitingDialog(boolean show) {
         showWaitingDialog(show, getString(R.string.please_wait));
     }
 
 
-    protected void showMessage(int status, String message){
+    protected void showMessage(int status, String message) {
         EventBus.getDefault().post(new ErrorMessageEvent(message));
     }
 
-    protected void showMessage( String message){
+    protected void showMessage(String message) {
         EventBus.getDefault().post(new ErrorMessageEvent(message));
     }
+
     protected void showWaitingDialog(boolean show, String waitingNotice) {
         if (!show) {
             waitingDialog.dismiss();
@@ -148,7 +155,9 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     protected void onResume() {
         super.onResume();
         mComponentContainer.onBecomesVisibleFromPartiallyInvisible();
-        registerNetworkConnectChangedReceiver();
+        Intent intent = new Intent();
+        intent.setAction(BROADCAST_NETWORK_FLAG);
+        sendBroadcast(intent);
     }
 
     @Override

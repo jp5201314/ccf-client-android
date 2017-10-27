@@ -31,6 +31,7 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
 
     }
 
+
     @Override
     public void onLeave() {
         this.mComponentContainer.onBecomesTotallyInvisible();

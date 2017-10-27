@@ -75,7 +75,7 @@ public class LazyFragment extends BaseReallyFragment {
 
     @Deprecated
     @Override
-    public final void onStart() {
+    public void onStart() {
         super.onStart();
         if (isInit && !isStart && getUserVisibleHint()) {
             isStart = true;
@@ -85,7 +85,7 @@ public class LazyFragment extends BaseReallyFragment {
 
     @Deprecated
     @Override
-    public final void onStop() {
+    public void onStop() {
         super.onStop();
         if (isInit && isStart && getUserVisibleHint()) {
             isStart = false;

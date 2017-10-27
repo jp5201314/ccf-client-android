@@ -23,7 +23,8 @@
         android:theme="@style/FullScreen">
         <activity
             android:name=".activity.MainPageActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupMenuTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

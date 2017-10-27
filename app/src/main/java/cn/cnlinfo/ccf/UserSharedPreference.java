@@ -43,6 +43,14 @@ public class UserSharedPreference {
         return instance;
     }
 
+
+    public void setIsFirstLogin(boolean flag){
+        mEditor.putBoolean("isFirstLogin",flag);
+        mEditor.commit();
+    }
+    public boolean getIsFirstLogin(){
+        return mSharedPreferences.getBoolean("isFirstLogin",false);
+    }
     /**
      * 是否已经登录
      *
@@ -51,6 +59,7 @@ public class UserSharedPreference {
     public boolean hasLogined() {
         return null!=this.getPhoneAndPassword()||null != this.getJwtToken();
     }
+
 
     /**
      * 退出登录

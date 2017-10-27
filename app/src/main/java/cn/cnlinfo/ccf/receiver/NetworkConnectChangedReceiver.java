@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 
+import cn.cnlinfo.ccf.activity.BaseActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.manager.AppManage;
 
@@ -23,7 +24,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)){
+        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)|| BaseActivity.BROADCAST_NETWORK_FLAG.equals(action)){
             ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if (networkInfo!=null){

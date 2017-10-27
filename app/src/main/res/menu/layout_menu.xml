@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sweep"
+        android:icon="@drawable/ic_back"
+        android:title="扫一扫" />
+    <item
+        android:id="@+id/addFriend"
+        android:icon="@drawable/ic_back"
+        android:title="添加朋友"/>
+
+    <item
+        android:id="@+id/shareUser"
+        android:icon="@drawable/ic_back"
+        android:title="分享用户"/>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_back"
+        android:title="设置"/>
+
+</menu>

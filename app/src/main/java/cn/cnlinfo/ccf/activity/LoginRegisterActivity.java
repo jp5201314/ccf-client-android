@@ -116,12 +116,18 @@ public class LoginRegisterActivity extends BaseActivity {
                             @Override
                             public void success(JSONObject data) {
                                 UserSharedPreference.getInstance().setJwtToken("1");
+                                UserSharedPreference.getInstance().setIsFirstLogin(true);
+
                                 Logger.d(TimeExchange.timestampIntoDate(data));
                                 User user = data.getJSONObject("userinfo").toJavaObject(User.class);
                                 Logger.d(user.toString());
-                                startActivity(new Intent(LoginRegisterActivity.this, MainPageActivity.class));
-                                LoginRegisterActivity.this.finish();
-                                showMessage("登录成功");
+                                if (user!=null){
+                                    Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
+                                    intent.putExtra("userinfo",user);
+                                    startActivity(intent);
+                                    LoginRegisterActivity.this.finish();
+                                    showMessage("登录成功");
+                                }
                             }
 
                             @Override

@@ -1,10 +1,18 @@
 package cn.cnlinfo.ccf.fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -15,6 +23,9 @@ import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.LayoutBar;
 import com.shizhefei.view.indicator.slidebar.ScrollBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+import com.tendcloud.tenddata.TCAgent;
+
+import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,24 +47,77 @@ public class MainPageFragment extends BaseFragment {
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.ibt_add)
+    ImageButton ibtAdd;
     private IndicatorViewPager indicatorViewPager;
     private IndicatorViewPager.IndicatorFragmentPagerAdapter adapter;
     private Unbinder unbinder;
     private final String[] TITLES = {"主页信息", "循环包", "分享信息"};
+    private Bundle bundle;
+    private PopupMenu popupMenu;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main_page, container, false);
+        TCAgent.onPageStart(getActivity(), "主页");
         unbinder = ButterKnife.bind(this, view);
-        vp.setStopScroll(true);
-        ibtBack.setVisibility(View.INVISIBLE);
-        tvTitle.setText("主页");
-        setIndicator();
+        init();
         return view;
     }
 
+    private void init() {
+        bundle = this.getArguments();
+        vp.setStopScroll(true);
+        ibtBack.setVisibility(View.INVISIBLE);
+        tvTitle.setText("主页");
+        ibtAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPopupMenu(v);
+                popupMenu.show();
+            }
+        });
+        setIndicator();
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void setPopupMenu(View view) {
+        popupMenu = new PopupMenu(getActivity(), view, Gravity.END);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        Menu menu =  popupMenu.getMenu();
+        menuInflater.inflate(R.menu.layout_menu,menu);
+        try {
+            Field field = popupMenu.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            MenuPopupHelper mHelper = (MenuPopupHelper) field.get(popupMenu);
+            mHelper.setForceShowIcon(true);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();   }
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+           @Override
+           public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+               switch (itemId){
+                   case R.id.sweep:
+                       toast(item.getTitle().toString());
+                       break;
+                   case R.id.addFriend:
+                       toast(item.getTitle().toString());
+                       break;
+                   case R.id.shareUser:
+                       toast(item.getTitle().toString());
+                       break;
+                   case R.id.setting:
+                       toast(item.getTitle().toString());
+                       break;
+               }
+               return false;
+           }
+       });
+    }
 
     private void setIndicator() {
         float unSelectSize = 15;
@@ -79,6 +143,7 @@ public class MainPageFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        TCAgent.onPageEnd(getActivity(), "主页");
     }
 
     class ItemViewPagerIndicator extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
@@ -110,12 +175,21 @@ public class MainPageFragment extends BaseFragment {
             switch (position) {
                 case 0:
                     fragment = new MainPageInfoFragment();
+                    if (bundle != null) {
+                        fragment.setArguments(bundle);
+                    }
                     break;
                 case 1:
                     fragment = new CyclePackageFragment();
+                    if (bundle != null) {
+                        fragment.setArguments(bundle);
+                    }
                     break;
                 case 2:
                     fragment = new ShareQRCodeFragment();
+                    if (bundle != null) {
+                        fragment.setArguments(bundle);
+                    }
                     break;
                 default:
                     break;

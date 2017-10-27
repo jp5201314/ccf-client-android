@@ -14,6 +14,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  "Status": 2,
  "ParentID": 0,
  "DirectID": 0,
+ "InvitationCode":""
  "JID": 0,
  "MID": 0,
  "SID": 0,
@@ -33,13 +34,14 @@ import com.alibaba.fastjson.annotation.JSONField;
  "CCF": 0,
  "Circle": 0,
  "CarbonNum": 0,
+ "CircleTicket": 0,
  "ConsumeIntegral": 0,
  "CarbonIntegral": 0,
  "ReleaseConsume": 0,
  "ReleaseCarbon": 0,
  "TotalStep": 0,
  "TodayStep": 0,
- "CircleTicket": 0
+ "E_max": 0
  */
 public class User implements Parcelable {
 
@@ -65,6 +67,9 @@ public class User implements Parcelable {
 
     @JSONField(name = "DirectID")
     private int directId;
+
+    @JSONField(name = "InvitationCode")
+    private String invitationCode;
 
     @JSONField(name = "JID")
     private int jId;
@@ -141,6 +146,9 @@ public class User implements Parcelable {
     @JSONField(name = "CircleTicket")
     private int circleTicket;
 
+    @JSONField(name = "E_max")
+    private int eMax;
+
     public User() {
     }
 
@@ -153,6 +161,7 @@ public class User implements Parcelable {
                 ", status=" + status +
                 ", parentId=" + parentId +
                 ", directId=" + directId +
+                ", invitationCode='" + invitationCode + '\'' +
                 ", jId=" + jId +
                 ", mId=" + mId +
                 ", sId=" + sId +
@@ -178,6 +187,7 @@ public class User implements Parcelable {
                 ", releaseCarbon=" + releaseCarbon +
                 ", totalStep=" + totalStep +
                 ", circleTicket=" + circleTicket +
+                ", eMax=" + eMax +
                 '}';
     }
 
@@ -227,6 +237,14 @@ public class User implements Parcelable {
 
     public void setDirectId(int directId) {
         this.directId = directId;
+    }
+
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
     }
 
     public int getjId() {
@@ -429,6 +447,14 @@ public class User implements Parcelable {
         this.circleTicket = circleTicket;
     }
 
+    public int geteMax() {
+        return eMax;
+    }
+
+    public void seteMax(int eMax) {
+        this.eMax = eMax;
+    }
+
     protected User(Parcel in) {
         id = in.readInt();
         username = in.readString();
@@ -436,6 +462,7 @@ public class User implements Parcelable {
         status = in.readInt();
         parentId = in.readInt();
         directId = in.readInt();
+        invitationCode = in.readString();
         jId = in.readInt();
         mId = in.readInt();
         sId = in.readInt();
@@ -461,6 +488,7 @@ public class User implements Parcelable {
         releaseCarbon = in.readInt();
         totalStep = in.readInt();
         circleTicket = in.readInt();
+        eMax = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -488,6 +516,7 @@ public class User implements Parcelable {
         dest.writeInt(status);
         dest.writeInt(parentId);
         dest.writeInt(directId);
+        dest.writeString(invitationCode);
         dest.writeInt(jId);
         dest.writeInt(mId);
         dest.writeInt(sId);
@@ -513,5 +542,6 @@ public class User implements Parcelable {
         dest.writeInt(releaseCarbon);
         dest.writeInt(totalStep);
         dest.writeInt(circleTicket);
+        dest.writeInt(eMax);
     }
 }
