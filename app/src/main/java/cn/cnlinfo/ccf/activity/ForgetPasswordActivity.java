@@ -24,22 +24,22 @@ import cn.cnlinfo.ccf.fragment.CallBackBySecurityQuestionFragment;
 
 public class ForgetPasswordActivity extends BaseActivity {
 
-    @BindView(R.id.ibt_back)
+/*    @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
-    TextView tvTitle;
+    TextView tvTitle;*/
     @BindView(R.id.fixedIndicator)
     FixedIndicatorView fixedIndicator;
     @BindView(R.id.vp)
     ViewPager vp;
     private IndicatorViewPager indicatorViewPager;
-    private static final String TITLES[] = {"手机验证找回","密保找回"};
+    private static final String TITLES[] = {"密保找回","手机验证找回"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
-        tvTitle.setText("找回密码");
+       // tvTitle.setText("找回密码");
         setFixedIndicator();
     }
 
