@@ -94,15 +94,15 @@ public class LoginRegisterActivity extends BaseActivity {
     /**
      * 开始登陆
      */
-    private void startLogin(){
+    private void startLogin() {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
         String verificationCode = etVerificationCode.getText().toString();
-        if (TextUtils.isEmpty(username)||TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             toast("用户名或密码不能为空");
-        }else {
-            if (verificationCode!=null&&verificationCode.equals(tvGetVerificationCode.getText().toString().trim())){
-                OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost()+ API.CCFLOGIN);
+        } else {
+            if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
+                OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFLOGIN);
                 okHttpPostRequestBuilder.put("username", username);
                 okHttpPostRequestBuilder.put("password", password);
                 OKHttpManager.post(okHttpPostRequestBuilder, "login", new UiHandlerCallBack() {
@@ -117,22 +117,18 @@ public class LoginRegisterActivity extends BaseActivity {
                             public void success(JSONObject data) {
                                 UserSharedPreference.getInstance().setJwtToken("1");
                                 UserSharedPreference.getInstance().setIsFirstLogin(true);
-
-                                Logger.d(TimeExchange.timestampIntoDate(data));
-                                User user = data.getJSONObject("userinfo").toJavaObject(User.class);
-                                Logger.d(user.toString());
-                                if (user!=null){
-                                    Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                                    intent.putExtra("userinfo",user);
-                                    startActivity(intent);
-                                    LoginRegisterActivity.this.finish();
-                                    showMessage("登录成功");
-                                }
+                                JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
+                                String jsonString = userinfoJsonobject.toJSONString();
+                                UserSharedPreference.getInstance().setUserInfo(jsonString);
+                                Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
+                                startActivity(intent);
+                                LoginRegisterActivity.this.finish();
+                                showMessage("登录成功");
                             }
 
                             @Override
                             public void error(int status, String message) {
-                                showMessage(status,message);
+                                showMessage(status, message);
                             }
 
                             @Override
@@ -161,7 +157,7 @@ public class LoginRegisterActivity extends BaseActivity {
                         Logger.d(code+"  "+flag+"  "+msg);
                     }
                 });*/
-            }else {
+            } else {
                 toast("验证码不正确，请重新输入");
             }
         }

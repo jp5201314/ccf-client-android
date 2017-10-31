@@ -3,6 +3,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.alibaba.fastjson.annotation.JSONField;
+
+import java.io.Serializable;
 /**
  * Created by Administrator on 2017/10/23 0023.
  */
@@ -43,7 +45,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  "TodayStep": 0,
  "E_max": 0
  */
-public class User implements Parcelable {
+public class User implements Serializable {
 
     @JSONField(name = "ID")
     private int id;
@@ -455,93 +457,4 @@ public class User implements Parcelable {
         this.eMax = eMax;
     }
 
-    protected User(Parcel in) {
-        id = in.readInt();
-        username = in.readString();
-        nickName = in.readString();
-        status = in.readInt();
-        parentId = in.readInt();
-        directId = in.readInt();
-        invitationCode = in.readString();
-        jId = in.readInt();
-        mId = in.readInt();
-        sId = in.readInt();
-        hId = in.readInt();
-        tId = in.readInt();
-        isFull = in.readByte() != 0;
-        uType = in.readInt();
-        pwd = in.readString();
-        mobile = in.readString();
-        loginTimes = in.readLong();
-        registerIp = in.readString();
-        date = in.readString();
-        inLevel = in.readInt();
-        lastLogonIp = in.readString();
-        lastLogonDate = in.readString();
-        isOnline = in.readInt();
-        ccf = in.readInt();
-        circle = in.readInt();
-        carbonNum = in.readInt();
-        consumeIntegeral = in.readInt();
-        carbonIntegral = in.readInt();
-        releaseConsum = in.readInt();
-        releaseCarbon = in.readInt();
-        totalStep = in.readInt();
-        circleTicket = in.readInt();
-        eMax = in.readInt();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(username);
-        dest.writeString(nickName);
-        dest.writeInt(status);
-        dest.writeInt(parentId);
-        dest.writeInt(directId);
-        dest.writeString(invitationCode);
-        dest.writeInt(jId);
-        dest.writeInt(mId);
-        dest.writeInt(sId);
-        dest.writeInt(hId);
-        dest.writeInt(tId);
-        dest.writeByte((byte) (isFull ? 1 : 0));
-        dest.writeInt(uType);
-        dest.writeString(pwd);
-        dest.writeString(mobile);
-        dest.writeLong(loginTimes);
-        dest.writeString(registerIp);
-        dest.writeString(date);
-        dest.writeInt(inLevel);
-        dest.writeString(lastLogonIp);
-        dest.writeString(lastLogonDate);
-        dest.writeInt(isOnline);
-        dest.writeInt(ccf);
-        dest.writeInt(circle);
-        dest.writeInt(carbonNum);
-        dest.writeInt(consumeIntegeral);
-        dest.writeInt(carbonIntegral);
-        dest.writeInt(releaseConsum);
-        dest.writeInt(releaseCarbon);
-        dest.writeInt(totalStep);
-        dest.writeInt(circleTicket);
-        dest.writeInt(eMax);
-    }
 }

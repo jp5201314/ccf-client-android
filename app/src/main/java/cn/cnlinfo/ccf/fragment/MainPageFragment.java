@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.fragment;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,7 +54,6 @@ public class MainPageFragment extends BaseFragment {
     private IndicatorViewPager.IndicatorFragmentPagerAdapter adapter;
     private Unbinder unbinder;
     private final String[] TITLES = {"主页信息", "循环包", "分享信息"};
-    private Bundle bundle;
     private PopupMenu popupMenu;
 
     @Nullable
@@ -68,7 +68,6 @@ public class MainPageFragment extends BaseFragment {
     }
 
     private void init() {
-        bundle = this.getArguments();
         vp.setStopScroll(true);
         ibtBack.setVisibility(View.INVISIBLE);
         tvTitle.setText("主页");
@@ -83,6 +82,7 @@ public class MainPageFragment extends BaseFragment {
     }
 
 
+    @SuppressLint("RestrictedApi")
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void setPopupMenu(View view) {
         popupMenu = new PopupMenu(getActivity(), view, Gravity.END);
@@ -175,21 +175,12 @@ public class MainPageFragment extends BaseFragment {
             switch (position) {
                 case 0:
                     fragment = new MainPageInfoFragment();
-                    if (bundle != null) {
-                        fragment.setArguments(bundle);
-                    }
                     break;
                 case 1:
                     fragment = new CyclePackageFragment();
-                    if (bundle != null) {
-                        fragment.setArguments(bundle);
-                    }
                     break;
                 case 2:
                     fragment = new ShareQRCodeFragment();
-                    if (bundle != null) {
-                        fragment.setArguments(bundle);
-                    }
                     break;
                 default:
                     break;

@@ -180,6 +180,10 @@ dependencies {
     /**
      * 图片加载框架
      */
+
+    /**
+     * RecycleView
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -200,4 +204,5 @@ dependencies {
     compile 'cn.finalteam:okhttpfinal:2.0.7'
     compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
 }

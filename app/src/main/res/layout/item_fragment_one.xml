@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp" >
+        android:layout_height="260dp">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,13 +19,13 @@
             android:layout_gravity="bottom"
             android:background="@null"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <View
                     android:id="@+id/dot_0"
@@ -31,23 +33,104 @@
                     android:layout_height="10dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:background="@drawable/guide_circle_white"/>
+                    android:background="@drawable/guide_circle_white" />
+
                 <View
                     android:id="@+id/dot_1"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:background="@drawable/guide_circle_gray"/>
+                    android:background="@drawable/guide_circle_gray" />
+
                 <View
                     android:id="@+id/dot_2"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:background="@drawable/guide_circle_gray"/>
+                    android:background="@drawable/guide_circle_gray" />
 
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="9dp"
+            android:orientation="vertical">
+
+            <cn.cnlinfo.ccf.view.UpDownTextView
+                android:id="@+id/tv_up_down"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@drawable/shape_up_down_textview" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_0e1214_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="账号信息" />
+
+                <GridView
+                    android:id="@+id/gv_account_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="0dp"
+                    android:gravity="center"
+                    android:background="@drawable/shape_gv_line"
+                    android:layout_marginTop="5dp"
+                    >
+
+                </GridView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1.5"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_0e1214_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="平台信息" />
+
+                <GridView
+                    android:id="@+id/gv_platform_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="0dp"
+                    android:gravity="center"
+                    android:background="@drawable/shape_gv_line"
+                    android:layout_marginTop="5dp">
+
+                </GridView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -3,7 +3,8 @@ package cn.cnlinfo.ccf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.orhanobut.logger.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cn.cnlinfo.ccf.manager.ACache;
 
@@ -44,20 +45,50 @@ public class UserSharedPreference {
     }
 
 
-    public void setIsFirstLogin(boolean flag){
-        mEditor.putBoolean("isFirstLogin",flag);
+    public void setUserInfo(String userinfo) {
+        this.setUserInfoToSharedPreferences(userinfo.toString());
+        this.setUserInfoToCache(userinfo);
+    }
+
+    private void setUserInfoToSharedPreferences(String userInfoToSharedPreferences) {
+        mEditor.putString("userinfo", userInfoToSharedPreferences);
         mEditor.commit();
     }
-    public boolean getIsFirstLogin(){
-        return mSharedPreferences.getBoolean("isFirstLogin",false);
+
+    private void setUserInfoToCache(String userInfoToCache) {
+        mACache.put("userinfo", userInfoToCache);
     }
+
+    public String getUserInfo() {
+        String jsonObjectFormCache = this.getUserInfoFormCache();
+        String jsonObjectFormSharedPreferences = this.getUserInfoFormSharedpreferences();
+        return null == jsonObjectFormCache ? jsonObjectFormSharedPreferences : jsonObjectFormCache;
+    }
+
+    private String getUserInfoFormSharedpreferences() {
+        return mSharedPreferences.getString("userinfo", null);
+    }
+
+    private String getUserInfoFormCache() {
+        return mACache.getAsString("userinfo");
+    }
+
+    public void setIsFirstLogin(boolean flag) {
+        mEditor.putBoolean("isFirstLogin", flag);
+        mEditor.commit();
+    }
+
+    public boolean getIsFirstLogin() {
+        return mSharedPreferences.getBoolean("isFirstLogin", false);
+    }
+
     /**
      * 是否已经登录
      *
      * @return boolean
      */
     public boolean hasLogined() {
-        return null!=this.getPhoneAndPassword()||null != this.getJwtToken();
+        return null != this.getPhoneAndPassword() || null != this.getJwtToken();
     }
 
 
@@ -239,6 +270,7 @@ public class UserSharedPreference {
     /**********************************************账号密码********************************************************************/
     /**
      * 存储用户账号密码
+     *
      * @param phoneNum
      * @param password
      */
@@ -266,7 +298,7 @@ public class UserSharedPreference {
             phoneAndPassword = this.getPhoneAndPasswordFromSharedPreference();
 
             if (null != phoneAndPassword) {
-                this.putPhoneAndPasswordToSharedPreference(phoneAndPassword.substring(0,11),phoneAndPassword.substring(12));
+                this.putPhoneAndPasswordToSharedPreference(phoneAndPassword.substring(0, 11), phoneAndPassword.substring(12));
             }
         }
         return phoneAndPassword;

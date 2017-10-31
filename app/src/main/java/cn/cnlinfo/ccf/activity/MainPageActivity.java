@@ -1,9 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -12,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tendcloud.tenddata.TCAgent;
-import com.tendcloud.tenddata.TalkingDataSMS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +19,6 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.adapter.MainPageFragmentAdapter;
-import cn.cnlinfo.ccf.dialog.DialogCreater;
-import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.fragment.CCMallFragment;
 import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
@@ -50,8 +44,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     private List<Fragment> fragmentList;
     private MainPageFragmentAdapter pageFragmentAdapter;
     private Unbinder unbinder;
-    private User user;
-    private Intent intent;
     private AlertDialog alertDialog;
 
     @Override
@@ -106,8 +98,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void init() {
-        intent = getIntent();
-        user = intent.getParcelableExtra("userinfo");
         fragmentList = new ArrayList<>();
         fragmentList = setFragmentList();
         if (fragmentList != null && fragmentList.size() > 0) {
@@ -154,9 +144,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
 
     private List<Fragment> setFragmentList() {
         MainPageFragment mainPageFragment = new MainPageFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("userinfo", user);
-        mainPageFragment.setArguments(bundle);
         fragmentList.add(mainPageFragment);
         fragmentList.add(new GaugePanelFragment());
         fragmentList.add(new TradingCenterFragment());

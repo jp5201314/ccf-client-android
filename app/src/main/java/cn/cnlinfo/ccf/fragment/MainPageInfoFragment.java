@@ -3,19 +3,24 @@ package cn.cnlinfo.ccf.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.AccountInfo;
+import cn.cnlinfo.ccf.view.UpDownTextView;
 
 /**
  * Created by Administrator on 2017/10/23 0023.
@@ -41,8 +48,14 @@ public class MainPageInfoFragment extends BaseFragment {
     View dot2;
 
     Unbinder unbinder;
-    private User user;
-    private Bundle bundle;
+    @BindView(R.id.tv_up_down)
+    UpDownTextView tvUpDown;
+    @BindView(R.id.gv_account_info)
+    GridView gvAccountInfo;
+    @BindView(R.id.gv_platform_info)
+    GridView gvPlatformInfo;
+
+    private SimpleAdapter simpleAdapter;
     private ScheduledExecutorService scheduledExecutorService;
     private ViewPagerAdapter viewPagerAdapter;
     private List<String> imageUrls;
@@ -50,32 +63,78 @@ public class MainPageInfoFragment extends BaseFragment {
     private int currentItem;
     //记录上一次点的位置
     private int oldPosition = 0;
-    private int [] nums = {R.drawable.img_guide_one_cooperation,R.drawable.img_guide_two_advantage,R.drawable.img_guide_three_discount};
+    private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
+    private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "碳控积分", "已冻结", "待激活"};
+    private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "循环卷积分", "循环劵", "消费积分"};
+    private List<String> accountAnswer;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_fragment_one, container, false);
         unbinder = ButterKnife.bind(this, view);
         init();
-
         return view;
     }
 
     private void init() {
-        bundle = getArguments();
-        user = bundle.getParcelable("userinfo");
-        setListData();
+        setBannerData();
+        setUpDownTextView();
+        simpleAdapter = new SimpleAdapter(getActivity(), getAccountData(), R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
+        gvAccountInfo.setAdapter(simpleAdapter);
+        gvPlatformInfo.setAdapter(simpleAdapter);
+    }
+
+    /**
+     * 获取个人信息数据
+     */
+    private List<String> getAccountAnwserData() {
+        String userInfoJsonString = UserSharedPreference.getInstance().getUserInfo();
+        AccountInfo accountInfo = JSONObject.parseObject(userInfoJsonString, AccountInfo.class);
+        accountAnswer = new ArrayList<>();
+        accountAnswer.add(accountInfo.getNickName());
+        accountAnswer.add(accountInfo.getAcountId());
+        accountAnswer.add(accountInfo.getLevel());
+        accountAnswer.add(accountInfo.getInvatationCode());
+        accountAnswer.add(accountInfo.getCcf());
+        accountAnswer.add(accountInfo.getCcIntegral());
+        accountAnswer.add(accountInfo.getFrozened());
+        accountAnswer.add(accountInfo.getToActivate());
+        return accountAnswer;
+    }
+
+    /**
+     * 设置上下滚动文本信息
+     */
+    private void setUpDownTextView() {
+        tvUpDown.setSingleLine();
+        tvUpDown.setGravity(Gravity.CENTER);
+        tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
+        tvUpDown.setTextSize(12);
+        tvUpDown.setTextList(imageUrls);
+        tvUpDown.setText("welcome to Carbon control factor");
+        tvUpDown.setDuring(500);
+        tvUpDown.startAutoScroll();
+        tvUpDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast("ok");
+            }
+        });
     }
 
 
-    private void setListData(){
+    /**
+     * 设置Banner的显示图片
+     */
+    private void setBannerData() {
         //显示的图片
         images = new ArrayList<ImageView>();
         imageUrls = new ArrayList<>();
         imageUrls.add("http://img01.taopic.com/141025/234987-1410250J11189.jpg");
         imageUrls.add("http://img1.3lian.com/2015/a1/84/d/95.jpg");
         imageUrls.add("http://img1.3lian.com/2015/a1/84/d/102.jpg");
-        for (int i = 0 ;i<imageUrls.size();i++){
+        for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getActivity());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(this).load(imageUrls.get(i)).fitCenter().error(nums[i]).placeholder(nums[i]).into(imageView);
@@ -112,10 +171,16 @@ public class MainPageInfoFragment extends BaseFragment {
 
     }
 
-    @Override
-    protected void onFragmentStartLazy() {
-        super.onFragmentStartLazy();
-
+    private List<Map<String, String>> getAccountData() {
+        List<Map<String, String>> list = new ArrayList<>();
+        List<String> data = getAccountAnwserData();
+        for (int i = 0; i < accountTitles.length; i++) {
+            Map<String, String> map = new HashMap<>();
+            map.put("title", accountTitles[i]);
+            map.put("answer", data.get(i));
+            list.add(map);
+        }
+        return list;
     }
 
     @Override
@@ -135,7 +200,7 @@ public class MainPageInfoFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        if(scheduledExecutorService != null){
+        if (scheduledExecutorService != null) {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
@@ -147,7 +212,7 @@ public class MainPageInfoFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    class ViewPageTask implements Runnable{
+    class ViewPageTask implements Runnable {
 
         @Override
         public void run() {
@@ -156,14 +221,14 @@ public class MainPageInfoFragment extends BaseFragment {
         }
     }
 
-    Handler mHandler = new Handler(){
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-           vp.setCurrentItem(currentItem);
+            vp.setCurrentItem(currentItem);
         }
     };
 
-    class ViewPagerAdapter extends PagerAdapter{
+    class ViewPagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -172,7 +237,7 @@ public class MainPageInfoFragment extends BaseFragment {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view==object;
+            return view == object;
         }
 
         @Override
@@ -186,7 +251,7 @@ public class MainPageInfoFragment extends BaseFragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),""+(position+1),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "" + (position + 1), Toast.LENGTH_SHORT).show();
                 }
             });
             container.addView(imageView);
