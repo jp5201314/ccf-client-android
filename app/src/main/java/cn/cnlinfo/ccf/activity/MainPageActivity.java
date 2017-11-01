@@ -1,6 +1,10 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,7 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,10 +70,10 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     private void validLoadGuidePage() {
         if (!validNewVersion()) {
             if (validLogin()) {
-                if (UserSharedPreference.getInstance().getIsFirstLogin()){
+                if (UserSharedPreference.getInstance().getIsFirstLogin()) {
                     showRiskWarningDialog();
                     UserSharedPreference.getInstance().setIsFirstLogin(false);
-                }else {
+                } else {
 
                 }
             } else {
@@ -89,7 +95,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (alertDialog!=null){
+                if (alertDialog != null) {
                     alertDialog.dismiss();
                 }
             }
@@ -234,5 +240,31 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            if (data != null) {
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                Logger.d("scan QRCode info " + content);
+                /**
+                 * http://qm.qq.com/cgi-bin/qm/qr?k=cycGNWnspzlbVYtdI8ubsxf7JpUaYWeI
+                 * 判断设备中是否存在与之相同的scheme
+                 */
+              /*  PackageManager packageManager = getPackageManager();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(content));
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+                boolean isValid = !activities.isEmpty();
+                if (isValid) {
+                    startActivity(intent);
+                }*/
+                Intent intent = new Intent(this,WebActivity.class);
+                intent.putExtra("url",content);
+                startActivity(intent);
+
+            }
+        }
     }
 }

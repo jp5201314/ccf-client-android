@@ -5,8 +5,8 @@ Properties properties = new Properties();
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "cn.cnlinfo.ccf"
         minSdkVersion 17
@@ -103,6 +103,7 @@ android {
         }
     }
 }
+
 static def generateTime() {
     return new Date().format("yyyy-MM-dd-hh-mm", TimeZone.getDefault())
 }
@@ -113,79 +114,100 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     /**
-     *  事件分发
-     */
-    /**
-     *  View注入框架
-     */
-    /**
-     *  dialog的框架
-     */
-    /**
-     *  刷新的控件（上拉刷新，下拉加载 ）
-     */
-    /**
-     *  OkHttp
-     */
-    /**
-     *  fastJson
-     */
-    /**
-     *  Logger
-     */
-    /**
-     *     对话框
-     */
-    /**
-     *  进度对话框
-     */
-    /**
-     *  View注入框架
-     */
-    /**
-     *  dialog的框架
-     */
-    /**
-     *  刷新的控件（上拉刷新，下拉加载 ）
-     */
-    /**
-     *  OkHttp
-     */
-    /**
-     *  fastJson
-     */
-    /**
-     *  Logger
-     */
-    /**
-     *     对话框
-     */
-    /**
-     *  进度对话框
-     */
-    /**
-     *  运行时权限
-     */
-    /**
-     * okhttpfinal
-     */
-    /**
-     * TalkingData数据统计
-     */
-    /**
-     * viewpageindicatord的使用
+     *   事件分发
      */
 
     /**
-     * 图片加载框架
+     *   View注入框架
      */
 
     /**
-     * RecycleView
+     *   dialog的框架
+     */
+
+    /**
+     *   刷新的控件（上拉刷新，下拉加载 ）
+     */
+
+    /**
+     *   OkHttp
+     */
+
+    /**
+     *   fastJson
+     */
+
+    /**
+     *   Logger
+     */
+
+    /**
+     *      对话框
+     */
+
+    /**
+     *   进度对话框
+     */
+
+    /**
+     *   View注入框架
+     */
+
+    /**
+     *   dialog的框架
+     */
+
+    /**
+     *   刷新的控件（上拉刷新，下拉加载 ）
+     */
+
+    /**
+     *   OkHttp
+     */
+
+    /**
+     *   fastJson
+     */
+
+    /**
+     *   Logger
+     */
+
+    /**
+     *      对话框
+     */
+
+    /**
+     *   进度对话框
+     */
+
+    /**
+     *   运行时权限
+     */
+
+    /**
+     *  okhttpfinal
+     */
+
+    /**
+     *  TalkingData数据统计
+     */
+
+    /**
+     *  viewpageindicatord的使用
+     */
+
+    /**
+     *  图片加载框架
+     */
+
+    /**
+     *  RecycleView
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
@@ -204,5 +226,5 @@ dependencies {
     compile 'cn.finalteam:okhttpfinal:2.0.7'
     compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
     compile 'com.github.bumptech.glide:glide:3.6.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.github.yuzhiqiang1993:zxing:2.0.0'
 }

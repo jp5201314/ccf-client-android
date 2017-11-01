@@ -37,7 +37,7 @@ public class GuideActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         TCAgent.onPageStart(this, "引导页");
         this.setStatusBarColor(R.color.color_transparent);
-        //GuideActivityPermissionsDispatcher.needsAlertWithCheck(this);
+        GuideActivityPermissionsDispatcher.needsAlertWithCheck(this);
         GuideActivityPermissionsDispatcher.needsCameraWithCheck(this);
         //将要分页显示的View装入数组中
         LayoutInflater inflater = getLayoutInflater();
