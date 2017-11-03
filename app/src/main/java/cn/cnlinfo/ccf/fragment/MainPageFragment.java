@@ -6,18 +6,14 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,18 +24,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.zxing.WriterException;
-import com.orhanobut.logger.Logger;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.LayoutBar;
 import com.shizhefei.view.indicator.slidebar.ScrollBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.tendcloud.tenddata.TCAgent;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.bean.ZxingConfig;
-import com.yzq.zxinglibrary.common.Constant;
-import com.yzq.zxinglibrary.encode.CodeCreator;
 
 import java.lang.reflect.Field;
 
@@ -47,7 +37,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.activity.MainPageActivity;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.activity.BuildQRCodeActivity;
+import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
 import permissions.dispatcher.NeedsPermission;
@@ -56,8 +48,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2017/10/11 0011.
@@ -78,7 +68,7 @@ public class MainPageFragment extends BaseFragment {
     private IndicatorViewPager indicatorViewPager;
     private IndicatorViewPager.IndicatorFragmentPagerAdapter adapter;
     private Unbinder unbinder;
-    private final String[] TITLES = {"主页信息", "循环包", "分享信息"};
+    private final String[] TITLES = {"主页信息", "循环包", "个人信息"};
     private PopupMenu popupMenu;
     private static final int REQUEST_CODE_SCAN = 100;
 
@@ -134,11 +124,11 @@ public class MainPageFragment extends BaseFragment {
                     case R.id.sweep:
                         MainPageFragmentPermissionsDispatcher.toRichScanWithCheck(MainPageFragment.this);
                         break;
-                    case R.id.addFriend:
-                        toast(item.getTitle().toString());
+                    case R.id.myqrcode:
+                       startActivity(new Intent(getActivity(), BuildQRCodeActivity.class));
                         break;
-                    case R.id.shareUser:
-                        toast(item.getTitle().toString());
+                    case R.id.exit:
+                        exit();
                         break;
                     case R.id.setting:
                         toast(item.getTitle().toString());
@@ -148,6 +138,15 @@ public class MainPageFragment extends BaseFragment {
             }
         });
     }
+
+    /**
+     * 退出app清除账号
+     */
+    private void exit(){
+        UserSharedPreference.getInstance().logout();
+        AppManage.getInstance().exit(getActivity());
+    }
+
 
     private void setIndicator() {
         float unSelectSize = 15;

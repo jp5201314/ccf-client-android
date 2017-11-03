@@ -98,6 +98,7 @@ public class UserSharedPreference {
     public void logout() {
         this.removeJwtToken();
         this.removePhoneAndPassword();
+        this.removeUser();
     }
 
     /**

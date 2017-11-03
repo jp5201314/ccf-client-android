@@ -224,7 +224,9 @@ public class MainPageInfoFragment extends BaseFragment {
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            vp.setCurrentItem(currentItem);
+            if (vp!=null){
+                vp.setCurrentItem(currentItem);
+            }
         }
     };
 
