@@ -67,6 +67,10 @@
     <color name="color_purple_aa66cc">#aa66cc</color>
 
 
+    <color name="color_orange_ffff00">#ffff00</color>
+    <color name="color_orange_fade05">#fade05</color>
+    <color name="color_orange_ffd161">#ffd161</color>
+
 
     <color name="color_yellow_ffbb33">#ffbb33</color>
     <color name="color_yellow_fbb673">#fbb673</color>

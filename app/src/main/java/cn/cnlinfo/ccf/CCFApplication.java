@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -42,6 +43,7 @@ public class CCFApplication extends Application {
         }
         Logger.init("CCFinal").hideThreadInfo();
         EventBus.getDefault().register(mContext);
+        Fresco.initialize(mContext);
 
         OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
         OkHttpFinal.getInstance().init(builder.build());
