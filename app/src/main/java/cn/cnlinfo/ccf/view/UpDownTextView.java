@@ -204,7 +204,6 @@ public class UpDownTextView extends LinearLayout {
             if (onTextScrollListener != null) {
                 onTextScrollListener.onTextScroll();
             }
-//            LogUitls.print("滚动文本", "界面滚动");
         }
     };
 
@@ -222,7 +221,7 @@ public class UpDownTextView extends LinearLayout {
     public void setTextDownAnim(String text) {
         this.curText = text;
         textViews[0].setText(text);
-        down();// 向上的动画
+        down();// 向下的动画
     }
 
     public void setDuring(int during) {
