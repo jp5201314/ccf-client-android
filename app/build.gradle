@@ -209,6 +209,12 @@ dependencies {
     /**
      * lite-orm数据库存储
      */
+    /**
+     * RecycleView
+     */
+    /**
+     * 省市县三级联动
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -232,4 +238,6 @@ dependencies {
     compile 'com.github.yuzhiqiang1993:zxing:2.0.0'
     compile files('libs/lite-orm-1.7.0.jar')
     compile 'com.facebook.fresco:fresco:0.8.1'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'liji.library.dev:citypickerview:2.0.1'
 }

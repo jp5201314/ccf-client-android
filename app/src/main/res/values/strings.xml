@@ -43,4 +43,24 @@
     <string name="dialog_risk_warning_name">碳控因子维护组</string>
     <string name="dialog_risk_warning_date">2017-10-25</string>
 
+
+    <string name="spinner_tip">--请选择--</string>
+   <string-array name="agency_type">
+       <item >省代</item>
+       <item >市代</item>
+       <item >县代</item>
+   </string-array>
+
+
+    <string-array name="service_type">
+        <item>cc商城商家</item>
+        <item>cc商城消费者</item>
+        <item>cc联盟商家</item>
+        <item>cc联盟消费者</item>
+    </string-array>
+
+    <string-array name="user_type">
+        <item>cc商城</item>
+        <item>cc联盟</item>
+    </string-array>
 </resources>

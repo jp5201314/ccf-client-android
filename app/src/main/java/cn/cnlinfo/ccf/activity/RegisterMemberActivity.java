@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.litesuits.orm.LiteOrm;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.LayoutBar;
@@ -18,6 +20,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.fragment.RegisterAgencyFragment;
 import cn.cnlinfo.ccf.fragment.RegisterCustomerFragment;
@@ -39,10 +42,8 @@ public class RegisterMemberActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_member);
         unbinder = ButterKnife.bind(this);
-
         setFixedIndicator();
     }
-
     private void setFixedIndicator() {
         float unSelectSize = 15;
         float selectSize = 15;

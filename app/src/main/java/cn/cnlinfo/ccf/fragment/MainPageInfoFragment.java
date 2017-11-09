@@ -160,7 +160,6 @@ public class MainPageInfoFragment extends BaseFragment {
                 dots.get(oldPosition).setBackgroundResource(R.drawable.guide_circle_gray);
                 oldPosition = position;
                 currentItem = position;
-
             }
 
             @Override

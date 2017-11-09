@@ -1,12 +1,18 @@
 package cn.cnlinfo.ccf.step_count.utils;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+
 import com.litesuits.orm.LiteOrm;
+import com.litesuits.orm.db.DataBaseConfig;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 
 import java.util.List;
 
 import cn.cnlinfo.ccf.CCFApplication;
+import cn.cnlinfo.ccf.manager.AppManage;
+import cn.cnlinfo.ccf.manager.PhoneManager;
 
 /**
  * Created by JP on 17/11/2

@@ -40,7 +40,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver{
                         }
                     }
                 }else {
-                    showSetNetWorkDialog(context);
+                    //showSetNetWorkDialog(context);
                 }
             }else {
                 showSetNetWorkDialog(context);
