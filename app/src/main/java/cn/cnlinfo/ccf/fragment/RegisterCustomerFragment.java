@@ -16,14 +16,10 @@ import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
 import com.orhanobut.logger.Logger;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.entity.Province;
-import cn.cnlinfo.ccf.step_count.utils.DatabaseManager;
 import cn.cnlinfo.ccf.utils.CityPickerUtils;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;

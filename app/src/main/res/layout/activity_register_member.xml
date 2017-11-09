@@ -6,10 +6,7 @@
     tools:context="cn.cnlinfo.ccf.activity.RegisterMemberActivity"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:background="@drawable/ic_global"/>
+    <include layout="@layout/item_image"/>
     <com.shizhefei.view.indicator.FixedIndicatorView
         android:id="@+id/fixedIndicator"
         android:layout_width="match_parent"

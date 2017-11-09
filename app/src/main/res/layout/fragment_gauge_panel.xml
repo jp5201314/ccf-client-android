@@ -4,10 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:background="@drawable/ic_global"/>
+    <include layout="@layout/item_image"/>
             <GridView
                 android:id="@+id/gv_gauge_panel"
                 android:layout_width="match_parent"
