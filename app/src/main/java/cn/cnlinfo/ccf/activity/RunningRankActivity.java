@@ -1,16 +1,19 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
+import com.shizhefei.mvc.IDataAdapter;
+import com.shizhefei.mvc.ILoadViewFactory;
+import com.shizhefei.mvc.MVCHelper;
+import com.shizhefei.mvc.MVCNormalHelper;
+import com.shizhefei.mvc.OnRefreshStateChangeListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,22 +22,27 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.RunningRankAdapter;
 import cn.cnlinfo.ccf.entity.RunningRankEntity;
-import cn.cnlinfo.ccf.listener.LoadMoreOnScrollListener;
+import cn.cnlinfo.ccf.mvc.datasource.RunningRankDataSource;
+import cn.cnlinfo.ccf.mvc.factory.MyLoadViewFactory;
+import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
+import cn.cnlinfo.ccf.view.RecyclerViewDivider;
+import cn.cnlinfo.ccf.view.SpacesItemDecoration;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
-public class RunningRankActivity extends BaseActivity {
+public class RunningRankActivity extends BaseActivity implements View.OnClickListener{
 
+    @BindView(R.id.ibt_back)
+    ImageButton ibtBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.ibt_add)
+    ImageButton ibtAdd;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.layout_swipe_refresh)
-    SwipeRefreshLayout layoutSwipeRefresh;
-    @BindView(R.id.ibt_back)
-    ImageButton ibt;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.ibt_add)
-    ImageButton ibAdd;
+    @BindView(R.id.pfl)
+    PtrClassicFrameLayout pfl;
     private Unbinder unbinder;
-    private List<RunningRankEntity> list;
+    private MVCHelper<List<RunningRankEntity>> mvcHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,60 +53,52 @@ public class RunningRankActivity extends BaseActivity {
     }
 
     private void init() {
-        ibAdd.setVisibility(View.INVISIBLE);
-        ibt.setOnClickListener(new View.OnClickListener() {
+        ibtBack.setOnClickListener(this);
+        ibtAdd.setVisibility(View.INVISIBLE);
+        tvTitle.setText("跑步排名");
+        MVCHelper.setLoadViewFractory(new MyLoadViewFactory());
+        this.setMaterialHeader(pfl);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setNestedScrollingEnabled(false);
+        //rv.addItemDecoration(new RecyclerViewDivider(this,LinearLayoutManager.VERTICAL,8,ContextCompat.getColor(this, R.color.color_black_0e1214_alpha_75)));
+        //项之间的距离为8px
+        rv.addItemDecoration(new SpacesItemDecoration(8));
+        mvcHelper = new MVCUltraHelper<List<RunningRankEntity>>(pfl);
+        mvcHelper.setDataSource(new RunningRankDataSource());
+        mvcHelper.setAdapter(new IDataAdapter<List<RunningRankEntity>>() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void notifyDataChanged(List<RunningRankEntity> list, boolean isRefresh) {
+                if (rv!=null){
+                    rv.setAdapter(new RunningRankAdapter(RunningRankActivity.this,list));
+                }
+            }
+
+            @Override
+            public List<RunningRankEntity> getData() {
+                return null;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
             }
         });
-        tv_title.setText("跑步排名");
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rv.setLayoutManager(linearLayoutManager);
-        final RunningRankAdapter adapter = new RunningRankAdapter(this, acquireData());
-        rv.setAdapter(adapter);
-        layoutSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.notifyDataSetChanged();
-                layoutSwipeRefresh.setRefreshing(false);
-            }
-        });
-
-        rv.addOnScrollListener(new LoadMoreOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                Logger.d(currentPage+"");
-                getData();
-                adapter.notifyDataSetChanged();
-                layoutSwipeRefresh.setRefreshing(false);
+        mvcHelper.refresh();
     }
-});
-    }
-
-    /**
-     * 获取到排名数据
-     *
-     * @return
-     */
-    private List<RunningRankEntity> acquireData() {
-        list = new ArrayList<>();
-        getData();
-        return list;
-    }
-
-    private void getData() {
-        for (int i= 0;i<10;i++){
-            RunningRankEntity entity = new RunningRankEntity(i, "jp", "5212", 452);
-            list.add(entity);
-        }
-    }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        mvcHelper.destory();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ibt_back:
+                finish();
+                break;
+        }
     }
 }

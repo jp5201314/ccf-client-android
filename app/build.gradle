@@ -215,6 +215,9 @@ dependencies {
     /**
      * 省市县三级联动
      */
+    /**
+     *   MVCHelper 核心类库
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -240,4 +243,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.8.1'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'liji.library.dev:citypickerview:2.0.1'
+    compile 'com.shizhefei:MVCHelper-Library:1.3.2'
 }

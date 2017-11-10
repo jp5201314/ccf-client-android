@@ -22,6 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.activity.MyParameterActivity;
+import cn.cnlinfo.ccf.activity.PlatformParameterActivity;
 import cn.cnlinfo.ccf.activity.RegisterMemberActivity;
 import cn.cnlinfo.ccf.activity.RunningRankActivity;
 
@@ -89,10 +91,10 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
 
                 break;
             case 3:
-
+                startActivity(new Intent(getActivity(), MyParameterActivity.class));
                 break;
             case 4:
-
+                startActivity(new Intent(getActivity(), PlatformParameterActivity.class));
                 break;
             case 5:
                 startActivity(new Intent(getActivity(), RunningRankActivity.class));

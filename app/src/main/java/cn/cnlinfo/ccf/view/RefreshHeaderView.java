@@ -80,10 +80,12 @@ public class RefreshHeaderView extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshBegin(PtrFrameLayout ptrFrameLayout) {
+
     }
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout ptrFrameLayout) {
+
     }
 
     @Override

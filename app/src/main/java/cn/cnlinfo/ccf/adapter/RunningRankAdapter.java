@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
+import com.shizhefei.mvc.IDataAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,14 +22,14 @@ import cn.cnlinfo.ccf.entity.RunningRankEntity;
  * Created by Administrator on 2017/11/7 0007.
  */
 
-public class RunningRankAdapter extends RecyclerView.Adapter {
+public class RunningRankAdapter extends RecyclerView.Adapter{
 
     private Context context;
-    private List<RunningRankEntity> list;
+    private List<RunningRankEntity> runningRankEntityList = new ArrayList<>();
 
-    public RunningRankAdapter(Context context, List<RunningRankEntity> list) {
+    public RunningRankAdapter(Context context,List<RunningRankEntity> list) {
         this.context = context;
-        this.list = list;
+        runningRankEntityList = list;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class RunningRankAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
-            RunningRankEntity runningRankEntity = list.get(position);
+            RunningRankEntity runningRankEntity = runningRankEntityList.get(position);
             ((MyViewHolder) holder).tvRank.setText(runningRankEntity.getId() + "");
             ((MyViewHolder) holder).tvName.setText(runningRankEntity.getName());
             ((MyViewHolder) holder).tvRankStep.setText(String.format(((MyViewHolder) holder).tvRankStep.getText().toString(), runningRankEntity.getStep()));
@@ -47,7 +51,7 @@ public class RunningRankAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return runningRankEntityList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

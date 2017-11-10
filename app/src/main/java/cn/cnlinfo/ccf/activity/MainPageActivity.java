@@ -30,6 +30,7 @@ import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
 import cn.cnlinfo.ccf.fragment.MainPageFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
+import cn.cnlinfo.ccf.manager.PhoneManager;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
 
 public class MainPageActivity extends BaseActivity implements View.OnClickListener {
