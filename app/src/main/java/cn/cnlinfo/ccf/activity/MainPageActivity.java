@@ -88,14 +88,14 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     private void showRiskWarningDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(this, R.layout.dialog_risk_warning, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_close_dialog);
+        ImageView imageView =  view.findViewById(R.id.iv_close_dialog);
         builder.setView(view);
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (alertDialog != null) {
+                if (alertDialog != null&&alertDialog.isShowing()) {
                     alertDialog.dismiss();
                 }
             }

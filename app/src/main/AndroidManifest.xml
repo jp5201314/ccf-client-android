@@ -130,11 +130,14 @@
         <activity
             android:name=".activity.RegisterMemberActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/spinner_theme"/>
+            android:theme="@style/spinner_theme"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.RunningRankActivity"
             android:screenOrientation="portrait" />
+        <!--贡献图谱-->
+        <activity android:name=".activity.ContributionMapActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

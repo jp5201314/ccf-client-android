@@ -64,9 +64,14 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="text_f5543a_12">
+
+    <style name="text_f5543a_15">
         <item name="android:textColor">#f5543a</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="text_f5543a_17">
+        <item name="android:textColor">#f5543a</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="text_0e1214_17">
