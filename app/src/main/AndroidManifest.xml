@@ -126,7 +126,7 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </service>
-
+        <!-- 注册会员 -->
         <activity
             android:name=".activity.RegisterMemberActivity"
             android:screenOrientation="portrait"
@@ -137,6 +137,19 @@
             android:screenOrientation="portrait" />
         <!--贡献图谱-->
         <activity android:name=".activity.ContributionMapActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- 跑步排名 -->
+        <activity
+            android:name=".activity.RunningRankActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DuplicateActivity" />
+        <!-- 我的参数 -->
+        <activity
+            android:name=".activity.MyParameterActivity"
+            android:screenOrientation="portrait" />
+        <!--平台参数-->
+        <activity android:name=".activity.PlatformParameterActivity"
             android:screenOrientation="portrait"/>
     </application>
 
