@@ -82,7 +82,7 @@
                         android:digits="@string/input_impose_num_lower_case"
                         android:maxLines="1"
                         android:maxLength="11"
-                        android:textColor="@drawable/selector_edittext_text_color"
+                        android:textColor="@drawable/selector_edit_text_color"
                         android:background="@drawable/edit_text_style"
                         android:hint="用户名/电话号码"/>
                 </LinearLayout>
@@ -107,7 +107,7 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:maxLength="11"
-                        android:textColor="@drawable/selector_edittext_text_color"
+                        android:textColor="@drawable/selector_edit_text_color"
                         android:background="@drawable/edit_text_style" />
                 </LinearLayout>
 
@@ -138,7 +138,7 @@
                             android:maxLines="1"
                             android:maxLength="4"
                             android:digits="@string/input_impose_num_lower_upper_case"
-                            android:textColor="@drawable/selector_edittext_text_color"
+                            android:textColor="@drawable/selector_edit_text_color"
                             android:background="@drawable/edit_text_style" />
 
                         <TextView

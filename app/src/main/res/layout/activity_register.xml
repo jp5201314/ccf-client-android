@@ -42,7 +42,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:maxLength="16"
-                android:textColor="@drawable/selector_edittext_text_color"
+                android:textColor="@drawable/selector_edit_text_color"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
                 android:hint="16位字母数字组合"
@@ -69,7 +69,7 @@
                 android:digits="@string/input_impose_num_lower_case"
                 android:maxLines="1"
                 android:maxLength="11"
-                android:textColor="@drawable/selector_edittext_text_color"
+                android:textColor="@drawable/selector_edit_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -93,7 +93,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:maxLength="11"
-                android:textColor="@drawable/selector_edittext_text_color"
+                android:textColor="@drawable/selector_edit_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -116,7 +116,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:maxLength="11"
-                android:textColor="@drawable/selector_edittext_text_color"
+                android:textColor="@drawable/selector_edit_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -140,7 +140,7 @@
                 android:maxLines="1"
                 android:maxLength="11"
                 android:digits="@string/input_impose_num"
-                android:textColor="@drawable/selector_edittext_text_color"
+                android:textColor="@drawable/selector_edit_text_color"
                 />
         </LinearLayout>
         <LinearLayout
@@ -171,7 +171,7 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:maxLines="1"
-                    android:textColor="@drawable/selector_edittext_text_color" />
+                    android:textColor="@drawable/selector_edit_text_color" />
 
                 <Button
                     android:id="@+id/btn_get_verification_code"

@@ -152,7 +152,8 @@
                         android:gravity="center"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:textColor="@drawable/selector_edittext_text_color" />
+                        android:maxLength="7"
+                        android:textColor="@drawable/selector_edit_text_color" />
                 </LinearLayout>
             </LinearLayout>
 

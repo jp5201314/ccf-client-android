@@ -56,7 +56,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +101,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -144,7 +144,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
         <Button
             android:id="@+id/btn_ok"

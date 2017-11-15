@@ -35,7 +35,7 @@
                 android:inputType="text"
                 android:maxLength="16"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
 
@@ -61,7 +61,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,7 +85,7 @@
                 android:hint="推荐人"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -212,7 +212,7 @@
                 android:inputType="textPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -236,7 +236,7 @@
                 android:inputType="textPassword"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -261,7 +261,7 @@
                 android:inputType="phone|number"
                 android:maxLength="11"
                 android:maxLines="1"
-                android:textColor="@drawable/selector_edittext_text_color" />
+                android:textColor="@drawable/selector_edit_text_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -293,7 +293,7 @@
                     android:inputType="number"
                     android:maxLength="4"
                     android:maxLines="1"
-                    android:textColor="@drawable/selector_edittext_text_color" />
+                    android:textColor="@drawable/selector_edit_text_color" />
 
                 <Button
                     android:id="@+id/btn_get_verification_code"
