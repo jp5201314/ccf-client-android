@@ -132,25 +132,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/spinner_theme"
             android:windowSoftInputMode="adjustPan" />
+        <!-- 贡献图谱 -->
         <activity
-            android:name=".activity.RunningRankActivity"
+            android:name=".activity.ContributionMapActivity"
             android:screenOrientation="portrait" />
-        <!--贡献图谱-->
-        <activity android:name=".activity.ContributionMapActivity"
-            android:screenOrientation="portrait"/>
-
-        <!-- 跑步排名 -->
-        <activity
-            android:name=".activity.RunningRankActivity"
+        <!--推荐网络-->
+        <activity android:name=".activity.RecommendNetActivity"
             android:screenOrientation="portrait"
-            tools:ignore="DuplicateActivity" />
+            android:theme="@style/NormalFullScreen"/>
         <!-- 我的参数 -->
         <activity
             android:name=".activity.MyParameterActivity"
             android:screenOrientation="portrait" />
-        <!--平台参数-->
-        <activity android:name=".activity.PlatformParameterActivity"
-            android:screenOrientation="portrait"/>
+        <!-- 平台参数 -->
+        <activity
+            android:name=".activity.PlatformParameterActivity"
+            android:screenOrientation="portrait" />
+        <!-- 跑步排名 -->
+        <activity
+            android:name=".activity.RunningRankActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

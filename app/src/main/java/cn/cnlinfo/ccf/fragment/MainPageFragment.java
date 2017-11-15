@@ -124,7 +124,7 @@ public class MainPageFragment extends BaseFragment {
                     case R.id.sweep:
                         MainPageFragmentPermissionsDispatcher.toRichScanWithCheck(MainPageFragment.this);
                         break;
-                    case R.id.myqrcode:
+                    case R.id.my_qrcode:
                        startActivity(new Intent(getActivity(), BuildQRCodeActivity.class));
                         break;
                     case R.id.exit:

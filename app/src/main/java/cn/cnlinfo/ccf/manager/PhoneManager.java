@@ -284,14 +284,32 @@ public class PhoneManager {
     }
 
     /**
-     * 从sp到px
-     *
-     * @param spValue
-     * @return
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2dip(float spValue) {
-        final float fontScale = CONTEXT.getResources().getDisplayMetrics().density;
-        return (int) (spValue / fontScale + 0.5f);
+    public static int px2dip( float pxValue) {
+        final float scale = CONTEXT.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * convert px to its equivalent sp
+     *
+     * 将px转换为sp
+     */
+    public static int px2sp( float pxValue) {
+        final float fontScale = CONTEXT.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+
+    /**
+     * convert sp to its equivalent px
+     *
+     * 将sp转换为px
+     */
+    public static int sp2px( float spValue) {
+        final float fontScale = CONTEXT.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
 
     /**

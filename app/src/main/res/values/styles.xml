@@ -39,6 +39,11 @@
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">false</item>
     </style>
 
+    <style name="NormalFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="text_ffffff_18">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>

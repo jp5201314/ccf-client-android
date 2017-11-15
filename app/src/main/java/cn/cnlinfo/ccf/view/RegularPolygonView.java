@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -74,10 +75,16 @@ public class RegularPolygonView extends TextView{
         float y = (d * d + mCy * mCy - c * c - mR * mR) / (2 * (mCy - c));
         float x = (float) (mCx + Math.sqrt(-1 * c * c + 2 * c * y + d * d - y * y));
         Logger.d("("+mCx+","+c+")"+"\n"+"("+x+","+y+")");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < mN; i++) {
             canvas.save();
             canvas.rotate(DEGREES_UNIT * i, mCx, mCy);
             // canvas.drawLine(mCx, mCy, mCx, c, mPaint);
+            //canvas.drawLine(mCx, mCy, x, y, mPaint);
+            /*for (float j = (int) mCx, k=c;i<x&&j<y;){
+                j=j+0.1f;
+                k=k+0.1f;
+                canvas.drawLine(mCx, mCy, j, k, mPaint);
+            }*/
             canvas.drawLine(mCx, c, x, y, mPaint);
             if (flag.equals("center")) {
                 canvas.drawLine(mCx, c, mCx, -y, mPaint);
