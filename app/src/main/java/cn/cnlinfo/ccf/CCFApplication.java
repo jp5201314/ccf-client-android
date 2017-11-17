@@ -22,7 +22,7 @@ import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 
 
 /**
- * Created by Administrator on 2017/10/11 0011.
+ * Created by JP on 2017/10/11 0011.
  */
 
 public class CCFApplication extends Application {

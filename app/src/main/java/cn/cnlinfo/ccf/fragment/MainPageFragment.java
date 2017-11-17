@@ -209,7 +209,7 @@ public class MainPageFragment extends BaseFragment {
                     fragment = new CyclePackageFragment();
                     break;
                 case 2:
-                    fragment = new ShareQRCodeFragment();
+                    fragment = new MyInfoFragment();
                     break;
                 default:
                     break;

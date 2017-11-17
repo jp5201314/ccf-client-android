@@ -4,12 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +31,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment{
     @BindView(R.id.ct_answer_three)
     CleanEditText ctAnswerThree;
     private Unbinder unbinder;
-    private List<String> data_list;
+    private String[] array_question = {};
     private ArrayAdapter<String> arr_adapter;
     private String answerOne;
     private String answerTwo;
@@ -52,7 +48,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment{
     private void init() {
         setDataSource();
         //适配器
-        arr_adapter= new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, data_list);
+        arr_adapter= new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, array_question);
         //设置样式
         arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //加载适配器
@@ -69,11 +65,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment{
 
     private void setDataSource(){
         //数据
-        data_list = new ArrayList<>();
-        data_list.add("你的妈妈的名字?");
-        data_list.add("你上的小学名称?");
-        data_list.add("你的最好的朋友?");
-        data_list.add("对你影响最深的人?");
+        array_question = getResources().getStringArray(R.array.security_question);
     }
 
     @Override

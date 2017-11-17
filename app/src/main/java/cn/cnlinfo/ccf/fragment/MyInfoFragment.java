@@ -11,7 +11,7 @@ import cn.cnlinfo.ccf.R;
  * Created by Administrator on 2017/10/23 0023.
  */
 
-public class ShareQRCodeFragment extends BaseFragment {
+public class MyInfoFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_fragment_three,container,false);

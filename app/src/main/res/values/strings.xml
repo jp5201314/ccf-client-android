@@ -63,4 +63,18 @@
         <item>cc商城</item>
         <item>cc联盟</item>
     </string-array>
+
+    <string-array name="security_question">
+        <item>高中学校的名字</item>
+        <item>父亲的名字</item>
+        <item>初中学校的名字</item>
+        <item>你的爱好</item>
+        <item>母亲的名字</item>
+        <item>初中班主任的名字</item>
+        <item>高中班主任的名字</item>
+        <item>你的学号</item>
+        <item>你的出生地</item>
+        <item>你的配偶的名字</item>
+        <item>你的生日</item>
+    </string-array>
 </resources>
