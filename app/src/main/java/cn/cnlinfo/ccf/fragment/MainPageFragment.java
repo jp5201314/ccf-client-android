@@ -39,6 +39,7 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.BuildQRCodeActivity;
+import cn.cnlinfo.ccf.activity.SettingActivity;
 import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
@@ -131,7 +132,7 @@ public class MainPageFragment extends BaseFragment {
                         exit();
                         break;
                     case R.id.setting:
-                        toast(item.getTitle().toString());
+                        startActivity(new Intent(getActivity(), SettingActivity.class));
                         break;
                 }
                 return false;

@@ -286,7 +286,7 @@
         <Button
             android:id="@+id/btn_register_customer"
             android:layout_width="69dp"
-            android:layout_height="22dp"
+            android:layout_height="32dp"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
             android:background="@drawable/selector_button_bg"

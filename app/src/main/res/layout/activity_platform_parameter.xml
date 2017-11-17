@@ -3,9 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/icon_background"
     >
+    <include layout="@layout/item_title_no_right"/>
     <include layout="@layout/item_image"/>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,8 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/ic_background">
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_level_height"
@@ -32,15 +32,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
+                    android:layout_marginTop="12dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
@@ -51,7 +49,7 @@
                         android:id="@+id/tv_total_ccf"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
 
@@ -68,10 +66,10 @@
                         style="@style/text_0e1214_15"/>
 
                     <TextView
-                        android:id="@+id/tv_total_te"
+                        android:id="@+id/tv_total_rights"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,10 +86,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_total_tce"
+                        android:id="@+id/tv_total_current_rights"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -106,10 +104,10 @@
                         android:text="已激活总量：" />
 
                     <TextView
-                        android:id="@+id/tv_total_a"
+                        android:id="@+id/tv_alive_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -129,7 +127,7 @@
                         android:id="@+id/tv_total_tba"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -144,10 +142,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_ccp"
+                        android:id="@+id/tv_cc_points"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -162,10 +160,10 @@
                         style="@style/text_0e1214_15"/>
 
                     <TextView
-                        android:id="@+id/tv_as_points"
+                        android:id="@+id/tv_available_consume_points"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -180,10 +178,10 @@
                         style="@style/text_0e1214_15"/>
 
                     <TextView
-                        android:id="@+id/tv_tbrs_points"
+                        android:id="@+id/tv_wait_free_consume_points"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -199,10 +197,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_ccv"
+                        android:id="@+id/tv_cc_volume"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -217,10 +215,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_tbr_ccp"
+                        android:id="@+id/tv_wait_free_cc_points"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -244,10 +242,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_fa"
+                        android:id="@+id/tv_frozen_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"  />
                 </LinearLayout>
 
 
@@ -264,10 +262,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_tc_number_oc_packge"
+                        android:id="@+id/tv_current_cycle_package_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -283,10 +281,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_c_price"
+                        android:id="@+id/tv_current_price"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -297,14 +295,15 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"                        android:text="初始激活总量："
+                        android:layout_height="@dimen/height"
+                        android:text="初始激活总量："
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_total_taoia"
+                        android:id="@+id/tv_init_total_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -320,10 +319,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_tca_number"
+                        android:id="@+id/tv_current_account_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -339,10 +338,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_tc_difficulty_f"
+                        android:id="@+id/tv_current_difficult_point"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -358,10 +357,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_p_total"
+                        android:id="@+id/tv_province_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -377,10 +376,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_city_g_total"
+                        android:id="@+id/tv_city_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -396,10 +395,10 @@
                         style="@style/text_0e1214_15" />
 
                     <TextView
-                        android:id="@+id/tv_total_t_number_ccounty"
+                        android:id="@+id/tv_county_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:textSize="@dimen/textsize_two_level" />
+                        style="@style/text_0e1214_15" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -1,6 +1,5 @@
 package cn.cnlinfo.ccf.activity;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.litesuits.orm.LiteOrm;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.LayoutBar;
@@ -20,7 +19,6 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.fragment.RegisterAgencyFragment;
 import cn.cnlinfo.ccf.fragment.RegisterCustomerFragment;
@@ -31,6 +29,10 @@ public class RegisterMemberActivity extends BaseActivity {
     FixedIndicatorView fixedIndicator;
     @BindView(R.id.vp)
     ViewPager vp;
+    @BindView(R.id.ibt_back)
+    ImageButton ibtBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private IndicatorViewPager indicatorViewPager;
     private Unbinder unbinder;
@@ -42,8 +44,16 @@ public class RegisterMemberActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_member);
         unbinder = ButterKnife.bind(this);
+        tvTitle.setText("注册成员");
+        ibtBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         setFixedIndicator();
     }
+
     private void setFixedIndicator() {
         float unSelectSize = 15;
         float selectSize = 15;

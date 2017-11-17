@@ -6,6 +6,7 @@
     tools:context="cn.cnlinfo.ccf.activity.RegisterMemberActivity"
     android:orientation="vertical">
 
+    <include layout="@layout/item_title_no_right"/>
     <include layout="@layout/item_image"/>
     <com.shizhefei.view.indicator.FixedIndicatorView
         android:id="@+id/fixedIndicator"
@@ -18,7 +19,8 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/icon_background">
 
     </android.support.v4.view.ViewPager>
 </LinearLayout>

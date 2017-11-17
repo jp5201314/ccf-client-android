@@ -136,22 +136,58 @@
         <activity
             android:name=".activity.ContributionMapActivity"
             android:screenOrientation="portrait" />
-        <!--推荐网络-->
-        <activity android:name=".activity.RecommendNetActivity"
+        <!-- 推荐网络 -->
+        <activity
+            android:name=".activity.RecommendNetActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
+            android:theme="@style/NormalFullScreen" />
         <!-- 我的参数 -->
         <activity
             android:name=".activity.MyParameterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 平台参数 -->
         <activity
             android:name=".activity.PlatformParameterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 跑步排名 -->
         <activity
             android:name=".activity.RunningRankActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!-- 设置中心 -->
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!-- 设置基本个人信息 -->
+        <activity
+            android:name=".activity.SetBasicInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!-- 设置密码 -->
+        <!-- 设置密保 -->
+        <activity
+            android:name=".activity.SetEncryptedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme" />
+        <!-- 留言中心 -->
+        <activity
+            android:name=".activity.LeaveMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!-- 修改密码 -->
+        <activity
+            android:name=".activity.UpdatePasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!--重置密码-->
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"
+            />
     </application>
 
 </manifest>

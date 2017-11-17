@@ -18,7 +18,27 @@ public class API {
      * password
      */
 
+    /**
+     * 登录
+     */
     public static final String CCFLOGIN = "Login";
 
+    /**
+     * 注册
+     */
     public static final String CCFREGISTER = "Register";
+
+    /**
+     * 设置密保
+     */
+    public static final String CCFSETENCRYPTED = "SetSafeQuestion";
+    /**
+     * 验证密保
+     */
+    public static final String CCFVERFYENCRYPTED = "SecurityQuestionIsTrue";
+
+    /**
+     * 重置密码
+     */
+    public static final String CCFRESETPASSWORD = "ChangePwdByQuestion";
 }

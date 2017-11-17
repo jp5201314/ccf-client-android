@@ -3,11 +3,14 @@ package cn.cnlinfo.ccf.activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.listener.LongPressClick;
 import cn.cnlinfo.ccf.view.RegularPolygonView;
@@ -28,13 +31,19 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
     RegularPolygonView rpvBottomLeft;
     @BindView(R.id.rl_map)
     RelativeLayout rlMap;
+    @BindView(R.id.ibt_back)
+    ImageButton ibtBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private AlertDialog alertDialog = null;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contribution_map);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+        tvTitle.setText("贡献图谱");
         registerOnClickListener();
         registerOnLongClickListener();
     }
@@ -66,6 +75,9 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ibt_back:
+                finish();
+                break;
             case R.id.rpv_center:
                 toast("rpvCenter");
                 rpvCenter.setText("sf001\n总:\t125");
@@ -134,5 +146,11 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
