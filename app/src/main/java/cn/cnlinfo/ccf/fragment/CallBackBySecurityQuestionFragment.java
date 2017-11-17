@@ -127,6 +127,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment{
     }
     private void toCheckEncrypted(){
         gainQuestionAndAnswer();
+        Logger.d("toCheckEncrypted");
         if (!TextUtils.isEmpty(answerOne)&&!TextUtils.isEmpty(answerTwo)&&!TextUtils.isEmpty(answerThree)){
             if (questionOne!=questionTwo&&questionOne!=questionThree&&questionTwo!=questionThree){
                 if (user!=null){
