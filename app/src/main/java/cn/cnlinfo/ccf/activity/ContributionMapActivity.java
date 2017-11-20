@@ -52,6 +52,7 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
      * 注册点击监听器
      */
     private void registerOnClickListener() {
+        ibtBack.setOnClickListener(this);
         rpvCenter.setOnClickListener(this);
         rpvBottomLeft.setOnClickListener(this);
         rpvBottomRight.setOnClickListener(this);
