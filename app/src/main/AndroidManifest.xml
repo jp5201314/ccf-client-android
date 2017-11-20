@@ -166,7 +166,6 @@
             android:name=".activity.SetBasicInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <!-- 设置密码 -->
         <!-- 设置密保 -->
         <activity
             android:name=".activity.SetEncryptedActivity"
@@ -182,11 +181,47 @@
             android:name=".activity.UpdatePasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <!--重置密码-->
+        <!-- 重置密码 -->
         <activity
             android:name=".activity.ResetPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"
+            android:theme="@style/NormalFullScreen" />
+        <!--系统公告-->
+        <activity android:name=".activity.SystemNoticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!--在线钱包-->
+        <activity android:name=".activity.OnlineWalletActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!--对外互转-->
+        <activity android:name=".activity.ForeignTransferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme" />
+        <!--内部互转-->
+        <activity android:name=".activity.InternalTransferActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme"/>
+        <!--用户升级-->
+        <activity android:name=".activity.UserUpgradeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme"/>
+        <!--记录中心-->
+        <activity android:name=".activity.RecordCenterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"/>
+        <!--碳控公益-->
+        <activity android:name=".activity.CCPublicBenefitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"/>
+        <!--碳控服务-->
+        <activity android:name=".activity.CCServiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <!--兑换中心-->
+        <activity android:name=".activity.ConversionCenterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme"
             />
     </application>
 
