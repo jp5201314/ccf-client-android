@@ -104,6 +104,9 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         showWaitingDialog(show, getString(R.string.please_wait));
     }
 
+    protected void toLogin(){
+        startActivity(new Intent(this,LoginRegisterActivity.class));
+    }
 
     protected void showMessage(int status, String message) {
         EventBus.getDefault().post(new ErrorMessageEvent(message));
