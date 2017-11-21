@@ -9,7 +9,8 @@
         android:layout_height="132dp"
         android:orientation="vertical"
         android:paddingLeft="18dp"
-        android:paddingRight="18dp">
+        android:paddingRight="18dp"
+        android:background="@color/color_gray_d8d8d8">
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="贡献值:  "
+                    android:text="贡献区:  "
                     android:layout_weight="1"
                     />
                 <TextView

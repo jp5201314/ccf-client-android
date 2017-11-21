@@ -94,4 +94,25 @@ public class API {
 
     public static final String SELLERCOMPLAINSBUYER = "SellersComplainBuyer";
 
+    /**
+     *获取套餐列表
+     */
+
+    public static final String GETPACKAGELIST = "GetMealList";
+
+    /**
+     *获取新闻公告内容
+     */
+
+    public static final String GETNEWSNOTICE = "GetNewBody";
+
+    /**
+     *获取新闻公告列表
+     */
+
+    public static final String GETNEWSLIST = "GetNewlist";
+    /**
+     * 获取平台信息
+     */
+    public static final String GETPLATFORMINFO = "Getplatforminfo";
 }

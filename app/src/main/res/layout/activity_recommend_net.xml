@@ -23,6 +23,7 @@
             android:text="用户推荐人员层级信息" />
 
         <cn.cnlinfo.ccf.view.ViewWithLine
+            android:id="@+id/vwl_self"
             android:layout_width="720dp"
             android:layout_height="1280dp" />
     </LinearLayout>

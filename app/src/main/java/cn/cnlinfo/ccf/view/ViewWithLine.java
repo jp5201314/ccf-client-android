@@ -24,6 +24,39 @@ import cn.cnlinfo.ccf.manager.PhoneManager;
  */
 @SuppressLint("AppCompatCustomView")
 public class ViewWithLine extends View {
+    public String rectF_1_1_Text = "";
+    public String rectF_2_1_Text = "";
+    public String rectF_2_2_Text = "";
+    public String rectF_2_3_Text = "";
+    public String rectF_2_4_Text = "";
+    public String rectF_2_5_Text = "";
+    public String rectF_3_1_Text = "";
+    public String rectF_3_2_Text = "";
+    public String rectF_3_3_Text = "";
+    public String rectF_3_4_Text = "";
+    public String rectF_3_5_Text = "";
+    public String rectF_3_6_Text = "";
+    public String rectF_3_7_Text = "";
+    public String rectF_3_8_Text = "";
+    public String rectF_3_9_Text = "";
+    public String rectF_3_10_Text = "";
+    public String rectF_3_11_Text = "";
+    public String rectF_3_12_Text = "";
+    public String rectF_3_13_Text = "";
+    public String rectF_3_14_Text = "";
+    public String rectF_3_15_Text = "";
+    public String rectF_3_16_Text = "";
+    public String rectF_3_17_Text = "";
+    public String rectF_3_18_Text = "";
+    public String rectF_3_19_Text = "";
+    public String rectF_3_20_Text = "";
+    public String rectF_3_21_Text = "";
+    public String rectF_3_22_Text = "";
+    public String rectF_3_23_Text = "";
+    public String rectF_3_24_Text = "";
+    public String rectF_3_25_Text = "";
+
+
     private Paint mPaint = null;
     private Paint gPaint = null;
     //画线的画笔
@@ -428,25 +461,24 @@ public class ViewWithLine extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawRect(rectF_1_1,mPaint);
+        setTextInfo(canvas,rectF_1_1,rectF_1_1_Text);
 
-        setTextInfo(canvas);
-
-        canvas.drawRect(rectF_2_1,mPaint);
-        canvas.drawRect(rectF_2_2,mPaint);
-        canvas.drawRect(rectF_2_3,mPaint);
-        canvas.drawRect(rectF_2_4,mPaint);
-        canvas.drawRect(rectF_2_5,mPaint);
         canvas.drawLine(rectF_1_1_right,h/2+grid_half_h,column_2_left_x,column_2_1_left_y+grid_half_h, bPaint);
         canvas.drawLine(rectF_1_1_right,h/2+grid_half_h,column_2_left_x,column_2_2_left_y+grid_half_h, bPaint);
         canvas.drawLine(rectF_1_1_right, h/2+grid_half_h, rectF_1_1_right +PhoneManager.dip2px(column_w),h/2+grid_half_h, bPaint);
         canvas.drawLine(rectF_1_1_right,h/2+grid_half_h,column_2_left_x,column_2_4_left_y+grid_half_h, bPaint);
         canvas.drawLine(rectF_1_1_right,h/2+grid_half_h,column_2_left_x,column_2_5_left_y+grid_half_h, bPaint);
 
-        canvas.drawRect(rectF_3_1,mPaint);
-        canvas.drawRect(rectF_3_2,mPaint);
-        canvas.drawRect(rectF_3_3,mPaint);
-        canvas.drawRect(rectF_3_4,mPaint);
-        canvas.drawRect(rectF_3_5,mPaint);
+        canvas.drawRect(rectF_2_1,mPaint);
+        setTextInfo(canvas,rectF_2_1,rectF_2_1_Text);
+        canvas.drawRect(rectF_2_2,mPaint);
+        setTextInfo(canvas,rectF_2_2,rectF_2_2_Text);
+        canvas.drawRect(rectF_2_3,mPaint);
+        setTextInfo(canvas,rectF_2_3,rectF_2_3_Text);
+        canvas.drawRect(rectF_2_4,mPaint);
+        setTextInfo(canvas,rectF_2_4,rectF_2_4_Text);
+        canvas.drawRect(rectF_2_5,mPaint);
+        setTextInfo(canvas,rectF_2_5,rectF_2_5_Text);
 
         canvas.drawLine(column_2_right_x,column_2_1_right_y-grid_half_h,column_3_left_x,column_3_1_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_1_right_y-grid_half_h,column_3_left_x,column_3_2_left_y+grid_half_h, bPaint);
@@ -454,11 +486,16 @@ public class ViewWithLine extends View {
         canvas.drawLine(column_2_right_x,column_2_1_right_y-grid_half_h,column_3_left_x,column_3_4_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_1_right_y-grid_half_h,column_3_left_x,column_3_5_left_y+grid_half_h, bPaint);
 
-        canvas.drawRect(rectF_3_6,mPaint);
-        canvas.drawRect(rectF_3_7,mPaint);
-        canvas.drawRect(rectF_3_8,mPaint);
-        canvas.drawRect(rectF_3_9,mPaint);
-        canvas.drawRect(rectF_3_10,mPaint);
+        canvas.drawRect(rectF_3_1,mPaint);
+        setTextInfo(canvas,rectF_3_1,rectF_3_1_Text);
+        canvas.drawRect(rectF_3_2,mPaint);
+        setTextInfo(canvas,rectF_3_2,rectF_3_2_Text);
+        canvas.drawRect(rectF_3_3,mPaint);
+        setTextInfo(canvas,rectF_3_3,rectF_3_3_Text);
+        canvas.drawRect(rectF_3_4,mPaint);
+        setTextInfo(canvas,rectF_3_4,rectF_3_4_Text);
+        canvas.drawRect(rectF_3_5,mPaint);
+        setTextInfo(canvas,rectF_3_5,rectF_3_5_Text);
 
         canvas.drawLine(column_2_right_x,column_2_2_right_y-grid_half_h,column_3_left_x,column_3_6_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_2_right_y-grid_half_h,column_3_left_x,column_3_7_left_y+grid_half_h, bPaint);
@@ -466,11 +503,16 @@ public class ViewWithLine extends View {
         canvas.drawLine(column_2_right_x,column_2_2_right_y-grid_half_h,column_3_left_x,column_3_9_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_2_right_y-grid_half_h,column_3_left_x,column_3_10_left_y+grid_half_h, bPaint);
 
-        canvas.drawRect(rectF_3_11,mPaint);
-        canvas.drawRect(rectF_3_12,mPaint);
-        canvas.drawRect(rectF_3_13,mPaint);
-        canvas.drawRect(rectF_3_14,mPaint);
-        canvas.drawRect(rectF_3_15,mPaint);
+        canvas.drawRect(rectF_3_6,mPaint);
+        setTextInfo(canvas,rectF_3_6,rectF_3_6_Text);
+        canvas.drawRect(rectF_3_7,mPaint);
+        setTextInfo(canvas,rectF_3_7,rectF_3_7_Text);
+        canvas.drawRect(rectF_3_8,mPaint);
+        setTextInfo(canvas,rectF_3_8,rectF_3_8_Text);
+        canvas.drawRect(rectF_3_9,mPaint);
+        setTextInfo(canvas,rectF_3_9,rectF_3_9_Text);
+        canvas.drawRect(rectF_3_10,mPaint);
+        setTextInfo(canvas,rectF_3_10,rectF_3_10_Text);
 
         canvas.drawLine(column_2_right_x,column_2_3_right_y-grid_half_h,column_3_left_x,column_3_11_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_3_right_y-grid_half_h,column_3_left_x,column_3_12_left_y+grid_half_h, bPaint);
@@ -478,11 +520,16 @@ public class ViewWithLine extends View {
         canvas.drawLine(column_2_right_x,column_2_3_right_y-grid_half_h,column_3_left_x,column_3_14_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_3_right_y-grid_half_h,column_3_left_x,column_3_15_left_y+grid_half_h, bPaint);
 
-        canvas.drawRect(rectF_3_16,mPaint);
-        canvas.drawRect(rectF_3_17,mPaint);
-        canvas.drawRect(rectF_3_18,mPaint);
-        canvas.drawRect(rectF_3_19,mPaint);
-        canvas.drawRect(rectF_3_20,mPaint);
+        canvas.drawRect(rectF_3_11,mPaint);
+        setTextInfo(canvas,rectF_3_11,rectF_3_11_Text);
+        canvas.drawRect(rectF_3_12,mPaint);
+        setTextInfo(canvas,rectF_3_12,rectF_3_12_Text);
+        canvas.drawRect(rectF_3_13,mPaint);
+        setTextInfo(canvas,rectF_3_13,rectF_3_13_Text);
+        canvas.drawRect(rectF_3_14,mPaint);
+        setTextInfo(canvas,rectF_3_14,rectF_3_14_Text);
+        canvas.drawRect(rectF_3_15,mPaint);
+        setTextInfo(canvas,rectF_3_15,rectF_3_15_Text);
 
         canvas.drawLine(column_2_right_x,column_2_4_right_y-grid_half_h,column_3_left_x,column_3_16_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_4_right_y-grid_half_h,column_3_left_x,column_3_17_left_y+grid_half_h, bPaint);
@@ -490,22 +537,40 @@ public class ViewWithLine extends View {
         canvas.drawLine(column_2_right_x,column_2_4_right_y-grid_half_h,column_3_left_x,column_3_19_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_4_right_y-grid_half_h,column_3_left_x,column_3_20_left_y+grid_half_h, bPaint);
 
-        canvas.drawRect(rectF_3_21,mPaint);
-        canvas.drawRect(rectF_3_22,mPaint);
-        canvas.drawRect(rectF_3_23,mPaint);
-        canvas.drawRect(rectF_3_24,mPaint);
-        canvas.drawRect(rectF_3_25,mPaint);
+        canvas.drawRect(rectF_3_16,mPaint);
+        setTextInfo(canvas,rectF_3_16,rectF_3_16_Text);
+        canvas.drawRect(rectF_3_17,mPaint);
+        setTextInfo(canvas,rectF_3_17,rectF_3_17_Text);
+        canvas.drawRect(rectF_3_18,mPaint);
+        setTextInfo(canvas,rectF_3_18,rectF_3_18_Text);
+        canvas.drawRect(rectF_3_19,mPaint);
+        setTextInfo(canvas,rectF_3_19,rectF_3_19_Text);
+        canvas.drawRect(rectF_3_20,mPaint);
+        setTextInfo(canvas,rectF_3_20,rectF_3_20_Text);
 
         canvas.drawLine(column_2_right_x,column_2_5_right_y-grid_half_h,column_3_left_x,column_3_21_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_5_right_y-grid_half_h,column_3_left_x,column_3_22_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_5_right_y-grid_half_h,column_3_left_x,column_3_23_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_5_right_y-grid_half_h,column_3_left_x,column_3_24_left_y+grid_half_h, bPaint);
         canvas.drawLine(column_2_right_x,column_2_5_right_y-grid_half_h,column_3_left_x,column_3_25_left_y+grid_half_h, bPaint);
+
+        canvas.drawRect(rectF_3_21,mPaint);
+        setTextInfo(canvas,rectF_3_21,rectF_3_21_Text);
+        canvas.drawRect(rectF_3_22,mPaint);
+        setTextInfo(canvas,rectF_3_22,rectF_3_22_Text);
+        canvas.drawRect(rectF_3_23,mPaint);
+        setTextInfo(canvas,rectF_3_23,rectF_3_23_Text);
+        canvas.drawRect(rectF_3_24,mPaint);
+        setTextInfo(canvas,rectF_3_24,rectF_3_24_Text);
+        canvas.drawRect(rectF_3_25,mPaint);
+        setTextInfo(canvas,rectF_3_25,rectF_3_25_Text);
+
+
     }
 
-    private void setTextInfo(Canvas canvas) {
+    private void setTextInfo(Canvas canvas,RectF rectF,String str) {
         Paint.FontMetricsInt fontMetrics = tPaint.getFontMetricsInt();
-        int baseline = (int) ((rectF_1_1.bottom + rectF_1_1.top - fontMetrics.bottom - fontMetrics.top) / 2);
-        canvas.drawText("sf1010", rectF_1_1.centerX(), baseline, tPaint);
+        int baseline = (int) ((rectF.bottom + rectF.top - fontMetrics.bottom - fontMetrics.top) / 2);
+        canvas.drawText(str, rectF.centerX(), baseline, tPaint);
     }
 }

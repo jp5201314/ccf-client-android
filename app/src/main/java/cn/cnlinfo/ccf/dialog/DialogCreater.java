@@ -1,8 +1,12 @@
 package cn.cnlinfo.ccf.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
@@ -15,8 +19,11 @@ import java.util.ArrayList;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
+import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.entity.ContributeMapNode;
 
 public class DialogCreater {
+
     /**
      * 创建带图片的文字listdialog
      *
@@ -157,6 +164,8 @@ public class DialogCreater {
                 .fadeColor(Color.DKGRAY)
                 .build();
     }
+
+
 
     /**
      * 创建sheet dialog
