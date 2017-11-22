@@ -1,6 +1,4 @@
 package cn.cnlinfo.ccf.entity;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -44,6 +42,11 @@ import java.io.Serializable;
  "TotalStep": 0,
  "TodayStep": 0,
  "E_max": 0
+ "Praise": 0,
+ "BusinessLev": 0,
+ "TotalMealWeight": 0,
+ "ServantID": 0,
+ "EnableAutoToCCF": false
  */
 public class User implements Serializable {
 
@@ -151,7 +154,70 @@ public class User implements Serializable {
     @JSONField(name = "E_max")
     private int eMax;
 
+    @JSONField(name = "Praise")
+    private double praise;
+    @JSONField(name = "BusinessLev")
+    private double businessLev;
+    @JSONField(name = "TotalMealWeight")
+    private double  totalMealWeight;
+    @JSONField(name = "ServantID")
+    private double servantId;
+    @JSONField(name = "EnableAutoToCCF")
+    private boolean enableAutoToCCF;
+    @JSONField(name = "ProductScore")
+    private int productScore;
+
+    public User(int id, String username, String nickName, int status, int parentId, int directId, String invitationCode, int jId, int mId, int sId, int hId, int tId, boolean isFull, int uType, String pwd, String mobile, long loginTimes, String registerIp, String date, int inLevel, String lastLogonIp, String lastLogonDate, int isOnline, int ccf, int circle, int carbonNum, int consumeIntegeral, int carbonIntegral, int releaseConsum, int releaseCarbon, int totalStep, int circleTicket, int eMax, double praise, double businessLev, double totalMealWeight, double servantId, boolean enableAutoToCCF, int productScore) {
+        this.id = id;
+        this.username = username;
+        this.nickName = nickName;
+        this.status = status;
+        this.parentId = parentId;
+        this.directId = directId;
+        this.invitationCode = invitationCode;
+        this.jId = jId;
+        this.mId = mId;
+        this.sId = sId;
+        this.hId = hId;
+        this.tId = tId;
+        this.isFull = isFull;
+        this.uType = uType;
+        this.pwd = pwd;
+        this.mobile = mobile;
+        this.loginTimes = loginTimes;
+        this.registerIp = registerIp;
+        this.date = date;
+        this.inLevel = inLevel;
+        this.lastLogonIp = lastLogonIp;
+        this.lastLogonDate = lastLogonDate;
+        this.isOnline = isOnline;
+        this.ccf = ccf;
+        this.circle = circle;
+        this.carbonNum = carbonNum;
+        this.consumeIntegeral = consumeIntegeral;
+        this.carbonIntegral = carbonIntegral;
+        this.releaseConsum = releaseConsum;
+        this.releaseCarbon = releaseCarbon;
+        this.totalStep = totalStep;
+        this.circleTicket = circleTicket;
+        this.eMax = eMax;
+        this.praise = praise;
+        this.businessLev = businessLev;
+        this.totalMealWeight = totalMealWeight;
+        this.servantId = servantId;
+        this.enableAutoToCCF = enableAutoToCCF;
+        this.productScore = productScore;
+    }
+
     public User() {
+    }
+
+    public int getProductScore() {
+        return productScore;
+    }
+
+    public void setProductScore(int productScore) {
+        this.productScore = productScore;
     }
 
     @Override
@@ -190,7 +256,53 @@ public class User implements Serializable {
                 ", totalStep=" + totalStep +
                 ", circleTicket=" + circleTicket +
                 ", eMax=" + eMax +
+                ", praise=" + praise +
+                ", businessLev=" + businessLev +
+                ", totalMealWeight=" + totalMealWeight +
+                ", servantId=" + servantId +
+                ", enableAutoToCCF=" + enableAutoToCCF +
+                ", productScore=" + productScore +
                 '}';
+    }
+
+    public double getPraise() {
+        return praise;
+    }
+
+    public void setPraise(double praise) {
+        this.praise = praise;
+    }
+
+    public double getBusinessLev() {
+        return businessLev;
+    }
+
+    public void setBusinessLev(double businessLev) {
+        this.businessLev = businessLev;
+    }
+
+    public double getTotalMealWeight() {
+        return totalMealWeight;
+    }
+
+    public void setTotalMealWeight(double totalMealWeight) {
+        this.totalMealWeight = totalMealWeight;
+    }
+
+    public double getServantId() {
+        return servantId;
+    }
+
+    public void setServantId(double servantId) {
+        this.servantId = servantId;
+    }
+
+    public boolean isEnableAutoToCCF() {
+        return enableAutoToCCF;
+    }
+
+    public void setEnableAutoToCCF(boolean enableAutoToCCF) {
+        this.enableAutoToCCF = enableAutoToCCF;
     }
 
     public int getId() {

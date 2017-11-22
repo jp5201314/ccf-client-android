@@ -69,7 +69,17 @@ public class CCFApplication extends Application {
     public void showErrorMessage(ErrorMessageEvent errorMessageEvent){
         int code = errorMessageEvent.getErrorCode();
         String msg = errorMessageEvent.getMsg();
-        toast(msg);
+        switch (code){
+            case 500:
+                toast(msg);
+                break;
+            case -1:
+                toast(msg);
+                break;
+            case -2:
+                toast(msg);
+                break;
+        }
     }
 
     private void toast(String msg){

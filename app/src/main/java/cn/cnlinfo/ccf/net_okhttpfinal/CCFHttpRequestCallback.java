@@ -2,8 +2,12 @@ package cn.cnlinfo.ccf.net_okhttpfinal;
 
 import com.alibaba.fastjson.JSONObject;
 
+import org.greenrobot.eventbus.EventBus;
+
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.finalteam.okhttpfinal.JsonHttpRequestCallback;
 import okhttp3.Headers;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/10/25 0025.
@@ -52,7 +56,6 @@ public abstract class CCFHttpRequestCallback extends JsonHttpRequestCallback {
                 break;
         }
     }
-
     @Override
     protected void onSuccess(JSONObject jsonObject) {
         super.onSuccess(jsonObject);
@@ -61,4 +64,12 @@ public abstract class CCFHttpRequestCallback extends JsonHttpRequestCallback {
     protected abstract void onDataSuccess(JSONObject data);
 
     protected abstract void onDataError(int code,boolean flag,String msg);
-}
+
+    @Override
+    public void onResponse(Response httpResponse, String response, Headers headers) {
+        super.onResponse(httpResponse, response, headers);
+        int code = httpResponse.code();
+        String msg  = httpResponse.message();
+        EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+        }
+    }

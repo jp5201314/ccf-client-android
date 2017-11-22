@@ -18,12 +18,12 @@ public class Constant {
     /**
      * 操作ccf主机地址
      */
-    public static final  String OPERATE_CCF_HOST = "http://ccf.hrkji.com/OperateCCF.asmx";
+    public static final  String OPERATE_CCF_HOST = "http://ccf.hrkji.com/OperateCCF.asmx/";
 
     /**
      * 获取数据的主机地址
      */
-    public static final String GET_DATA_HOST = "http://ccf.hrkji.com/GetDatas.asmx";
+    public static final String GET_DATA_HOST = "http://ccf.hrkji.com/GetDatas.asmx/";
 
     public static final String APP_DIR = PhoneManager.getSdCardRootPath() + "/ccf/";//app文件目录
     public static final String IMAGE_CACHE_DIR_PATH = APP_DIR + "cache/";// 图片缓存地址

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -24,13 +25,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.service.StepService;
 import cn.cnlinfo.ccf.step_count.utils.SharedPreferencesUtils;
 import cn.cnlinfo.ccf.view.StepArcView;
 
 /**
- * Created by Administrator on 2017/10/23 0023.
+ * Created by JP on 2017/10/23 0023.
  */
 
 public class CyclePackageFragment extends BaseFragment {
@@ -39,8 +42,6 @@ public class CyclePackageFragment extends BaseFragment {
     TextView tvCcNum;
     @BindView(R.id.tv_cycle_stock)
     TextView tvCycleStock;
-    @BindView(R.id.tv_cycle_pack)
-    TextView tvCyclePack;
     @BindView(R.id.self_step_arc)
     StepArcView selfStepArc;
     @BindView(R.id.tv_basic_contribute_value)
@@ -57,27 +58,33 @@ public class CyclePackageFragment extends BaseFragment {
     private SharedPreferencesUtils sharedPreferencesUtils;
     private boolean isBind = false;
     private Animatable animatable;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cycle_package, container, false);
-
         unbinder = ButterKnife.bind(this, view);
         initData();
         /**
          *  Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
          *  GlideDrawableImageViewTarget这个设置播放次数
-         *   Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
+         *  Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
          */
         return view;
     }
 
     private void initData() {
+        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        tvCcNum.setText(String.valueOf(user.getCcf()));
+        tvCycleStock.setText(String.valueOf(user.getCircleTicket()));
+        tvCenter.setText(String.valueOf(user.getCircle()));
+
         setControllerIntoSdvCycle();
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());
         setCurrentStep(0);
         startUpService();
     }
+
 
     /**
      * 设置当前的步数

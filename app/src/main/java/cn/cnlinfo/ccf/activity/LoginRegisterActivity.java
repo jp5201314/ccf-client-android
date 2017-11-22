@@ -161,6 +161,7 @@ public class LoginRegisterActivity extends BaseActivity {
                     }
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
+                        showMessage(code,msg);
                         Logger.d(code + "  " + flag + "  " + msg);
                     }
                 });
@@ -168,6 +169,5 @@ public class LoginRegisterActivity extends BaseActivity {
                 toast("验证码不正确，请重新输入");
             }
         }
-
     }
 }

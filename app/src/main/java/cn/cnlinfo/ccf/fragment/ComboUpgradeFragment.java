@@ -8,10 +8,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.User;
 
 /**
  * Created by JP on 2017/11/20 0020.

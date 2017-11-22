@@ -1,17 +1,22 @@
 package cn.cnlinfo.ccf.view;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import cn.cnlinfo.ccf.entity.ItemNews;
 
 /**
  * Created by Administrator on 2017/10/30 0030.
@@ -54,6 +59,8 @@ public class UpDownTextView extends LinearLayout {
      */
     private int animMode = 0;// 默认向上 0--向上，1--向下
 
+    private List<ItemNews> itemNewsList;
+
     /***
      * 是否正在自动滚动
      */
@@ -88,7 +95,6 @@ public class UpDownTextView extends LinearLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         stopAutoScroll();// 防止内存泄漏的操作
-//        LogUitls.print("滚动文本","界面销毁移动handler");
     }
 
     @Override
@@ -292,8 +298,14 @@ public class UpDownTextView extends LinearLayout {
         return mTextList;
     }
 
-    public void setTextList(List<String> mTextList) {
-        this.mTextList = mTextList;
+    public void setTextList(List<ItemNews> itemNewsList) {
+        this.itemNewsList = itemNewsList;
+        ArrayList<String> noticeList = new ArrayList<>();
+        for (int i = 0;i<itemNewsList.size();i++){
+            ItemNews itemNews = itemNewsList.get(i);
+            noticeList.add(itemNews.getSubject());
+        }
+        this.mTextList = noticeList;
     }
 
     public int getCurrentIndex() {
@@ -329,4 +341,8 @@ public class UpDownTextView extends LinearLayout {
         void onTextScroll();
     }
 
+    @Override
+    public boolean callOnClick() {
+        return super.callOnClick();
+    }
 }

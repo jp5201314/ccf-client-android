@@ -16,7 +16,7 @@
             android:layout_height="0dp"
             android:layout_gravity="start"
             android:layout_marginTop="9dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
@@ -50,8 +50,7 @@
                         style="@style/text_0e1214_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:text="碳控因子" />
+                        android:layout_marginLeft="9dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -78,8 +77,7 @@
                         style="@style/text_0e1214_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:text="循环劵" />
+                        android:layout_marginLeft="9dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -91,7 +89,7 @@
                 android:layout_marginTop="9dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+        <!--        <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -106,9 +104,8 @@
                         style="@style/text_0e1214_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:text="循环包" />
-                </LinearLayout>
+                        android:layout_marginLeft="9dp" />
+                </LinearLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -152,7 +149,7 @@
                         android:gravity="center"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:maxLength="7"
+                        android:maxLength="3"
                         android:textColor="@drawable/selector_edit_text_color" />
                 </LinearLayout>
             </LinearLayout>
@@ -261,6 +258,7 @@
             android:layout_height="32dp"
             android:layout_gravity="center"
             android:layout_marginBottom="9dp"
+            android:layout_marginTop="9dp"
             android:background="@drawable/select_btn_orange_background"
             android:text="立即转化" />
 
@@ -298,8 +296,7 @@
                     android:id="@+id/tv_center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="123456" />
+                    android:layout_gravity="center" />
             </LinearLayout>
         </FrameLayout>
     </FrameLayout>

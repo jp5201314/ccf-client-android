@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +29,22 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.AccountInfo;
+import cn.cnlinfo.ccf.entity.ItemNews;
+import cn.cnlinfo.ccf.entity.PlatformInfo;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.UpDownTextView;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
- * Created by Administrator on 2017/10/23 0023.
+ * Created by JP on 2017/10/23 0023.
  */
 
 public class MainPageInfoFragment extends BaseFragment {
@@ -55,7 +65,8 @@ public class MainPageInfoFragment extends BaseFragment {
     @BindView(R.id.gv_platform_info)
     GridView gvPlatformInfo;
 
-    private SimpleAdapter simpleAdapter;
+    private SimpleAdapter simpleAccountAdapter;
+    private SimpleAdapter simplePlatformAdapter;
     private ScheduledExecutorService scheduledExecutorService;
     private ViewPagerAdapter viewPagerAdapter;
     private List<String> imageUrls;
@@ -68,6 +79,8 @@ public class MainPageInfoFragment extends BaseFragment {
     private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "碳控积分", "已冻结", "待激活"};
     private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "循环卷积分", "循环劵", "消费积分"};
     private List<String> accountAnswer;
+    private List<String> platformAnswer;
+    private List<String> noticeList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,11 +91,12 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     private void init() {
+        tvUpDown.setText("welcome to Carbon control factor");
         setBannerData();
-        setUpDownTextView();
-        simpleAdapter = new SimpleAdapter(getActivity(), getAccountData(), R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
-        gvAccountInfo.setAdapter(simpleAdapter);
-        gvPlatformInfo.setAdapter(simpleAdapter);
+        setNoticeInfo();
+        simpleAccountAdapter = new SimpleAdapter(getActivity(), getAccountData(), R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
+        gvAccountInfo.setAdapter(simpleAccountAdapter);
+        setPlatformAnwserData();
     }
 
     /**
@@ -104,21 +118,99 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     /**
+     * 设置平台信息数据
+     */
+    private void setPlatformAnwserData() {
+        platformAnswer = new ArrayList<>();
+        HttpRequest.get(Constant.GET_DATA_HOST + API.GETPLATFORMINFO, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                JSONObject jsonObject = data.getJSONObject("platforminfo");
+                PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(),PlatformInfo.class);
+                platformAnswer.add(platformInfo.getTotal());
+                platformAnswer.add(platformInfo.getActivated());
+                platformAnswer.add(platformInfo.getPrice());
+                platformAnswer.add(platformInfo.getToActivateCcf());
+                platformAnswer.add(platformInfo.getCcIntegral());
+                platformAnswer.add(platformInfo.getCycleIntegral());
+                platformAnswer.add(platformInfo.getCycleStock());
+                platformAnswer.add(platformInfo.getBonusPoints());
+                List<Map<String, String>> list = new ArrayList<>();
+                        if (platformAnswer!=null&&platformAnswer.size()>0){
+                            for (int i = 0; i < platformTitles.length; i++) {
+                                Map<String, String> map = new HashMap<>();
+                                map.put("title", platformTitles[i]);
+                                map.put("answer", platformAnswer.get(i));
+                                list.add(map);
+                    }
+                }
+                simplePlatformAdapter = new SimpleAdapter(getActivity(), list, R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
+                gvPlatformInfo.setAdapter(simplePlatformAdapter);
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                toast("获取平台信息失败");
+            }
+        });
+    }
+
+    /**
      * 设置上下滚动文本信息
      */
-    private void setUpDownTextView() {
+    private void setUpDownTextView(final List<ItemNews> itemNewsList) {
         tvUpDown.setSingleLine();
         tvUpDown.setGravity(Gravity.CENTER);
         tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
         tvUpDown.setTextSize(12);
-        tvUpDown.setTextList(imageUrls);
-        tvUpDown.setText("welcome to Carbon control factor");
+        tvUpDown.setTextList(itemNewsList);
         tvUpDown.setDuring(500);
         tvUpDown.startAutoScroll();
         tvUpDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("ok");
+                ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
+                RequestParams params = new RequestParams();
+                params.addFormDataPart("NewsID",itemNews.getNewsId());
+                HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSNOTICE, params, new CCFHttpRequestCallback() {
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+
+                    }
+
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 获取公告信息
+     */
+    private void setNoticeInfo(){
+        noticeList = new ArrayList<>();
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("CurrentPageIndex",1);
+        params.addFormDataPart("PageSize",4);
+        /**
+         * 1是公告 2是新闻
+         */
+        params.addFormDataPart("type",1);
+        params.addFormDataPart("Orderby","ORDER BY IssueDate DESC");
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSLIST, params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                JSONArray jsonArray = data.getJSONArray("Newslist");
+                List<ItemNews> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(),ItemNews.class);
+                setUpDownTextView(itemNewsList);
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+            toast("获取公告失败");
             }
         });
     }
@@ -170,6 +262,10 @@ public class MainPageInfoFragment extends BaseFragment {
 
     }
 
+    /**
+     * 得到个人信息数据
+     * @return
+     */
     private List<Map<String, String>> getAccountData() {
         List<Map<String, String>> list = new ArrayList<>();
         List<String> data = getAccountAnwserData();
