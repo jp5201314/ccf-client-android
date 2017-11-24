@@ -10,23 +10,23 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class LeaveMessageActivity extends BaseActivity {
+public class OnlineServiceActivity extends BaseActivity {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_seller_complains_buyer)
-    TextView tvSellerComplainsBuyer;
+    @BindView(R.id.tv_advise_feedback)
+    TextView tvAdviseFeedback;
     private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_leave_message);
+        setContentView(R.layout.activity_online_service);
         unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("留言中心");
+        tvTitle.setText("在线客服");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

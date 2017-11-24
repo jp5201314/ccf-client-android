@@ -115,4 +115,11 @@ public class API {
      * 获取平台信息
      */
     public static final String GETPLATFORMINFO = "Getplatforminfo";
+
+    /**
+     * 用户购买套餐
+     */
+
+    public static final String PURCHASEMEAL = "UpgradeToUserStar";
+
 }

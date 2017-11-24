@@ -91,7 +91,7 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     private void init() {
-        tvUpDown.setText("welcome to Carbon control factor");
+        showWaitingDialog(true);
         setBannerData();
         setNoticeInfo();
         simpleAccountAdapter = new SimpleAdapter(getActivity(), getAccountData(), R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
@@ -146,11 +146,13 @@ public class MainPageInfoFragment extends BaseFragment {
                 }
                 simplePlatformAdapter = new SimpleAdapter(getActivity(), list, R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
                 gvPlatformInfo.setAdapter(simplePlatformAdapter);
+                showWaitingDialog(false);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
                 toast("获取平台信息失败");
+                showWaitingDialog(false);
             }
         });
     }
@@ -159,6 +161,7 @@ public class MainPageInfoFragment extends BaseFragment {
      * 设置上下滚动文本信息
      */
     private void setUpDownTextView(final List<ItemNews> itemNewsList) {
+        tvUpDown.setText("welcome to Carbon control factor");
         tvUpDown.setSingleLine();
         tvUpDown.setGravity(Gravity.CENTER);
         tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));

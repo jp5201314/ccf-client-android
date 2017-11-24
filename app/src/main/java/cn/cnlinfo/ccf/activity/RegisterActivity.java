@@ -2,6 +2,7 @@ package cn.cnlinfo.ccf.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -91,8 +92,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.btn_get_verification_code:
                 phoneNum = etPhoneNum.getText().toString();
                 if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.verifyPhoneNumFormat(phoneNum)) {
-                    code = ObtainVerificationCode.createNumVerificationCode();
-                    NotificationUtil.getInstance(this).sendNormalNotification(code);
+                    if (NotificationUtil.isNotificationEnabled(this)){
+                        code = ObtainVerificationCode.createNumVerificationCode();
+                        NotificationUtil.getInstance(this).sendNormalNotification(code);
+                    }else {
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+                    }
                 } else {
                     toast("电话号码不能为空或格式有误!");
                 }

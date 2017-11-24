@@ -3,7 +3,7 @@ package cn.cnlinfo.ccf;
 import cn.cnlinfo.ccf.manager.PhoneManager;
 
 /**
- * Created by Administrator on 2017/10/11 0011.
+ * Created by JP on 2017/10/11 0011.
  */
 
 public class Constant {

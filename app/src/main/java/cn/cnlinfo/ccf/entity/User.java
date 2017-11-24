@@ -8,13 +8,12 @@ import java.io.Serializable;
  */
 
 /**
- *  "ID": 4,
+ "ID": 4,
  "UCode": "1001",
  "NickName": "1001",
- "Status": 2,
  "ParentID": 0,
  "DirectID": 0,
- "InvitationCode":""
+ "InvitationCode": "",
  "JID": 0,
  "MID": 0,
  "SID": 0,
@@ -23,30 +22,35 @@ import java.io.Serializable;
  "IsFull": false,
  "Utype": 0,
  "Pwd": "",
- "Mobile": "",
+ "Pwd2": "",
+ "Mobile": "           ",
  "LogonTimes": 0,
- "RegisterIP": "0.0.0.0",
- "RegDate": "/Date(1508751205404+0800)/",
+ "RegisterIP": "",
+ "RegDate": "/Date(1511325569242+0800)/",
+ "Status": 2,
  "InLevel": 0,
- "LastLogonIP": "0.0.0.0",
- "LastLogonDate": "/Date(1508751205404+0800)/",
+ "LastLogonIP": "",
+ "LastLogonDate": "/Date(1511325569242+0800)/",
  "IsOnLine": 0,
  "CCF": 0,
  "Circle": 0,
  "CarbonNum": 0,
  "CircleTicket": 0,
+ "CircleTicketScore": 0,
  "ConsumeIntegral": 0,
  "CarbonIntegral": 0,
+ "RegisterIntegral": 0,
  "ReleaseConsume": 0,
  "ReleaseCarbon": 0,
  "TotalStep": 0,
  "TodayStep": 0,
- "E_max": 0
+ "E_max": 0,
  "Praise": 0,
  "BusinessLev": 0,
  "TotalMealWeight": 0,
  "ServantID": 0,
- "EnableAutoToCCF": false
+ "EnableAutoToCCF": false,
+ "ProductScore": 0
  */
 public class User implements Serializable {
 
@@ -135,6 +139,8 @@ public class User implements Serializable {
 
     @JSONField(name = "ConsumeIntegral")
     private int consumeIntegeral;
+    @JSONField(name = "RegisterIntegral")
+    private int registerIntegeral;
 
     @JSONField(name = "CarbonIntegral")
     private int carbonIntegral;
@@ -167,47 +173,6 @@ public class User implements Serializable {
     @JSONField(name = "ProductScore")
     private int productScore;
 
-    public User(int id, String username, String nickName, int status, int parentId, int directId, String invitationCode, int jId, int mId, int sId, int hId, int tId, boolean isFull, int uType, String pwd, String mobile, long loginTimes, String registerIp, String date, int inLevel, String lastLogonIp, String lastLogonDate, int isOnline, int ccf, int circle, int carbonNum, int consumeIntegeral, int carbonIntegral, int releaseConsum, int releaseCarbon, int totalStep, int circleTicket, int eMax, double praise, double businessLev, double totalMealWeight, double servantId, boolean enableAutoToCCF, int productScore) {
-        this.id = id;
-        this.username = username;
-        this.nickName = nickName;
-        this.status = status;
-        this.parentId = parentId;
-        this.directId = directId;
-        this.invitationCode = invitationCode;
-        this.jId = jId;
-        this.mId = mId;
-        this.sId = sId;
-        this.hId = hId;
-        this.tId = tId;
-        this.isFull = isFull;
-        this.uType = uType;
-        this.pwd = pwd;
-        this.mobile = mobile;
-        this.loginTimes = loginTimes;
-        this.registerIp = registerIp;
-        this.date = date;
-        this.inLevel = inLevel;
-        this.lastLogonIp = lastLogonIp;
-        this.lastLogonDate = lastLogonDate;
-        this.isOnline = isOnline;
-        this.ccf = ccf;
-        this.circle = circle;
-        this.carbonNum = carbonNum;
-        this.consumeIntegeral = consumeIntegeral;
-        this.carbonIntegral = carbonIntegral;
-        this.releaseConsum = releaseConsum;
-        this.releaseCarbon = releaseCarbon;
-        this.totalStep = totalStep;
-        this.circleTicket = circleTicket;
-        this.eMax = eMax;
-        this.praise = praise;
-        this.businessLev = businessLev;
-        this.totalMealWeight = totalMealWeight;
-        this.servantId = servantId;
-        this.enableAutoToCCF = enableAutoToCCF;
-        this.productScore = productScore;
-    }
 
     public User() {
     }
@@ -218,6 +183,14 @@ public class User implements Serializable {
 
     public void setProductScore(int productScore) {
         this.productScore = productScore;
+    }
+
+    public int getRegisterIntegeral() {
+        return registerIntegeral;
+    }
+
+    public void setRegisterIntegeral(int registerIntegeral) {
+        this.registerIntegeral = registerIntegeral;
     }
 
     @Override
@@ -250,6 +223,7 @@ public class User implements Serializable {
                 ", circle=" + circle +
                 ", carbonNum=" + carbonNum +
                 ", consumeIntegeral=" + consumeIntegeral +
+                ", registerIntegeral=" + registerIntegeral +
                 ", carbonIntegral=" + carbonIntegral +
                 ", releaseConsum=" + releaseConsum +
                 ", releaseCarbon=" + releaseCarbon +

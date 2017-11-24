@@ -5,21 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Animatable;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +52,10 @@ public class CyclePackageFragment extends BaseFragment {
     TextView tvCenter;
     @BindView(R.id.sdv_cycle)
     SimpleDraweeView sdvCycle;
+    @BindView(R.id.tv_cycle_pack)
+    TextView tvCyclePack;
+    @BindView(R.id.fl_cycle_package)
+    FrameLayout flCyclePackage;
 
     private SharedPreferencesUtils sharedPreferencesUtils;
     private boolean isBind = false;
@@ -74,10 +76,11 @@ public class CyclePackageFragment extends BaseFragment {
     }
 
     private void initData() {
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
         tvCcNum.setText(String.valueOf(user.getCcf()));
         tvCycleStock.setText(String.valueOf(user.getCircleTicket()));
         tvCenter.setText(String.valueOf(user.getCircle()));
+        tvCyclePack.setText(String.valueOf(user.getCircle()));
 
         setControllerIntoSdvCycle();
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());

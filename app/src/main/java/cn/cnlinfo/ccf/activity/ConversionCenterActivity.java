@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class ConversionCenterActivity extends BaseActivity {
+public class ConversionCenterActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -43,5 +43,17 @@ public class ConversionCenterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+           case R.id.tv_ccf_conversion:
+               break;
+               case R.id.tv_cycle_coupon_conversion:
+                   break;
+                   case R.id.tv_consumption_points_conversion:
+                       break;
+        }
     }
 }

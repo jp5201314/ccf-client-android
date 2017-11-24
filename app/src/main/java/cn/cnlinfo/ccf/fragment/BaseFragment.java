@@ -6,9 +6,12 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cc.cloudist.acplibrary.ACProgressFlower;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.inter.IComponentContainer;
 import cn.cnlinfo.ccf.inter.IFragment;
 import cn.cnlinfo.ccf.inter.ILifeCycleComponent;
@@ -73,6 +76,13 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
     public void onDestroy() {
         super.onDestroy();
         this.mComponentContainer.onDestroy();
+    }
+    protected void showMessage(int status, String message) {
+        EventBus.getDefault().post(new ErrorMessageEvent(message));
+    }
+
+    protected void showMessage(String message) {
+        EventBus.getDefault().post(new ErrorMessageEvent(message));
     }
 
     protected void toast(int rsId) {

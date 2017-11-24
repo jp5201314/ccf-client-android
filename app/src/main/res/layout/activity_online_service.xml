@@ -15,10 +15,10 @@
         android:background="@drawable/icon_background"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_seller_complains_buyer"
+            android:id="@+id/tv_advise_feedback"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:text="卖家投诉买家"
+            android:text="意见反馈"
             style="@style/text_0e1214_17"
             android:gravity="center_vertical"
             android:background="@drawable/selector_text_view_bg"

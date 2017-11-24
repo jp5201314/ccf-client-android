@@ -27,7 +27,9 @@ import cn.cnlinfo.ccf.activity.ContributionMapActivity;
 import cn.cnlinfo.ccf.activity.ConversionCenterActivity;
 import cn.cnlinfo.ccf.activity.ForeignTransferActivity;
 import cn.cnlinfo.ccf.activity.InternalTransferActivity;
+import cn.cnlinfo.ccf.activity.LeaveMessageActivity;
 import cn.cnlinfo.ccf.activity.MyParameterActivity;
+import cn.cnlinfo.ccf.activity.OnlineServiceActivity;
 import cn.cnlinfo.ccf.activity.OnlineWalletActivity;
 import cn.cnlinfo.ccf.activity.PlatformParameterActivity;
 import cn.cnlinfo.ccf.activity.RecommendNetActivity;
@@ -131,7 +133,7 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
                 startActivity(new Intent(getActivity(), CCPublicBenefitActivity.class));
                 break;
             case 13:
-
+                startActivity(new Intent(getActivity(), OnlineServiceActivity.class));
                 break;
             case 14:
                 startActivity(new Intent(getActivity(), CCServiceActivity.class));

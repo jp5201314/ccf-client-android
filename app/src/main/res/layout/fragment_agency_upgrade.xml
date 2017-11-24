@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/icon_background">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +85,48 @@
             style="@style/text_0e1214_15"
             />
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="安全密码" />
+
+            <cn.cnlinfo.ccf.view.CleanEditText
+                android:id="@+id/et_safe_pass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/edit_text_style"
+                android:digits="@string/input_impose_num"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textColor="@drawable/selector_edit_text_color" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="9dp">
+            <CheckBox
+                android:id="@+id/cb_is_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"/>
+            <TextView
+                android:id="@+id/tv_upgrade_agency_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_upgrade_agency"
             android:layout_width="72dp"
