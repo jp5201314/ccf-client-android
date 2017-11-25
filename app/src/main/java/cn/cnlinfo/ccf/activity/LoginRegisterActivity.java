@@ -9,33 +9,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.io.IOException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.cnlinfo.ccf.API;
+import butterknife.Unbinder;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.Retrofit_Rxjava.ILoginService;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.entity.User;
-import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.net_okhttp.CCFResponse;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
-import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
-import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
-import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.net_okhttp.ResponseChecker;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
-import cn.cnlinfo.ccf.utils.TimeExchange;
-import cn.finalteam.okhttpfinal.HttpRequest;
-import cn.finalteam.okhttpfinal.OkHttpFinal;
-import cn.finalteam.okhttpfinal.RequestParams;
-import okhttp3.Call;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by JP on 2017/10/11 0011.
@@ -56,12 +51,13 @@ public class LoginRegisterActivity extends BaseActivity {
     Button btnRegister;
     @BindView(R.id.btn_forget_pass)
     Button btnForgetPass;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
     }
 
     @Override
@@ -98,10 +94,43 @@ public class LoginRegisterActivity extends BaseActivity {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
         String verificationCode = etVerificationCode.getText().toString();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constant.getHost()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create()).client(OKHttpManager.getInstance()).build();
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             toast("用户名或密码不能为空");
         } else {
             if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
+                ILoginService loginService = retrofit.create(ILoginService.class);
+
+                Subscription  userSubscription = loginService.getUser(username,password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Subscriber<JsonObject>() {
+
+                    @Override
+                    public void onCompleted() {
+                        Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
+                        startActivity(intent);
+                        LoginRegisterActivity.this.finish();
+                        showMessage("登录成功");
+                        Logger.d("onCompleted");
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        toast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        CCFResponse ccfResponse = ResponseChecker.explainResponse(jsonObject.toString());
+                        UserSharedPreference.getInstance().setJwtToken("1");
+                        UserSharedPreference.getInstance().setIsFirstLogin(true);
+                        JSONObject userinfoJsonobject = ccfResponse.getData().getJSONObject("userinfo");
+                        String jsonString = userinfoJsonobject.toJSONString();
+                        UserSharedPreference.getInstance().setUserInfo(jsonString);
+                        Logger.d(ccfResponse.getData().toJSONString());
+                    }
+                });
+
+
               /*  OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFLOGIN);
                 okHttpPostRequestBuilder.put("username", username);
                 okHttpPostRequestBuilder.put("password", password);
@@ -142,7 +171,7 @@ public class LoginRegisterActivity extends BaseActivity {
                             }
                         }
                 );*/
-
+/*
                 RequestParams params = new RequestParams();
                 params.addFormDataPart("username", username);
                 params.addFormDataPart("password", password);
@@ -164,10 +193,18 @@ public class LoginRegisterActivity extends BaseActivity {
                         showMessage(code,msg);
                         Logger.d(code + "  " + flag + "  " + msg);
                     }
-                });
+                });*/
+
+
             } else {
                 toast("验证码不正确，请重新输入");
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
