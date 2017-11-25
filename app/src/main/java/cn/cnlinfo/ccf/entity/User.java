@@ -3,6 +3,8 @@ package cn.cnlinfo.ccf.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+
+import cn.cnlinfo.ccf.Retrofit_Rxjava.ILoginService;
 /**
  * Created by Administrator on 2017/10/23 0023.
  */
@@ -52,7 +54,7 @@ import java.io.Serializable;
  "EnableAutoToCCF": false,
  "ProductScore": 0
  */
-public class User implements Serializable {
+public class User implements Serializable{
 
     @JSONField(name = "ID")
     private int id;

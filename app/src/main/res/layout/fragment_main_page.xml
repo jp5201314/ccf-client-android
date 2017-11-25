@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/item_title" />
-
     <com.shizhefei.view.indicator.FixedIndicatorView
         android:id="@+id/indicator"
         android:layout_width="match_parent"

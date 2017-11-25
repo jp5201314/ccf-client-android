@@ -11,7 +11,7 @@ import okhttp3.Response;
 
 
 public class ResponseChecker {
-    private static CCFResponse explainResponse(String content) {
+    public static CCFResponse explainResponse(String content) {
         JSONObject rst = JSON.parseObject(content.trim());
         int status = rst.getInteger(CCFResponse.RETURN_STATUS);
 

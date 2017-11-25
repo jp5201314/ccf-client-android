@@ -2,14 +2,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white_faf9f9">
+    android:background="@drawable/icon_background">
 
-    <cn.cnlinfo.ccf.view.StopScrollViewPager
-        android:id="@+id/vp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include layout="@layout/item_title"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+        <cn.cnlinfo.ccf.view.StopScrollViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </cn.cnlinfo.ccf.view.StopScrollViewPager>
+        </cn.cnlinfo.ccf.view.StopScrollViewPager>
+    </LinearLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"
