@@ -29,6 +29,10 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- wx pay所需权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
@@ -48,11 +52,7 @@
             android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PopupMenuTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- ********************************************TALKING DATA********************************************************** -->
 
@@ -85,7 +85,8 @@
         <activity
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.WebActivity"
+        <activity
+            android:name=".activity.WebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -98,6 +99,11 @@
         <activity
             android:name=".activity.BuildQRCodeActivity"
             android:screenOrientation="portrait" />
+        <!-- wx pay -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
 
         <service
             android:name=".step_count.service.StepService"
@@ -235,21 +241,39 @@
             android:name=".activity.ConversionCenterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/spinner_theme" />
-        <activity android:name=".activity.UpgradeAgencyProtocolWebActivity"
+        <activity
+            android:name=".activity.UpgradeAgencyProtocolWebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="www.pgyer.com" android:path="/about/termofservice"/>
+
+                <data
+                    android:host="www.pgyer.com"
+                    android:path="/about/termofservice"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-        <!--在线客服-->
-        <activity android:name=".activity.OnlineServiceActivity"
+        <!-- 在线客服 -->
+        <activity
+            android:name=".activity.OnlineServiceActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
+            android:theme="@style/NormalFullScreen" />
+        <!--启动微信支付-->
+        <activity android:name=".activity.LaunchWeixinPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

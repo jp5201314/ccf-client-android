@@ -121,4 +121,13 @@
         <item name="android:listSelector">@drawable/selector_btn_forget_pass</item>
         <item name="android:textColor">@color/color_black_0d0d0d</item>
     </style>
+
+    <style name="NavPage">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <!-- <item name="android:background">@drawable/nav_page</item> -->
+        <item name="android:background">@color/navpage</item>
+    </style>
 </resources>

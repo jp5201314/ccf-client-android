@@ -224,6 +224,9 @@ dependencies {
     /**
      * HelloCharts
      */
+    /**
+     * weixin
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -257,8 +260,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
-
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
 }

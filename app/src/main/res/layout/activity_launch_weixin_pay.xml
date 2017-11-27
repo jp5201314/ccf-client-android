@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.cnlinfo.ccf.activity.LaunchWeixinPayActivity">
+
+    <Button
+        android:id="@+id/btn_register_appid_to_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册该app到微信" />
+
+    <Button
+        android:id="@+id/btn_get_prepare_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发起支付获取服务器端返回的预付单" />
+
+    <Button
+        android:id="@+id/btn_send_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发起微信支付"
+        />
+
+
+</LinearLayout>
