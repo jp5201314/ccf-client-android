@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 
 import java.util.ArrayList;
@@ -35,11 +36,11 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class TradingCenterFragment extends BaseFragment {
 
-      @BindView(R.id.chart_top)
-      LineChartView chartTop;
+    @BindView(R.id.chart_top)
+    LineChartView chartTop;
     private Unbinder unbinder;
-    String[] date = {"10-22","11-22","12-22","1-22","6-22","5-23","5-22","6-22","5-23","5-22"};//X轴的标注
-    int[] score= {50,42,90,33,10,74,22,18,79,20};//图表的数据点
+    String[] date;//X轴的标注
+    int[] score;//图表的数据点
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
 
@@ -49,9 +50,11 @@ public class TradingCenterFragment extends BaseFragment {
         TCAgent.onPageStart(getActivity(), "交易中心");
         View view = inflater.inflate(R.layout.fragment_trading_center, container, false);
         unbinder = ButterKnife.bind(this, view);
+        getDayOfMonth();
         getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
         initLineChart();//初始化
+
         return view;
     }
     /**
@@ -135,7 +138,16 @@ public class TradingCenterFragment extends BaseFragment {
 */
     private  int getDayOfMonth(){
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
-        int day=aCalendar.getActualMaximum(Calendar.DATE);
+        int month = aCalendar.get(Calendar.MONTH);
+        int day=aCalendar.get(Calendar.DAY_OF_MONTH);
+        Logger.d(month+"-"+day);
+        date = new String[day];
+        score = new int[day];
+        for (int i = 0;i<day;i++){
+            date[i] = month+"-"+(i+1);
+            score[i] = i;
+        }
+
         return day;
     }
 }
