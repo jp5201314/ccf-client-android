@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 Properties properties = new Properties();
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -73,6 +74,8 @@ android {
             shrinkResources false
         }
         release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -102,12 +105,14 @@ android {
             url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 static def generateTime() {
     return new Date().format("yyyy-MM-dd-hh-mm", TimeZone.getDefault())
 }
-
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -237,6 +242,9 @@ dependencies {
     /**
      * alipay
      */
+    /**
+     * kotlin
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -272,4 +280,6 @@ dependencies {
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile files('libs/alipaySdk-20170922.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.anko:anko-common:$anko_version"
 }

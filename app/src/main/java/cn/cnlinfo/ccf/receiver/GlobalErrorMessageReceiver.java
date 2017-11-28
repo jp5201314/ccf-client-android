@@ -14,7 +14,7 @@ public class GlobalErrorMessageReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction()== BaseActivity.BROADCAST_FLAG){
+        if (intent.getAction()== BaseActivity.Companion.getBROADCAST_FLAG()){
             int num = intent.getIntExtra("TYPE",0);
             switch(num){
                 case 0:

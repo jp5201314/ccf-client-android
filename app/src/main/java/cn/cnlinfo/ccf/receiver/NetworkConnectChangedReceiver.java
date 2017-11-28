@@ -24,7 +24,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)|| BaseActivity.BROADCAST_NETWORK_FLAG.equals(action)){
+        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)|| BaseActivity.Companion.getBROADCAST_NETWORK_FLAG().equals(action)){
             ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if (networkInfo!=null){
