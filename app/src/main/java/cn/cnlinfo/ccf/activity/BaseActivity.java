@@ -109,7 +109,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     protected void showMessage(int status, String message) {
-        EventBus.getDefault().post(new ErrorMessageEvent(message));
+        EventBus.getDefault().post(new ErrorMessageEvent(status,message));
     }
 
     protected void showMessage(String message) {

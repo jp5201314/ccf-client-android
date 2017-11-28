@@ -149,7 +149,7 @@ public class LoginRegisterActivity extends BaseActivity {
                 HttpRequest.post(Constant.getHost() + API.CCFLOGIN, params, new CCFHttpRequestCallback() {
                     @Override
                     protected void onDataSuccess(JSONObject data) {
-                        showMessage("登录成功");
+                        toast("登录成功");
                         UserSharedPreference.getInstance().setJwtToken("1");
                         UserSharedPreference.getInstance().setIsFirstLogin(true);
                         JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
@@ -161,7 +161,7 @@ public class LoginRegisterActivity extends BaseActivity {
                     }
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
-                        showMessage(code,msg);
+                        toast(msg);
                         Logger.d(code + "  " + flag + "  " + msg);
                     }
                 });
