@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,7 +12,7 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
 
-public class RecordCenterActivity extends BaseActivity {
+public class RecordCenterActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -50,11 +51,74 @@ public class RecordCenterActivity extends BaseActivity {
                 finish();
             }
         });
+        setClickListener();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+
+    private void setClickListener(){
+        ibtBack.setOnClickListener(this);
+        tvContributeValueRecord.setOnClickListener(this);
+        tvDealRecord.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+                /**
+                 * 对外转账记录
+                 * */
+            case R.id.tv_to_out:
+                break;
+                /**
+                 * 自身转账记录
+                 * */
+            case R.id.tv_to_self:
+                break;
+                /**
+                 * 步行记录
+                 * */
+            case R.id.tv_step_record:
+                break;
+            /**
+             * 贡献值记录
+             * */
+            case R.id.tv_contribute_value_record:
+                startActivity(new Intent(this,Contribute_value_record_Activity.class));
+                break;
+            /**
+             * 基础贡献率记录
+             * */
+            case R.id.tv_basic_contribution_rate_record:
+                break;
+            /**
+             * 兑换记录
+             * */
+            case R.id.tv_conversion_record:
+                break;
+            /**
+             * 电子钱包转账记录
+             * */
+            case R.id.tv_e_wallet_record:
+                break;
+            /**
+             * 购物记录
+             * */
+            case R.id.tv_shopping_record:
+                break;
+            /**
+             * 交易记录
+             * */
+            case R.id.tv_deal_record:
+                startActivity(new Intent(this,TransactionRecordActivity.class));
+                break;
+            default:
+                break;
+        }
     }
 }

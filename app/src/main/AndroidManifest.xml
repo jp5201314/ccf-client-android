@@ -250,6 +250,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen"/>
 
+        <!--碳控因子兑换-->
+        <activity android:name=".activity.CCFConversionActivity"
+            android:screenOrientation="portrait" />
+        <!--循环劵兑换-->
+        <activity android:name=".activity.CycleCouponConversionActivity"
+            android:screenOrientation="portrait" />
+        <!--消费积分兑换-->
+        <activity android:name=".activity.ConsumptionPointsConversionActivity"
+            android:screenOrientation="portrait" />
+        <!--贡献值记录-->
+        <activity android:name=".activity.Contribute_value_record_Activity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

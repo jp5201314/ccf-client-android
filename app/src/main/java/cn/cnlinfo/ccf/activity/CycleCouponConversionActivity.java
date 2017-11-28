@@ -10,28 +10,29 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class LeaveMessageActivity extends BaseActivity {
+/**
+ * Created by Administrator on 2017/11/25 0025.
+ * 循环劵兑换
+ */
+
+public class CycleCouponConversionActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-<<<<<<< HEAD
-    @BindView(R.id.tv_seller_complains_buyer)
-    TextView tvSellerComplainsBuyer;
+    /**
+     * 兑换
+     */
     private Unbinder unbinder;
 
-=======
-
-    private Unbinder unbinder;
->>>>>>> origin/origin/develop-wh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_leave_message);
+        setContentView(R.layout.activity_cycle_coupon_conversin);
         unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("留言中心");
+        tvTitle.setText("循环劵兑换");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +41,15 @@ public class LeaveMessageActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.but_confirm:
+                break;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

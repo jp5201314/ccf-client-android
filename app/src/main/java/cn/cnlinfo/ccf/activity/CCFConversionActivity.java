@@ -10,34 +10,42 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class LeaveMessageActivity extends BaseActivity {
+/**
+ * Created by Administrator on 2017/11/25 0025.
+ * 碳控因子兑换界面
+ */
+
+public class CCFConversionActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-<<<<<<< HEAD
-    @BindView(R.id.tv_seller_complains_buyer)
-    TextView tvSellerComplainsBuyer;
     private Unbinder unbinder;
 
-=======
-
-    private Unbinder unbinder;
->>>>>>> origin/origin/develop-wh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_leave_message);
+        setContentView(R.layout.activity_ccf_conversion);
         unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("留言中心");
+        tvTitle.setText("碳控因子兑换");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.but_confirm:
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
