@@ -10,20 +10,29 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class SetBasicInfoActivity extends BaseActivity {
+/**
+ * Created by Administrator on 2017/11/25 0025.
+ * 循环劵兑换
+ */
+
+public class CycleCouponConversionActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    /**
+     * 兑换
+     */
     private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic_info);
+        setContentView(R.layout.activity_cycle_coupon_conversin);
         unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("设置个人基本信息");
+        tvTitle.setText("循环劵兑换");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +41,15 @@ public class SetBasicInfoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.but_confirm:
+                break;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,7 +38,16 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
                 finish();
             }
         });
+        setClickListener();
+
     }
+
+    public void setClickListener(){
+        tvCcfConversion.setOnClickListener(this);
+        tvCycleCouponConversion.setOnClickListener(this);
+        tvConsumptionPointsConversion.setOnClickListener(this);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -48,12 +58,17 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-           case R.id.tv_ccf_conversion:
-               break;
-               case R.id.tv_cycle_coupon_conversion:
-                   break;
-                   case R.id.tv_consumption_points_conversion:
-                       break;
+            case R.id.tv_ccf_conversion:
+                startActivity(new Intent(this,CCFConversionActivity.class));
+                break;
+                //循环劵兑换
+            case R.id.tv_cycle_coupon_conversion:
+                startActivity(new Intent(this,CycleCouponConversionActivity.class));
+                break;
+                //消费积分兑换
+            case R.id.tv_consumption_points_conversion:
+                startActivity(new Intent(this,ConsumptionPointsConversionActivity.class));
+                break;
         }
     }
 }
