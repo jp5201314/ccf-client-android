@@ -165,11 +165,11 @@
             android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <!-- 设置基本个人信息 -->
+        <!-- 设置个人基本信息 -->
         <activity
             android:name=".activity.SetBasicInfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen" />
+            android:theme="@style/spinner_theme" />
         <!-- 设置密保 -->
         <activity
             android:name=".activity.SetEncryptedActivity"
@@ -234,7 +234,7 @@
         <activity
             android:name=".activity.ConversionCenterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/spinner_theme" />
+            android:theme="@style/NormalFullScreen" />
         <activity android:name=".activity.UpgradeAgencyProtocolWebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
@@ -252,16 +252,20 @@
 
         <!--碳控因子兑换-->
         <activity android:name=".activity.CCFConversionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme" />
         <!--循环劵兑换-->
         <activity android:name=".activity.CycleCouponConversionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme"/>
         <!--消费积分兑换-->
         <activity android:name=".activity.ConsumptionPointsConversionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/spinner_theme"/>
         <!--贡献值记录-->
-        <activity android:name=".activity.Contribute_value_record_Activity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ContributeValueRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"/>
     </application>
 
 </manifest>

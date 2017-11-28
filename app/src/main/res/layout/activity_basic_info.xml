@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="18dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +36,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_name"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -63,7 +64,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_user_name"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -90,7 +91,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_my_invitation_code"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -117,7 +118,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_nickname"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -145,7 +146,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_share_user"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -172,7 +173,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_service_user"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -199,7 +200,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_phone_num"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -265,7 +266,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_id_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -294,7 +295,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_choose_bank"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -322,7 +323,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_account_address"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -350,7 +351,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_bank_card_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:digits="@string/input_impose_num"
@@ -378,7 +379,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_alipay_account_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -404,7 +405,7 @@
             <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_alipay_name"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_weight="3"
                 android:background="@drawable/edit_text_style"
                 android:gravity="center"
@@ -431,7 +432,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_wechat_nickname"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -458,7 +459,7 @@
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_wechat_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="3"
                     android:background="@drawable/edit_text_style"
                     android:gravity="center"
@@ -473,7 +474,7 @@
             <Button
                 android:id="@+id/btn_setting"
                 android:layout_width="69dp"
-                android:layout_height="22dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="18dp"
                 android:background="@drawable/selector_button_bg"

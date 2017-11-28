@@ -23,7 +23,7 @@ public class SetBasicInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_basic_info);
         unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("设置基本个人信息");
+        tvTitle.setText("设置个人基本信息");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

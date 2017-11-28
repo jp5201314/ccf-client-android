@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-<<<<<<< HEAD
-=======
-    android:background="@drawable/icon_background"
->>>>>>> origin/origin/develop-wh
-    tools:context="cn.cnlinfo.ccf.activity.LeaveMessageActivity">
+    android:orientation="vertical">
+
     <include layout="@layout/item_title_no_right"/>
     <include layout="@layout/item_image"/>
 
@@ -55,8 +50,8 @@
                 android:id="@+id/btn_pro_submit"
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#007cb8"
+                android:layout_height="32dp"
+                android:background="@drawable/selector_btn_bg"
                 style="@style/text_ffffff_15"
                 android:text="问题提交"
                 android:layout_marginBottom="18dp"

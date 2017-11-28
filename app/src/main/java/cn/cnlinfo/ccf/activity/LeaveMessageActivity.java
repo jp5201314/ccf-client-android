@@ -16,15 +16,10 @@ public class LeaveMessageActivity extends BaseActivity {
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-<<<<<<< HEAD
     @BindView(R.id.tv_seller_complains_buyer)
     TextView tvSellerComplainsBuyer;
     private Unbinder unbinder;
 
-=======
-
-    private Unbinder unbinder;
->>>>>>> origin/origin/develop-wh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

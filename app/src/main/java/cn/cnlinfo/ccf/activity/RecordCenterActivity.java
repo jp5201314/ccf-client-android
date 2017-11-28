@@ -14,8 +14,6 @@ import cn.cnlinfo.ccf.R;
 
 public class RecordCenterActivity extends BaseActivity implements View.OnClickListener {
 
-    @BindView(R.id.ibt_back)
-    ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_to_out)
@@ -36,6 +34,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     TextView tvShoppingRecord;
     @BindView(R.id.tv_deal_record)
     TextView tvDealRecord;
+    @BindView(R.id.ibt_back)
+    ImageButton ibtBack;
     private Unbinder unbinder;
 
     @Override
@@ -45,12 +45,6 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         unbinder = ButterKnife.bind(this);
 
         tvTitle.setText("记录中心");
-        ibtBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         setClickListener();
     }
 
@@ -61,7 +55,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    private void setClickListener(){
+    private void setClickListener() {
         ibtBack.setOnClickListener(this);
         tvContributeValueRecord.setOnClickListener(this);
         tvDealRecord.setOnClickListener(this);
@@ -70,26 +64,30 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-                /**
-                 * 对外转账记录
-                 * */
+
+            case R.id.ibt_back:
+                finish();
+                break;
+            /**
+             * 对外转账记录
+             * */
             case R.id.tv_to_out:
                 break;
-                /**
-                 * 自身转账记录
-                 * */
+            /**
+             * 自身转账记录
+             * */
             case R.id.tv_to_self:
                 break;
-                /**
-                 * 步行记录
-                 * */
+            /**
+             * 步行记录
+             * */
             case R.id.tv_step_record:
                 break;
             /**
              * 贡献值记录
              * */
             case R.id.tv_contribute_value_record:
-                startActivity(new Intent(this,Contribute_value_record_Activity.class));
+                startActivity(new Intent(this, ContributeValueRecordActivity.class));
                 break;
             /**
              * 基础贡献率记录
@@ -115,7 +113,6 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 交易记录
              * */
             case R.id.tv_deal_record:
-                startActivity(new Intent(this,TransactionRecordActivity.class));
                 break;
             default:
                 break;

@@ -58,15 +58,6 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-<<<<<<< HEAD
-           case R.id.tv_ccf_conversion:
-               break;
-               case R.id.tv_cycle_coupon_conversion:
-                   break;
-                   case R.id.tv_consumption_points_conversion:
-                       break;
-=======
-            //碳控因子兑换
             case R.id.tv_ccf_conversion:
                 startActivity(new Intent(this,CCFConversionActivity.class));
                 break;
@@ -78,8 +69,6 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
             case R.id.tv_consumption_points_conversion:
                 startActivity(new Intent(this,ConsumptionPointsConversionActivity.class));
                 break;
-
->>>>>>> origin/origin/develop-wh
         }
     }
 }

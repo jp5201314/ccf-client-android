@@ -15,7 +15,7 @@ import cn.cnlinfo.ccf.R;
  * 贡献值记录
  */
 
-public class Contribute_value_record_Activity extends BaseActivity{
+public class ContributeValueRecordActivity extends BaseActivity{
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;

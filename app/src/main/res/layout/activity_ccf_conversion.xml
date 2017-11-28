@@ -113,10 +113,10 @@
                     android:layout_weight="3"
                     android:text="兑换数量"
                     style="@style/text_0e1214_15" />
-                <EditText
+                <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/edit_exchange_number"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_weight="7"
                     android:gravity="center"
                     android:background="@drawable/edit_text_style"
@@ -126,7 +126,7 @@
                 <Button
                     android:id="@+id/but_confirm"
                     android:layout_width="69dp"
-                    android:layout_height="22dp"
+                    android:layout_height="32dp"
                     android:layout_marginTop="18dp"
                     android:layout_gravity="center"
                     android:text="兑换"
