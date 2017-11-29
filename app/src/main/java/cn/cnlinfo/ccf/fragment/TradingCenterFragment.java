@@ -19,8 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.manager.PhoneManager;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
+import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
@@ -77,7 +79,7 @@ public class TradingCenterFragment extends BaseFragment {
 
 
     private void initLineChart() {
-        Line line = new Line(mPointValues).setColor(Color.parseColor("#FFCD41"));  //折线的颜色（橙色）
+        Line line = new Line(mPointValues).setColor(getResources().getColor(R.color.color_blue_33b5e5));  //折线的颜色（橙色）
         List<Line> lines = new ArrayList<Line>();
         line.setShape(ValueShape.CIRCLE);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
         line.setCubic(false);//曲线是否平滑，即是曲线还是折线
@@ -93,9 +95,9 @@ public class TradingCenterFragment extends BaseFragment {
         //坐标轴
         Axis axisX = new Axis(); //X轴
         axisX.setHasTiltedLabels(true);  //X坐标轴字体是斜的显示还是直的，true是斜的显示
-        axisX.setTextColor(Color.GRAY);  //设置字体颜色
+        axisX.setTextColor(Color.BLACK);  //设置字体颜色
         axisX.setName("时间/天");  //表格名称
-        axisX.setTextSize(10);//设置字体大小
+        axisX.setTextSize(15);//设置字体大小
         axisX.setMaxLabelChars(8); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
         axisX.setValues(mAxisXValues);  //填充X轴的坐标名称
         data.setAxisXBottom(axisX); //x 轴在底部
@@ -104,8 +106,9 @@ public class TradingCenterFragment extends BaseFragment {
 
         // Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
         Axis axisY = new Axis();  //Y轴
-        axisY.setName("价格p");//y轴标注
+        axisY.setName("价格P(美金)");//y轴标注
         axisY.setTextSize(10);//设置字体大小
+        axisY.setTextColor(Color.BLACK);
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
 
@@ -124,6 +127,20 @@ public class TradingCenterFragment extends BaseFragment {
         v.left = 0;
         v.right = 10;
         chartTop.setCurrentViewport(v);
+
+        chartTop.setOnValueTouchListener(new LineChartOnValueSelectListener() {
+            @Override
+            public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
+                Logger.d(lineIndex+":"+pointIndex);
+                Logger.d(date[pointIndex]+"的值为"+value.getY());
+                toast(date[pointIndex]+"的值为"+value.getY());
+            }
+
+            @Override
+            public void onValueDeselected() {
+
+            }
+        });
     }
     @Override
     public void onDestroyView() {
