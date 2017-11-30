@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-Properties properties = new Properties();
+
+Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
@@ -245,6 +246,9 @@ dependencies {
     /**
      * kotlin
      */
+    /**
+     * 动态增加权限  dexter
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -282,4 +286,6 @@ dependencies {
     compile files('libs/alipaySdk-20170922.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:$anko_version"
+    compile 'com.karumi:dexter:2.2.2'
+
 }

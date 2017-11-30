@@ -1,11 +1,12 @@
 package cn.cnlinfo.ccf.activity
 
+import `in`.srain.cube.views.ptr.PtrClassicFrameLayout
+import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.TargetApi
 import android.app.ActivityManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -16,15 +17,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
-
-import com.orhanobut.logger.Logger
-
-import org.greenrobot.eventbus.EventBus
-
 import cc.cloudist.acplibrary.ACProgressFlower
 import cn.cnlinfo.ccf.R
 import cn.cnlinfo.ccf.UserSharedPreference
@@ -41,8 +36,7 @@ import cn.cnlinfo.ccf.net_okhttp.OKHttpManager
 import cn.cnlinfo.ccf.receiver.GlobalErrorMessageReceiver
 import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver
 import cn.cnlinfo.ccf.view.RefreshHeaderView
-import `in`.srain.cube.views.ptr.PtrClassicFrameLayout
-import `in`.srain.cube.views.ptr.PtrFrameLayout
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by JP on 2017/10/11 0011.
@@ -116,7 +110,7 @@ open class BaseActivity : AppCompatActivity(), IComponentContainer, IActivityFin
     }
 
     protected fun showMessage(status: Int, message: String) {
-        EventBus.getDefault().post(ErrorMessageEvent(message))
+        EventBus.getDefault().post( ErrorMessageEvent(status,message))
     }
 
     protected fun showMessage(message: String) {

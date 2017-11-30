@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.karumi.dexter.Dexter;
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -16,7 +17,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
-import cn.finalteam.okhttpfinal.JsonHttpRequestCallback;
 import cn.finalteam.okhttpfinal.OkHttpFinal;
 import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 
@@ -42,9 +42,21 @@ public class CCFApplication extends Application {
             TCAgent.setReportUncaughtExceptions(true);
         }
         Logger.init("CCFinal").hideThreadInfo();
+        /**
+         * 注册EventBus
+         */
         EventBus.getDefault().register(mContext);
+        /**
+         * 初始化Fresco
+         */
         Fresco.initialize(mContext);
-
+        /**
+         * 初始化Dexter
+         */
+        Dexter.initialize(mContext);
+        /**
+         * 初始化OKHTTPFinal
+         */
         OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
         OkHttpFinal.getInstance().init(builder.build());
         builder.setDebug(true);
@@ -78,12 +90,14 @@ public class CCFApplication extends Application {
                 break;
             case -2:
                 toast(msg);
+            case 0:
+                toast(msg);
                 break;
         }
     }
 
     private void toast(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
     }
 
     protected boolean allowLogin(){
