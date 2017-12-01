@@ -59,18 +59,19 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
     fun init() {
         ibt_back.visibility = View.GONE
         tv_title.text = "主页"
+        registerOnClickListener()
+        tv_main_page.setBackgroundColor(resources.getColor(R.color.indicator_color))
         setPopupMenu(ibt_add)
         ibt_add.setOnClickListener {
             popupMenu!!.show()
         }
         mainPageFragmentAdapter = MainPageFragmentAdapter(supportFragmentManager, setFragmentList())
         vp.adapter = mainPageFragmentAdapter
-        registerOnClickListener()
-        tv_main_page.setBackgroundColor(resources.getColor(R.color.indicator_color))
+        vp.offscreenPageLimit = 5
         vp.setOnPageChangeListener(this)
     }
 
-    fun registerOnClickListener() {
+   private fun registerOnClickListener() {
         tv_main_page.setOnClickListener(this)
         tv_gauage_panel.setOnClickListener(this)
         tv_trading_center.setOnClickListener(this)
@@ -89,7 +90,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
     }
 
     @SuppressLint("RestrictedApi")
-    fun setPopupMenu(view: View) {
+    private fun setPopupMenu(view: View) {
         popupMenu = PopupMenu(this, view, Gravity.END)
         val menuInflater = popupMenu!!.menuInflater
         val menu = popupMenu!!.menu
@@ -101,7 +102,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
         popupMenu!!.setOnMenuItemClickListener(this)
     }
 
-    fun validLoadGuidePage() {
+    private fun validLoadGuidePage() {
         if (!validNewVersion()) {
             if (validLogin()) {
                 if (UserSharedPreference.getInstance().isFirstLogin) {

@@ -24,6 +24,7 @@ class LoginRegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
+        tv_get_verification_code.text = ObtainVerificationCode.createVerificationCode()
     }
     fun gainVerificationCode(view: View) {
         tv_get_verification_code.text = ObtainVerificationCode.createVerificationCode()
@@ -31,7 +32,7 @@ class LoginRegisterActivity : BaseActivity() {
     fun toLogin(view: View) {
         startLogin()
     }
-    fun startLogin() {
+   private fun startLogin() {
         if (!TextUtils.isEmpty(et_username!!.text) && !TextUtils.isEmpty(et_password!!.text) && !TextUtils.isEmpty(et_verification_code!!.text)) {
             if (et_verification_code!!.text!!.toString() == tv_get_verification_code!!.text!!.toString()) {
                 val params = RequestParams()
@@ -66,7 +67,7 @@ class LoginRegisterActivity : BaseActivity() {
         skipToRegister()
     }
 
-    fun skipToRegister() {
+    private fun skipToRegister() {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
