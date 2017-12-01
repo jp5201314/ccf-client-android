@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.manager.PhoneManager;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
@@ -42,16 +41,16 @@ public class TradingCenterFragment extends BaseFragment {
     LineChartView chartTop;
     private Unbinder unbinder;
     String[] date;//X轴的标注
-    int[] score;//图表的数据点
+    Float[] score;//图表的数据点
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        TCAgent.onPageStart(getActivity(), "交易中心");
         View view = inflater.inflate(R.layout.fragment_trading_center, container, false);
         unbinder = ButterKnife.bind(this, view);
+        TCAgent.onPageStart(getActivity(), "交易中心");
         getDayOfMonth();
         getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
@@ -67,7 +66,6 @@ public class TradingCenterFragment extends BaseFragment {
             mAxisXValues.add(new AxisValue(i).setLabel(date[i]));
         }
     }
-
     /**
      * 图表的每个点的显示
      */
@@ -84,7 +82,7 @@ public class TradingCenterFragment extends BaseFragment {
         line.setShape(ValueShape.CIRCLE);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
         line.setCubic(false);//曲线是否平滑，即是曲线还是折线
         line.setFilled(false);//是否填充曲线的面积
-        line.setHasLabels(true);//曲线的数据坐标是否加上备注
+        //line.setHasLabels(true);//曲线的数据坐标是否加上备注
 //      line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
         line.setHasLines(true);//是否用线显示。如果为false 则没有曲线只有点显示
         line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
@@ -109,6 +107,7 @@ public class TradingCenterFragment extends BaseFragment {
         axisY.setName("价格P(美金)");//y轴标注
         axisY.setTextSize(10);//设置字体大小
         axisY.setTextColor(Color.BLACK);
+
         data.setAxisYLeft(axisY);  //Y轴设置在左边
         //data.setAxisYRight(axisY);  //y轴设置在右边
 
@@ -153,18 +152,16 @@ public class TradingCenterFragment extends BaseFragment {
      * 根据当前月份获取当前月份的天数
      * @return
 */
-    private  int getDayOfMonth(){
+    private  void getDayOfMonth(){
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
         int month = aCalendar.get(Calendar.MONTH);
-        int day=aCalendar.get(Calendar.DAY_OF_MONTH);
+        int day = aCalendar.get(Calendar.DAY_OF_MONTH);
         Logger.d(month+"-"+day);
         date = new String[day];
-        score = new int[day];
-        for (int i = 0;i<day;i++){
-            date[i] = month+"-"+(i+1);
-            score[i] = i;
+        score = new Float[day];
+        for (int i = 1;i<=day;i++){
+            date[i-1] = month+"-"+i;
+            score[i-1] = i/10f;
         }
-
-        return day;
     }
 }

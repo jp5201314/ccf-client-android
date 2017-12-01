@@ -231,6 +231,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     private void init() {
         ibtBack.setVisibility(View.INVISIBLE);
         tvTitle.setText("主页");
+        registerOnClickListener();
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         ibtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,8 +246,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             pageFragmentAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), fragmentList);
             vp.setAdapter(pageFragmentAdapter);
         }
-        registerOnClickListener();
-        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
+        vp.setOffscreenPageLimit(5);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

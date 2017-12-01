@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
@@ -80,7 +78,6 @@ public class MainPageInfoFragment extends BaseFragment {
     private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "循环卷积分", "循环劵", "消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
-    private List<String> noticeList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -194,7 +191,6 @@ public class MainPageInfoFragment extends BaseFragment {
      * 获取公告信息
      */
     private void setNoticeInfo(){
-        noticeList = new ArrayList<>();
         RequestParams params = new RequestParams();
         params.addFormDataPart("CurrentPageIndex",1);
         params.addFormDataPart("PageSize",4);
@@ -242,6 +238,7 @@ public class MainPageInfoFragment extends BaseFragment {
         dots.add(dot2);
         viewPagerAdapter = new ViewPagerAdapter();
         vp.setAdapter(viewPagerAdapter);
+        vp.setOffscreenPageLimit(3);
 
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
