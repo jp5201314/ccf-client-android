@@ -128,6 +128,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 交易记录
              * */
             case R.id.tv_deal_record:
+                startActivity(new Intent(this,TransactionRecordActivity.class));
                 break;
             default:
                 break;
