@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
@@ -56,7 +54,6 @@ public class MainPageInfoFragment extends BaseFragment {
     View dot1;
     @BindView(R.id.dot_2)
     View dot2;
-
     Unbinder unbinder;
     @BindView(R.id.tv_up_down)
     UpDownTextView tvUpDown;
@@ -64,7 +61,6 @@ public class MainPageInfoFragment extends BaseFragment {
     GridView gvAccountInfo;
     @BindView(R.id.gv_platform_info)
     GridView gvPlatformInfo;
-
     private SimpleAdapter simpleAccountAdapter;
     private SimpleAdapter simplePlatformAdapter;
     private ScheduledExecutorService scheduledExecutorService;
@@ -147,6 +143,9 @@ public class MainPageInfoFragment extends BaseFragment {
                 simplePlatformAdapter = new SimpleAdapter(getActivity(), list, R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
                 gvPlatformInfo.setAdapter(simplePlatformAdapter);
                 showWaitingDialog(false);
+                        if (gvAccountInfo!=null){
+                            gvPlatformInfo.setAdapter(simplePlatformAdapter);
+                        }
             }
 
             @Override
@@ -162,32 +161,34 @@ public class MainPageInfoFragment extends BaseFragment {
      */
     private void setUpDownTextView(final List<ItemNews> itemNewsList) {
         tvUpDown.setText("welcome to Carbon control factor");
-        tvUpDown.setSingleLine();
-        tvUpDown.setGravity(Gravity.CENTER);
-        tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
-        tvUpDown.setTextSize(12);
-        tvUpDown.setTextList(itemNewsList);
-        tvUpDown.setDuring(500);
-        tvUpDown.startAutoScroll();
-        tvUpDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
-                RequestParams params = new RequestParams();
-                params.addFormDataPart("NewsID",itemNews.getNewsId());
-                HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSNOTICE, params, new CCFHttpRequestCallback() {
-                    @Override
-                    protected void onDataSuccess(JSONObject data) {
+        if (tvUpDown!=null){
+            tvUpDown.setSingleLine();
+            tvUpDown.setGravity(Gravity.CENTER);
+            tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
+            tvUpDown.setTextSize(12);
+            tvUpDown.setTextList(itemNewsList);
+            tvUpDown.setDuring(500);
+            tvUpDown.startAutoScroll();
+            tvUpDown.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
+                    RequestParams params = new RequestParams();
+                    params.addFormDataPart("NewsID",itemNews.getNewsId());
+                    HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSNOTICE, params, new CCFHttpRequestCallback() {
+                        @Override
+                        protected void onDataSuccess(JSONObject data) {
 
-                    }
+                        }
 
-                    @Override
-                    protected void onDataError(int code, boolean flag, String msg) {
+                        @Override
+                        protected void onDataError(int code, boolean flag, String msg) {
 
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
     }
 
     /**

@@ -21,8 +21,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
-
 import org.greenrobot.eventbus.EventBus;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -109,7 +107,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     protected void showMessage(int status, String message) {
-        EventBus.getDefault().post(new ErrorMessageEvent(message));
+        EventBus.getDefault().post(new ErrorMessageEvent(status,message));
     }
 
     protected void showMessage(String message) {
