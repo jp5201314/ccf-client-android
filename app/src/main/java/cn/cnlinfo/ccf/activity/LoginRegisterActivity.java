@@ -4,19 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.io.IOException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,18 +20,10 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.entity.User;
-import cn.cnlinfo.ccf.event.ErrorMessageEvent;
-import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
-import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
-import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
-import cn.cnlinfo.ccf.utils.TimeExchange;
 import cn.finalteam.okhttpfinal.HttpRequest;
-import cn.finalteam.okhttpfinal.OkHttpFinal;
 import cn.finalteam.okhttpfinal.RequestParams;
-import okhttp3.Call;
 
 /**
  * Created by JP on 2017/10/11 0011.
@@ -168,6 +156,28 @@ public class LoginRegisterActivity extends BaseActivity {
             } else {
                 toast("验证码不正确，请重新输入");
             }
+        }
+    }
+
+    //退出时的时间
+    private long mExitTime;
+    //对返回键进行监听
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
         }
     }
 }

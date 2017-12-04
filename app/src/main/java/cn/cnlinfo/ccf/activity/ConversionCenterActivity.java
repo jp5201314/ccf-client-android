@@ -39,15 +39,12 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
             }
         });
         setClickListener();
-
     }
-
     public void setClickListener(){
         tvCcfConversion.setOnClickListener(this);
         tvCycleCouponConversion.setOnClickListener(this);
         tvConsumptionPointsConversion.setOnClickListener(this);
     }
-
 
     @Override
     protected void onDestroy() {
