@@ -11,11 +11,11 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
 /**
- * Created by Administrator on 2017/11/25 0025.
- * 贡献值记录
+ * Created by Administrator on 2017/11/30 0030.
+ * 碳控环保
  */
 
-public class Contribute_value_record_Activity extends BaseActivity{
+public class CCEnvironmentalProtectionActivity extends BaseActivity {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -25,10 +25,11 @@ public class Contribute_value_record_Activity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contribute_value_record);
-        unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("贡献值记录");
+        setContentView(R.layout.activity_cc_environmental_protecion);
+
+        unbinder = ButterKnife.bind(this);
+        tvTitle.setText("碳控环保");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

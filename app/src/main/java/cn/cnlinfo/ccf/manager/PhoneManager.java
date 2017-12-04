@@ -98,7 +98,6 @@ public class PhoneManager {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
     }
 
     /**
