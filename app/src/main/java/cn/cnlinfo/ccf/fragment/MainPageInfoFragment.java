@@ -100,7 +100,7 @@ public class MainPageInfoFragment extends BaseFragment {
      * 获取个人信息数据
      */
     private List<String> getAccountAnwserData() {
-        String userInfoJsonString = UserSharedPreference.getInstance().getUserInfo();
+        String userInfoJsonString = UserSharedPreference.Companion.getInstance().getUserInfo();
         AccountInfo accountInfo = JSONObject.parseObject(userInfoJsonString, AccountInfo.class);
         accountAnswer = new ArrayList<>();
         accountAnswer.add(accountInfo.getNickName());

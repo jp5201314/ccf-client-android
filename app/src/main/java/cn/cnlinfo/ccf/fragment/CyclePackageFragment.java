@@ -76,7 +76,7 @@ public class CyclePackageFragment extends BaseFragment {
     }
 
     private void initData() {
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
+        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(), User.class);
         tvCcNum.setText(String.valueOf(user.getCcf()));
         tvCycleStock.setText(String.valueOf(user.getCircleTicket()));
         tvCenter.setText(String.valueOf(user.getCircle()));

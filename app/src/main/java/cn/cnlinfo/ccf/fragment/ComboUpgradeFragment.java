@@ -76,7 +76,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo_upgrade, container, false);
         unbinder = ButterKnife.bind(this, view);
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
+        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(), User.class);
         init();
         btnUpgradeCombo.setOnClickListener(new View.OnClickListener() {
             @Override

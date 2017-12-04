@@ -44,7 +44,7 @@ public class ResponseChecker {
         String authorization = response.header("Authorization", null);
         if (null != authorization && authorization.startsWith("Bearer ")) {
             String jwtToken = authorization.substring("Bearer ".length());
-            UserSharedPreference.getInstance().setJwtToken(jwtToken);
+            UserSharedPreference.Companion.getInstance().setJwtToken(jwtToken);
         }
     }
 }

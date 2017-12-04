@@ -104,7 +104,7 @@ public abstract class OkHttpRequestBuilder {
     }
 
     protected void morphJwtTokenToHeader() {
-        String jwtToken = UserSharedPreference.getInstance().getJwtToken();
+        String jwtToken = UserSharedPreference.Companion.getInstance().getJwtToken();
         if (null != jwtToken) {
             this.getHeaders().put("Authorization", "Bearer " + jwtToken);
         }

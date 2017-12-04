@@ -80,7 +80,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
         tvUpgradeAgencyLink.setText(charSequence);
         tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
         tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
-        user = UserSharedPreference.getInstance().getUser();
+        user = UserSharedPreference.Companion.getInstance().getUser();
         int level = user.getInLevel();
         switch (level) {
             case 0:

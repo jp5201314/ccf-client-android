@@ -11,10 +11,10 @@
         android:background="@color/color_gray_faf9f9"></com.shizhefei.view.indicator.FixedIndicatorView>
 
     <cn.cnlinfo.ccf.view.StopScrollViewPager
-        android:id="@+id/vp"
+        android:id="@+id/ss_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/icon_background"></cn.cnlinfo.ccf.view.StopScrollViewPager>
+        android:background="@drawable/icon_background"/>
 
 </LinearLayout>

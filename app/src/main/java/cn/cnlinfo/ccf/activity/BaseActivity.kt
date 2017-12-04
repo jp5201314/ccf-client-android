@@ -238,7 +238,7 @@ open class BaseActivity : AppCompatActivity(), IComponentContainer, IActivityFin
      * @return
      */
     protected fun validLogin(): Boolean {
-        if (!UserSharedPreference.getInstance().hasLogined()) {
+        if (!UserSharedPreference.instance!!.hasLogined()) {
             startActivity(Intent(this@BaseActivity, LoginRegisterActivity::class.java))
             AppManage.getInstance().finishOther()
             return false
@@ -253,9 +253,9 @@ open class BaseActivity : AppCompatActivity(), IComponentContainer, IActivityFin
      */
     protected fun validNewVersion(): Boolean {
         val nowVersionCode = PhoneManager.getVersionInfo()!!.versionCode
-        val userSharedPreference = UserSharedPreference.getInstance()
-        if (userSharedPreference.isNewVersionCode(nowVersionCode)) {
-            userSharedPreference.latestVersionCode = nowVersionCode
+        val userSharedPreference = UserSharedPreference.instance
+        if (userSharedPreference!!.isNewVersionCode(nowVersionCode)) {
+            userSharedPreference!!.latestVersionCode = nowVersionCode
             startActivity(Intent(this@BaseActivity, GuideActivity::class.java))
             finish()
             return true

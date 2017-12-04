@@ -1,9 +1,7 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +22,6 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.ContributeMapNode;
 import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.listener.LongPressClick;
@@ -72,7 +68,7 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
 
     private void init(){
         showWaitingDialog(true);
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(),User.class);
         treeList = new ArrayList<>();
         getChildNodeData(user.getId());
     }

@@ -43,12 +43,13 @@ class LoginRegisterActivity : BaseActivity() {
                         showMessage(0,"登录成功")
                         startActivity(Intent(this@LoginRegisterActivity, MainPageActivity::class.java))
                         this@LoginRegisterActivity.finish()
-                        val usp = UserSharedPreference.getInstance()
-                        usp.jwtToken = "1"
-                        usp.isFirstLogin = true
-                        val userinfoJsonobject = data!!.getJSONObject("userinfo")
-                        val jsonString = userinfoJsonobject!!.toJSONString()
-                        usp.userInfo = jsonString
+                        val usp = UserSharedPreference.instance
+                        usp!!.jwtToken = "1"
+                        usp!!.isFirstLogin = true
+                        val userInfoJsonObject = data!!.getJSONObject("userinfo")
+                        val jsonString = userInfoJsonObject!!.toJSONString()
+                        usp!!.userInfo = jsonString
+
                     }
 
                     override fun onDataError(code: Int, flag: Boolean, msg: String) {

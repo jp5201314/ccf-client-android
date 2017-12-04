@@ -57,7 +57,7 @@ public class RecommendNetActivity extends BaseActivity {
     }
 
     private void init() {
-        user = JSON.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
+        user = JSON.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(), User.class);
         vwlSelf.rectF_1_1_Text = user.getUsername();
         primaryNodeEntityList = new ArrayList<>();
         showWaitingDialog(true);

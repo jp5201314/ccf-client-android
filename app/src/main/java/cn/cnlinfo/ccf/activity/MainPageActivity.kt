@@ -105,9 +105,9 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
     private fun validLoadGuidePage() {
         if (!validNewVersion()) {
             if (validLogin()) {
-                if (UserSharedPreference.getInstance().isFirstLogin) {
+                if (UserSharedPreference.instance!!.isFirstLogin) {
                     showRiskWarningDialog()
-                    UserSharedPreference.getInstance().isFirstLogin = false
+                    UserSharedPreference.instance!!.isFirstLogin = false
                 } else {
 
                 }
@@ -279,7 +279,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
     }
 
     private fun exit(){
-        UserSharedPreference.getInstance().logout()
+        UserSharedPreference.instance!!.logout()
         AppManage.getInstance().exit(this)
     }
 }

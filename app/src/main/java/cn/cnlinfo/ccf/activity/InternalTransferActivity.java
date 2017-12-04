@@ -40,7 +40,7 @@ public class InternalTransferActivity extends BaseActivity {
     private Unbinder unbinder;
 
     private  String[] transferType = {};
-    private  User user;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,7 @@ public class InternalTransferActivity extends BaseActivity {
         }
     }
     private void init() {
-        user = UserSharedPreference.getInstance().getUser();
+        user = UserSharedPreference.Companion.getInstance().getUser();
         transferType = getResources().getStringArray(R.array.spinner_internal_transfer);
         spTransferType.setAdapter(SpinnerUtils.getArrayAdapter(this,transferType));
         spTransferType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
