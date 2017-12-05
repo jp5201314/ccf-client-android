@@ -20,12 +20,16 @@ class UserSharedPreference {
     private var mEditor: SharedPreferences.Editor? = null
     private var mContext : Context? = null
     private var gson : Gson? = null
+    constructor(){
+        Logger.d("constructor")
+    }
     init {
         mContext = CCFApplication.getContext()
         this.mACache = ACache.get(mContext)
         this.mSharedPreferences = mContext!!.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
         this.mEditor = mSharedPreferences!!.edit()
         gson = Gson()
+        Logger.d("init")
     }
 
     val user : User?
@@ -38,7 +42,7 @@ class UserSharedPreference {
     var userInfo: String?
         get() {
             val jsonObjectFormCache = this.userInfoFormCache
-            val jsonObjectFormSharedPreferences = this.userInfoFormSharedpreferences
+            val jsonObjectFormSharedPreferences = this.userInfoFormSharedPreferences
             return jsonObjectFormCache ?: jsonObjectFormSharedPreferences
         }
         set(userinfo) {
@@ -46,7 +50,7 @@ class UserSharedPreference {
             this.setUserInfoToCache(userinfo!!)
         }
 
-    private val userInfoFormSharedpreferences: String?
+    private val userInfoFormSharedPreferences: String?
 
     get() = mSharedPreferences!!.getString("userinfo", null)
     private val userInfoFormCache: String?

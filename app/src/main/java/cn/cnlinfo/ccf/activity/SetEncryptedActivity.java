@@ -114,7 +114,7 @@ public class SetEncryptedActivity extends BaseActivity implements View.OnClickLi
     }
     private void init() {
         tvTitle.setText("密保设置");
-        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(),User.class);
+        user = UserSharedPreference.Companion.getInstance().getUser();
         array_question = getResources().getStringArray(R.array.security_question);
 
         //适配器
