@@ -294,4 +294,5 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         UserSharedPreference.getInstance().logout();
         AppManage.getInstance().exit(this);
     }
+
 }

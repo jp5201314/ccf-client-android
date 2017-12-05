@@ -50,6 +50,7 @@ public class CCFApplication extends Application {
         OkHttpFinal.getInstance().updateCommonHeader("Accept","application/json");
     }
 
+
     @Override
     public void onTerminate() {
         super.onTerminate();

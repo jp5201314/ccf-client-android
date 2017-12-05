@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
@@ -77,6 +79,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     ImageButton ibtAdd;
     private PopupMenu popupMenu;
     private static final int REQUEST_CODE_SCAN = 100;
+    private long exitTime = 0;
+    private long currentTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -395,5 +399,21 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 startActivity(intent);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            currentTime = System.currentTimeMillis();
+            if((currentTime-exitTime) > 2000){
+                Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = currentTime;
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
