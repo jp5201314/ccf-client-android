@@ -17,12 +17,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
@@ -43,7 +41,6 @@ import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
 import cn.cnlinfo.ccf.fragment.MainPageFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
-import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
 import permissions.dispatcher.NeedsPermission;
@@ -396,30 +393,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 Intent intent = new Intent(this,WebActivity.class);
                 intent.putExtra("url",content);
                 startActivity(intent);
-
             }
-        }
-    }
-
-    //退出时的时间
-    private long mExitTime;
-    //对返回键进行监听
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            exit();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public void exit() {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
-            mExitTime = System.currentTimeMillis();
-        } else {
-            finish();
-            System.exit(0);
         }
     }
 }
