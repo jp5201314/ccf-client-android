@@ -69,8 +69,8 @@ public class InternalTransferActivity extends BaseActivity {
         if (!TextUtils.isEmpty(num)&&!TextUtils.isEmpty(safePass)){
             RequestParams params = new RequestParams();
             params.addFormDataPart("type",typeId);
-            params.addFormDataPart("sendID",user.getId());
-            params.addFormDataPart("receiveID",user.getId());
+            params.addFormDataPart("sendID",user.getID());
+            params.addFormDataPart("receiveID",user.getID());
             params.addFormDataPart("largessValue",num);
 
         }else {

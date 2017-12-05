@@ -105,7 +105,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     private void toPurchaseNormalMeal() {
         safePass = etSafePass.getText().toString();
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userID", user.getId());
+        params.addFormDataPart("userID", user.getID());
         params.addFormDataPart("pwd2",safePass);
         params.addFormDataPart("setMealID", serviceTypeId);
         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
@@ -138,7 +138,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                 if (rePrice >= mealPrice * 0.3) {
                     if (coPrice <= co_integral && coPrice == mealPrice - rePrice) {
                         RequestParams params = new RequestParams();
-                        params.addFormDataPart("userID", user.getId());
+                        params.addFormDataPart("userID", user.getID());
                         params.addFormDataPart("setMealID", serviceTypeId);
                         params.addFormDataPart("registerScore", rePrice);
                         params.addFormDataPart("pwd2",safePass);
@@ -172,8 +172,8 @@ public class ComboUpgradeFragment extends BaseFragment {
     public void init() {
         llIntegral.setVisibility(View.GONE);
         if (user != null) {
-            re_integral = user.getRegisterIntegeral();
-            co_integral = user.getConsumeIntegeral();
+            re_integral = user.getRegisterIntegral();
+            co_integral = user.getConsumeIntegral();
             tvIntegral.setText("你当前有" + re_integral + "注册积分和" + co_integral + "消费积分");
             int level = user.getInLevel();
             switch (level) {

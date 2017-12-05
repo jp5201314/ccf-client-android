@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
@@ -57,12 +56,12 @@ public class RecommendNetActivity extends BaseActivity {
     }
 
     private void init() {
-        user = JSON.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(), User.class);
-        vwlSelf.rectF_1_1_Text = user.getUsername();
+        user = UserSharedPreference.Companion.getInstance().getUser();
+        vwlSelf.rectF_1_1_Text = user.getUCode();
         primaryNodeEntityList = new ArrayList<>();
         showWaitingDialog(true);
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userID", user.getId());
+        params.addFormDataPart("userID", user.getID());
         HttpRequest.post(Constant.CONTRIBUTIONMAP_HOST + API.USERCHILDCODEDATA, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {

@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,8 +76,9 @@ public class CyclePackageFragment extends BaseFragment {
     }
 
     private void initData() {
-        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(), User.class);
-        tvCcNum.setText(String.valueOf(user.getCcf()));
+        user = UserSharedPreference.Companion.getInstance().getUser();
+        Logger.d(user.toString());
+        tvCcNum.setText(String.valueOf(user.getCCF()));
         tvCycleStock.setText(String.valueOf(user.getCircleTicket()));
         tvCenter.setText(String.valueOf(user.getCircle()));
         tvCyclePack.setText(String.valueOf(user.getCircle()));

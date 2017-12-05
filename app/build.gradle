@@ -259,6 +259,7 @@ dependencies {
      * 动态增加权限  dexter
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -268,6 +269,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.alibaba:fastjson:1.2.37'
+    compile 'com.alibaba:fastjson:1.1.61.android'
     compile 'com.orhanobut:logger:1.15'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     testCompile 'junit:junit:4.12'

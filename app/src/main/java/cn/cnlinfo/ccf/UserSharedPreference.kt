@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import cn.cnlinfo.ccf.entity.User
 import cn.cnlinfo.ccf.manager.ACache
-import com.alibaba.fastjson.JSONObject
+import com.google.gson.Gson
+import com.orhanobut.logger.Logger
 
 /**
  * Created by JP on 2017/10/11
@@ -13,21 +14,26 @@ import com.alibaba.fastjson.JSONObject
  * 存储登录信息以及版本信息
  */
 class UserSharedPreference {
-    var mContext : Context? = null
+
     private var mACache: ACache? = null
     private var mSharedPreferences: SharedPreferences? = null
     private var mEditor: SharedPreferences.Editor? = null
-
-    internal constructor(context: Context){
-        this.mContext = context
+    private var mContext : Context? = null
+    private var gson : Gson? = null
+    init {
+        mContext = CCFApplication.getContext()
         this.mACache = ACache.get(mContext)
-        this.mSharedPreferences = context.getSharedPreferences(cn.cnlinfo.ccf.kotlin.activity.UserSharedPreference.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE)
+        this.mSharedPreferences = mContext!!.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
         this.mEditor = mSharedPreferences!!.edit()
-        instance = this
+        gson = Gson()
     }
 
-    val user: User?
-        get() = JSONObject.parseObject(instance!!.userInfo, User::class.java)
+    val user : User?
+    get(){
+        Logger.d(gson.toString())
+        Logger.d(userInfo.toString())
+        return gson!!.fromJson(this!!.userInfo,User::class.java)!!
+    }
 
     var userInfo: String?
         get() {
@@ -41,8 +47,8 @@ class UserSharedPreference {
         }
 
     private val userInfoFormSharedpreferences: String?
-        get() = mSharedPreferences!!.getString("userinfo", null)
 
+    get() = mSharedPreferences!!.getString("userinfo", null)
     private val userInfoFormCache: String?
         get() = mACache!!.getAsString("userinfo")
 
@@ -155,11 +161,6 @@ class UserSharedPreference {
             null
         } else mSharedPreferences!!.getString(CACHE_PHONE_PASSWORD_KEY, null)
 
-    init {
-        this.mACache = ACache.get(mContext)
-        this.mSharedPreferences = mContext!!.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
-        this.mEditor = mSharedPreferences!!.edit()
-    }
 
     private fun setUserInfoToSharedPreferences(userInfoToSharedPreferences: String) {
         mEditor!!.putString("userinfo", userInfoToSharedPreferences)
@@ -318,15 +319,8 @@ class UserSharedPreference {
         private val CACHE_LATEST_VERSION_CODE_KEY = "latest_version_code"
         private val CACHE_USER_KEY = "user"
         private val CACHE_PHONE_PASSWORD_KEY = "phone_password"
-
-        lateinit var instance : UserSharedPreference
-        private set
-
-
-
+        val instance: UserSharedPreference by lazy { UserSharedPreference() }
     }
-
-
 }
 
 

@@ -105,7 +105,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener,ViewPager.OnPageCh
     private fun validLoadGuidePage() {
         if (!validNewVersion()) {
             if (validLogin()) {
-                if (UserSharedPreference.instance!!.isFirstLogin) {
+                if (UserSharedPreference.instance.isFirstLogin) {
                     showRiskWarningDialog()
                     UserSharedPreference.instance!!.isFirstLogin = false
                 } else {

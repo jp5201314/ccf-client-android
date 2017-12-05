@@ -68,9 +68,9 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
 
     private void init(){
         showWaitingDialog(true);
-        user = JSONObject.parseObject(UserSharedPreference.Companion.getInstance().getUserInfo(),User.class);
+        user = UserSharedPreference.Companion.getInstance().getUser();
         treeList = new ArrayList<>();
-        getChildNodeData(user.getId());
+        getChildNodeData(user.getID());
     }
 
     private void getChildNodeData(int id) {

@@ -135,7 +135,7 @@ public class SetEncryptedActivity extends BaseActivity implements View.OnClickLi
             if (questionOne!=questionTwo&&questionOne!=questionThree&&questionTwo!=questionThree){
                 if (user!=null){
                     RequestParams params = new RequestParams();
-                    params.addFormDataPart("uCode",user.getUsername());
+                    params.addFormDataPart("uCode",user.getUCode());
                     params.addFormDataPart("question1",questionOne);
                     params.addFormDataPart("question2",questionTwo);
                     params.addFormDataPart("question3",questionThree);
