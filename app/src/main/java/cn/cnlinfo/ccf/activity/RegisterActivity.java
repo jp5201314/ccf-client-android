@@ -96,7 +96,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         code = ObtainVerificationCode.createNumVerificationCode();
                         NotificationUtil.getInstance(this).sendNormalNotification(code);
                     }else {
+                        toast("需要到通知管理中心开启通知");
                         startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        finish();
                     }
                 } else {
                     toast("电话号码不能为空或格式有误!");
