@@ -48,7 +48,7 @@ class MainPageFragment : BaseFragment(){
                 return tabItemView!!.find(R.id.tv_tab_text)
             }
         }
-        indicator!!.onTransitionListener = object :OnTransitionTextListener(){
+        indicator!!.onTransitionListener = object : OnTransitionTextListener(){
             override fun getTextView(tabItemView: View?, position: Int): TextView {
                 return super.getTextView(tabItemView, position)
             }
