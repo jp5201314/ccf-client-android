@@ -47,7 +47,7 @@ public class RecommendNetActivity extends BaseActivity {
         setContentView(R.layout.activity_recommend_net);
         unbinder = ButterKnife.bind(this);
         tvTitle.setText("推荐网络");
-        init();
+        //init();
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

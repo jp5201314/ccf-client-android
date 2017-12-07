@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/icon_background">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,11 +21,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="用户推荐人员层级信息" />
+            android:text="推荐人员信息列表如下" />
 
-        <cn.cnlinfo.ccf.view.ViewWithLine
+<!--        <cn.cnlinfo.ccf.view.ViewWithLine
             android:id="@+id/vwl_self"
             android:layout_width="720dp"
-            android:layout_height="1280dp" />
+            android:layout_height="1280dp" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ID"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NAME"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SEX"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AGE"
+            android:gravity="center"/>
+    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_marginTop="9dp"
+            cube_ptr:showDividers="middle"
+            />
+
     </LinearLayout>
 </ScrollView>
