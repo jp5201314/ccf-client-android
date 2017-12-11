@@ -1,13 +1,17 @@
 package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,20 +54,23 @@ public class ComboUpgradeFragment extends BaseFragment {
     TextView tvMealPrice;
     @BindView(R.id.et_register_integral)
     CleanEditText etRegisterIntegral;
-    @BindView(R.id.et_consume_integral)
-    CleanEditText etConsumeIntegral;
     @BindView(R.id.tv_integral)
     TextView tvIntegral;
     @BindView(R.id.ll_integral)
     LinearLayout llIntegral;
     @BindView(R.id.et_safe_pass)
     CleanEditText etSafePass;
+    @BindView(R.id.cb_is_read)
+    CheckBox cbIsRead;
+    @BindView(R.id.tv_upgrade_agency_link)
+    TextView tvUpgradeAgencyLink;
+    @BindView(R.id.et_meal_num)
+    CleanEditText etMealNum;
     private Unbinder unbinder;
     private User user;
     private int serviceTypeId;
     private String myRank;
     private String registerIntegral;
-    private String consumeIntegral;
     private int mealPrice;
     //用户有的注册积分
     private int re_integral;
@@ -71,6 +78,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     private int co_integral;
     private int typeId;
     private String safePass;
+    private int mealNum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,7 +89,12 @@ public class ComboUpgradeFragment extends BaseFragment {
         btnUpgradeCombo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                choosePurchaseMeal();
+                if (cbIsRead.isChecked()) {
+                    choosePurchaseMeal();
+                } else {
+                    toast("请仔细阅读并同意代理协议");
+                }
+
             }
         });
         return view;
@@ -104,22 +117,29 @@ public class ComboUpgradeFragment extends BaseFragment {
      */
     private void toPurchaseNormalMeal() {
         safePass = etSafePass.getText().toString();
-        RequestParams params = new RequestParams();
-        params.addFormDataPart("userID", user.getId());
-        params.addFormDataPart("pwd2",safePass);
-        params.addFormDataPart("setMealID", serviceTypeId);
-        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
-            @Override
-            protected void onDataSuccess(JSONObject data) {
-                toast("购买成功");
-                Logger.d(data.toJSONString());
-            }
+        mealNum = Integer.valueOf(etMealNum.getText().toString());
+        if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(etMealNum.getText().toString())){
+            RequestParams params = new RequestParams();
+            params.addFormDataPart("userID", user.getId());
+            params.addFormDataPart("pwd2", safePass);
+            params.addFormDataPart("setMealID", serviceTypeId);
+            params.addFormDataPart("mealNum",mealNum );
+            HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    toast("购买成功");
+                    Logger.d(data.toJSONString());
+                }
 
-            @Override
-            protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code, msg);
-            }
-        });
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+                    showMessage(code, msg);
+                }
+            });
+        }else {
+            toast("输入框不能为空");
+        }
+
     }
 
 
@@ -129,19 +149,19 @@ public class ComboUpgradeFragment extends BaseFragment {
     private void toPurchaseSailMeal() {
         safePass = etSafePass.getText().toString();
         registerIntegral = etRegisterIntegral.getText().toString();
-        consumeIntegral = etConsumeIntegral.getText().toString();
         mealPrice = Integer.valueOf(tvMealPrice.getText().toString());
-        if (!TextUtils.isEmpty(registerIntegral) && !TextUtils.isEmpty(consumeIntegral) && !TextUtils.isEmpty(safePass)&&mealPrice > 0) {
+        String meal_num = etMealNum.getText().toString();
+        if (!TextUtils.isEmpty(registerIntegral)&& !TextUtils.isEmpty(safePass) && mealPrice > 0&&!TextUtils.isEmpty(meal_num)) {
             int rePrice = Integer.valueOf(registerIntegral);
-            int coPrice = Integer.valueOf(consumeIntegral);
+            mealNum = Integer.valueOf(meal_num);
             if (rePrice <= re_integral) {
-                if (rePrice >= mealPrice * 0.3) {
-                    if (coPrice <= co_integral && coPrice == mealPrice - rePrice) {
+                if (rePrice >= mealPrice*mealNum * 0.3&&rePrice<=mealPrice*mealNum) {
                         RequestParams params = new RequestParams();
                         params.addFormDataPart("userID", user.getId());
                         params.addFormDataPart("setMealID", serviceTypeId);
                         params.addFormDataPart("registerScore", rePrice);
-                        params.addFormDataPart("pwd2",safePass);
+                        params.addFormDataPart("pwd2", safePass);
+                        params.addFormDataPart("mealNum",mealNum );
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {
@@ -155,11 +175,8 @@ public class ComboUpgradeFragment extends BaseFragment {
                                 showMessage(code, msg);
                             }
                         });
-                    } else {
-                        toast("消费积分输入量不正确");
-                    }
                 } else {
-                    toast("注册积分必须大于等于" + mealPrice * 0.3);
+                    toast("注册积分必须在" + mealPrice*mealNum * 0.3+"--"+mealPrice*mealNum+"之间");
                 }
             } else {
                 toast("注册积分不足,请重新输入!");
@@ -170,6 +187,11 @@ public class ComboUpgradeFragment extends BaseFragment {
     }
 
     public void init() {
+        showWaitingDialog(true);
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"https://www.pgyer.com/about/termofservice\">蒲公英协议");
+        tvUpgradeAgencyLink.setText(charSequence);
+        tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
+        tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
         llIntegral.setVisibility(View.GONE);
         if (user != null) {
             re_integral = user.getRegisterIntegeral();
@@ -254,11 +276,13 @@ public class ComboUpgradeFragment extends BaseFragment {
                         });
                     }
                 }
+                showWaitingDialog(false);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
                 showMessage(code, msg);
+                showWaitingDialog(false);
             }
         });
     }

@@ -78,7 +78,7 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
         this.mComponentContainer.onDestroy();
     }
     protected void showMessage(int status, String message) {
-        EventBus.getDefault().post(new ErrorMessageEvent(message));
+        EventBus.getDefault().post(new ErrorMessageEvent(status,message));
     }
 
     protected void showMessage(String message) {

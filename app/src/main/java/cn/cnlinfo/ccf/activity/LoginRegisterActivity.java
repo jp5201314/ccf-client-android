@@ -147,7 +147,7 @@ public class LoginRegisterActivity extends BaseActivity {
                     }
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
-                        toast(msg);
+                        showMessage(code,msg);
                         Logger.d(code + "  " + flag + "  " + msg);
                     }
                 });

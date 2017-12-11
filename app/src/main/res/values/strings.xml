@@ -35,7 +35,7 @@
     <string name="input_impose_num_upper_case">0123456789ABCDEFGHIJKLmMNOPQRSTUVWXYZ</string>
     <string name="input_impose_num">0123456789</string>
     <string name="input_impose_num_lower_upper_case">0123456789ABCDEFGHIJKLmMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
-
+    <string name="input_impose_num_limit">12345</string>
 
     <!--风险提示语-->
 
@@ -94,7 +94,7 @@
         <item>现金积分转注册积分</item>
     </string-array>
 
-    <string name="purchase_meal_describe">注:\n\t\t起航套餐可以全部用注册积分购买消费套餐，也可以采用注册积分加消费积分购买消费套餐，但是注册积分比例不得低于购买套餐的30%!!!\n\t\t普通套餐只能使用碳控因子购买!!!</string>
+    <string name="purchase_meal_describe">注:\n\t\t起航套餐可以全部用注册积分购买消费套餐，也可以采用注册积分加消费积分购买消费套餐，但是注册积分比例不得低于购买套餐的30%!!!\n\t\t普通套餐只能使用碳控因子购买!!!\n\t\t套餐一次最多购买5套</string>
     <string name="agency_protocol_link">我已阅读代理协议:<a href="http://www.baidu.com">百度一下</a></string>
     
     <string-array name="spinner_certificate_type">

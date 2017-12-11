@@ -79,6 +79,9 @@ public class CCFApplication extends Application {
             case -2:
                 toast(msg);
                 break;
+                default:
+                    toast(msg);
+                    break;
         }
     }
 
