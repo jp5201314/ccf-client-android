@@ -85,7 +85,8 @@
         <activity
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.WebActivity"
+        <activity
+            android:name=".activity.WebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -235,107 +236,143 @@
             android:name=".activity.ConversionCenterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <activity android:name=".activity.UpgradeAgencyProtocolWebActivity"
+        <activity
+            android:name=".activity.UpgradeAgencyProtocolWebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="www.pgyer.com" android:path="/about/termofservice"/>
+
+                <data
+                    android:host="www.pgyer.com"
+                    android:path="/about/termofservice"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
-        <!--在线客服-->
-        <activity android:name=".activity.OnlineServiceActivity"
+        <!-- 在线客服 -->
+        <activity
+            android:name=".activity.OnlineServiceActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
+            android:theme="@style/NormalFullScreen" />
 
-        <!--碳控因子兑换-->
-        <activity android:name=".activity.CCFConversionActivity"
+        <!-- 碳控因子兑换 -->
+        <activity
+            android:name=".activity.CCFConversionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/spinner_theme" />
-        <!--循环劵兑换-->
-        <activity android:name=".activity.CycleCouponConversionActivity"
+        <!-- 循环劵兑换 -->
+        <activity
+            android:name=".activity.CycleCouponConversionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/spinner_theme"/>
-        <!--消费积分兑换-->
-        <activity android:name=".activity.ConsumptionPointsConversionActivity"
+            android:theme="@style/spinner_theme" />
+        <!-- 消费积分兑换 -->
+        <activity
+            android:name=".activity.ConsumptionPointsConversionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/spinner_theme"/>
-        <!--贡献值记录-->
-        <activity android:name=".activity.ContributeValueRecordActivity"
+            android:theme="@style/spinner_theme" />
+        <!-- 贡献值记录 -->
+        <activity
+            android:name=".activity.ContributeValueRecordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
-        <!--交易记录-->
-        <activity android:name=".activity.TransactionRecordActivity"
+            android:theme="@style/NormalFullScreen" />
+        <!-- 交易记录 -->
+        <activity
+            android:name=".activity.TransactionRecordActivity"
             android:screenOrientation="portrait" />
-        <!--对外转账记录-->
-        <activity android:name=".activity.ExternalTransferActivity"
+        <!-- 对外转账记录 -->
+        <activity
+            android:name=".activity.ExternalTransferActivity"
             android:screenOrientation="portrait" />
-        <!--自身转账记录-->
-        <activity android:name=".activity.ItselfTransferRecordsActivity"
-            android:screenOrientation="portrait"/>
-        <!--步行记录-->
-        <activity android:name=".activity.WalkRecordActivity"
-            android:screenOrientation="portrait"/>
-        <!--基础贡献率记录-->
-        <activity android:name=".activity.BasicContributionRateRecordActivity"
-            android:screenOrientation="portrait"/>
-        <!--兑换记录-->
-        <activity android:name=".activity.ConversionRecordActivity"
-            android:screenOrientation="portrait"/>
-        <!--电子钱包转账记录-->
-        <activity android:name=".activity.Wallet_Record_Activity"
-            android:screenOrientation="portrait"/>
-        <!--购物记录-->
-        <activity android:name=".activity.ShoppingRecordActivity"
-            android:screenOrientation="portrait"/>
-        <!--碳控公益-->
-        <!--我要捐步-->
-        <activity android:name=".activity.DonateStepActivity"
-            android:screenOrientation="portrait"/>
-        <!--爱心基金-->
-        <activity android:name=".activity.BeneficentFundsActivity"
-            android:screenOrientation="portrait"/>
-        <!--植树基金-->
-        <activity android:name=".activity.PlantTreeFundsActivity"
-            android:screenOrientation="portrait"/>
-        <!--爱心奉献-->
-        <activity android:name=".activity.LoveDedicationActivity"
-            android:screenOrientation="portrait"/>
-        <!--我要乐捐-->
-        <activity android:name=".activity.MeDedicationActivity"
-            android:screenOrientation="portrait"/>
-        <!--发起乐捐-->
-        <activity android:name=".activity.LaunchDedicationActivity"
-            android:screenOrientation="portrait"/>
-        <!--公益一帮一-->
-        <activity android:name=".activity.CommunityHelpOneActivity"
-            android:screenOrientation="portrait"/>
-        <!--发起公益项目-->
-        <activity android:name=".activity.InitiatePublicWelfareProjectsActivity"
-            android:screenOrientation="portrait"/>
-        <!--我的善行记录-->
-        <activity android:name=".activity.MyGoodDeedsRecordActivity"
-            android:screenOrientation="portrait"/>
-        <!--需要帮助-->
-        <activity android:name=".activity.NeedHelpActivity"
-            android:screenOrientation="portrait"/>
-        <!--碳控环保-->
-        <activity android:name=".activity.CCEnvironmentalProtectionActivity"
-            android:screenOrientation="portrait"/>
-        <!--环保行-->
-        <activity android:name=".activity.EnvironmentalProtectionLineActivity"
-            android:screenOrientation="portrait"/>
-        <!--碳控行-->
-        <activity android:name=".activity.CCLineActivity"
-            android:screenOrientation="portrait"/>
+        <!-- 自身转账记录 -->
+        <activity
+            android:name=".activity.ItselfTransferRecordsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 步行记录 -->
+        <activity
+            android:name=".activity.WalkRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 基础贡献率记录 -->
+        <activity
+            android:name=".activity.BasicContributionRateRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 兑换记录 -->
+        <activity
+            android:name=".activity.ConversionRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 电子钱包转账记录 -->
+        <activity
+            android:name=".activity.Wallet_Record_Activity"
+            android:screenOrientation="portrait" />
+        <!-- 购物记录 -->
+        <activity
+            android:name=".activity.ShoppingRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 碳控公益 -->
+        <!-- 我要捐步 -->
+        <activity
+            android:name=".activity.DonateStepActivity"
+            android:screenOrientation="portrait" />
+        <!-- 爱心基金 -->
+        <activity
+            android:name=".activity.BeneficentFundsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 植树基金 -->
+        <activity
+            android:name=".activity.PlantTreeFundsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 爱心奉献 -->
+        <activity
+            android:name=".activity.LoveDedicationActivity"
+            android:screenOrientation="portrait" />
+        <!-- 我要乐捐 -->
+        <activity
+            android:name=".activity.MeDedicationActivity"
+            android:screenOrientation="portrait" />
+        <!-- 发起乐捐 -->
+        <activity
+            android:name=".activity.LaunchDedicationActivity"
+            android:screenOrientation="portrait" />
+        <!-- 公益一帮一 -->
+        <activity
+            android:name=".activity.CommunityHelpOneActivity"
+            android:screenOrientation="portrait" />
+        <!-- 发起公益项目 -->
+        <activity
+            android:name=".activity.InitiatePublicWelfareProjectsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 我的善行记录 -->
+        <activity
+            android:name=".activity.MyGoodDeedsRecordActivity"
+            android:screenOrientation="portrait" />
+        <!-- 需要帮助 -->
+        <activity
+            android:name=".activity.NeedHelpActivity"
+            android:screenOrientation="portrait" />
+        <!-- 碳控环保 -->
+        <activity
+            android:name=".activity.CCEnvironmentalProtectionActivity"
+            android:screenOrientation="portrait" />
+        <!-- 环保行 -->
+        <activity
+            android:name=".activity.EnvironmentalProtectionLineActivity"
+            android:screenOrientation="portrait" />
+        <!-- 碳控行 -->
+        <activity
+            android:name=".activity.CCLineActivity"
+            android:screenOrientation="portrait" />
 
-        <!--游戏充值-->
-        <activity android:name=".activity.Game_Top_Up_Activity"
-            android:screenOrientation="portrait"/>
-        <!--游戏中心-->
-        <activity android:name=".activity.GameCenterActivity"
-            android:screenOrientation="portrait"/>
+        <!-- 游戏充值 -->
+        <activity
+            android:name=".activity.Game_Top_Up_Activity"
+            android:screenOrientation="portrait" />
+        <!-- 游戏中心 -->
+        <activity
+            android:name=".activity.GameCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".mvp.view.LoadImageActivity"></activity>
     </application>
+
 </manifest>
