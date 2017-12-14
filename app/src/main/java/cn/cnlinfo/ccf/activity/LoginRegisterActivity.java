@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
@@ -42,18 +43,25 @@ public class LoginRegisterActivity extends BaseActivity {
     Button btnRegister;
     @BindView(R.id.btn_forget_pass)
     Button btnForgetPass;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_register);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setVerificationCode();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     public void toLogin(View view) {
@@ -87,48 +95,7 @@ public class LoginRegisterActivity extends BaseActivity {
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             toast("用户名或密码不能为空");
         } else {
-            if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
-              /*  OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFLOGIN);
-                okHttpPostRequestBuilder.put("username", username);
-                okHttpPostRequestBuilder.put("password", password);
-                OKHttpManager.post(okHttpPostRequestBuilder, "login", new UiHandlerCallBack() {
-
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                UserSharedPreference.getInstance().setJwtToken("0");
-                                call.cancel();
-                            }
-
-                            @Override
-                            public void success(JSONObject data) {
-                                UserSharedPreference.getInstance().setJwtToken("1");
-                                UserSharedPreference.getInstance().setIsFirstLogin(true);
-                                JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
-                                String jsonString = userinfoJsonobject.toJSONString();
-                                UserSharedPreference.getInstance().setUserInfo(jsonString);
-                                Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                                startActivity(intent);
-                                LoginRegisterActivity.this.finish();
-                                showMessage("登录成功");
-                            }
-
-                            @Override
-                            public void error(int status, String message) {
-                                showMessage(status, message);
-                            }
-
-                            @Override
-                            public void progress(int progress) {
-
-                            }
-
-                            @Override
-                            public void failed(int code, String msg) {
-                                showMessage(msg);
-                            }
-                        }
-                );*/
-
+            if (verificationCode != null && verificationCode.toLowerCase().equals(tvGetVerificationCode.getText().toString().toLowerCase())) {
                 RequestParams params = new RequestParams();
                 params.addFormDataPart("username", username);
                 params.addFormDataPart("password", password);

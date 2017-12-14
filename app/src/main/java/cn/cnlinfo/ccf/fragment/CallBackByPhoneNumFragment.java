@@ -13,13 +13,10 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.view.CleanEditText;
 
 /**
- * Created by Administrator on 2017/10/25 0025.
+ * Created by JP on 2017/10/25 0025.
  */
 
 public class CallBackByPhoneNumFragment extends BaseFragment {
-
-    @BindView(R.id.et_user_name)
-    CleanEditText etUserName;
     @BindView(R.id.et_login_pass)
     CleanEditText etLoginPass;
     @BindView(R.id.et_verify_pass)
@@ -47,7 +44,6 @@ public class CallBackByPhoneNumFragment extends BaseFragment {
     }
 
     private void initEditData(){
-        username = etUserName.getText().toString();
         loginPass = etLoginPass.getText().toString();
         verifyPass = etVerifyPass.getText().toString();
         phoneNum = etPhoneNum.getText().toString();

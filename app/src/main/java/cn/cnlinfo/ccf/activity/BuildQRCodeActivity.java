@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ public class BuildQRCodeActivity extends AppCompatActivity {
             }
         });
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ccf);
-        Bitmap bitmap = QRCodeUtil.buildQRCode("http://www.baidu.com", 164, 164, logo);
+        Bitmap bitmap = QRCodeUtil.buildQRCode("http://ccf.hrkji.com/regUsers.aspx?pm=281677A216162405", 164, 164, logo);
         ivQrCode.setImageBitmap(bitmap);
     }
 }

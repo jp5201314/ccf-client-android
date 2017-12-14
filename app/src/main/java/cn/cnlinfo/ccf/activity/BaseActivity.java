@@ -24,6 +24,7 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
@@ -289,10 +290,10 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     protected boolean cancelOkHttpFinalAfterDestory() {
         return true;
     }
-
     protected void exit(){
         UserSharedPreference.getInstance().logout();
-        AppManage.getInstance().exit(this);
+        CCFApplication.getInstance().jumpToLogin();
+        finish();
     }
 
 }

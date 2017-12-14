@@ -93,7 +93,7 @@ public class CCFApplication extends Application {
         return null==ACache.get(mContext).getAsString("isLogged");
     }
 
-    protected void jumpToLogin(){
+    public void jumpToLogin(){
         if (!allowLogin()) return;
         ACache.get(mContext).put("isLogged",true,5);
         Intent intent = new Intent(mContext, LoginRegisterActivity.class);
