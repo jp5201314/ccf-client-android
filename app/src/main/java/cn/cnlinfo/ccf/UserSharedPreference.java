@@ -3,10 +3,6 @@ package cn.cnlinfo.ccf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.manager.ACache;
 
 /**
@@ -43,11 +39,6 @@ public class UserSharedPreference {
             instance = new UserSharedPreference(CCFApplication.getContext());
         }
         return instance;
-    }
-
-    public User getUser(){
-        User user = com.alibaba.fastjson.JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
-        return user;
     }
 
     public void setUserInfo(String userinfo) {

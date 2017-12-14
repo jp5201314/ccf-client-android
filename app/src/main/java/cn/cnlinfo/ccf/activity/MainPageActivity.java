@@ -1,36 +1,14 @@
 package cn.cnlinfo.ccf.activity;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.view.menu.MenuPopupHelper;
-import android.support.v7.widget.PopupMenu;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
-import com.yzq.zxinglibrary.common.Constant;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,21 +16,9 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.adapter.MainPageFragmentAdapter;
-import cn.cnlinfo.ccf.fragment.CCMallFragment;
-import cn.cnlinfo.ccf.fragment.CCUnionFragment;
-import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
-import cn.cnlinfo.ccf.fragment.MainPageFragment;
-import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
-import cn.cnlinfo.ccf.utils.QRCodeUtil;
+import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class MainPageActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.vp)
@@ -71,14 +37,10 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    private List<Fragment> fragmentList;
     private MainPageFragmentAdapter pageFragmentAdapter;
     private Unbinder unbinder;
-    private AlertDialog alertDialog;
     @BindView(R.id.ibt_add)
     ImageButton ibtAdd;
-    private PopupMenu popupMenu;
-    private static final int REQUEST_CODE_SCAN = 100;
     private long exitTime = 0;
     private long currentTime = 0;
 
@@ -93,135 +55,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         vp.setStopScroll(true);
         init();
     }
-
-
-    /**
-     * 验证是否加载引导页
-     */
-    private void validLoadGuidePage() {
-        if (!validNewVersion()) {
-            if (validLogin()) {
-                if (UserSharedPreference.getInstance().getIsFirstLogin()) {
-                    showRiskWarningDialog();
-                    UserSharedPreference.getInstance().setIsFirstLogin(false);
-                } else {
-
-                }
-            } else {
-                finish();
-            }
-        }
-    }
-    @SuppressLint("RestrictedApi")
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void setPopupMenu(View view) {
-        popupMenu = new PopupMenu(this, view, Gravity.END);
-        MenuInflater menuInflater = popupMenu.getMenuInflater();
-        Menu menu = popupMenu.getMenu();
-        menuInflater.inflate(R.menu.layout_menu, menu);
-        try {
-            /**
-             * 反射设置图片
-             */
-            Field field = popupMenu.getClass().getDeclaredField("mPopup");
-            field.setAccessible(true);
-            MenuPopupHelper mHelper = (MenuPopupHelper) field.get(popupMenu);
-            mHelper.setForceShowIcon(true);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-                switch (itemId) {
-                    case R.id.sweep:
-                        MainPageActivityPermissionsDispatcher.toRichScanWithCheck(MainPageActivity.this);
-                        break;
-                    case R.id.my_qrcode:
-                        startActivity(new Intent(MainPageActivity.this, BuildQRCodeActivity.class));
-                        break;
-                    case R.id.exit:
-                        exit();
-                        break;
-                    case R.id.setting:
-                        startActivity(new Intent(MainPageActivity.this, SettingActivity.class));
-                        break;
-                }
-                return false;
-            }
-        });
-    }
-
-    /**
-     * 申请需要的权限
-     */
-    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
-    void toRichScan() {
-        QRCodeUtil.toRichScan(this, REQUEST_CODE_SCAN);
-    }
-
-    /**
-     * 拒绝
-     */
-    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
-    void refuse() {
-        toast("权限被拒绝");
-    }
-
-    /**
-     * 不再询问
-     */
-    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
-    void neverEnquire() {
-        toast("拍照权限被禁用，如果要使用拍照请手动启用");
-    }
-
-    /**
-     * 当第一次申请权限时，用户选择拒绝，再次申请时调用此方法，在此方法中提示用户为什么需要这个权限，这需要展现给用户，而用户可以选择“继续”或者“中止”当前的权限许可
-     *
-     * @param request
-     */
-    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
-    void showRationale(final PermissionRequest request) {
-        new AlertDialog.Builder(this)
-                .setMessage("申请相机权限")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //再次执行请求
-                        request.proceed();// 提示用户权限使用的对话框
-                    }
-                })
-                .show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MainPageActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
-    /**
-     * 弹出风险提示dialog
-     */
-    private void showRiskWarningDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = View.inflate(this, R.layout.dialog_risk_warning, null);
-        ImageView imageView =  view.findViewById(R.id.iv_close_dialog);
-        builder.setView(view);
-        alertDialog = builder.create();
-        alertDialog.setCancelable(false);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (alertDialog != null&&alertDialog.isShowing()) {
-                    alertDialog.dismiss();
-                }
-            }
-        });
-        alertDialog.show();
-    }
-
     private void init() {
         ibtBack.setVisibility(View.INVISIBLE);
         tvTitle.setText("主页");
@@ -230,16 +63,14 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         ibtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setPopupMenu(v);
-                popupMenu.show();
+                UserSharedPreference.getInstance().logout();
+                AppManage.getInstance().exit(MainPageActivity.this);
+
             }
         });
-        fragmentList = new ArrayList<>();
-        fragmentList = setFragmentList();
-        if (fragmentList != null && fragmentList.size() > 0) {
-            pageFragmentAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), fragmentList);
-            vp.setAdapter(pageFragmentAdapter);
-        }
+
+        pageFragmentAdapter = new MainPageFragmentAdapter(getSupportFragmentManager());
+        vp.setAdapter(pageFragmentAdapter);
         vp.setOffscreenPageLimit(5);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -277,16 +108,23 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-    private List<Fragment> setFragmentList() {
-        MainPageFragment mainPageFragment = new MainPageFragment();
-        fragmentList.add(mainPageFragment);
-        fragmentList.add(new GaugePanelFragment());
-        fragmentList.add(new TradingCenterFragment());
-        fragmentList.add(new CCMallFragment());
-        fragmentList.add(new CCUnionFragment());
-        return fragmentList;
-    }
 
+    /**
+     * 验证是否加载引导页
+     */
+    private void validLoadGuidePage() {
+        if (!validNewVersion()) {
+            if (validLogin()) {
+                if (UserSharedPreference.getInstance().getIsFirstLogin()) {
+                    UserSharedPreference.getInstance().setIsFirstLogin(false);
+                } else {
+
+                }
+            } else {
+                finish();
+            }
+        }
+    }
     private void registerOnClickListener() {
         tvMainPage.setOnClickListener(this);
         tvGauagePanel.setOnClickListener(this);
@@ -375,32 +213,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            if (data != null) {
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
-                Logger.d("scan QRCode info " + content);
-                /**
-                 * http://qm.qq.com/cgi-bin/qm/qr?k=cycGNWnspzlbVYtdI8ubsxf7JpUaYWeI
-                 * 判断设备中是否存在与之相同的scheme
-                 */
-              /*  PackageManager packageManager = getPackageManager();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(content));
-                List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
-                boolean isValid = !activities.isEmpty();
-                if (isValid) {
-                    startActivity(intent);
-                }*/
-                Intent intent = new Intent(this,WebActivity.class);
-                intent.putExtra("url",content);
-                startActivity(intent);
-            }
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){

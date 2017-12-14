@@ -22,7 +22,7 @@
         android:singleLine="true"
         android:maxEms="15"
         android:maxLength="20"
-        android:text="登录" />
+        android:text="主页" />
 
         <ImageButton
             android:id="@+id/ibt_add"

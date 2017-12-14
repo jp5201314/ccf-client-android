@@ -4,7 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.List;
+import cn.cnlinfo.ccf.fragment.CCMallFragment;
+import cn.cnlinfo.ccf.fragment.CCUnionFragment;
+import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
+import cn.cnlinfo.ccf.fragment.MainPageFragment;
+import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
 
 /**
  * Created by Administrator on 2017/10/12 0012.
@@ -12,21 +16,38 @@ import java.util.List;
 
 public class MainPageFragmentAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragmentList;
 
-    public MainPageFragmentAdapter(FragmentManager fm,List<Fragment> fragments) {
+    public MainPageFragmentAdapter(FragmentManager fm) {
         super(fm);
-        this.fragmentList = fragments;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
+        Fragment fragment = null;
+        switch (position){
+            case 0:
+                fragment = new MainPageFragment();
+                break;
+            case 1:
+                fragment = new GaugePanelFragment();
+                break;
+            case 2:
+                fragment = new TradingCenterFragment();
+                break;
+            case 3:
+                fragment = new CCMallFragment();
+                break;
+            case 4:
+                fragment = new CCUnionFragment();
+                break;
+
+        }
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return fragmentList.size();
+        return 5;
     }
 
 }

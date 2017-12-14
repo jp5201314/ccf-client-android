@@ -8,10 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/item_title"
-            android:layout_gravity="top"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"/>
+        <include layout="@layout/item_title"/>
         <cn.cnlinfo.ccf.view.StopScrollViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"

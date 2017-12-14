@@ -61,7 +61,7 @@ public class LoginRegisterActivity extends BaseActivity {
     }
 
     public void toRegister(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
+        //startActivity(new Intent(this, RegisterActivity.class));
     }
 
     public void gainVerificationCode(View view) {
@@ -74,7 +74,7 @@ public class LoginRegisterActivity extends BaseActivity {
     }
 
     public void toForgetPass(View view) {
-        startActivity(new Intent(this, ForgetPasswordActivity.class));
+        //startActivity(new Intent(this, ForgetPasswordActivity.class));
     }
 
     /**
