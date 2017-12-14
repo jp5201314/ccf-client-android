@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/icon_background"
-    tools:context="cn.cnlinfo.ccf.activity.Game_Top_Up_Activity">
+    tools:context="cn.cnlinfo.ccf.activity.GameTopUpActivity">
     <include layout="@layout/item_title_no_right"/>
     <LinearLayout
         android:layout_width="match_parent"

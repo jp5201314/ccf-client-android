@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
-public class ConversionCenterActivity extends BaseActivity implements View.OnClickListener{
+public class ConversionCenterActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -19,12 +19,13 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
     TextView tvTitle;
     @BindView(R.id.tv_ccf_conversion)
     TextView tvCcfConversion;
-    @BindView(R.id.tv_cycle_coupon_conversion)
-    TextView tvCycleCouponConversion;
     @BindView(R.id.tv_consumption_points_conversion)
     TextView tvConsumptionPointsConversion;
+    @BindView(R.id.tv_production_points_conversion)
+    TextView tvProductionPointsConversion;
 
     private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,10 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
         });
         setClickListener();
     }
-    public void setClickListener(){
+
+    public void setClickListener() {
         tvCcfConversion.setOnClickListener(this);
-        tvCycleCouponConversion.setOnClickListener(this);
+        tvProductionPointsConversion.setOnClickListener(this);
         tvConsumptionPointsConversion.setOnClickListener(this);
     }
 
@@ -54,17 +56,17 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_ccf_conversion:
-                startActivity(new Intent(this,CCFConversionActivity.class));
+                startActivity(new Intent(this, CCFConversionActivity.class));
                 break;
-                //循环劵兑换
-            case R.id.tv_cycle_coupon_conversion:
-                startActivity(new Intent(this,CycleCouponConversionActivity.class));
+            //循环劵兑换
+            case R.id.tv_production_points_conversion:
+                startActivity(new Intent(this,ProductionPointsConversionActivity.class));
                 break;
-                //消费积分兑换
+            //消费积分兑换
             case R.id.tv_consumption_points_conversion:
-                startActivity(new Intent(this,ConsumptionPointsConversionActivity.class));
+                startActivity(new Intent(this, ConsumptionPointsConversionActivity.class));
                 break;
         }
     }

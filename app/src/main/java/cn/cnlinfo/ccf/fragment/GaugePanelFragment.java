@@ -27,7 +27,6 @@ import cn.cnlinfo.ccf.activity.ContributionMapActivity;
 import cn.cnlinfo.ccf.activity.ConversionCenterActivity;
 import cn.cnlinfo.ccf.activity.ForeignTransferActivity;
 import cn.cnlinfo.ccf.activity.InternalTransferActivity;
-import cn.cnlinfo.ccf.activity.LeaveMessageActivity;
 import cn.cnlinfo.ccf.activity.MyParameterActivity;
 import cn.cnlinfo.ccf.activity.OnlineServiceActivity;
 import cn.cnlinfo.ccf.activity.OnlineWalletActivity;
@@ -49,7 +48,7 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
     private Unbinder unbinder;
     private String[] names = {"注册会员", "贡献图谱", "推荐网络", "我的参数",
             "平台参数", "跑步排名", "系统公告", "在线钱包",
-            "对外互传", "内部互转", "用户升级", "记录中心",
+            "对外互转", "内部互转", "用户升级", "记录中心",
             "碳控公益", "在线客服", "碳控服务", "兑换中心"};
     private int[] icons = {R.drawable.icon_register_member, R.drawable.icon_contribution_atlas, R.drawable.icon_recommend_net, R.drawable.icon_my_parameter,
             R.drawable.icon_platform_parameter, R.drawable.icon_start_running, R.drawable.icon_system_notice, R.drawable.icon_online_wallet,

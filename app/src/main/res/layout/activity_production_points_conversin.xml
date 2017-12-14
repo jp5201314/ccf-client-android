@@ -33,7 +33,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height"
                     android:layout_weight="3"
-                    android:text="循环卷兑换"
+                    android:text="产品积分兑换"
                     style="@style/text_0e1214_15"/>
             </LinearLayout>
             <LinearLayout
@@ -46,7 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height"
                     android:layout_weight="3"
-                    android:text="碳控积分数量"
+                    android:text="产品积分数量"
                     style="@style/text_0e1214_15"/>
                 <EditText
                     android:id="@+id/edit_ccvp_number"

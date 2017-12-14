@@ -13,6 +13,7 @@ import cn.cnlinfo.ccf.R;
 
 public class PlatformParameterActivity extends BaseActivity {
 
+
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
@@ -21,10 +22,6 @@ public class PlatformParameterActivity extends BaseActivity {
     FrameLayout flTitle;
     @BindView(R.id.tv_total_ccf)
     TextView tvTotalCcf;
-    @BindView(R.id.tv_total_rights)
-    TextView tvTotalRights;
-    @BindView(R.id.tv_total_current_rights)
-    TextView tvTotalCurrentRights;
     @BindView(R.id.tv_alive_total)
     TextView tvAliveTotal;
     @BindView(R.id.textView)
@@ -33,24 +30,22 @@ public class PlatformParameterActivity extends BaseActivity {
     TextView tvTotalTba;
     @BindView(R.id.tv_cc_points)
     TextView tvCcPoints;
+    @BindView(R.id.tv_cycle_coupon)
+    TextView tvCycleCoupon;
+    @BindView(R.id.tv_wait_free_cycle_points)
+    TextView tvWaitFreeCyclePoints;
     @BindView(R.id.tv_available_consume_points)
     TextView tvAvailableConsumePoints;
     @BindView(R.id.tv_wait_free_consume_points)
     TextView tvWaitFreeConsumePoints;
-    @BindView(R.id.tv_cc_volume)
-    TextView tvCcVolume;
-    @BindView(R.id.tv_wait_free_cc_points)
-    TextView tvWaitFreeCcPoints;
-    @BindView(R.id.tv_frozen_amount)
-    TextView tvFrozenAmount;
-    @BindView(R.id.tv_current_cycle_package_amount)
-    TextView tvCurrentCyclePackageAmount;
-    @BindView(R.id.tv_current_price)
-    TextView tvCurrentPrice;
-    @BindView(R.id.tv_init_total_amount)
-    TextView tvInitTotalAmount;
     @BindView(R.id.tv_current_account_amount)
     TextView tvCurrentAccountAmount;
+    @BindView(R.id.tv_current_cycle_package_amount)
+    TextView tvCurrentCyclePackageAmount;
+    @BindView(R.id.tv_frozen_amount)
+    TextView tvFrozenAmount;
+    @BindView(R.id.tv_init_total_amount)
+    TextView tvInitTotalAmount;
     @BindView(R.id.tv_current_difficult_point)
     TextView tvCurrentDifficultPoint;
     @BindView(R.id.tv_province_total)
@@ -59,6 +54,8 @@ public class PlatformParameterActivity extends BaseActivity {
     TextView tvCityTotal;
     @BindView(R.id.tv_county_total)
     TextView tvCountyTotal;
+    @BindView(R.id.tv_service_center)
+    TextView tvServiceCenter;
     private Unbinder unbinder;
 
     @Override

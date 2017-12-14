@@ -48,7 +48,7 @@ public class CCServiceActivity extends BaseActivity {
         switch (v.getId()) {
             //游戏充值
             case R.id.tv_game_top_up:
-                startActivity(new Intent(this,Game_Top_Up_Activity.class));
+                startActivity(new Intent(this,GameTopUpActivity.class));
                 break;
             //游戏中心
             case R.id.tv_game_center:

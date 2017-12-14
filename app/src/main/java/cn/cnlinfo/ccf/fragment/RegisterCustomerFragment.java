@@ -25,7 +25,7 @@ import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
 
 /**
- * Created by Administrator on 2017/11/6 0006.
+ * Created by JP on 2017/11/6 0006.
  */
 
 public class RegisterCustomerFragment extends BaseFragment {
@@ -94,6 +94,5 @@ public class RegisterCustomerFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 
 }

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ic_background"
     android:orientation="vertical"
     android:paddingLeft="38dp"
     android:paddingRight="48dp"
@@ -56,6 +60,26 @@
             android:maxLength="11"
             android:maxLines="1"
             android:textColor="@drawable/selector_edit_text_color" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选    区" />
+        <Spinner
+            android:id="@+id/sp_area_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:entries="@array/spinner_area_type"
+            android:gravity="center"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -183,3 +207,4 @@
         android:background="@drawable/selector_button_bg"
         android:text="注册" />
 </LinearLayout>
+</ScrollView>

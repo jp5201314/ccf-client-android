@@ -25,16 +25,18 @@ public class MyParameterActivity extends BaseActivity {
     TextView tvCyclePackage;
     @BindView(R.id.tv_wait_alive_ccf)
     TextView tvWaitAliveCcf;
-    @BindView(R.id.tv_cc_volume)
-    TextView tvCcVolume;
+    @BindView(R.id.tv_cycle_coupon)
+    TextView tvCycleCoupon;
+    @BindView(R.id.tv_current_price)
+    TextView tvCurrentPrice;
+    @BindView(R.id.tv_wait_free_cycle_points)
+    TextView tvWaitFreeCyclePoints;
     @BindView(R.id.tv_bonus_points)
     TextView tvBonusPoints;
-    @BindView(R.id.tv_cc_points)
-    TextView tvCcPoints;
-    @BindView(R.id.tv_tbr_ccr_points)
-    TextView tvTbrCcrPoints;
     @BindView(R.id.tv_wait_release_points)
     TextView tvWaitReleasePoints;
+    @BindView(R.id.tv_cc_points)
+    TextView tvCcPoints;
     @BindView(R.id.tv_yesterday_contribute_value)
     TextView tvYesterdayContributeValue;
     @BindView(R.id.tv_current_contribution_value)
@@ -45,14 +47,20 @@ public class MyParameterActivity extends BaseActivity {
     TextView tvTotalStep;
     @BindView(R.id.tv_today_step)
     TextView tvTodayStep;
+    @BindView(R.id.tv_ccf_limit)
+    TextView tvCcfLimit;
     @BindView(R.id.tv_freeze_ccf)
     TextView tvFreezeCcf;
     @BindView(R.id.tv_wait_alive_limit)
     TextView tvWaitAliveLimit;
+    @BindView(R.id.tv_out_of_line)
+    TextView tvOutOfLine;
     @BindView(R.id.tv_average_difficulty_coefficient)
     TextView tvAverageDifficultyCoefficient;
-
+    @BindView(R.id.tv_acc_pur_meal)
+    TextView tvAccPurMeal;
     private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

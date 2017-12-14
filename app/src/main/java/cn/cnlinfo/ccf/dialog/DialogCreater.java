@@ -1,12 +1,8 @@
 package cn.cnlinfo.ccf.dialog;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
@@ -19,8 +15,6 @@ import java.util.ArrayList;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
-import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.entity.ContributeMapNode;
 
 public class DialogCreater {
 
@@ -116,7 +110,7 @@ public class DialogCreater {
         OnBtnClickL cancelBtnClickL = new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-                dialog.dismiss();
+                dialog.cancel();
             }
         };
         dialog.setOnBtnClickL(cancelBtnClickL, l);

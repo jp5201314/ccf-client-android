@@ -11,28 +11,24 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
 /**
- * Created by Administrator on 2017/11/25 0025.
- * 循环劵兑换
+ * Created by Administrator on 2017/12/1 0001.
+ * 游戏充值
  */
 
-public class CycleCouponConversionActivity extends BaseActivity implements View.OnClickListener {
+public class GameTopUpActivity extends BaseActivity{
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    /**
-     * 兑换
-     */
     private Unbinder unbinder;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cycle_coupon_conversin);
-        unbinder = ButterKnife.bind(this);
 
-        tvTitle.setText("循环劵兑换");
+        setContentView(R.layout.activity_game_top_up);
+        unbinder = ButterKnife.bind(this);
+        tvTitle.setText("游戏充值");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,15 +37,6 @@ public class CycleCouponConversionActivity extends BaseActivity implements View.
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.but_confirm:
-                break;
-        }
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

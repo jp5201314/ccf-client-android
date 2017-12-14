@@ -11,24 +11,28 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 
 /**
- * Created by Administrator on 2017/12/1 0001.
- * 游戏充值
+ * Created by Administrator on 2017/11/25 0025.
+ * 循环劵兑换
  */
 
-public class Game_Top_Up_Activity extends BaseActivity{
+public class ProductionPointsConversionActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    /**
+     * 兑换
+     */
     private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_game_top_up);
+        setContentView(R.layout.activity_production_points_conversin);
         unbinder = ButterKnife.bind(this);
-        tvTitle.setText("我要捐步");
+
+        tvTitle.setText("产品积分兑换");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +41,15 @@ public class Game_Top_Up_Activity extends BaseActivity{
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.but_confirm:
+                break;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
