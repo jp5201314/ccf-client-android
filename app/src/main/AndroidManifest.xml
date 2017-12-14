@@ -48,11 +48,11 @@
             android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PopupMenuTheme">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <!-- ********************************************TALKING DATA********************************************************** -->
 
@@ -372,7 +372,12 @@
         <activity
             android:name=".activity.GameCenterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".mvp.view.LoadImageActivity"></activity>
+        <activity android:name=".mvp.view.LoadImageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

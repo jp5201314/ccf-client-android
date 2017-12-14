@@ -2,6 +2,7 @@ package cn.cnlinfo.ccf.mvp.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import cn.cnlinfo.ccf.R;
@@ -14,12 +15,20 @@ public class LoadImageActivity extends AppCompatActivity implements ILoadImageAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_image);
         listView = this.findViewById(R.id.lv_show_image);
-        showImage();
+        startLoadData();
     }
 
+    private void startLoadData() {
+        LoadImagePresenter loadImagePresenter = new LoadImagePresenter(this,this);
+        loadImagePresenter.showData();
+    }
+
+    /**
+     * 给listview设置适配器
+     * @param adapter
+     */
     @Override
-    public void showImage() {
-        LoadImagePresenter loadImagePresenter = new LoadImagePresenter(this);
-        loadImagePresenter.showData(listView);
+    public void showImage(ListAdapter adapter) {
+        listView.setAdapter(adapter);
     }
 }
