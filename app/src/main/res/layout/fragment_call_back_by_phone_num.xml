@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="登录密码" />
+                android:text="设置密码" />
 
             <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_login_pass"

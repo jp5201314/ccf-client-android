@@ -30,7 +30,6 @@ public class CallBackByPhoneNumFragment extends BaseFragment {
     @BindView(R.id.btn_ok)
     Button btnOk;
     private Unbinder unbinder;
-    private String username;
     private String loginPass;
     private String verifyPass;
     private String phoneNum;
