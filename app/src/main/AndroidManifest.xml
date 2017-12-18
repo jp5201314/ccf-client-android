@@ -30,6 +30,16 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
+    <!-- 添加读写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 访问互联网权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-feature
         android:name="android.hardware.sensor.stepcounter"
         android:required="true" />
@@ -47,13 +57,7 @@
         <activity
             android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PopupMenuTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/PopupMenuTheme"></activity>
         <!-- ********************************************TALKING DATA********************************************************** -->
 
 
@@ -372,10 +376,36 @@
         <activity
             android:name=".activity.GameCenterActivity"
             android:screenOrientation="portrait" />
-        <!--充值注册积分-->
-        <activity android:name=".activity.RechargeRegisterPointsActivity"
-            android:screenOrientation="portrait"
-            />
+        <!-- 充值注册积分 -->
+        <activity
+            android:name=".activity.RechargeRegisterPointsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 上传图片 -->
+        <activity
+            android:name=".activity.UploadImageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.DownLoadFileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.DownLoadFileService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.cnlinfo.ccf.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

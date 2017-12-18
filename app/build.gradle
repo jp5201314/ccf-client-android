@@ -238,6 +238,15 @@ dependencies {
     /**
      * HelloCharts
      */
+    /**
+     * 图片选择器 ImageSelector
+     * 支持jitpack
+     支持选择多张
+     支持选择图片数量上限
+     支持图片选择顺序
+     支持图片预览
+     *
+     */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -273,6 +282,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
 
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-
+    compile 'com.github.huzhenjie:ImageSelector:1.0.3'
 
 }
