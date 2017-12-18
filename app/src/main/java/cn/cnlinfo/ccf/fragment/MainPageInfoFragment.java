@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +34,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.ItemNews;
 import cn.cnlinfo.ccf.entity.PlatformInfo;
@@ -172,19 +174,10 @@ public class MainPageInfoFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
-                    RequestParams params = new RequestParams();
-                    params.addFormDataPart("NewsID",itemNews.getNewsId());
-                    HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSNOTICE, params, new CCFHttpRequestCallback() {
-                        @Override
-                        protected void onDataSuccess(JSONObject data) {
-
-                        }
-
-                        @Override
-                        protected void onDataError(int code, boolean flag, String msg) {
-
-                        }
-                    });
+                    String uri = String.format(Constant.GET_DETAIL_HOST,itemNews.getNewsId());
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("url",uri);
+                    startActivity(intent);
                 }
             });
         }

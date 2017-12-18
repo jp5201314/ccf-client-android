@@ -118,13 +118,7 @@
         <item>挂卖</item>
         <item>挂买</item>
     </string-array>
-    <string-array name="spinner_area_type">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-    </string-array>
+
 
 
 </resources>

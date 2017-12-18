@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,8 +22,6 @@ public class RegisterUserFragment extends BaseFragment {
     CleanEditText etInvitationCode;
     @BindView(R.id.et_user_name)
     CleanEditText etUserName;
-    @BindView(R.id.sp_area_type)
-    Spinner spAreaType;
     @BindView(R.id.et_login_pass)
     CleanEditText etLoginPass;
     @BindView(R.id.et_verify_pass)
@@ -38,6 +35,8 @@ public class RegisterUserFragment extends BaseFragment {
     @BindView(R.id.btn_register_user)
     Button btnRegisterUser;
     Unbinder unbinder;
+    @BindView(R.id.et_contact_person)
+    CleanEditText etContactPerson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

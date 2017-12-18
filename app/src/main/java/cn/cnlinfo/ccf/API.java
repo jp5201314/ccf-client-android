@@ -106,6 +106,7 @@ public class API {
 
     public static final String GETNEWSNOTICE = "GetNewBody";
 
+
     /**
      *获取新闻公告列表
      */
@@ -121,5 +122,18 @@ public class API {
      */
 
     public static final String PURCHASEMEAL = "UpgradeToUserStar";
+
+    /**
+     * 发送短信验证码
+     * codeid:   3143331  密码找回
+     3126312 注册
+     */
+    public static final String SENDCODE = "SendCode";
+
+    /**
+     * 电话号码短信验证找回密码
+     */
+    public static final String RETRIEVEPASSWORD = "RetrievePassword";
+
 
 }

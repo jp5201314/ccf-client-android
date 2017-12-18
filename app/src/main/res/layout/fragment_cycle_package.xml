@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="第s%名" />
+                    android:text="第0名" />
 
                 <TextView
                     style="@style/text_0e1214_15"
@@ -207,7 +207,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="18dp"
-                android:layout_marginTop="18dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -221,7 +220,8 @@
                     android:id="@+id/tv_basic_contribute_value"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
 
                 <TextView
                     style="@style/text_0e1214_15"
@@ -234,7 +234,8 @@
                     android:id="@+id/tv_wait_act_value"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
 
                 <TextView
                     style="@style/text_0e1214_15"
@@ -247,12 +248,14 @@
                     android:id="@+id/tv_contribute_value"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
             </LinearLayout>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_at_once_transform"
             android:layout_width="164dp"
             android:layout_height="32dp"
             android:layout_gravity="center"

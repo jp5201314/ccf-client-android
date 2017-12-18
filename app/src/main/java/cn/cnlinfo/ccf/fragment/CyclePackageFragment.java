@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ import cn.cnlinfo.ccf.view.StepArcView;
  * Created by JP on 2017/10/23 0023.
  */
 
-public class CyclePackageFragment extends BaseFragment {
+public class CyclePackageFragment extends BaseFragment implements View.OnClickListener{
     Unbinder unbinder;
     @BindView(R.id.tv_cc_num)
     TextView tvCcNum;
@@ -56,6 +57,8 @@ public class CyclePackageFragment extends BaseFragment {
     TextView tvCyclePack;
     @BindView(R.id.fl_cycle_package)
     FrameLayout flCyclePackage;
+    @BindView(R.id.btn_at_once_transform)
+    Button btnAtOnceTransform;
 
     private SharedPreferencesUtils sharedPreferencesUtils;
     private boolean isBind = false;
@@ -176,5 +179,10 @@ public class CyclePackageFragment extends BaseFragment {
         if (isBind) {
             getActivity().unbindService(conn);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        
     }
 }

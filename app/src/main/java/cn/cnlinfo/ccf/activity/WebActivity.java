@@ -3,12 +3,8 @@ package cn.cnlinfo.ccf.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -48,15 +44,15 @@ public class WebActivity extends BaseActivity {
         intent = getIntent();
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setUseWideViewPort(true);//关键点
-        webSettings.setDisplayZoomControls(false);
         webSettings.setJavaScriptEnabled(true); // 设置支持javascript脚本
+       /* webSettings.setUseWideViewPort(true);//关键点
+        webSettings.setDisplayZoomControls(false);
         webSettings.setAllowFileAccess(true); // 允许访问文件
         webSettings.setBuiltInZoomControls(true); // 设置显示缩放按钮
         webSettings.setSupportZoom(true); // 支持缩放
-        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setLoadWithOverviewMode(true);*/
 
-        DisplayMetrics metrics = new DisplayMetrics();
+       /* DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int mDensity = metrics.densityDpi;
         if (mDensity == 240) {
@@ -71,7 +67,7 @@ public class WebActivity extends BaseActivity {
             webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
         }else{
             webSettings.setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
-        }
+        }*/
 
         /**
          * 用WebView显示图片，可使用这个参数 设置网页布局类型： 1、LayoutAlgorithm.NARROW_COLUMNS ：
