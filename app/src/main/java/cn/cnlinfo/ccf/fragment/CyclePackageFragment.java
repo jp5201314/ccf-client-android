@@ -97,8 +97,11 @@ public class CyclePackageFragment extends BaseFragment {
     private void setCurrentStep(int currentStep) {
         //获取用户设置的计划锻炼步数，没有设置过的话默认2000
         String planWalk_QTY = (String) sharedPreferencesUtils.getParam("stepTotal", "2003");
-        //设置当前步数为0
-        selfStepArc.setCurrentCount(Integer.parseInt(planWalk_QTY), currentStep);
+        if (selfStepArc!=null){
+            //设置当前步数为0
+            selfStepArc.setCurrentCount(Integer.parseInt(planWalk_QTY), currentStep);
+        }
+
     }
 
     /**

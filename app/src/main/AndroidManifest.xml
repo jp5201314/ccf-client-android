@@ -57,7 +57,12 @@
         <activity
             android:name=".activity.MainPageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PopupMenuTheme"></activity>
+            android:theme="@style/PopupMenuTheme">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <!-- ********************************************TALKING DATA********************************************************** -->
 
 
@@ -385,11 +390,7 @@
             android:name=".activity.UploadImageActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.DownLoadFileActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
