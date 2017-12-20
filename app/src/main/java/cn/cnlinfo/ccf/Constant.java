@@ -33,6 +33,10 @@ public class Constant {
      * 发送验证码的主机地址
      */
     public static final String GET_MESSAGE_CODE_HOST = "http://ccf.hrkji.com/UserOperation.asmx/";
+    /**
+     * 上传步数的主机地址
+     */
+    public static final String UPLOAD_STEP_HOST = "http://ccf.hrkji.com/StepManage.asmx/";
 
     public static final String APP_DIR = PhoneManager.getSdCardRootPath() + "/ccf/";//app文件目录
     public static final String IMAGE_CACHE_DIR_PATH = APP_DIR + "cache/";// 图片缓存地址

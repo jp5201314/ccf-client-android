@@ -115,17 +115,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_pack_time"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="每两秒产生一个循环包" />
+                    android:text="每%s秒产生一个循环包" />
 
                 <TextView
+                    android:id="@+id/tv_conversion_cycle_pack"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:text="已兑换第%s个,剩余可兑换s%个" />
+                    android:text="已兑换%s个,剩余可兑换%s个" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -136,12 +138,14 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_hold_cycle_pack"
                         style="@style/text_0e1214_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="你总共可以持有%s个，还可以兑换" />
 
                     <cn.cnlinfo.ccf.view.CleanEditText
+                        android:id="@+id/et_conversion_cycle_pack"
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:background="@drawable/edit_text_style"
@@ -154,8 +158,9 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_conversion_cycle_pack"
                 android:layout_width="69dp"
-                android:layout_height="28dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="18dp"
                 android:background="@drawable/selector_button_bg"
@@ -167,7 +172,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -184,6 +189,7 @@
                     android:text="我要跑步" />
 
                 <TextView
+                    android:id="@+id/tv_current_rank"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,11 +197,12 @@
                     android:text="第0名" />
 
                 <TextView
+                    android:id="@+id/tv_praise_num"
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="赞s%次" />
+                    android:text="赞0次" />
             </LinearLayout>
 
             <cn.cnlinfo.ccf.view.StepArcView

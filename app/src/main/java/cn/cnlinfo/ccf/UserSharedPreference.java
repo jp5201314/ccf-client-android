@@ -3,9 +3,6 @@ package cn.cnlinfo.ccf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.manager.ACache;
 
@@ -69,6 +66,7 @@ public class UserSharedPreference {
         String jsonObjectFormSharedPreferences = this.getUserInfoFormSharedpreferences();
         return null == jsonObjectFormCache ? jsonObjectFormSharedPreferences : jsonObjectFormCache;
     }
+
 
     private String getUserInfoFormSharedpreferences() {
         return mSharedPreferences.getString("userinfo", null);

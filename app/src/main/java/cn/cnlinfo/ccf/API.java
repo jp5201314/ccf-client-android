@@ -53,7 +53,7 @@ public class API {
     /**
      * 用户兑换循环包
      */
-    public static final String CONVERSIONCYCLEPACKAGE = "BuyLoopPack";
+    public static final String CONVERSIONCYCLEPACKAGE = "ExchangePackage";
 
     /**
      * 买家在拍卖行中点击购买
@@ -106,7 +106,15 @@ public class API {
 
     public static final String GETNEWSNOTICE = "GetNewBody";
 
+    /**
+     * 上传步数
+     */
+    public static final String UPLOADSTEP = "UpStep";
+    /**
+     * 用户持有量上限
+     */
 
+    public static final String USERLIMIT = "Userlimit";
     /**
      *获取新闻公告列表
      */
@@ -116,6 +124,11 @@ public class API {
      * 获取平台信息
      */
     public static final String GETPLATFORMINFO = "Getplatforminfo";
+    /**
+     * 获取个人信息
+     */
+    public static final String GETPERSONINFO = "GetUserInfo";
+
 
     /**
      * 用户购买套餐
