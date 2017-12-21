@@ -56,6 +56,10 @@ public class API {
     public static final String CONVERSIONCYCLEPACKAGE = "ExchangePackage";
 
     /**
+     * 得到我的参数
+     */
+    public static final String GETMYPARAMETER = "GetMyCanshu";
+    /**
      * 买家在拍卖行中点击购买
      */
 
