@@ -148,7 +148,7 @@ public class StepService extends Service implements SensorEventListener {
         List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUsername()});
         Logger.d("initTodayData  "+user.getUsername()+"  "+list.size());
         if (list.size() == 0 || list.isEmpty()) {
-            CURRENT_STEP = 0;
+            CURRENT_STEP = user.getTodayStep();
         } else if (list.size() == 1) {
             Logger.d("StepData=" + list.get(0).toString());
             CURRENT_STEP = list.get(0).getStepNum();

@@ -154,6 +154,9 @@ public class User implements Serializable{
     @JSONField(name = "TotalStep")
     private int totalStep;
 
+    @JSONField(name = "TodayStep")
+    private int todayStep;
+
     @JSONField(name = "CircleTicket")
     private int circleTicket;
 
@@ -237,6 +240,58 @@ public class User implements Serializable{
                 ", enableAutoToCCF=" + enableAutoToCCF +
                 ", productScore=" + productScore +
                 '}';
+    }
+
+    public User(int id, String username, String nickName, int status, int parentId, int directId, String invitationCode, int jId, int mId, int sId, int hId, int tId, boolean isFull, int uType, String pwd, String mobile, long loginTimes, String registerIp, String date, int inLevel, String lastLogonIp, String lastLogonDate, int isOnline, int ccf, int circle, int carbonNum, int consumeIntegeral, int registerIntegeral, int carbonIntegral, int releaseConsum, int releaseCarbon, int totalStep, int todayStep, int circleTicket, int eMax, double praise, double businessLev, double totalMealWeight, double servantId, boolean enableAutoToCCF, int productScore) {
+        this.id = id;
+        this.username = username;
+        this.nickName = nickName;
+        this.status = status;
+        this.parentId = parentId;
+        this.directId = directId;
+        this.invitationCode = invitationCode;
+        this.jId = jId;
+        this.mId = mId;
+        this.sId = sId;
+        this.hId = hId;
+        this.tId = tId;
+        this.isFull = isFull;
+        this.uType = uType;
+        this.pwd = pwd;
+        this.mobile = mobile;
+        this.loginTimes = loginTimes;
+        this.registerIp = registerIp;
+        this.date = date;
+        this.inLevel = inLevel;
+        this.lastLogonIp = lastLogonIp;
+        this.lastLogonDate = lastLogonDate;
+        this.isOnline = isOnline;
+        this.ccf = ccf;
+        this.circle = circle;
+        this.carbonNum = carbonNum;
+        this.consumeIntegeral = consumeIntegeral;
+        this.registerIntegeral = registerIntegeral;
+        this.carbonIntegral = carbonIntegral;
+        this.releaseConsum = releaseConsum;
+        this.releaseCarbon = releaseCarbon;
+        this.totalStep = totalStep;
+        this.todayStep = todayStep;
+        this.circleTicket = circleTicket;
+        this.eMax = eMax;
+        this.praise = praise;
+        this.businessLev = businessLev;
+        this.totalMealWeight = totalMealWeight;
+        this.servantId = servantId;
+        this.enableAutoToCCF = enableAutoToCCF;
+        this.productScore = productScore;
+    }
+
+    public int getTodayStep() {
+        return todayStep;
+    }
+
+    public void setTodayStep(int todayStep) {
+        this.todayStep = todayStep;
     }
 
     public double getPraise() {
