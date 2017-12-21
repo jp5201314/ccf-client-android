@@ -14,70 +14,61 @@ public class Userstep {
      * E : 0.880700432441527  贡献值
      */
 
-    private int DayStep;
-    private int Ranking;
-    private int Praise;
-    private int Carbonnum;
-    private double F;
-    private double E;
 
-    public Userstep() {
-    }
+    private String DayStep;
+    private String Ranking;
+    private String Praise;
+    private String Carbonnum;
+    private String F;
+    private String E;
 
-    public Userstep(int dayStep, int ranking, int praise, int carbonnum, double f, double e) {
-        DayStep = dayStep;
-        Ranking = ranking;
-        Praise = praise;
-        Carbonnum = carbonnum;
-        F = f;
-        E = e;
-    }
-
-    public int getDayStep() {
+    public String getDayStep() {
         return DayStep;
     }
 
-    public void setDayStep(int DayStep) {
+    public void setDayStep(String DayStep) {
         this.DayStep = DayStep;
     }
 
-    public int getRanking() {
+    public String getRanking() {
         return Ranking;
     }
 
-    public void setRanking(int Ranking) {
+    public void setRanking(String Ranking) {
         this.Ranking = Ranking;
     }
 
-    public int getPraise() {
+    public String getPraise() {
         return Praise;
     }
 
-    public void setPraise(int Praise) {
+    public void setPraise(String Praise) {
         this.Praise = Praise;
     }
 
-    public int getCarbonnum() {
+    public String getCarbonnum() {
         return Carbonnum;
     }
 
-    public void setCarbonnum(int Carbonnum) {
+    public void setCarbonnum(String Carbonnum) {
         this.Carbonnum = Carbonnum;
     }
 
-    public double getF() {
+    public String getF() {
         return F;
     }
 
-    public void setF(double F) {
+    public void setF(String F) {
         this.F = F;
     }
 
-    public double getE() {
+    public String getE() {
         return E;
     }
 
-    public void setE(double E) {
+    public void setE(String E) {
         this.E = E;
     }
+
+
 }

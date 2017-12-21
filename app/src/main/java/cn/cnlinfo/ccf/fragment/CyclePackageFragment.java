@@ -192,13 +192,13 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                     if (userstep!=null){
                         tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(),userstep.getRanking()));
                         tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(),userstep.getPraise()));
-                        if (userstep.getF()!=0.0&&String.valueOf(userstep.getF()).length()>=5){
-                            tvBasicContributeValue.setText(String.valueOf(userstep.getF()).substring(0,5));
+                        if (!TextUtils.isEmpty(userstep.getF())){
+                            tvBasicContributeValue.setText(userstep.getF());
                         }
-                       if (userstep.getE()!=0.0&&String.valueOf(userstep.getE()).length()>=5){
-                           tvContributeValue.setText(String.valueOf(userstep.getE()).substring(0,5));
+                       if (!TextUtils.isEmpty(userstep.getE())){
+                           tvContributeValue.setText(userstep.getE());
                        }
-                        tvWaitActValue.setText(String.valueOf(userstep.getCarbonnum()));
+                        tvWaitActValue.setText(userstep.getCarbonnum());
                     }
                 }
                 @Override
