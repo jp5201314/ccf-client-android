@@ -15,6 +15,10 @@ public class StepData {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
+    @Column("username")
+    @NotNull
+    private String username;
+
     @Column("today")
     @NotNull
     private String date;
@@ -22,6 +26,14 @@ public class StepData {
     @Column("stepNum")
     @NotNull
     private int stepNum;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getId() {
         return id;
@@ -51,6 +63,7 @@ public class StepData {
     public String toString() {
         return "StepData{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", date='" + date + '\'' +
                 ", stepNum=" + stepNum +
                 '}';

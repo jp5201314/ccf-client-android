@@ -3,6 +3,8 @@ package cn.cnlinfo.ccf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.alibaba.fastjson.JSONObject;
+
 import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.manager.ACache;
 
@@ -25,7 +27,7 @@ public class UserSharedPreference {
     private static final int CACHE_SECONDS = 60 * 60;
     private static final String CACHE_JWT_TOKEN_KEY = "jwt_token";
     private static final String CACHE_LATEST_VERSION_CODE_KEY = "latest_version_code";
-    private static final String CACHE_USER_KEY = "user";
+    private static final String CACHE_USER_KEY = "userinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
 
     public UserSharedPreference(Context context) {
@@ -43,7 +45,7 @@ public class UserSharedPreference {
     }
 
     public User getUser(){
-        User user = com.alibaba.fastjson.JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        User user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
         return user;
     }
 
@@ -53,12 +55,12 @@ public class UserSharedPreference {
     }
 
     private void setUserInfoToSharedPreferences(String userInfoToSharedPreferences) {
-        mEditor.putString("userinfo", userInfoToSharedPreferences);
+        mEditor.putString(CACHE_USER_KEY, userInfoToSharedPreferences);
         mEditor.commit();
     }
 
     private void setUserInfoToCache(String userInfoToCache) {
-        mACache.put("userinfo", userInfoToCache);
+        mACache.put(CACHE_USER_KEY, userInfoToCache);
     }
 
     public String getUserInfo() {
@@ -69,11 +71,11 @@ public class UserSharedPreference {
 
 
     private String getUserInfoFormSharedpreferences() {
-        return mSharedPreferences.getString("userinfo", null);
+        return mSharedPreferences.getString(CACHE_USER_KEY, null);
     }
 
     private String getUserInfoFormCache() {
-        return mACache.getAsString("userinfo");
+        return mACache.getAsString(CACHE_USER_KEY);
     }
 
     public void setIsFirstLogin(boolean flag) {
@@ -143,7 +145,6 @@ public class UserSharedPreference {
     private String getJwtTokenFromCache() {
         return mACache.getAsString(CACHE_JWT_TOKEN_KEY);
     }
-
     private String getJwtTokenFromSharedPreference() {
         if (!mSharedPreferences.contains(CACHE_JWT_TOKEN_KEY)) {
             return null;

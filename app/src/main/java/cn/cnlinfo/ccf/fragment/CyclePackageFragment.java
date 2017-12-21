@@ -8,6 +8,7 @@ import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.Exchangepackageinfo;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.entity.Userstep;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.service.StepService;
@@ -86,7 +88,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private boolean isBind = false;
     private Animatable animatable;
     private User user;
-
+    private Intent intent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cycle_package, container, false);
@@ -113,7 +115,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         user = UserSharedPreference.getInstance().getUser();
         setControllerIntoSdvCycle();
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());
-        setCurrentStep(0);
         startUpService();
     }
 
@@ -171,13 +172,48 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
             //设置当前步数为0
             selfStepArc.setCurrentCount(Integer.parseInt(planWalk_QTY), currentStep);
         }
+        uploadStep(currentStep);
+    }
+
+    /**
+     * 上传步数
+     * @param step
+     */
+    private void uploadStep(int step){
+        if (user!=null&&step!=0){
+            RequestParams params = new RequestParams();
+            params.addFormDataPart("userid",user.getId());
+            params.addFormDataPart("step",step);
+            HttpRequest.post(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP, params, new CCFHttpRequestCallback() {
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    Logger.d(data.toJSONString());
+                    Userstep  userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(),Userstep.class);
+                    if (userstep!=null){
+                        tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(),userstep.getRanking()));
+                        tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(),userstep.getPraise()));
+                        if (userstep.getF()!=0.0&&String.valueOf(userstep.getF()).length()>=5){
+                            tvBasicContributeValue.setText(String.valueOf(userstep.getF()).substring(0,5));
+                        }
+                       if (userstep.getE()!=0.0&&String.valueOf(userstep.getE()).length()>=5){
+                           tvContributeValue.setText(String.valueOf(userstep.getE()).substring(0,5));
+                       }
+                        tvWaitActValue.setText(String.valueOf(userstep.getCarbonnum()));
+                    }
+                }
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+                    showMessage(code,msg);
+                }
+            });
+        }
     }
 
     /**
      * 开启计步服务
      */
     private void startUpService() {
-        Intent intent = new Intent(getActivity(), StepService.class);
+        intent = new Intent(getActivity(), StepService.class);
         isBind = getActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
         getActivity().startService(intent);
     }
@@ -275,31 +311,35 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
      * 去兑换循环包
      */
     private void toConversionCyclePack(){
-        int num = Integer.valueOf(etConversionCyclePack.getText().toString());
-        int limitNum = Integer.valueOf(etConversionCyclePack.getHint().toString());
-        if (num<=limitNum){
-            RequestParams params = new RequestParams();
-            params.addFormDataPart("id",user.getId());
-            params.addFormDataPart("num",num);
-            HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.CONVERSIONCYCLEPACKAGE, params, new CCFHttpRequestCallback() {
-                @Override
-                protected void onDataSuccess(JSONObject data) {
-                    toast("兑换成功");
-                    Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
-                    setCyclePackParams(exchangepackageinfo);
-                    etConversionCyclePack.setText("");
-                }
+        String conversionCyclePack = etConversionCyclePack.getText().toString();
+        if (!TextUtils.isEmpty(conversionCyclePack)){
+            int num = Integer.valueOf(etConversionCyclePack.getText().toString());
+            int limitNum = Integer.valueOf(etConversionCyclePack.getHint().toString());
+            if (num<=limitNum){
+                RequestParams params = new RequestParams();
+                params.addFormDataPart("id",user.getId());
+                params.addFormDataPart("num",num);
+                HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.CONVERSIONCYCLEPACKAGE, params, new CCFHttpRequestCallback() {
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+                        toast("兑换成功");
+                        Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
+                        setCyclePackParams(exchangepackageinfo);
+                        etConversionCyclePack.setText("");
+                    }
 
-                @Override
-                protected void onDataError(int code, boolean flag, String msg) {
-                    showMessage(code,msg);
-                }
-            });
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+                        showMessage(code,msg);
+                    }
+                });
 
+            }else {
+                toast("你的兑换量不足，请重新输入!!!");
+            }
         }else {
-            toast("你的兑换量不足，请重新输入!!!");
+            toast("请输入兑换循环包数量!!!");
         }
-
     }
 
 }
