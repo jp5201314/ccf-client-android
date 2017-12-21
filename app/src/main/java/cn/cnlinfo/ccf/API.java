@@ -128,8 +128,11 @@ public class API {
      * 获取个人信息
      */
     public static final String GETPERSONINFO = "GetUserInfo";
+    /**
+     * 获取兑换循环包参数
+     */
 
-
+    public static final String GETCIRCLE = "GetCircle";
     /**
      * 用户购买套餐
      */

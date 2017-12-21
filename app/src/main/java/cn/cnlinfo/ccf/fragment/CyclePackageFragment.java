@@ -19,23 +19,31 @@ import com.alibaba.fastjson.JSONObject;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.Exchangepackageinfo;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.service.StepService;
 import cn.cnlinfo.ccf.step_count.utils.SharedPreferencesUtils;
+import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.cnlinfo.ccf.view.StepArcView;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by JP on 2017/10/23 0023.
  */
 
-public class CyclePackageFragment extends BaseFragment implements View.OnClickListener{
+public class CyclePackageFragment extends BaseFragment implements View.OnClickListener {
     Unbinder unbinder;
     @BindView(R.id.tv_cc_num)
     TextView tvCcNum;
@@ -59,6 +67,20 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     FrameLayout flCyclePackage;
     @BindView(R.id.btn_at_once_transform)
     Button btnAtOnceTransform;
+    @BindView(R.id.tv_pack_time)
+    TextView tvPackTime;
+    @BindView(R.id.tv_conversion_cycle_pack)
+    TextView tvConversionCyclePack;
+    @BindView(R.id.tv_hold_cycle_pack)
+    TextView tvHoldCyclePack;
+    @BindView(R.id.et_conversion_cycle_pack)
+    CleanEditText etConversionCyclePack;
+    @BindView(R.id.btn_conversion_cycle_pack)
+    Button btnConversionCyclePack;
+    @BindView(R.id.tv_current_rank)
+    TextView tvCurrentRank;
+    @BindView(R.id.tv_praise_num)
+    TextView tvPraiseNum;
 
     private SharedPreferencesUtils sharedPreferencesUtils;
     private boolean isBind = false;
@@ -79,18 +101,63 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void initData() {
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
-        tvCcNum.setText(String.valueOf(user.getCcf()));
-        tvCycleStock.setText(String.valueOf(user.getCircleTicket()));
-        tvCenter.setText(String.valueOf(user.getCircle()));
-        tvCyclePack.setText(String.valueOf(user.getCircle()));
-
+        etConversionCyclePack.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    etConversionCyclePack.setText("");
+                }
+            }
+        });
+        setOnClickListener();
+        user = UserSharedPreference.getInstance().getUser();
         setControllerIntoSdvCycle();
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());
         setCurrentStep(0);
         startUpService();
     }
 
+    /**
+     * 注册监听事件
+     */
+    private void setOnClickListener(){
+        btnConversionCyclePack.setOnClickListener(this);
+        btnAtOnceTransform.setOnClickListener(this);
+    }
+
+    /**
+     * 获取兑换循环包数据
+     */
+    private void gainConversionCyclePackData(){
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("userid",user.getId());
+        HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE, params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
+                setCyclePackParams(exchangepackageinfo);
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                showMessage(code,msg);
+            }
+        });
+    }
+
+    /**
+     * 设置循环包参数
+     */
+    private void setCyclePackParams( Exchangepackageinfo exchangepackageinfo){
+        tvCcNum.setText(String.valueOf(exchangepackageinfo.getCCF()));
+        tvCycleStock.setText(String.valueOf(exchangepackageinfo.getCircleTicket()));
+        tvCyclePack.setText(String.valueOf(exchangepackageinfo.getCircle()));
+        tvCenter.setText(String.valueOf(exchangepackageinfo.getCircle()));
+        tvPackTime.setText(String.format(tvPackTime.getText().toString(),exchangepackageinfo.getPackTime()));
+        tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(),exchangepackageinfo.getHaschange(),exchangepackageinfo.getResidue()));
+        tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(),exchangepackageinfo.getUpperLimit()));
+        etConversionCyclePack.setHint(String.valueOf(exchangepackageinfo.getConvertible()));
+    }
 
     /**
      * 设置当前的步数
@@ -100,7 +167,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private void setCurrentStep(int currentStep) {
         //获取用户设置的计划锻炼步数，没有设置过的话默认2000
         String planWalk_QTY = (String) sharedPreferencesUtils.getParam("stepTotal", "2003");
-        if (selfStepArc!=null){
+        if (selfStepArc != null) {
             //设置当前步数为0
             selfStepArc.setCurrentCount(Integer.parseInt(planWalk_QTY), currentStep);
         }
@@ -159,6 +226,8 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
+        gainConversionCyclePackData();
+        Logger.d("onResume");
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.start();
@@ -168,10 +237,17 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onPause() {
         super.onPause();
+        Logger.d("onPause");
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.stop();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Logger.d("onStop");
     }
 
     @Override
@@ -185,6 +261,45 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        
+        switch (v.getId()){
+            case R.id.btn_conversion_cycle_pack:
+                toConversionCyclePack();
+                break;
+                case R.id.btn_at_once_transform:
+
+                    break;
+        }
     }
+
+    /**
+     * 去兑换循环包
+     */
+    private void toConversionCyclePack(){
+        int num = Integer.valueOf(etConversionCyclePack.getText().toString());
+        int limitNum = Integer.valueOf(etConversionCyclePack.getHint().toString());
+        if (num<=limitNum){
+            RequestParams params = new RequestParams();
+            params.addFormDataPart("id",user.getId());
+            params.addFormDataPart("num",num);
+            HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.CONVERSIONCYCLEPACKAGE, params, new CCFHttpRequestCallback() {
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    toast("兑换成功");
+                    Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
+                    setCyclePackParams(exchangepackageinfo);
+                    etConversionCyclePack.setText("");
+                }
+
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+                    showMessage(code,msg);
+                }
+            });
+
+        }else {
+            toast("你的兑换量不足，请重新输入!!!");
+        }
+
+    }
+
 }
