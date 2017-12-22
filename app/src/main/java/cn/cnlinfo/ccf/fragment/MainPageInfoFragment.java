@@ -74,7 +74,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private int oldPosition = 0;
     private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
-    private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "碳控积分", "已冻结", "待激活"};
+    private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "碳控积分", "产品积分", "注册积分"};
     private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "循环卷积分", "循环劵", "消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
@@ -91,27 +91,52 @@ public class MainPageInfoFragment extends BaseFragment {
         showWaitingDialog(true);
         setBannerData();
         setNoticeInfo();
-        simpleAccountAdapter = new SimpleAdapter(getActivity(), getAccountData(), R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
-        gvAccountInfo.setAdapter(simpleAccountAdapter);
+        setAccountAnwserData();
         setPlatformAnwserData();
     }
 
     /**
-     * 获取个人信息数据
+     * 设置个人信息数据
      */
-    private List<String> getAccountAnwserData() {
-        String userInfoJsonString = UserSharedPreference.getInstance().getUserInfo();
-        AccountInfo accountInfo = JSONObject.parseObject(userInfoJsonString, AccountInfo.class);
-        accountAnswer = new ArrayList<>();
-        accountAnswer.add(accountInfo.getNickName());
-        accountAnswer.add(accountInfo.getAcountId());
-        accountAnswer.add(accountInfo.getLevel());
-        accountAnswer.add(accountInfo.getInvatationCode());
-        accountAnswer.add(accountInfo.getCcf());
-        accountAnswer.add(accountInfo.getCcIntegral());
-        accountAnswer.add(accountInfo.getFrozened());
-        accountAnswer.add(accountInfo.getToActivate());
-        return accountAnswer;
+    private void setAccountAnwserData() {
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINFO, params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+               // Logger.d(data.toJSONString());
+                String accountInfoJsonString = data.getJSONObject("Userinfo").toJSONString();
+                UserSharedPreference.getInstance().setAccountInfo(accountInfoJsonString);
+                AccountInfo accountInfo = JSONObject.parseObject(accountInfoJsonString,AccountInfo.class);
+                accountAnswer = new ArrayList<>();
+                accountAnswer.add(accountInfo.getNickName());
+                accountAnswer.add(accountInfo.getUCode());
+                accountAnswer.add(String.valueOf(accountInfo.getInLevel()));
+                accountAnswer.add(accountInfo.getInvitationCode());
+                accountAnswer.add(String.valueOf(accountInfo.getCCF()));
+                accountAnswer.add(String.valueOf(accountInfo.getCarbonIntegral()));
+                accountAnswer.add(String.valueOf(accountInfo.getProductScore()));
+                accountAnswer.add(String.valueOf(accountInfo.getRegisterIntegral()));
+                List<Map<String, String>> list = new ArrayList<>();
+                for (int i = 0; i < accountTitles.length; i++) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("title", accountTitles[i]);
+                    map.put("answer", accountAnswer.get(i));
+                    list.add(map);
+                }
+                simpleAccountAdapter = new SimpleAdapter(getActivity(),list, R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
+                if (gvAccountInfo!=null){
+                    gvAccountInfo.setAdapter(simpleAccountAdapter);
+                }
+                showWaitingDialog(false);
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                showMessage(code, msg);
+                showWaitingDialog(false);
+            }
+        });
     }
 
     /**
@@ -123,7 +148,7 @@ public class MainPageInfoFragment extends BaseFragment {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
-                PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(),PlatformInfo.class);
+                PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
                 platformAnswer.add(platformInfo.getTotal());
                 platformAnswer.add(platformInfo.getActivated());
                 platformAnswer.add(platformInfo.getPrice());
@@ -133,20 +158,19 @@ public class MainPageInfoFragment extends BaseFragment {
                 platformAnswer.add(platformInfo.getCycleStock());
                 platformAnswer.add(platformInfo.getBonusPoints());
                 List<Map<String, String>> list = new ArrayList<>();
-                        if (platformAnswer!=null&&platformAnswer.size()>0){
-                            for (int i = 0; i < platformTitles.length; i++) {
-                                Map<String, String> map = new HashMap<>();
-                                map.put("title", platformTitles[i]);
-                                map.put("answer", platformAnswer.get(i));
-                                list.add(map);
+                if (platformAnswer != null && platformAnswer.size() > 0) {
+                    for (int i = 0; i < platformTitles.length; i++) {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("title", platformTitles[i]);
+                        map.put("answer", platformAnswer.get(i));
+                        list.add(map);
                     }
                 }
                 simplePlatformAdapter = new SimpleAdapter(getActivity(), list, R.layout.item_gv_info, new String[]{"title", "answer"}, new int[]{R.id.item_tv_title, R.id.item_tv_answer});
-                gvPlatformInfo.setAdapter(simplePlatformAdapter);
+                if (gvPlatformInfo != null) {
+                    gvPlatformInfo.setAdapter(simplePlatformAdapter);
+                }
                 showWaitingDialog(false);
-                        if (gvAccountInfo!=null){
-                            gvPlatformInfo.setAdapter(simplePlatformAdapter);
-                        }
             }
 
             @Override
@@ -162,7 +186,7 @@ public class MainPageInfoFragment extends BaseFragment {
      */
     private void setUpDownTextView(final List<ItemNews> itemNewsList) {
         tvUpDown.setText("welcome to Carbon control factor");
-        if (tvUpDown!=null){
+        if (tvUpDown != null) {
             tvUpDown.setSingleLine();
             tvUpDown.setGravity(Gravity.CENTER);
             tvUpDown.setTextColor(getActivity().getResources().getColor(R.color.colorAccent));
@@ -174,9 +198,9 @@ public class MainPageInfoFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
-                    String uri = String.format(Constant.GET_DETAIL_HOST,itemNews.getNewsId());
+                    String uri = String.format(Constant.GET_DETAIL_HOST, itemNews.getNewsId());
                     Intent intent = new Intent(getActivity(), WebActivity.class);
-                    intent.putExtra("url",uri);
+                    intent.putExtra("url", uri);
                     startActivity(intent);
                 }
             });
@@ -186,26 +210,26 @@ public class MainPageInfoFragment extends BaseFragment {
     /**
      * 获取公告信息
      */
-    private void setNoticeInfo(){
+    private void setNoticeInfo() {
         RequestParams params = new RequestParams();
-        params.addFormDataPart("CurrentPageIndex",1);
-        params.addFormDataPart("PageSize",4);
+        params.addFormDataPart("CurrentPageIndex", 1);
+        params.addFormDataPart("PageSize", 4);
         /**
          * 1是公告 2是新闻
          */
-        params.addFormDataPart("type",1);
-        params.addFormDataPart("Orderby","ORDER BY IssueDate DESC");
+        params.addFormDataPart("type", 1);
+        params.addFormDataPart("Orderby", "ORDER BY IssueDate DESC");
         HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSLIST, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 JSONArray jsonArray = data.getJSONArray("Newslist");
-                List<ItemNews> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(),ItemNews.class);
+                List<ItemNews> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(), ItemNews.class);
                 setUpDownTextView(itemNewsList);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-            toast("获取公告失败");
+                toast("获取公告失败");
             }
         });
     }
@@ -258,22 +282,6 @@ public class MainPageInfoFragment extends BaseFragment {
 
     }
 
-    /**
-     * 得到个人信息数据
-     * @return
-     */
-    private List<Map<String, String>> getAccountData() {
-        List<Map<String, String>> list = new ArrayList<>();
-        List<String> data = getAccountAnwserData();
-        for (int i = 0; i < accountTitles.length; i++) {
-            Map<String, String> map = new HashMap<>();
-            map.put("title", accountTitles[i]);
-            map.put("answer", data.get(i));
-            list.add(map);
-        }
-        return list;
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -315,7 +323,7 @@ public class MainPageInfoFragment extends BaseFragment {
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (vp!=null){
+            if (vp != null) {
                 vp.setCurrentItem(currentItem);
             }
         }

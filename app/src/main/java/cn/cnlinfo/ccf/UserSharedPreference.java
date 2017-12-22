@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.manager.ACache;
 
@@ -27,7 +28,8 @@ public class UserSharedPreference {
     private static final int CACHE_SECONDS = 60 * 60;
     private static final String CACHE_JWT_TOKEN_KEY = "jwt_token";
     private static final String CACHE_LATEST_VERSION_CODE_KEY = "latest_version_code";
-    private static final String CACHE_USER_KEY = "userinfo";
+    private static final String USER_INFO_KEY = "userinfo";
+    private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
 
     public UserSharedPreference(Context context) {
@@ -45,22 +47,47 @@ public class UserSharedPreference {
     }
 
     public User getUser(){
-        User user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
-        return user;
+        return JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
     }
 
+    public AccountInfo getAccount(){
+       return  JSONObject.parseObject(UserSharedPreference.getInstance().getAccountInfo(),AccountInfo.class);
+    }
+
+    private String getAccountInfo(){
+        String jsonObjectFormCache = this.getAccountInfoFormCache();
+        String jsonObjectFormSharedPreferences = this.getAccountInfoFormSharedpreferences();
+        return null == jsonObjectFormCache ? jsonObjectFormSharedPreferences : jsonObjectFormCache;
+    }
+
+
+    public void setAccountInfo(String accountInfo){
+        this.setAccountInfoToSharedPreferences(accountInfo);
+        this.setAccountInfoToCache(accountInfo);
+    }
+
+    private void setAccountInfoToSharedPreferences(String accountInfoToSharedPreferences){
+        mEditor.putString(ACCOUNT_INFO_KEY,accountInfoToSharedPreferences);
+        mEditor.commit();
+    }
+
+    private void setAccountInfoToCache(String accountInfoToCache){
+        mACache.put(ACCOUNT_INFO_KEY,accountInfoToCache);
+    }
+
+
     public void setUserInfo(String userinfo) {
-        this.setUserInfoToSharedPreferences(userinfo.toString());
+        this.setUserInfoToSharedPreferences(userinfo);
         this.setUserInfoToCache(userinfo);
     }
 
     private void setUserInfoToSharedPreferences(String userInfoToSharedPreferences) {
-        mEditor.putString(CACHE_USER_KEY, userInfoToSharedPreferences);
+        mEditor.putString(USER_INFO_KEY, userInfoToSharedPreferences);
         mEditor.commit();
     }
 
     private void setUserInfoToCache(String userInfoToCache) {
-        mACache.put(CACHE_USER_KEY, userInfoToCache);
+        mACache.put(USER_INFO_KEY, userInfoToCache);
     }
 
     public String getUserInfo() {
@@ -71,12 +98,20 @@ public class UserSharedPreference {
 
 
     private String getUserInfoFormSharedpreferences() {
-        return mSharedPreferences.getString(CACHE_USER_KEY, null);
+        return mSharedPreferences.getString(USER_INFO_KEY, null);
     }
 
     private String getUserInfoFormCache() {
-        return mACache.getAsString(CACHE_USER_KEY);
+        return mACache.getAsString(USER_INFO_KEY);
     }
+
+    private String getAccountInfoFormCache(){
+        return mACache.getAsString(ACCOUNT_INFO_KEY);
+    }
+    private String getAccountInfoFormSharedpreferences(){
+        return mSharedPreferences.getString(ACCOUNT_INFO_KEY,null);
+    }
+
 
     public void setIsFirstLogin(boolean flag) {
         mEditor.putBoolean("isFirstLogin", flag);
@@ -182,11 +217,11 @@ public class UserSharedPreference {
     }
 
     private void removeUserInCache() {
-        mACache.remove(CACHE_USER_KEY);
+        mACache.remove(USER_INFO_KEY);
     }
 
     private void removeUserInSharedPreference() {
-        mEditor.remove(CACHE_USER_KEY);
+        mEditor.remove(USER_INFO_KEY);
         mEditor.commit();
     }
 

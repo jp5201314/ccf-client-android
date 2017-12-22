@@ -48,7 +48,7 @@ public class API {
     /**
      * 得到用户的子节点数据
      */
-    public static final String USERCHILDCODEDATA = "ChildNetwork";
+    public static final String USERSHARELIST = "GetShareList";
 
     /**
      * 用户兑换循环包
@@ -132,6 +132,10 @@ public class API {
      * 获取个人信息
      */
     public static final String GETPERSONINFO = "GetUserInfo";
+    /**
+     * 获取个人信息
+     */
+    public static final String GETUSERINFO = "GetUserinfo";
     /**
      * 获取兑换循环包参数
      */

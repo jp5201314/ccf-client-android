@@ -86,7 +86,7 @@ public class MyParameterActivity extends BaseActivity {
      */
     private void setMyParameter(){
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getId());
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
         HttpRequest.post(Constant.GET_DATA_HOST + API.GETMYPARAMETER, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {

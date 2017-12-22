@@ -89,6 +89,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private Animatable animatable;
     private User user;
     private Intent intent;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cycle_package, container, false);
@@ -103,10 +104,11 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void initData() {
+        showWaitingDialog(true);
         etConversionCyclePack.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
+                if (!hasFocus) {
                     etConversionCyclePack.setText("");
                 }
             }
@@ -121,7 +123,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     /**
      * 注册监听事件
      */
-    private void setOnClickListener(){
+    private void setOnClickListener() {
         btnConversionCyclePack.setOnClickListener(this);
         btnAtOnceTransform.setOnClickListener(this);
     }
@@ -129,19 +131,21 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     /**
      * 获取兑换循环包数据
      */
-    private void gainConversionCyclePackData(){
+    private void gainConversionCyclePackData() {
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",user.getId());
+        params.addFormDataPart("userid", user.getUserID());
         HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
+                Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(), Exchangepackageinfo.class);
                 setCyclePackParams(exchangepackageinfo);
+                showWaitingDialog(false);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code,msg);
+                showMessage(code, msg);
+                showWaitingDialog(false);
             }
         });
     }
@@ -149,14 +153,14 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     /**
      * 设置循环包参数
      */
-    private void setCyclePackParams( Exchangepackageinfo exchangepackageinfo){
+    private void setCyclePackParams(Exchangepackageinfo exchangepackageinfo) {
         tvCcNum.setText(String.valueOf(exchangepackageinfo.getCCF()));
         tvCycleStock.setText(String.valueOf(exchangepackageinfo.getCircleTicket()));
         tvCyclePack.setText(String.valueOf(exchangepackageinfo.getCircle()));
         tvCenter.setText(String.valueOf(exchangepackageinfo.getCircle()));
-        tvPackTime.setText(String.format(tvPackTime.getText().toString(),exchangepackageinfo.getPackTime()));
-        tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(),exchangepackageinfo.getHaschange(),exchangepackageinfo.getResidue()));
-        tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(),exchangepackageinfo.getUpperLimit()));
+        tvPackTime.setText(String.format(tvPackTime.getText().toString(), exchangepackageinfo.getPackTime()));
+        tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(), exchangepackageinfo.getHaschange(), exchangepackageinfo.getResidue()));
+        tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));
         etConversionCyclePack.setHint(String.valueOf(exchangepackageinfo.getConvertible()));
     }
 
@@ -177,33 +181,34 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
 
     /**
      * 上传步数
+     *
      * @param step
      */
-    private void uploadStep(int step){
-        if (user!=null&&step!=0){
+    private void uploadStep(int step) {
+        if (user != null && step != 0) {
             RequestParams params = new RequestParams();
-            params.addFormDataPart("userid",user.getId());
-            params.addFormDataPart("step",step);
+            params.addFormDataPart("userid", user.getUserID());
+            params.addFormDataPart("step", step);
             HttpRequest.post(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP, params, new CCFHttpRequestCallback() {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
-                    Logger.d(data.toJSONString());
-                    Userstep  userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(),Userstep.class);
-                    if (userstep!=null){
-                        tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(),userstep.getRanking()));
-                        tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(),userstep.getPraise()));
-                        if (!TextUtils.isEmpty(userstep.getF())){
+                    Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
+                    if (userstep != null) {
+                        tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(), userstep.getRanking()));
+                        tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(), userstep.getPraise()));
+                        if (!TextUtils.isEmpty(userstep.getF())) {
                             tvBasicContributeValue.setText(userstep.getF());
                         }
-                       if (!TextUtils.isEmpty(userstep.getE())){
-                           tvContributeValue.setText(userstep.getE());
-                       }
+                        if (!TextUtils.isEmpty(userstep.getE())) {
+                            tvContributeValue.setText(userstep.getE());
+                        }
                         tvWaitActValue.setText(userstep.getCarbonnum());
                     }
                 }
+
                 @Override
                 protected void onDataError(int code, boolean flag, String msg) {
-                    showMessage(code,msg);
+                    showMessage(code, msg);
                 }
             });
         }
@@ -297,47 +302,47 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_conversion_cycle_pack:
                 toConversionCyclePack();
                 break;
-                case R.id.btn_at_once_transform:
+            case R.id.btn_at_once_transform:
 
-                    break;
+                break;
         }
     }
 
     /**
      * 去兑换循环包
      */
-    private void toConversionCyclePack(){
+    private void toConversionCyclePack() {
         String conversionCyclePack = etConversionCyclePack.getText().toString();
-        if (!TextUtils.isEmpty(conversionCyclePack)){
+        if (!TextUtils.isEmpty(conversionCyclePack)) {
             int num = Integer.valueOf(etConversionCyclePack.getText().toString());
             int limitNum = Integer.valueOf(etConversionCyclePack.getHint().toString());
-            if (num<=limitNum){
+            if (num <= limitNum) {
                 RequestParams params = new RequestParams();
-                params.addFormDataPart("id",user.getId());
-                params.addFormDataPart("num",num);
+                params.addFormDataPart("id", user.getUserID());
+                params.addFormDataPart("num", num);
                 HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.CONVERSIONCYCLEPACKAGE, params, new CCFHttpRequestCallback() {
                     @Override
                     protected void onDataSuccess(JSONObject data) {
                         toast("兑换成功");
-                        Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(),Exchangepackageinfo.class);
+                        Exchangepackageinfo exchangepackageinfo = JSONObject.parseObject(data.getJSONObject("Exchangepackageinfo").toJSONString(), Exchangepackageinfo.class);
                         setCyclePackParams(exchangepackageinfo);
                         etConversionCyclePack.setText("");
                     }
 
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
-                        showMessage(code,msg);
+                        showMessage(code, msg);
                     }
                 });
 
-            }else {
+            } else {
                 toast("你的兑换量不足，请重新输入!!!");
             }
-        }else {
+        } else {
             toast("请输入兑换循环包数量!!!");
         }
     }

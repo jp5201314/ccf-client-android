@@ -277,6 +277,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+
     private List<Fragment> setFragmentList() {
         MainPageFragment mainPageFragment = new MainPageFragment();
         fragmentList.add(mainPageFragment);

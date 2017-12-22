@@ -78,7 +78,7 @@ public class MyInfoFragment extends BaseFragment {
     private void initData(){
         user = UserSharedPreference.getInstance().getUser();
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",user.getId());
+        params.addFormDataPart("userid",user.getUserID());
         HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.GETPERSONINFO, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {

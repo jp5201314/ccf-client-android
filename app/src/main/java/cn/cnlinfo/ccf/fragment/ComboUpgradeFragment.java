@@ -37,8 +37,8 @@ import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.MyParameterActivity;
 import cn.cnlinfo.ccf.activity.RechargeRegisterPointsActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
+import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.ItemMealEntity;
-import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
@@ -73,7 +73,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     @BindView(R.id.et_meal_num)
     CleanEditText etMealNum;
     private Unbinder unbinder;
-    private User user;
+    private AccountInfo accountInfo;
     private int serviceTypeId;
     private String myRank;
     private String registerIntegral;
@@ -90,7 +90,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo_upgrade, container, false);
         unbinder = ButterKnife.bind(this, view);
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(), User.class);
+        accountInfo = UserSharedPreference.getInstance().getAccount();
         init();
         btnUpgradeCombo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +137,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                 return;
             }
             RequestParams params = new RequestParams();
-            params.addFormDataPart("userID", user.getId());
+            params.addFormDataPart("userID", accountInfo.getID());
             params.addFormDataPart("pwd2", safePass);
             params.addFormDataPart("setMealID", serviceTypeId);
             params.addFormDataPart("mealNum",mealNum );
@@ -185,7 +185,7 @@ public class ComboUpgradeFragment extends BaseFragment {
             if (rePrice <= re_integral) {
                 if (rePrice >= mealPrice*mealNum * 0.3&&rePrice<=mealPrice*mealNum) {
                         RequestParams params = new RequestParams();
-                        params.addFormDataPart("userID", user.getId());
+                        params.addFormDataPart("userID", accountInfo.getID());
                         params.addFormDataPart("setMealID", serviceTypeId);
                         params.addFormDataPart("registerScore", rePrice);
                         params.addFormDataPart("pwd2", safePass);
@@ -221,11 +221,11 @@ public class ComboUpgradeFragment extends BaseFragment {
         tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
         tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
         llIntegral.setVisibility(View.GONE);
-        if (user != null) {
-            re_integral = user.getRegisterIntegeral();
-            co_integral = user.getConsumeIntegeral();
+        if (accountInfo != null) {
+            re_integral = accountInfo.getRegisterIntegral();
+            co_integral = accountInfo.getConsumeIntegral();
             tvIntegral.setText("你当前有" + re_integral + "注册积分和" + co_integral + "消费积分");
-            int level = user.getInLevel();
+            int level = accountInfo.getInLevel();
             switch (level) {
                 case 0:
                     tvMyRank.setText("体验用户");

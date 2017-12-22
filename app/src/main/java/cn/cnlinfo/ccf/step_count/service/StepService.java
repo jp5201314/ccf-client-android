@@ -27,7 +27,7 @@ import java.util.List;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.MainPageActivity;
-import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepCount;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepValuePassListener;
@@ -99,7 +99,7 @@ public class StepService extends Service implements SensorEventListener {
 
     private Sensor countSensor;
     private Sensor detectorSensor;
-    private User user;
+    private AccountInfo accountInfo;
 
     @Override
     public void onCreate() {
@@ -141,14 +141,14 @@ public class StepService extends Service implements SensorEventListener {
      * 初始化当天的步数
      */
     private void initTodayData() {
-        user = UserSharedPreference.getInstance().getUser();
+        accountInfo = UserSharedPreference.getInstance().getAccount();
         CURRENT_DATE = getTodayDate();
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
         //获取当天的数据，用于展示
-        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUsername()});
-        Logger.d("initTodayData  "+user.getUsername()+"  "+list.size());
+        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{accountInfo.getUCode()});
+        Logger.d("initTodayData  "+accountInfo.getUCode()+"  "+list.size());
         if (list.size() == 0 || list.isEmpty()) {
-            CURRENT_STEP = user.getTodayStep();
+            CURRENT_STEP = accountInfo.getTodayStep();
         } else if (list.size() == 1) {
             Logger.d("StepData=" + list.get(0).toString());
             CURRENT_STEP = list.get(0).getStepNum();
@@ -269,8 +269,8 @@ public class StepService extends Service implements SensorEventListener {
      * 更新步数通知
      */
     private void updateNotification() {
-        user = UserSharedPreference.getInstance().getUser();
-        if (user!=null){
+        accountInfo = UserSharedPreference.getInstance().getAccount();
+        if (accountInfo!=null){
             //设置点击跳转
             Intent hangIntent = new Intent(this, MainPageActivity.class);
             PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -555,11 +555,11 @@ public class StepService extends Service implements SensorEventListener {
      */
     private void save() {
         int tempStep = CURRENT_STEP;
-        if (user!=null){
-            List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUsername()});
+        if (accountInfo!=null){
+            List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{accountInfo.getUCode()});
             if (list.size() == 0 || list.isEmpty()) {
                 StepData data = new StepData();
-                data.setUsername(user.getUsername());
+                data.setUsername(accountInfo.getUCode());
                 data.setDate(CURRENT_DATE);
                 data.setStepNum(tempStep);
                 databaseManager.insert(data);
