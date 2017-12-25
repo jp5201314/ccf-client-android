@@ -56,6 +56,11 @@ public class API {
     public static final String CONVERSIONCYCLEPACKAGE = "ExchangePackage";
 
     /**
+     *得到跑步排名
+     */
+    public static final String GETRUNNINGRANK = "GetTop10UserS";
+
+    /**
      * 得到我的参数
      */
     public static final String GETMYPARAMETER = "GetMyCanshu";
