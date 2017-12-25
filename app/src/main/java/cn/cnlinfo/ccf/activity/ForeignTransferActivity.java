@@ -9,13 +9,19 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 public class ForeignTransferActivity extends BaseActivity {
@@ -58,10 +64,18 @@ public class ForeignTransferActivity extends BaseActivity {
 
     private void  initData(){
         user = UserSharedPreference.getInstance().getUser();
+        final String [] foreignTransferArray = getResources().getStringArray(R.array.spinner_foreign_transfer);
         spTransferType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+              switch (foreignTransferArray[position]){
+                  case "碳控因子":
+                      typeId = 1;
+                      break;
+                  case "注册积分":
+                      typeId = 2;
+                      break;
+              }
             }
 
             @Override
@@ -83,6 +97,7 @@ public class ForeignTransferActivity extends BaseActivity {
      * @return
      */
     private void toTransfer(){
+        showWaitingDialog(true);
         String accounrNum = etUserAccount.getText().toString();
         String transNum = etTransferNumber.getText().toString();
         int  transferNum = Integer.valueOf(transNum);
@@ -91,10 +106,22 @@ public class ForeignTransferActivity extends BaseActivity {
            if (transferNum>0){
                RequestParams params = new RequestParams();
                params.addFormDataPart("type",typeId);
-               params.addFormDataPart("sendID",user.getUserID());
+               params.addFormDataPart("sendID",user.getUserCode());
                params.addFormDataPart("receiveID",accounrNum);
                params.addFormDataPart("largessValue",transferNum);
-               
+               HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
+                   @Override
+                   protected void onDataSuccess(JSONObject data) {
+
+                       showWaitingDialog(false);
+                   }
+
+                   @Override
+                   protected void onDataError(int code, boolean flag, String msg) {
+                        showMessage(code,msg);
+                        showWaitingDialog(false);
+                   }
+               });
            }else {
               showMessage("数量不能小于0");
 

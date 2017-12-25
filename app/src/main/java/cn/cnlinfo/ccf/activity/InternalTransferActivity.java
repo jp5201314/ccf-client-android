@@ -9,14 +9,20 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 public class InternalTransferActivity extends BaseActivity {
@@ -67,6 +73,7 @@ public class InternalTransferActivity extends BaseActivity {
     }
 
     private void toTransfer(){
+        showWaitingDialog(true);
         num = etTransferNumber.getText().toString();
         safePass = etSafePass.getText().toString();
         if (!TextUtils.isEmpty(num)&&!TextUtils.isEmpty(safePass)){
@@ -75,6 +82,20 @@ public class InternalTransferActivity extends BaseActivity {
             params.addFormDataPart("sendID",user.getUserID());
             params.addFormDataPart("receiveID",user.getUserID());
             params.addFormDataPart("largessValue",num);
+            HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
+
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    showWaitingDialog(false);
+
+                }
+
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+                    showWaitingDialog(false);
+                    showMessage(code,msg);
+                }
+            });
 
         }else {
             toast("输入框不能为空");
