@@ -20,7 +20,10 @@ import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 public class InternalTransferActivity extends BaseActivity {
-
+    /**
+     * [3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
+     --7:消费积分转循环积分,8:碳控因子转产品积分,9:碳控因子转消费积分,10:碳控因子转循环积分,11:循环积分转产品积分]
+     */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)

@@ -120,10 +120,9 @@ public class API {
      */
     public static final String UPLOADSTEP = "UpStep";
     /**
-     * 用户持有量上限
+     * 对内外互转
      */
-
-    public static final String USERLIMIT = "Userlimit";
+    public static final String USERTRANSFER = "UserTransfer";
     /**
      *获取新闻公告列表
      */

@@ -11,10 +11,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.view.CleanEditText;
 
 public class ForeignTransferActivity extends BaseActivity {
-
+    /**
+     * [1:碳控因子,2:注册积分,]
+     */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
@@ -31,6 +35,7 @@ public class ForeignTransferActivity extends BaseActivity {
     Button btnConfirm;
 
     private Unbinder unbinder;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,12 @@ public class ForeignTransferActivity extends BaseActivity {
             }
         });
         tvTitle.setText("对外互转");
+        initData();
+    }
+
+    private void  initData(){
+        user = UserSharedPreference.getInstance().getUser();
+
 
     }
 
