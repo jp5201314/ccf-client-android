@@ -117,6 +117,9 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         EventBus.getDefault().post(new ErrorMessageEvent(message));
     }
 
+    protected void showEditTextNoNull(){
+        showMessage("输入框不能为空");
+    }
     protected void showWaitingDialog(boolean show, String waitingNotice) {
         if (!show) {
             waitingDialog.dismiss();

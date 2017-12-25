@@ -100,9 +100,9 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:inputType="numberDecimal"
-                android:digits="@string/input_impose_num_lower_case"
+                android:digits="@string/input_impose_num"
                 android:maxLines="1"
-                android:maxLength="11"
+                android:maxLength="6"
                 android:hint="数量"
                 android:textColor="@drawable/selector_edit_text_color"
                 />
