@@ -19,6 +19,21 @@ public class User{
      */
 
     private String InvitationCode;
+    /**
+     * UserID : 4
+     * TodayStep : 23
+     */
+
+    private int TodayStep;
+
+    public User(int userID, String userCode, String nickName, String mobile, String invitationCode, int todayStep) {
+        UserID = userID;
+        UserCode = userCode;
+        NickName = nickName;
+        Mobile = mobile;
+        InvitationCode = invitationCode;
+        TodayStep = todayStep;
+    }
 
     public User(int userID, String userCode, String nickName, String mobile, String invitationCode) {
         UserID = userID;
@@ -36,6 +51,7 @@ public class User{
                 ", NickName='" + NickName + '\'' +
                 ", Mobile='" + Mobile + '\'' +
                 ", InvitationCode='" + InvitationCode + '\'' +
+                ", TodayStep='" + TodayStep + '\'' +
                 '}';
     }
 
@@ -80,5 +96,13 @@ public class User{
 
     public void setInvitationCode(String InvitationCode) {
         this.InvitationCode = InvitationCode;
+    }
+
+    public int getTodayStep() {
+        return TodayStep;
+    }
+
+    public void setTodayStep(int TodayStep) {
+        this.TodayStep = TodayStep;
     }
 }
