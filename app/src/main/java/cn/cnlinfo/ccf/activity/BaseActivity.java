@@ -21,6 +21,8 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
+
 import org.greenrobot.eventbus.EventBus;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -254,15 +256,32 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     /**
-     * 验证是否新版,如果新版,则跳转引导页
+     *根据版本号,验证是否新版,如果新版,则跳转引导页
      *
      * @return
      */
-    protected boolean validNewVersion() {
-        int nowVersionCode = PhoneManager.getVersionInfo().versionCode;
+    protected boolean validNewVersionByVersionCode() {
+        int newVersionCode = PhoneManager.getVersionInfo().versionCode;
         UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
-        if (userSharedPreference.isNewVersionCode(nowVersionCode)) {
-            userSharedPreference.setLatestVersionCode(nowVersionCode);
+        if (userSharedPreference.isNewVersionCode(newVersionCode)) {
+            userSharedPreference.setLatestVersionCode(newVersionCode);
+            startActivity(new Intent(BaseActivity.this, GuideActivity.class));
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 根据版本名,验证是否新版,如果新版,则跳转引导页
+     * @return
+     */
+    protected boolean validNewVersionByVersionName() {
+        String newVersionName = PhoneManager.getVersionInfo().versionName;
+        Logger.d(newVersionName);
+        UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
+        if (userSharedPreference.isNewVersionName(newVersionName)) {
+            userSharedPreference.setLatestVersionName(newVersionName);
             startActivity(new Intent(BaseActivity.this, GuideActivity.class));
             finish();
             return true;

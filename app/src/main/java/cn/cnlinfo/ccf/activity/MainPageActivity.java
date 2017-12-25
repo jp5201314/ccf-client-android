@@ -99,7 +99,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
      * 验证是否加载引导页
      */
     private void validLoadGuidePage() {
-        if (!validNewVersion()) {
+        if (!validNewVersionByVersionCode()) {
             if (validLogin()) {
                 if (UserSharedPreference.getInstance().getIsFirstLogin()) {
                     showRiskWarningDialog();

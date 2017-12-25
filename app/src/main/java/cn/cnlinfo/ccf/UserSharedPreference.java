@@ -28,6 +28,7 @@ public class UserSharedPreference {
     private static final int CACHE_SECONDS = 60 * 60;
     private static final String CACHE_JWT_TOKEN_KEY = "jwt_token";
     private static final String CACHE_LATEST_VERSION_CODE_KEY = "latest_version_code";
+    private static final String CACHE_LATEST_VERSION_NAME_KEY = "latest_version_name";
     private static final String USER_INFO_KEY = "userinfo";
     private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
@@ -255,6 +256,43 @@ public class UserSharedPreference {
         return versionCode > this.getLatestVersionCode();
     }
 
+    public boolean isNewVersionName(String versionName){
+        return versionName.equals(getLatestVersionName());
+    }
+
+    /**
+     * 获取最后记录的app版本名
+     * <p>
+     * return string null if no latest version code
+     */
+    public String getLatestVersionName() {
+        String versionName = this.getLatestVersionNameFromCache();
+
+        if (versionName==null) {
+            versionName = this.getLatestVersionNameFromSharedPreference();
+
+            if (versionName != null) {
+                this.setLatestVersionName(versionName);
+            }
+        }
+
+        return versionName;
+    }
+
+    public void setLatestVersionName(String versionName){
+        this.putLatestVersionNameToCache(versionName);
+        this.putLatestVersionNameToSharedPreference(versionName);
+    }
+    private void putLatestVersionNameToCache(String versionName) {
+        mACache.put(CACHE_LATEST_VERSION_NAME_KEY, Integer.valueOf(versionName), CACHE_SECONDS);
+    }
+
+    private void putLatestVersionNameToSharedPreference(String versionName) {
+        mEditor.putString(CACHE_LATEST_VERSION_NAME_KEY, versionName);
+        mEditor.commit();
+    }
+
+
     /**
      * 获取最后记录的app版本号
      * <p>
@@ -287,6 +325,21 @@ public class UserSharedPreference {
             return -1;
         }
         return mSharedPreferences.getInt(CACHE_LATEST_VERSION_CODE_KEY, -1);
+    }
+
+    private String getLatestVersionNameFromCache() {
+        String object = mACache.getAsString(CACHE_LATEST_VERSION_NAME_KEY);
+        if (null == object) {
+            return null;
+        }
+        return  object;
+    }
+
+    private String getLatestVersionNameFromSharedPreference() {
+        if (!mSharedPreferences.contains(CACHE_LATEST_VERSION_NAME_KEY)) {
+            return null;
+        }
+        return mSharedPreferences.getString(CACHE_LATEST_VERSION_NAME_KEY, null);
     }
 
     /**
