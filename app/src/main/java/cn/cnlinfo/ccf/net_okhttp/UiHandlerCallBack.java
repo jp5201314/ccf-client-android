@@ -5,6 +5,7 @@ import android.os.Message;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
@@ -45,6 +46,7 @@ public abstract class UiHandlerCallBack extends Handler implements Callback{
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
+        Logger.d(response.message());
         if (response != null && response.isSuccessful()) {
             try {
                 CCFResponse ccfResponse = ResponseChecker.explainResponse(response);
