@@ -12,7 +12,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -33,10 +33,10 @@ android {
             keyPassword properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_PASSWORD")
         }
         release {
-//            storeFile file(properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_FILE"))
-//            storePassword properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_PASSWORD")
-//            keyAlias properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_ALIAS")
-//            keyPassword properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_PASSWORD")
+            storeFile file(properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_FILE"))
+            storePassword properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_PASSWORD")
+            keyAlias properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_ALIAS")
+            keyPassword properties.getProperty("SIGNING_CONFINGS_REALEASE_KEY_PASSWORD")
         }
     }
 

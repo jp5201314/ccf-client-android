@@ -25,7 +25,9 @@ import java.util.Date;
 import java.util.List;
 
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.MainPageActivity;
+import cn.cnlinfo.ccf.entity.User;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepCount;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepValuePassListener;
@@ -95,21 +97,14 @@ public class StepService extends Service implements SensorEventListener {
 
     private DatabaseManager databaseManager;
 
+    private Sensor countSensor;
+    private Sensor detectorSensor;
+    private User user;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Logger.d("onCreate");
-
-        initNotification();
-        initTodayData();
-        initBroadcastReceiver();
-        new Thread(new Runnable() {
-            public void run() {
-                startStepDetector();
-            }
-        }).start();
-        startTimeCount();
-
     }
 
     /**
@@ -146,12 +141,14 @@ public class StepService extends Service implements SensorEventListener {
      * 初始化当天的步数
      */
     private void initTodayData() {
+        user = UserSharedPreference.getInstance().getUser();
         CURRENT_DATE = getTodayDate();
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
         //获取当天的数据，用于展示
-        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "today", new String[]{CURRENT_DATE});
+        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUserCode()});
+        Logger.d("initTodayData  "+user.getUserCode()+"  "+list.size());
         if (list.size() == 0 || list.isEmpty()) {
-            CURRENT_STEP = 0;
+            CURRENT_STEP = user.getTodayStep();
         } else if (list.size() == 1) {
             Logger.d("StepData=" + list.get(0).toString());
             CURRENT_STEP = list.get(0).getStepNum();
@@ -272,20 +269,20 @@ public class StepService extends Service implements SensorEventListener {
      * 更新步数通知
      */
     private void updateNotification() {
-        //设置点击跳转
-        Intent hangIntent = new Intent(this, MainPageActivity.class);
-        PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            //设置点击跳转
+            Intent hangIntent = new Intent(this, MainPageActivity.class);
+            PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText("今日步数" + CURRENT_STEP + " 步")
-                .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
-                .setContentIntent(hangPendingIntent)
-                .build();
-        mNotificationManager.notify(notifyId_Step, notification);
-        if (mCallback != null) {
-            mCallback.updateUi(CURRENT_STEP);
-        }
-        Logger.d("updateNotification()");
+            Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))
+                    .setContentText("今日步数" + CURRENT_STEP + " 步")
+                    .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
+                    .setContentIntent(hangPendingIntent)
+                    .build();
+            mNotificationManager.notify(notifyId_Step, notification);
+            if (mCallback != null) {
+                mCallback.updateUi(CURRENT_STEP);
+            }
+            Logger.d("updateNotification()");
     }
 
     /**
@@ -381,13 +378,27 @@ public class StepService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Logger.d("onStartCommand");
+        initNotification();
+        initTodayData();
+        initBroadcastReceiver();
+        new Thread(new Runnable() {
+            public void run() {
+                /**
+                 * 获取传感器实例
+                 */
+                gainStepDetectorInstance();
+            }
+        }).start();
+
+        startTimeCount();
         return START_STICKY;
     }
 
     /**
      * 获取传感器实例
      */
-    private void startStepDetector() {
+    private void gainStepDetectorInstance() {
         if (sensorManager != null) {
             sensorManager = null;
         }
@@ -416,8 +427,8 @@ public class StepService extends Service implements SensorEventListener {
      * 如果需要长事件的计步请使用TYPE_STEP_COUNTER。
      */
     private void addCountStepListener() {
-        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        Sensor detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+         countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+         detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
         if (countSensor != null) {
             stepSensorType = Sensor.TYPE_STEP_COUNTER;
             Logger.d("Sensor.TYPE_STEP_COUNTER");
@@ -447,8 +458,10 @@ public class StepService extends Service implements SensorEventListener {
         mStepCount.initListener(new StepValuePassListener() {
             @Override
             public void stepChanged(int steps) {
-                CURRENT_STEP = steps;
-                updateNotification();
+                if (UserSharedPreference.getInstance().getUser()!=null){
+                    CURRENT_STEP = steps;
+                    updateNotification();
+                }
             }
         });
         if (isAvailable) {
@@ -492,15 +505,19 @@ public class StepService extends Service implements SensorEventListener {
                 int thisStepCount = tempStep - hasStepCount;
                 //本次有效步数=（APP打开后所记录的总步数-上一次APP打开后所记录的总步数）
                 int thisStep = thisStepCount - previousStepCount;
-                //总步数=现有的步数+本次有效步数
-                CURRENT_STEP += (thisStep);
+                if (UserSharedPreference.getInstance().getUser()!=null){
+                    //总步数=现有的步数+本次有效步数
+                    CURRENT_STEP += (thisStep);
+                }
                 //记录最后一次APP打开到现在的总步数
                 previousStepCount = thisStepCount;
             }
-            Logger.d("历史总步数tempStep = " + tempStep+"\n"+"当前的步数thisStepCount = "+previousStepCount);
+            Logger.d("历史总步数tempStep = " + tempStep+"\n"+"当前的步数thisStepCount = "+previousStepCount+"当前用户的步数 = "+CURRENT_STEP);
         } else if (stepSensorType == Sensor.TYPE_STEP_DETECTOR) {
             if (event.values[0] == 1.0) {
-                CURRENT_STEP++;
+                if (UserSharedPreference.getInstance().getUser()!=null){
+                    CURRENT_STEP++;
+                }
                 Logger.d(" Sensor.TYPE_STEP_DETECTOR");
             }
         }
@@ -519,7 +536,7 @@ public class StepService extends Service implements SensorEventListener {
         public void onFinish() {
             // 如果计时器正常结束，则开始计步
             time.cancel();
-            save();
+                save();
             startTimeCount();
         }
 
@@ -535,18 +552,21 @@ public class StepService extends Service implements SensorEventListener {
      */
     private void save() {
         int tempStep = CURRENT_STEP;
-        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "today", new String[]{CURRENT_DATE});
-        if (list.size() == 0 || list.isEmpty()) {
-            StepData data = new StepData();
-            data.setDate(CURRENT_DATE);
-            data.setStepNum(tempStep);
-            databaseManager.insert(data);
-        } else if (list.size() == 1) {
-            StepData data = list.get(0);
-            data.setStepNum(tempStep);
-            databaseManager.update(data);
-        } else {
-            Logger.d("error");
+        if (user!=null){
+            List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUserCode()});
+            if (list.size() == 0 || list.isEmpty()) {
+                StepData data = new StepData();
+                data.setUsername(user.getUserCode());
+                data.setDate(CURRENT_DATE);
+                data.setStepNum(tempStep);
+                databaseManager.insert(data);
+            } else if (list.size() == 1) {
+                StepData data = list.get(0);
+                data.setStepNum(tempStep);
+                databaseManager.update(data);
+            } else {
+                Logger.d("error");
+            }
         }
     }
 
@@ -557,12 +577,15 @@ public class StepService extends Service implements SensorEventListener {
         //取消前台notification进程
         stopForeground(true);
         databaseManager.closeDatabase();
+        databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
+        mNotificationManager.cancel(notifyId_Step);
         Logger.d("stepService关闭");
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
+        Logger.d("onUnbind");
         return super.onUnbind(intent);
     }
 }

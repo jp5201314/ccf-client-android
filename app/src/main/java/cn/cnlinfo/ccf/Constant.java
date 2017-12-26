@@ -25,6 +25,19 @@ public class Constant {
      */
     public static final String GET_DATA_HOST = "http://ccf.hrkji.com/GetDatas.asmx/";
 
+    /**
+     * 获取到公告具体信息的主机
+     */
+    public static final String GET_DETAIL_HOST = "http://ccf.hrkji.com/NewDetail.aspx?newsID=%s";
+    /**
+     * 发送验证码的主机地址
+     */
+    public static final String GET_MESSAGE_CODE_HOST = "http://ccf.hrkji.com/UserOperation.asmx/";
+    /**
+     * 上传步数的主机地址
+     */
+    public static final String UPLOAD_STEP_HOST = "http://ccf.hrkji.com/StepManage.asmx/";
+
     public static final String APP_DIR = PhoneManager.getSdCardRootPath() + "/ccf/";//app文件目录
     public static final String IMAGE_CACHE_DIR_PATH = APP_DIR + "cache/";// 图片缓存地址
     public static final String UPLOAD_FILES_DIR_PATH = APP_DIR + "upload/";//上传文件、零时文件存放地址

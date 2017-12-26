@@ -70,15 +70,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选    区" />
-        <Spinner
-            android:id="@+id/sp_area_type"
+            android:text="接点人" />
+        <cn.cnlinfo.ccf.view.CleanEditText
+            android:id="@+id/et_contact_person"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:entries="@array/spinner_area_type"
+            android:background="@drawable/edit_text_style"
             android:gravity="center"
-            />
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textColor="@drawable/selector_edit_text_color" />
 
     </LinearLayout>
 

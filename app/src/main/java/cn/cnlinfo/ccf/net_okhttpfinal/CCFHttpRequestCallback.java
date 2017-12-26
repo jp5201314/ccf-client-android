@@ -60,4 +60,10 @@ public abstract class CCFHttpRequestCallback extends JsonHttpRequestCallback {
     protected abstract void onDataSuccess(JSONObject data);
 
     protected abstract void onDataError(int code,boolean flag,String msg);
+
+    @Override
+    public void onFailure(int errorCode, String msg) {
+        super.onFailure(errorCode, msg);
+
     }
+}

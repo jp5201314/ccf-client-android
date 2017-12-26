@@ -6,10 +6,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.entity.MyParams;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 public class MyParameterActivity extends BaseActivity {
 
@@ -49,10 +58,6 @@ public class MyParameterActivity extends BaseActivity {
     TextView tvTodayStep;
     @BindView(R.id.tv_ccf_limit)
     TextView tvCcfLimit;
-    @BindView(R.id.tv_freeze_ccf)
-    TextView tvFreezeCcf;
-    @BindView(R.id.tv_wait_alive_limit)
-    TextView tvWaitAliveLimit;
     @BindView(R.id.tv_out_of_line)
     TextView tvOutOfLine;
     @BindView(R.id.tv_average_difficulty_coefficient)
@@ -71,6 +76,46 @@ public class MyParameterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        setMyParameter();
+    }
+
+    /**
+     * 设置我的参数数据
+     */
+    private void setMyParameter(){
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETMYPARAMETER, params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                MyParams myParams = JSONObject.parseObject(data.getJSONObject("Mycanshu").toJSONString(),MyParams.class);
+                if (myParams!=null){
+                    tvCcf.setText(myParams.getCCF());
+                    tvCyclePackage.setText(myParams.getCircle());
+                    tvWaitAliveCcf.setText(myParams.getCarbonNum());
+                    tvCycleCoupon.setText(myParams.getCircleTicket());
+                    tvCurrentPrice.setText(myParams.getP());
+                    tvWaitFreeCyclePoints.setText(myParams.getCircleTicketScore());
+                    tvBonusPoints.setText(myParams.getConsumeIntegral());
+                    tvWaitReleasePoints.setText(myParams.getReleaseConsume());
+                    tvCcPoints.setText(myParams.getCarbonIntegral());
+                    tvYesterdayContributeValue.setText(myParams.getYesterdayE());
+                    tvCurrentContributionValue.setText(myParams.getNowE());
+                    tvBasicContributionRate.setText(myParams.getF());
+                    tvTotalStep.setText(myParams.getTotalStep());
+                    tvTodayStep.setText(myParams.getTodayStep());
+                    tvCcfLimit.setText(myParams.getLimitCCF());
+                    tvOutOfLine.setText(myParams.getAuctionNum());
+                    tvAverageDifficultyCoefficient.setText(myParams.getAvgdifficulty());
+                    tvAccPurMeal.setText(myParams.getTotalMealWeight());
+                }
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                showMessage(code,msg);
             }
         });
     }
