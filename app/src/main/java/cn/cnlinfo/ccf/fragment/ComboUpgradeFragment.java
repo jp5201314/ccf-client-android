@@ -126,7 +126,7 @@ public class ComboUpgradeFragment extends BaseFragment {
         mealNum = Integer.valueOf(etMealNum.getText().toString());
         if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(etMealNum.getText().toString())){
             if (re_integral<mealPrice*mealNum){
-                final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
+                NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         startActivity(new Intent(getActivity(), RechargeRegisterPointsActivity.class));

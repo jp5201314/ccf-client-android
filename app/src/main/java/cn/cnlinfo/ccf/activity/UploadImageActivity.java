@@ -70,10 +70,10 @@ public class UploadImageActivity extends BaseActivity {
                 files.add(file);
             }
             if (files!=null&&files.size()>0){
-                OKHttpManager.getInstance().newCall(OkHttp3Utils.uploadMultiImage("http://ccf.hrkji.com/UserOperation.asmx/BuyCredits",null,"one",files)).enqueue(new UiHandlerCallBack() {
+                OKHttpManager.getInstance().newCall(OkHttp3Utils.uploadMultiImage("http://ccf.hrkji.com/UserOperation.asmx/uploadingImg",null,"one",files)).enqueue(new UiHandlerCallBack() {
                     @Override
                     public void success(JSONObject data) {
-
+                        showMessage("上传成功");
                     }
 
                     @Override
