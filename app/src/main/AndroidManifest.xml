@@ -60,6 +60,7 @@
             android:theme="@style/PopupMenuTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -412,21 +413,19 @@
         <activity
             android:name=".activity.UploadImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"></activity>
-        <!--下载文件-->
+            android:theme="@style/NormalFullScreen" />
+        <!-- 下载文件 -->
         <activity
             android:name=".activity.DownLoadFileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen">
+            android:theme="@style/NormalFullScreen"/>
 
-        </activity>
-
-        <!--服务后台下载文件-->
+        <!-- 服务后台下载文件 -->
         <service
             android:name=".service.DownLoadFileService"
             android:enabled="true"
-            android:exported="true"></service>
-        <!--android7.0为防止直接写出文件路径的不安全，提供了此种方式来保护文件安全-->
+            android:exported="true" />
+        <!-- android7.0为防止直接写出文件路径的不安全，提供了此种方式来保护文件安全 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="cn.cnlinfo.ccf.fileprovider"
@@ -436,6 +435,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".activity.PurchaseMealRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"
+            />
     </application>
 
 </manifest>

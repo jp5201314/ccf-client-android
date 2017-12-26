@@ -36,6 +36,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     TextView tvDealRecord;
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
+    @BindView(R.id.tv_pur_meal_record)
+    TextView tvPurMealRecord;
     private Unbinder unbinder;
 
     @Override
@@ -54,7 +56,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         unbinder.unbind();
     }
 
-    private void setClickListener(){
+    private void setClickListener() {
         ibtBack.setOnClickListener(this);
         tvContributeValueRecord.setOnClickListener(this);
         tvDealRecord.setOnClickListener(this);
@@ -65,6 +67,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         tvConversionRecord.setOnClickListener(this);
         tvEWalletRecord.setOnClickListener(this);
         tvShoppingRecord.setOnClickListener(this);
+        tvPurMealRecord.setOnClickListener(this);
     }
 
     @Override
@@ -76,23 +79,23 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
             case R.id.ibt_back:
                 finish();
                 break;
-                /**
-                 * 对外转账记录
-                 * */
+            /**
+             * 对外转账记录
+             * */
             case R.id.tv_to_out:
-                startActivity(new Intent(this,ExternalTransferActivity.class));
+                startActivity(new Intent(this, ExternalTransferActivity.class));
                 break;
             /**
              * 自身转账记录
              * */
             case R.id.tv_to_self:
-                startActivity(new Intent(this,ItselfTransferRecordsActivity.class));
+                startActivity(new Intent(this, ItselfTransferRecordsActivity.class));
                 break;
             /**
              * 步行记录
              * */
             case R.id.tv_step_record:
-                startActivity(new Intent(this,WalkRecordActivity.class));
+                startActivity(new Intent(this, WalkRecordActivity.class));
                 break;
             /**
              * 贡献值记录
@@ -104,32 +107,37 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 基础贡献率记录
              * */
             case R.id.tv_basic_contribution_rate_record:
-                startActivity(new Intent(this,BasicContributionRateRecordActivity.class));
+                startActivity(new Intent(this, BasicContributionRateRecordActivity.class));
                 break;
             /**
              * 兑换记录
              * */
             case R.id.tv_conversion_record:
-                startActivity(new Intent(this,ConversionRecordActivity.class));
+                startActivity(new Intent(this, ConversionRecordActivity.class));
                 break;
             /**
              * 电子钱包转账记录
              * */
             case R.id.tv_e_wallet_record:
-                startActivity(new Intent(this,Wallet_Record_Activity.class));
+                startActivity(new Intent(this, Wallet_Record_Activity.class));
                 break;
             /**
              * 购物记录
              * */
             case R.id.tv_shopping_record:
-                startActivity(new Intent(this,ShoppingRecordActivity.class));
+                startActivity(new Intent(this, ShoppingRecordActivity.class));
                 break;
             /**
              * 交易记录
              * */
             case R.id.tv_deal_record:
-                startActivity(new Intent(this,TransactionRecordActivity.class));
+                startActivity(new Intent(this, TransactionRecordActivity.class));
                 break;
+            /**
+             * 购买套餐记录
+             */
+            case R.id.tv_pur_meal_record:
+                startActivity(new Intent(this,PurchaseMealRecordActivity.class));
             default:
                 break;
         }

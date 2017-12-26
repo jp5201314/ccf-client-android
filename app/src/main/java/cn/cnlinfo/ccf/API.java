@@ -163,5 +163,13 @@ public class API {
      */
     public static final String RETRIEVEPASSWORD = "RetrievePassword";
 
+    /**
+     * 购买注册积分
+     */
+    public static final String PURCHASEREGISTERPOINTS = "UserBuyCredits";
+    /**
+     * 上传图片
+     */
+    public static final String UPLOADIMAGE = "uploadingImg";
 
 }

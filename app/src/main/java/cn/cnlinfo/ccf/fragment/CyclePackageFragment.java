@@ -157,7 +157,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         tvCcNum.setText(String.valueOf(exchangepackageinfo.getCCF()));
         tvCycleStock.setText(String.valueOf(exchangepackageinfo.getCircleTicket()));
         tvCyclePack.setText(String.valueOf(exchangepackageinfo.getCircle()));
-        tvCenter.setText(String.valueOf(exchangepackageinfo.getCircle()));
+        tvCenter.setText(String.valueOf(exchangepackageinfo.getTotalPack()));
         tvPackTime.setText(String.format(tvPackTime.getText().toString(), exchangepackageinfo.getPackTime()));
         tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(), exchangepackageinfo.getHaschange(), exchangepackageinfo.getResidue()));
         tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));

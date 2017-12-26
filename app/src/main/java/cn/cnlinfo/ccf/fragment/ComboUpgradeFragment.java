@@ -33,7 +33,6 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.activity.MyParameterActivity;
 import cn.cnlinfo.ccf.activity.RechargeRegisterPointsActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.AccountInfo;
@@ -177,7 +176,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                 final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        startActivity(new Intent(getActivity(), MyParameterActivity.class));
+                        startActivity(new Intent(getActivity(), RechargeRegisterPointsActivity.class));
                         getActivity().finish();
                     }
                 });

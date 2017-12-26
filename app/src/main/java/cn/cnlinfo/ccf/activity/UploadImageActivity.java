@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 import com.scrat.app.selectorlibrary.ImageSelector;
 
 import java.io.File;
@@ -73,6 +74,7 @@ public class UploadImageActivity extends BaseActivity {
                 OKHttpManager.getInstance().newCall(OkHttp3Utils.uploadMultiImage("http://ccf.hrkji.com/UserOperation.asmx/uploadingImg",null,"one",files)).enqueue(new UiHandlerCallBack() {
                     @Override
                     public void success(JSONObject data) {
+                        Logger.d(data.toJSONString());
                         showMessage("上传成功");
                     }
 

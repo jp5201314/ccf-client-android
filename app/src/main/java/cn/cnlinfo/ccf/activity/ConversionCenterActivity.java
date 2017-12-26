@@ -60,7 +60,7 @@ public class ConversionCenterActivity extends BaseActivity implements View.OnCli
             case R.id.tv_ccf_conversion:
                 startActivity(new Intent(this, CCFConversionActivity.class));
                 break;
-            //循环劵兑换
+            //产品积分兑换
             case R.id.tv_production_points_conversion:
                 startActivity(new Intent(this,ProductionPointsConversionActivity.class));
                 break;
