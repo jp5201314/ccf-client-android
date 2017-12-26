@@ -252,6 +252,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
+    compile  'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'

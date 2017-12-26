@@ -290,15 +290,18 @@
         <!-- 交易记录 -->
         <activity
             android:name=".activity.TransactionRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 对外转账记录 -->
         <activity
             android:name=".activity.ExternalTransferActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 自身转账记录 -->
         <activity
             android:name=".activity.ItselfTransferRecordsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 步行记录 -->
         <activity
             android:name=".activity.WalkRecordActivity"
@@ -306,105 +309,129 @@
         <!-- 基础贡献率记录 -->
         <activity
             android:name=".activity.BasicContributionRateRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 兑换记录 -->
         <activity
             android:name=".activity.ConversionRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 电子钱包转账记录 -->
         <activity
             android:name=".activity.Wallet_Record_Activity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 购物记录 -->
         <activity
             android:name=".activity.ShoppingRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 碳控公益 -->
         <!-- 我要捐步 -->
         <activity
             android:name=".activity.DonateStepActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 爱心基金 -->
         <activity
             android:name=".activity.BeneficentFundsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 植树基金 -->
         <activity
             android:name=".activity.PlantTreeFundsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 爱心奉献 -->
         <activity
             android:name=".activity.LoveDedicationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 我要乐捐 -->
         <activity
             android:name=".activity.MeDedicationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 发起乐捐 -->
         <activity
             android:name=".activity.LaunchDedicationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 公益一帮一 -->
         <activity
             android:name=".activity.CommunityHelpOneActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 发起公益项目 -->
         <activity
             android:name=".activity.InitiatePublicWelfareProjectsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 我的善行记录 -->
         <activity
             android:name=".activity.MyGoodDeedsRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 需要帮助 -->
         <activity
             android:name=".activity.NeedHelpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 碳控环保 -->
         <activity
             android:name=".activity.CCEnvironmentalProtectionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 环保行 -->
         <activity
             android:name=".activity.EnvironmentalProtectionLineActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 碳控行 -->
         <activity
             android:name=".activity.CCLineActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
 
         <!-- 游戏充值 -->
         <activity
             android:name=".activity.GameTopUpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 游戏中心 -->
         <activity
             android:name=".activity.GameCenterActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 充值注册积分 -->
         <activity
             android:name=".activity.RechargeRegisterPointsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
         <!-- 上传图片 -->
         <activity
             android:name=".activity.UploadImageActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"></activity>
+        <!--下载文件-->
+        <activity
+            android:name=".activity.DownLoadFileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen">
 
         </activity>
-        <activity android:name=".activity.DownLoadFileActivity">
 
-        </activity>
-
+        <!--服务后台下载文件-->
         <service
             android:name=".service.DownLoadFileService"
             android:enabled="true"
             android:exported="true"></service>
+        <!--android7.0为防止直接写出文件路径的不安全，提供了此种方式来保护文件安全-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="cn.cnlinfo.ccf.fileprovider"
-            android:grantUriPermissions="true"
             android:exported="false"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
