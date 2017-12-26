@@ -124,6 +124,7 @@ public class ComboUpgradeFragment extends BaseFragment {
     private void toPurchaseNormalMeal() {
         safePass = etSafePass.getText().toString();
         mealNum = Integer.valueOf(etMealNum.getText().toString());
+        mealPrice = Integer.valueOf(tvMealPrice.getText().toString());
         if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(etMealNum.getText().toString())){
             if (re_integral<mealPrice*mealNum){
                 final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {

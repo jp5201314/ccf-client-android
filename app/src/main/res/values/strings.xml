@@ -87,14 +87,14 @@
     </string-array>
 
     <string-array name="spinner_internal_transfer">
-        <item>碳控因子转循环积分</item>
-        <item>碳控因子转消费积分</item>
-        <item>碳控因子转产品积分</item>
         <item>注册积分转产品积分</item>
         <item>注册积分转消费积分</item>
-        <item>消费积分转循环积分</item>
-        <item>消费积分转碳控因子</item>
         <item>消费积分转产品积分</item>
+        <item>消费积分转碳控因子</item>
+        <item>消费积分转循环积分</item>
+        <item>碳控因子转产品积分</item>
+        <item>碳控因子转消费积分</item>
+        <item>碳控因子转循环积分</item>
         <item>循环积分转产品积分</item>
     </string-array>
 

@@ -73,30 +73,39 @@ public class InternalTransferActivity extends BaseActivity {
     }
 
     private void toTransfer(){
-        showWaitingDialog(true);
         num = etTransferNumber.getText().toString();
         safePass = etSafePass.getText().toString();
         if (!TextUtils.isEmpty(num)&&!TextUtils.isEmpty(safePass)){
-            RequestParams params = new RequestParams();
-            params.addFormDataPart("type",typeId);
-            params.addFormDataPart("sendID",user.getUserID());
-            params.addFormDataPart("receiveID",user.getUserID());
-            params.addFormDataPart("largessValue",num);
-            HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
+            int number = Integer.valueOf(num);
+            if (number>0){
+                RequestParams params = new RequestParams();
+                params.addFormDataPart("type",typeId);
+                params.addFormDataPart("sendID",user.getUserID());
+                params.addFormDataPart("receivecode",user.getUserCode());
+                params.addFormDataPart("num",num);
+                params.addFormDataPart("pass",safePass);
+                HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
 
-                @Override
-                protected void onDataSuccess(JSONObject data) {
-                    showWaitingDialog(false);
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+                        showMessage(0,"互转成功");
+                        finish();
+                    }
 
-                }
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+                        showMessage(code,msg);
+                    }
 
-                @Override
-                protected void onDataError(int code, boolean flag, String msg) {
-                    showWaitingDialog(false);
-                    showMessage(code,msg);
-                }
-            });
-
+                    @Override
+                    public void onFailure(int errorCode, String msg) {
+                        super.onFailure(errorCode, msg);
+                        showMessage(errorCode,msg);
+                    }
+                });
+            }else {
+               toast("数量不能小于0");
+            }
         }else {
             toast("输入框不能为空");
         }
@@ -108,8 +117,34 @@ public class InternalTransferActivity extends BaseActivity {
         spTransferType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               if (transferType[position]=="碳控因子转碳控积分"){
-                   typeId = 4;
+               switch (transferType[position]){
+                   case "注册积分转产品积分":
+                       typeId = 3;
+                       break;
+                   case "注册积分转消费积分":
+                       typeId = 4;
+                       break;
+                   case "消费积分转产品积分":
+                       typeId = 5;
+                       break;
+                   case "消费积分转碳控因子":
+                       typeId = 6;
+                       break;
+                   case "消费积分转循环积分":
+                       typeId = 7;
+                       break;
+                   case "碳控因子转产品积分":
+                       typeId = 8;
+                       break;
+                   case "碳控因子转消费积分":
+                       typeId = 9;
+                       break;
+                   case "碳控因子转循环积分":
+                       typeId = 10;
+                       break;
+                   case "循环积分转产品积分":
+                       typeId = 11;
+                       break;
                }
             }
             @Override

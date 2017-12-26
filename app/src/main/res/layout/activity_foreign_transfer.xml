@@ -72,7 +72,7 @@
                 android:digits="@string/input_impose_num_lower_case"
                 android:maxLines="1"
                 android:maxLength="11"
-                android:hint="账号"
+                android:hint="账号/电话号码"
                 android:textColor="@drawable/selector_edit_text_color"
                 />
 
