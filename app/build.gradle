@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.neenbedankt.android-apt'
 
 Properties properties = new Properties();
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -13,6 +13,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0.1"
+        multiDexEnabled true
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -252,7 +253,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile  'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -284,5 +285,6 @@ dependencies {
 
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.github.huzhenjie:ImageSelector:1.0.3'
-
+    //分包设置
+    compile'com.android.support:multidex:1.0.1'
 }

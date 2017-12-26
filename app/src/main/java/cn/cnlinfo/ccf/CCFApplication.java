@@ -3,6 +3,7 @@ package cn.cnlinfo.ccf;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.support.multidex.MultiDex;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -84,7 +85,11 @@ public class CCFApplication extends Application {
                     break;
         }
     }
-
+    //分包的application添加的方法
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     private void toast(String msg){
         Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show();
     }

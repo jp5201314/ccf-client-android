@@ -94,7 +94,6 @@ public class MainPageInfoFragment extends BaseFragment {
         setAccountAnwserData();
         setPlatformAnwserData();
     }
-
     /**
      * 设置个人信息数据
      */

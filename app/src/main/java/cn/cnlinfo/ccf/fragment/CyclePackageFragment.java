@@ -272,7 +272,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     public void onResume() {
         super.onResume();
         gainConversionCyclePackData();
-        Logger.d("onResume");
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.start();

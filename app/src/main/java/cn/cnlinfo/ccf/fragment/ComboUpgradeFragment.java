@@ -22,7 +22,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +81,8 @@ public class ComboUpgradeFragment extends BaseFragment {
     private int re_integral;
     //用户有的消费积分
     private int co_integral;
+    //用户有的碳控因子
+    private double ccf;
     private int typeId;
     private String safePass;
     private int mealNum;
@@ -119,7 +120,7 @@ public class ComboUpgradeFragment extends BaseFragment {
 
 
     /**
-     * 购买普通套餐
+     * 购买普通套餐  只能使用碳控因子
      */
     private void toPurchaseNormalMeal() {
         safePass = etSafePass.getText().toString();
@@ -140,13 +141,13 @@ public class ComboUpgradeFragment extends BaseFragment {
             RequestParams params = new RequestParams();
             params.addFormDataPart("userID", accountInfo.getID());
             params.addFormDataPart("setMealID", serviceTypeId);
-            params.addFormDataPart("mealNum",mealNum );
+            params.addFormDataPart("num",mealNum );
             params.addFormDataPart("pwd2", safePass);
+            params.addFormDataPart("registerScore", 0);
             HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
                     toast("购买成功");
-                    Logger.d(data.toJSONString());
                 }
 
                 @Override
@@ -190,12 +191,11 @@ public class ComboUpgradeFragment extends BaseFragment {
                         params.addFormDataPart("setMealID", serviceTypeId);
                         params.addFormDataPart("registerScore", rePrice);
                         params.addFormDataPart("pwd2", safePass);
-                        params.addFormDataPart("mealNum",mealNum );
+                        params.addFormDataPart("num",mealNum );
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {
                                 toast("购买成功");
-                                Logger.d(data.toJSONString());
                                 getActivity().finish();
                             }
 
@@ -222,10 +222,28 @@ public class ComboUpgradeFragment extends BaseFragment {
         tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
         tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
         llIntegral.setVisibility(View.GONE);
+
         if (accountInfo != null) {
             re_integral = accountInfo.getRegisterIntegral();
             co_integral = accountInfo.getConsumeIntegral();
-            tvIntegral.setText("你当前有" + re_integral + "注册积分和" + co_integral + "消费积分");
+            ccf = accountInfo.getCCF();
+            RequestParams params = new RequestParams();
+            params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+            HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINFO, params, new CCFHttpRequestCallback() {
+
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    String accountInfoJsonString = data.getJSONObject("Userinfo").toJSONString();
+                    UserSharedPreference.getInstance().setAccountInfo(accountInfoJsonString);
+                    AccountInfo account = JSONObject.parseObject(accountInfoJsonString,AccountInfo.class);
+                    tvIntegral.setText("你当前有" + account.getRegisterIntegral() + "注册积分和" + account.getConsumeIntegral() + "消费积分"+account.getCCF()+"碳控因子");
+                }
+
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+
+                }
+            });
             int level = accountInfo.getInLevel();
             switch (level) {
                 case 0:
@@ -240,6 +258,22 @@ public class ComboUpgradeFragment extends BaseFragment {
                     tvMyRank.setText("2星用户");
                     myRank = tvMyRank.getText().toString();
                     break;
+                case 3:
+                    tvMyRank.setText("3星用户");
+                    myRank = tvMyRank.getText().toString();
+                    break;
+                case 4:
+                    tvMyRank.setText("4星用户");
+                    myRank = tvMyRank.getText().toString();
+                    break;
+                case 5:
+                    tvMyRank.setText("5星用户");
+                    myRank = tvMyRank.getText().toString();
+                    break;
+
+            }
+            if (level==0&&accountInfo.getTotalMealWeight()>0){
+                tvMyRank.setText("普通用户");
             }
         }
         gainMealList();
