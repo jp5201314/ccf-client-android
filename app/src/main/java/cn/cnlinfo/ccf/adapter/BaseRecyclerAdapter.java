@@ -3,6 +3,7 @@ package cn.cnlinfo.ccf.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IDataAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     @Override
     public void notifyDataChanged(List<T> data, boolean isRefresh) {
+        Logger.d(data.size());
         if (isRefresh) {
             list.clear();
         }

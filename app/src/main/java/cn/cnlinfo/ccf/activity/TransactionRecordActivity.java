@@ -55,7 +55,7 @@ public class TransactionRecordActivity  extends BaseActivity{
         mRecyclerview.setAdapter(adapter);
     }
     private void setClickListener() {
-        mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerview = (RecyclerView) findViewById(R.id.rv);
     }
 
     @Override

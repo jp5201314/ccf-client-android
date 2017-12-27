@@ -172,4 +172,27 @@ public class API {
      */
     public static final String UPLOADIMAGE = "uploadingImg";
 
+    /**
+     * 内外转账记录
+     *
+     * 类型type 1 对外转账,2内部互转
+     */
+
+    public static final String INOUTTRANSFERRECORD = "GetUserLargess";
+
+    /**
+     * 获取用户循环包兑换记录
+     */
+    public static final String CONVERSIONCYCLEPACK = "GetBuyPackRecord";
+
+    /**
+     * 获取用户购买套餐记录
+     */
+
+    public static final String PURCHASEMEALRECORD = "GetSetMealRecord";
+
+    /**
+     * 获取步行记录
+     */
+    public static final String STEPRECORD = "GetStepDayRecord";
 }

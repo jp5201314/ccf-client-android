@@ -74,7 +74,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             /**
-             * 对外转账记录
+             * 返回上一页
              * */
             case R.id.ibt_back:
                 finish();

@@ -61,7 +61,7 @@ public class RecommendNetActivity extends BaseActivity {
         MVCHelper.setLoadViewFractory(new MyLoadViewFactory());
         this.setMaterialHeader(pfl);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setNestedScrollingEnabled(true);
+        rv.setNestedScrollingEnabled(false);
         mvcHelper = new MVCUltraHelper<List<ShareUserEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new ShareUserDataSource());

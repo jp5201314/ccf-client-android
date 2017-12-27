@@ -37,6 +37,11 @@ public class Constant {
      * 上传步数的主机地址
      */
     public static final String UPLOAD_STEP_HOST = "http://ccf.hrkji.com/StepManage.asmx/";
+    /**
+     * 记录中心接口
+     */
+    public static final String RECORD_CENTER_HOST = "http://ccf.hrkji.com/RecordInterface.asmx/";
+
 
     public static final String APP_DIR = PhoneManager.getSdCardRootPath() + "/ccf/";//app文件目录
     public static final String IMAGE_CACHE_DIR_PATH = APP_DIR + "cache/";// 图片缓存地址
