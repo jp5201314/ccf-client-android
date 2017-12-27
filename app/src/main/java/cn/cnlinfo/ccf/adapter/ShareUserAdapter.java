@@ -2,6 +2,7 @@ package cn.cnlinfo.ccf.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,10 +41,26 @@ public class ShareUserAdapter extends BaseRecyclerAdapter<ShareUserEntity> {
         Logger.d(list.get(position).toString());
         if (holder instanceof  ViewHolder){
             ShareUserEntity userEntity = list.get(position);
-            ((ViewHolder) holder).mTvUserAccount.setText(userEntity.getUserCode());
-            ((ViewHolder) holder).mTvUserName.setText(userEntity.getName());
-            ((ViewHolder) holder).mTvUserPhone.setText(userEntity.getMobile());
-            ((ViewHolder) holder).mTvUserReDate.setText(userEntity.getRegDate());
+            if (!TextUtils.isEmpty(userEntity.getUserCode())){
+                ((ViewHolder) holder).mTvUserAccount.setText(userEntity.getUserCode());
+            }else {
+                ((ViewHolder) holder).mTvUserAccount.setText("暂无");
+            }
+            if (!TextUtils.isEmpty(userEntity.getName())){
+                ((ViewHolder) holder).mTvUserName.setText(userEntity.getName());
+            }else {
+                ((ViewHolder) holder).mTvUserName.setText("暂无");
+            }
+            if (!TextUtils.isEmpty(userEntity.getMobile())){
+                ((ViewHolder) holder).mTvUserPhone.setText(userEntity.getMobile());
+            }else {
+                ((ViewHolder) holder).mTvUserPhone.setText("暂无");
+            }
+            if (!TextUtils.isEmpty(userEntity.getRegDate())){
+                ((ViewHolder) holder).mTvUserReDate.setText(userEntity.getRegDate());
+            }else {
+                ((ViewHolder) holder).mTvUserReDate.setText("暂无");
+            }
         }
     }
 

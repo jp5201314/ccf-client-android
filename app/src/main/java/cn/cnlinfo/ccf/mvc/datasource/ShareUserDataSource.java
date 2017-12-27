@@ -27,7 +27,7 @@ import cn.finalteam.okhttpfinal.RequestParams;
 public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntity>> {
     private int page = 1;
     private int maxPage = Integer.MAX_VALUE;
-    private int number = 3;
+    private int number = 5;
     private int num = 0;
 
     @Override

@@ -33,6 +33,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.activity.PurchaseMealRecordActivity;
 import cn.cnlinfo.ccf.activity.RechargeRegisterPointsActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.AccountInfo;
@@ -146,7 +147,10 @@ public class ComboUpgradeFragment extends BaseFragment {
             HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
+
                     toast("购买成功");
+                    startActivity(new Intent(getActivity(), PurchaseMealRecordActivity.class));
+                    getActivity().finish();
                 }
 
                 @Override
@@ -195,6 +199,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                             @Override
                             protected void onDataSuccess(JSONObject data) {
                                 toast("购买成功");
+                                startActivity(new Intent(getActivity(), PurchaseMealRecordActivity.class));
                                 getActivity().finish();
                             }
 
