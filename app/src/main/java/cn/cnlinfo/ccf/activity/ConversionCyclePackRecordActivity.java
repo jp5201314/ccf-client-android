@@ -14,15 +14,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.adapter.PurMealRecordAdapter;
-import cn.cnlinfo.ccf.entity.TransferRecordEntity;
-import cn.cnlinfo.ccf.mvc.datasource.PurchaseMealRecordDataSource;
+import cn.cnlinfo.ccf.adapter.ConversionCyclePackRecordAdapter;
+import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
+import cn.cnlinfo.ccf.mvc.datasource.CyclePackRecordDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
 import cn.cnlinfo.ccf.view.NormalNoLoadViewFactory;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
-public class PurchaseMealRecordActivity extends BaseActivity {
+/**
+ * Created by Administrator on 2017/11/30 0030.
+ */
+
+public class ConversionCyclePackRecordActivity extends BaseActivity {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -34,31 +38,29 @@ public class PurchaseMealRecordActivity extends BaseActivity {
     PtrClassicFrameLayout pfl;
     private Unbinder unbinder;
     private MVCHelper mvcHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_purchase_meal_record);
+        setContentView(R.layout.activity_conversion_record);
         unbinder = ButterKnife.bind(this);
-        tvTitle.setText("购买套餐记录");
+        tvTitle.setText("兑换循环包记录");
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-        getPurchaseMealRecord();
+        getCyclePackRecord();
     }
-    private void getPurchaseMealRecord(){
+    private void getCyclePackRecord(){
         MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
         this.setMaterialHeader(pfl);
         rv.setLayoutManager(new FullyLinearLayoutManager(this));
         rv.setNestedScrollingEnabled(false);
-        mvcHelper = new MVCUltraHelper<List<TransferRecordEntity>>(pfl);
+        mvcHelper = new MVCUltraHelper<List<CyclePackRecordEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
-        mvcHelper.setDataSource(new PurchaseMealRecordDataSource());
-        mvcHelper.setAdapter(new PurMealRecordAdapter(this));
+        mvcHelper.setDataSource(new CyclePackRecordDataSource());
+        mvcHelper.setAdapter(new ConversionCyclePackRecordAdapter(this));
         mvcHelper.refresh();
     }
     @Override

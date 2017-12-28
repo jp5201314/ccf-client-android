@@ -110,10 +110,10 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
                 startActivity(new Intent(this, BasicContributionRateRecordActivity.class));
                 break;
             /**
-             * 兑换记录
+             * 兑换循环包记录
              * */
             case R.id.tv_conversion_record:
-                startActivity(new Intent(this, ConversionRecordActivity.class));
+                startActivity(new Intent(this, ConversionCyclePackRecordActivity.class));
                 break;
             /**
              * 电子钱包转账记录

@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:padding="18dp"
         android:orientation="vertical">
-
         <in.srain.cube.views.ptr.PtrClassicFrameLayout
             xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/pfl"
@@ -25,28 +24,15 @@
             cube_ptr:ptr_pull_to_fresh="false"
             cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
             cube_ptr:ptr_resistance="1.7" >
-            <cn.cnlinfo.ccf.view.MyNestedScrollView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/one_level_height"
-                    android:text="对外转账记录"
-                    style="@style/text_0e1214_17" />
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical"
-                    android:layout_marginTop="9dp"
-                    cube_ptr:showDividers="middle"
-                    />
-            </LinearLayout>
-            </cn.cnlinfo.ccf.view.MyNestedScrollView>
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:layout_marginTop="9dp"
+                cube_ptr:showDividers="middle"
+                />
+
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>
     </LinearLayout>
 </LinearLayout>

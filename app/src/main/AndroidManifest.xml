@@ -306,7 +306,8 @@
         <!-- 步行记录 -->
         <activity
             android:name=".activity.WalkRecordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"/>
         <!-- 基础贡献率记录 -->
         <activity
             android:name=".activity.BasicContributionRateRecordActivity"
@@ -314,7 +315,7 @@
             android:theme="@style/NormalFullScreen" />
         <!-- 兑换记录 -->
         <activity
-            android:name=".activity.ConversionRecordActivity"
+            android:name=".activity.ConversionCyclePackRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
         <!-- 电子钱包转账记录 -->

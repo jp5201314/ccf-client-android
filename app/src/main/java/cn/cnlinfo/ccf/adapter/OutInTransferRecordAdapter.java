@@ -19,11 +19,11 @@ import cn.cnlinfo.ccf.entity.TransferRecordEntity;
  * Created by Administrator on 2017/12/22 0022.
  */
 
-public class OutTransferAdapter extends BaseRecyclerAdapter<TransferRecordEntity>{
+public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferRecordEntity>{
 
     private Context context;
 
-    public OutTransferAdapter(Context context) {
+    public OutInTransferRecordAdapter(Context context) {
         super(context);
         this.context = context;
     }
@@ -32,7 +32,7 @@ public class OutTransferAdapter extends BaseRecyclerAdapter<TransferRecordEntity
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_out_transfer, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_out_transfer_record, parent, false));
     }
 
     @Override
