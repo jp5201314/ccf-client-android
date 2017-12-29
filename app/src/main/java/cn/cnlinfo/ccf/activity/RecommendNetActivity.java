@@ -19,7 +19,6 @@ import cn.cnlinfo.ccf.entity.ShareUserEntity;
 import cn.cnlinfo.ccf.mvc.datasource.ShareUserDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
-import cn.cnlinfo.ccf.view.NormalNoLoadViewFactory;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 public class RecommendNetActivity extends BaseActivity {
@@ -53,7 +52,7 @@ public class RecommendNetActivity extends BaseActivity {
      * 获取当前用户层级列表
      */
     private void gainTierList() {
-        MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
+        //MVCHelper.setLoadViewFractory(new NormalLoadViewFactory());
         //this.setMaterialHeader(pfl);
         FullyLinearLayoutManager layoutManager = new FullyLinearLayoutManager(this);
         layoutManager.setSmoothScrollbarEnabled(true);
@@ -66,6 +65,7 @@ public class RecommendNetActivity extends BaseActivity {
         mvcHelper.setDataSource(new ShareUserDataSource());
         adapter = new ShareUserAdapter(this);
         mvcHelper.setAdapter(adapter);
+        mvcHelper.refresh();
        /* mvcHelper.setAdapter2(adapter, new IDataAdapter<List<ShareUserEntity>>() {
             @Override
             public void notifyDataChanged(List<ShareUserEntity> shareUserEntityList, boolean isRefresh) {
@@ -83,7 +83,7 @@ public class RecommendNetActivity extends BaseActivity {
                 return false;
             }
         });*/
-        mvcHelper.refresh();
+
      /*   rv.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {

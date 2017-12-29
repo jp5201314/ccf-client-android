@@ -49,6 +49,7 @@ public class StepRecordDataSource implements IAsyncDataSource<List<StepRecordEnt
             protected void onDataSuccess(JSONObject data) {
                 List<StepRecordEntity> list = JSONObject.parseArray(data.getJSONArray("UserStepDayRecordList").toJSONString(),StepRecordEntity.class);
                 StepRecordDataSource.this.page = page;
+                StepRecordDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);
             }
 

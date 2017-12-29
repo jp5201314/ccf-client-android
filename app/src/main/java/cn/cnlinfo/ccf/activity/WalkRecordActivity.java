@@ -19,7 +19,6 @@ import cn.cnlinfo.ccf.entity.TransferRecordEntity;
 import cn.cnlinfo.ccf.mvc.datasource.StepRecordDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
-import cn.cnlinfo.ccf.view.NormalNoLoadViewFactory;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 /**
@@ -56,8 +55,8 @@ public class WalkRecordActivity extends BaseActivity {
     }
 
     private void getWalkRecord() {
-        MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
-        this.setMaterialHeader(pfl);
+        //MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
+        //this.setMaterialHeader(pfl);
         rv.setLayoutManager(new FullyLinearLayoutManager(this));
         rv.setNestedScrollingEnabled(false);
         mvcHelper = new MVCUltraHelper<List<TransferRecordEntity>>(pfl);

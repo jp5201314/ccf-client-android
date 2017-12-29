@@ -2,7 +2,6 @@ package cn.cnlinfo.ccf.mvc.datasource;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IAsyncDataSource;
 import com.shizhefei.mvc.RequestHandle;
 import com.shizhefei.mvc.ResponseSender;
@@ -26,7 +25,7 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntity>> {
     private int page = 1;
-    private int maxPage = Integer.MAX_VALUE;
+    private int maxPage = 1;
     private int number = 5;
 
     @Override
@@ -36,7 +35,6 @@ public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntit
 
     @Override
     public RequestHandle loadMore(ResponseSender<List<ShareUserEntity>> sender) throws Exception {
-        Logger.d(page);
         return loadShareUserList(sender,page+1);
     }
 
@@ -49,9 +47,9 @@ public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntit
         HttpRequest.post(Constant.GET_DATA_HOST + API.USERSHARELIST, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                Logger.d(data.toJSONString());
                 List<ShareUserEntity> shareUserEntityList = JSONArray.parseArray(data.getJSONArray("ShareList").toJSONString(),ShareUserEntity.class);
                 ShareUserDataSource.this.page = page;
+                ShareUserDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(shareUserEntityList);
             }
 
@@ -65,7 +63,6 @@ public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntit
     }
     @Override
     public boolean hasMore() {
-        Logger.d(page<maxPage);
         return page<maxPage;
     }
 }

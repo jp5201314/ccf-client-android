@@ -36,7 +36,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.entity.AccountInfo;
-import cn.cnlinfo.ccf.entity.ItemNews;
+import cn.cnlinfo.ccf.entity.ItemNewsEntity;
 import cn.cnlinfo.ccf.entity.PlatformInfo;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.UpDownTextView;
@@ -201,7 +201,7 @@ public class MainPageInfoFragment extends BaseFragment {
     /**
      * 设置上下滚动文本信息
      */
-    private void setUpDownTextView(final List<ItemNews> itemNewsList) {
+    private void setUpDownTextView(final List<ItemNewsEntity> itemNewsList) {
         tvUpDown.setText("welcome to Carbon control factor");
         if (tvUpDown != null) {
             tvUpDown.setSingleLine();
@@ -214,11 +214,13 @@ public class MainPageInfoFragment extends BaseFragment {
             tvUpDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ItemNews itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
-                    String uri = String.format(Constant.GET_DETAIL_HOST, itemNews.getNewsId());
-                    Intent intent = new Intent(getActivity(), WebActivity.class);
-                    intent.putExtra("url", uri);
-                    startActivity(intent);
+                    if (itemNewsList!=null&&itemNewsList.size()>0){
+                        ItemNewsEntity itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
+                        String uri = String.format(Constant.GET_DETAIL_HOST, itemNews.getNewsId());
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("url", uri);
+                        startActivity(intent);
+                    }
                 }
             });
         }
@@ -234,13 +236,13 @@ public class MainPageInfoFragment extends BaseFragment {
         /**
          * 1是公告 2是新闻
          */
-        params.addFormDataPart("type", 1);
+        params.addFormDataPart("type", 2);
         params.addFormDataPart("Orderby", "ORDER BY IssueDate DESC");
         HttpRequest.post(Constant.GET_DATA_HOST + API.GETNEWSLIST, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 JSONArray jsonArray = data.getJSONArray("Newslist");
-                List<ItemNews> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(), ItemNews.class);
+                List<ItemNewsEntity> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(), ItemNewsEntity.class);
                 setUpDownTextView(itemNewsList);
                 showWaitingDialog(false);
             }

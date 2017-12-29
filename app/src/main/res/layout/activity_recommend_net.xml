@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/icon_background"
-    app:ignore="NamespaceTypo">
-
-    <include layout="@layout/item_image_with_text" />
-
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/icon_background">
+    <include layout="@layout/item_title_no_right" />
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pfl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,27 +21,7 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="9dp"
-            android:layout_marginVertical="304dp"
             android:scrollbars="vertical"
             cube_ptr:showDividers="middle" />
-        <!--        <cn.cnlinfo.ccf.view.MyNestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fillViewport="true"
-                    android:theme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <include layout="@layout/item_image_with_text" />
-
-                    </LinearLayout>
-
-                </cn.cnlinfo.ccf.view.MyNestedScrollView>-->
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
-    <include layout="@layout/item_title_no_right" />
-
-</FrameLayout>
+</LinearLayout>

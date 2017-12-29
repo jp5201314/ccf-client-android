@@ -49,6 +49,7 @@ public class CyclePackRecordDataSource implements IAsyncDataSource<List<CyclePac
             protected void onDataSuccess(JSONObject data) {
                 List<CyclePackRecordEntity> list = JSONObject.parseArray(data.getJSONArray("BuyPackRecordList").toJSONString(),CyclePackRecordEntity.class);
                 CyclePackRecordDataSource.this.page = page;
+                CyclePackRecordDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);
             }
 

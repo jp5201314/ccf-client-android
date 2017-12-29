@@ -19,7 +19,6 @@ import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
 import cn.cnlinfo.ccf.mvc.datasource.CyclePackRecordDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
-import cn.cnlinfo.ccf.view.NormalNoLoadViewFactory;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 /**
@@ -53,8 +52,8 @@ public class ConversionCyclePackRecordActivity extends BaseActivity {
         getCyclePackRecord();
     }
     private void getCyclePackRecord(){
-        MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
-        this.setMaterialHeader(pfl);
+        //MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
+       // this.setMaterialHeader(pfl);
         rv.setLayoutManager(new FullyLinearLayoutManager(this));
         rv.setNestedScrollingEnabled(false);
         mvcHelper = new MVCUltraHelper<List<CyclePackRecordEntity>>(pfl);

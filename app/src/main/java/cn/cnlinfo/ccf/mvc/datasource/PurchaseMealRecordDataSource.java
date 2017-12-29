@@ -49,6 +49,7 @@ public class PurchaseMealRecordDataSource implements IAsyncDataSource<List<PurMe
             protected void onDataSuccess(JSONObject data) {
                 List<PurMealRecordEntity> list = JSONObject.parseArray(data.getJSONArray("SetMealRecordList").toJSONString(),PurMealRecordEntity.class);
                 PurchaseMealRecordDataSource.this.page = page;
+                PurchaseMealRecordDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);
             }
 

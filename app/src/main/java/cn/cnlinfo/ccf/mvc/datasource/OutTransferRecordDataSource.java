@@ -50,6 +50,7 @@ public class OutTransferRecordDataSource implements IAsyncDataSource<List<Transf
             protected void onDataSuccess(JSONObject data) {
                 List<TransferRecordEntity> list = JSONObject.parseArray(data.getJSONArray("UserLargessList").toJSONString(),TransferRecordEntity.class);
                 OutTransferRecordDataSource.this.page = page;
+                OutTransferRecordDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);
             }
 
