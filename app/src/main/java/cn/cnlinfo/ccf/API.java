@@ -195,4 +195,8 @@ public class API {
      * 获取步行记录
      */
     public static final String STEPRECORD = "GetStepDayRecord";
+    /**
+     * 解压循环包
+     */
+    public static final String EXTEACTCYCLEPACK = "ExtractCircle";
 }

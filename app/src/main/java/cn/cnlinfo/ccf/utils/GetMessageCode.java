@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Administrator on 2017/12/18 0018.
+ * Created by JP on 2017/12/18 0018.
  */
 
 public class GetMessageCode {

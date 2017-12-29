@@ -75,7 +75,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
     private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "碳控积分", "产品积分", "注册积分"};
-    private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "循环卷积分", "循环劵", "消费积分"};
+    private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "待释放碳控积分", "循环劵", "可用消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
 
@@ -132,8 +132,16 @@ public class MainPageInfoFragment extends BaseFragment {
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code, msg);
                 showWaitingDialog(false);
+                showMessage(code, msg);
+            }
+
+            @Override
+            public void onFailure(int errorCode, String msg) {
+                super.onFailure(errorCode, msg);
+                showWaitingDialog(false);
+                showMessage(errorCode,msg);
+
             }
         });
     }
@@ -148,14 +156,14 @@ public class MainPageInfoFragment extends BaseFragment {
             protected void onDataSuccess(JSONObject data) {
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
                 PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
-                platformAnswer.add(platformInfo.getTotal());
-                platformAnswer.add(platformInfo.getActivated());
-                platformAnswer.add(platformInfo.getPrice());
-                platformAnswer.add(platformInfo.getToActivateCcf());
-                platformAnswer.add(platformInfo.getCcIntegral());
-                platformAnswer.add(platformInfo.getCycleIntegral());
-                platformAnswer.add(platformInfo.getCycleStock());
-                platformAnswer.add(platformInfo.getBonusPoints());
+                platformAnswer.add(platformInfo.getTotalCCF());
+                platformAnswer.add(String.valueOf(platformInfo.getActiveCCF()));
+                platformAnswer.add(String.valueOf(platformInfo.getCurrentPrice()));
+                platformAnswer.add(platformInfo.getTotalInertiaCCF());
+                platformAnswer.add(platformInfo.getCCScore());
+                platformAnswer.add(platformInfo.getInertiaCCScore());
+                platformAnswer.add(platformInfo.getCircleTicket());
+                platformAnswer.add(platformInfo.getActiveConsumeScore());
                 List<Map<String, String>> list = new ArrayList<>();
                 if (platformAnswer != null && platformAnswer.size() > 0) {
                     for (int i = 0; i < platformTitles.length; i++) {
@@ -174,8 +182,18 @@ public class MainPageInfoFragment extends BaseFragment {
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                toast("获取平台信息失败");
+                //toast("获取平台信息失败");
                 showWaitingDialog(false);
+                showMessage(code,msg);
+
+            }
+
+            @Override
+            public void onFailure(int errorCode, String msg) {
+                super.onFailure(errorCode, msg);
+                showWaitingDialog(false);
+                showMessage(errorCode,msg);
+
             }
         });
     }
@@ -224,11 +242,22 @@ public class MainPageInfoFragment extends BaseFragment {
                 JSONArray jsonArray = data.getJSONArray("Newslist");
                 List<ItemNews> itemNewsList = JSONArray.parseArray(jsonArray.toJSONString(), ItemNews.class);
                 setUpDownTextView(itemNewsList);
+                showWaitingDialog(false);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                toast("获取公告失败");
+                //toast("获取公告失败");
+                showWaitingDialog(false);
+                showMessage(code,msg);
+
+            }
+
+            @Override
+            public void onFailure(int errorCode, String msg) {
+                super.onFailure(errorCode, msg);
+                showWaitingDialog(false);
+                showMessage(errorCode,msg);
             }
         });
     }

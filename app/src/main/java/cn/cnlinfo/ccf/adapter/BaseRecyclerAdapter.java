@@ -2,6 +2,7 @@ package cn.cnlinfo.ccf.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.widget.AdapterView;
 
 import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IDataAdapter;
@@ -66,8 +67,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         protected abstract void onItemClicked(int position, T entity);
     }
 
-    public void setItemClickCallback(ItemClickCallback itemClickCallback) {
-        this.itemClickCallback = itemClickCallback;
+    public void setItemClickCallback(AdapterView.OnItemClickListener itemClickCallback) {
+        this.itemClickCallback = (ItemClickCallback) itemClickCallback;
     }
 
     public interface ItemClickCallback<T> {

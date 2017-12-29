@@ -43,7 +43,7 @@ public class CyclePackRecordDataSource implements IAsyncDataSource<List<CyclePac
         params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
         params.addFormDataPart("CurrentPageIndex",page);
         params.addFormDataPart("PageSize",number);
-        params.addFormDataPart("Orderby","Order by CreateTime desc");
+        params.addFormDataPart("Orderby","Order by Status asc,CreateTime desc");
         HttpRequest.post(Constant.RECORD_CENTER_HOST + API.CONVERSIONCYCLEPACK, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {

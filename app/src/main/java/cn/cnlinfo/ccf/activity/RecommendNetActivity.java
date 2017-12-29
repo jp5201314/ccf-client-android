@@ -1,16 +1,13 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.shizhefei.mvc.IDataAdapter;
 import com.shizhefei.mvc.MVCHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,8 +17,9 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.ShareUserAdapter;
 import cn.cnlinfo.ccf.entity.ShareUserEntity;
 import cn.cnlinfo.ccf.mvc.datasource.ShareUserDataSource;
-import cn.cnlinfo.ccf.mvc.factory.MyLoadViewFactory;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
+import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
+import cn.cnlinfo.ccf.view.NormalNoLoadViewFactory;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 public class RecommendNetActivity extends BaseActivity {
@@ -35,9 +33,7 @@ public class RecommendNetActivity extends BaseActivity {
     PtrClassicFrameLayout pfl;
     private Unbinder unbinder;
     private MVCHelper mvcHelper;
-    private List<ShareUserEntity> shareUserEntityList;
-
-
+    private ShareUserAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,23 +53,24 @@ public class RecommendNetActivity extends BaseActivity {
      * 获取当前用户层级列表
      */
     private void gainTierList() {
-        shareUserEntityList = new ArrayList<>();
-        MVCHelper.setLoadViewFractory(new MyLoadViewFactory());
-        this.setMaterialHeader(pfl);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setNestedScrollingEnabled(false);
+        MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
+        //this.setMaterialHeader(pfl);
+        FullyLinearLayoutManager layoutManager = new FullyLinearLayoutManager(this);
+        layoutManager.setSmoothScrollbarEnabled(true);
+        layoutManager.setAutoMeasureEnabled(true);
+        rv.setLayoutManager(layoutManager);
+        rv.setHasFixedSize(true);
+        rv.setNestedScrollingEnabled(true);
         mvcHelper = new MVCUltraHelper<List<ShareUserEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new ShareUserDataSource());
-        mvcHelper.setAdapter(new IDataAdapter<List<ShareUserEntity>>() {
+        adapter = new ShareUserAdapter(this);
+        mvcHelper.setAdapter(adapter);
+       /* mvcHelper.setAdapter2(adapter, new IDataAdapter<List<ShareUserEntity>>() {
             @Override
-            public void notifyDataChanged(List<ShareUserEntity> list, boolean isRefresh) {
-                if (rv != null) {
-                    if (list!=null){
-                        shareUserEntityList.addAll(0,list);
-                        rv.setAdapter(new ShareUserAdapter(RecommendNetActivity.this,shareUserEntityList));
-                    }
-                }
+            public void notifyDataChanged(List<ShareUserEntity> shareUserEntityList, boolean isRefresh) {
+                adapter.notifyDataChanged(shareUserEntityList,isRefresh);
+                rv.setAdapter(adapter);
             }
 
             @Override
@@ -85,8 +82,15 @@ public class RecommendNetActivity extends BaseActivity {
             public boolean isEmpty() {
                 return false;
             }
-        });
+        });*/
         mvcHelper.refresh();
+     /*   rv.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                Logger.d("loadmore");
+                mvcHelper.loadMore();
+            }
+        });*/
     }
 
     @Override

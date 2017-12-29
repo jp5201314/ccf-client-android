@@ -41,7 +41,7 @@ public class InTransferRecordDataSource implements IAsyncDataSource<List<Transfe
     private RequestHandle loadOutTransferRecord(final ResponseSender<List<TransferRecordEntity>> sender, final int page){
         RequestParams params = new RequestParams();
         params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
-        params.addFormDataPart("type",2);
+        params.addFormDataPart("type",3);
         params.addFormDataPart("CurrentPageIndex",page);
         params.addFormDataPart("PageSize",number);
         params.addFormDataPart("Orderby","Order by CreateTime desc");

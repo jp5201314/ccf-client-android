@@ -60,8 +60,15 @@ public class ConversionCyclePackRecordActivity extends BaseActivity {
         mvcHelper = new MVCUltraHelper<List<CyclePackRecordEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new CyclePackRecordDataSource());
-        mvcHelper.setAdapter(new ConversionCyclePackRecordAdapter(this));
+        ConversionCyclePackRecordAdapter adapter = new ConversionCyclePackRecordAdapter(this);
+        mvcHelper.setAdapter(adapter);
         mvcHelper.refresh();
+        adapter.setExtractRefreshListener(new ConversionCyclePackRecordAdapter.ExtractRefreshListener() {
+            @Override
+            public void extractRefresh() {
+                mvcHelper.refresh();
+            }
+        });
     }
     @Override
     protected void onDestroy() {

@@ -28,16 +28,10 @@ public class ShareUserDataSource implements IAsyncDataSource<List<ShareUserEntit
     private int page = 1;
     private int maxPage = Integer.MAX_VALUE;
     private int number = 5;
-    private int num = 0;
 
     @Override
     public RequestHandle refresh(ResponseSender<List<ShareUserEntity>> sender) throws Exception {
-        num++;
-        if (num==1){
             return loadShareUserList(sender,1);
-        }else {
-            return loadShareUserList(sender,num);
-        }
     }
 
     @Override

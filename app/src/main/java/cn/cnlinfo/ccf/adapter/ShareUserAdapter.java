@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
@@ -24,10 +22,9 @@ import cn.cnlinfo.ccf.entity.ShareUserEntity;
 public class ShareUserAdapter extends BaseRecyclerAdapter<ShareUserEntity> {
 
     private Context context;
-    public ShareUserAdapter(Context context , List<ShareUserEntity> shareUserEntityList) {
+    public ShareUserAdapter(Context context) {
         super(context);
         this.context = context;
-        list = shareUserEntityList;
     }
 
     @Override

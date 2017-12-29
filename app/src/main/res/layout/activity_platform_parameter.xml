@@ -34,23 +34,6 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        android:text="碳控因子总量："
-                        style="@style/text_0e1214_15" />
-
-                    <TextView
-                        android:id="@+id/tv_total_ccf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -68,7 +51,8 @@
                         android:id="@+id/tv_alive_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"  />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -88,101 +72,11 @@
                         android:id="@+id/tv_total_tba"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"  />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"
-                        android:text="碳控积分："
-                        style="@style/text_0e1214_15" />
-
-                    <TextView
-                        android:id="@+id/tv_cc_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
-
-                    <TextView
                         style="@style/text_0e1214_15"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"
-                        android:text="循环券：" />
-
-                    <TextView
-                        android:id="@+id/tv_cycle_coupon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"  />
+                        android:text="0"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
 
-                    <TextView
-                        style="@style/text_0e1214_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        android:text="待释放循环积分：" />
-
-                    <TextView
-                        android:id="@+id/tv_wait_free_cycle_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"
-                        android:text="可用消费积分："
-                        style="@style/text_0e1214_15"/>
-
-                    <TextView
-                        android:id="@+id/tv_available_consume_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"
-                        android:text="待释放消费积分："
-                        style="@style/text_0e1214_15"/>
-
-                    <TextView
-                        android:id="@+id/tv_wait_free_consume_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -199,54 +93,26 @@
                         android:id="@+id/tv_current_account_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height"
-                        android:text="当前循环包数："
-                        style="@style/text_0e1214_15" />
-
-                    <TextView
-                        android:id="@+id/tv_current_cycle_package_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:text="已冻结量："
+                        android:text="碳控因子总量："
                         style="@style/text_0e1214_15" />
-
                     <TextView
-                        android:id="@+id/tv_frozen_amount"
+                        android:id="@+id/tv_total_ccf"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"  />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -263,7 +129,8 @@
                         android:id="@+id/tv_init_total_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
 
 
@@ -284,9 +151,138 @@
                         android:id="@+id/tv_current_difficult_point"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height"
+                        android:text="可用消费积分："
+                        style="@style/text_0e1214_15"/>
+
+                    <TextView
+                        android:id="@+id/tv_available_consume_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    >
+
+                    <TextView
+                        style="@style/text_0e1214_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        android:text="待释放循环积分：" />
+
+                    <TextView
+                        android:id="@+id/tv_wait_free_cycle_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height"
+                        android:text="待释放消费积分："
+                        style="@style/text_0e1214_15"/>
+
+                    <TextView
+                        android:id="@+id/tv_wait_free_consume_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    >
+
+                    <TextView
+                        style="@style/text_0e1214_15"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height"
+                        android:text="循环券：" />
+
+                    <TextView
+                        android:id="@+id/tv_cycle_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height"
+                        android:text="碳控积分："
+                        style="@style/text_0e1214_15" />
+
+                    <TextView
+                        android:id="@+id/tv_cc_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        android:text="已冻结量："
+                        style="@style/text_0e1214_15" />
+
+                    <TextView
+                        android:id="@+id/tv_frozen_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -303,7 +299,8 @@
                         android:id="@+id/tv_province_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15"/>
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -322,7 +319,8 @@
                         android:id="@+id/tv_city_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -341,7 +339,8 @@
                         android:id="@+id/tv_county_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -359,8 +358,31 @@
                         android:id="@+id/tv_service_center"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        style="@style/text_0e1214_15" />
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height"
+                        android:text="当前循环包数："
+                        style="@style/text_0e1214_15" />
+
+                    <TextView
+                        android:id="@+id/tv_current_cycle_package_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        style="@style/text_0e1214_15"
+                        android:text="0"/>
+                </LinearLayout>
+
+
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

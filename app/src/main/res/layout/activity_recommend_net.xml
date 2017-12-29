@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/icon_background">
-    <include layout="@layout/item_title_no_right"/>
+    android:background="@drawable/icon_background"
+    app:ignore="NamespaceTypo">
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    <include layout="@layout/item_image_with_text" />
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pfl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,31 +17,33 @@
         cube_ptr:ptr_keep_header_when_refresh="true"
         cube_ptr:ptr_pull_to_fresh="false"
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7" >
-        <android.support.v4.widget.NestedScrollView
+        cube_ptr:ptr_resistance="1.7">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/item_image" />
-                <TextView
-                    style="@style/text_0e1214_20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:text="推荐人员层级信息" />
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv"
+            android:layout_height="match_parent"
+            android:layout_marginTop="9dp"
+            android:layout_marginVertical="304dp"
+            android:scrollbars="vertical"
+            cube_ptr:showDividers="middle" />
+        <!--        <cn.cnlinfo.ccf.view.MyNestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="vertical"
-                    android:layout_marginTop="9dp"
-                    cube_ptr:showDividers="middle"
-                    />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+                    android:fillViewport="true"
+                    android:theme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <include layout="@layout/item_image_with_text" />
+
+                    </LinearLayout>
+
+                </cn.cnlinfo.ccf.view.MyNestedScrollView>-->
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
-</LinearLayout>
+    <include layout="@layout/item_title_no_right" />
+
+</FrameLayout>

@@ -143,6 +143,31 @@ public class DialogCreater {
         return dialog;
     }
 
+
+    /**
+     * 创建一个确定按钮的dialog,点击后触发onBtnCLick方法并取消自身
+     *
+     * @param context
+     * @param title
+     * @param content
+     * @return
+     */
+    public static NormalDialog createTipsWithCancelDialog(Context context, String title, String content, String btnText, boolean cancelable, OnBtnClickL l) {
+        final NormalDialog dialog = new NormalDialog(context);
+        dialog.content(content)
+                .btnNum(1)
+                .title(title)
+                .btnText(btnText)
+                .titleTextSize(18)
+                .contentTextSize(14)
+                .style(NormalDialog.STYLE_ONE);
+        OnBtnClickL onBtnClickL = null;
+        dialog.setCancelable(cancelable);
+        dialog.setCanceledOnTouchOutside(cancelable);
+        dialog.setOnBtnClickL(onBtnClickL);
+        l.onBtnClick();
+        return dialog;
+    }
     /**
      *
      * @param context

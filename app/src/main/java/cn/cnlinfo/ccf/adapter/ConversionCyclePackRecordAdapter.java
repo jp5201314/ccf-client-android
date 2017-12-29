@@ -9,12 +9,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.flyco.dialog.listener.OnBtnClickL;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by JP on 2017/12/22 0022.
@@ -22,54 +34,88 @@ import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
 
 public class ConversionCyclePackRecordAdapter extends BaseRecyclerAdapter<CyclePackRecordEntity> {
     private Context context;
+
     public ConversionCyclePackRecordAdapter(Context context) {
         super(context);
         this.context = context;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_conversion_cycle_pack_record, parent, false));
     }
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Logger.d(list.get(position).toString());
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            CyclePackRecordEntity cyclePackRecordEntity = list.get(position);
+            final CyclePackRecordEntity cyclePackRecordEntity = list.get(position);
             if (cyclePackRecordEntity != null) {
-                if (!TextUtils.isEmpty(cyclePackRecordEntity.getCreateTime())){
+                if (!TextUtils.isEmpty(cyclePackRecordEntity.getCreateTime())) {
                     ((ViewHolder) holder).tvTime.setText(cyclePackRecordEntity.getCreateTime());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTime.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(cyclePackRecordEntity.getStatus())){
+                if (!TextUtils.isEmpty(cyclePackRecordEntity.getStatus())) {
                     ((ViewHolder) holder).btnCycleStatus.setText(cyclePackRecordEntity.getStatus());
-                    if (((ViewHolder) holder).btnCycleStatus.getText().toString().equals("未解压")){
+                    Logger.d(cyclePackRecordEntity.getStatus());
+                    if (((ViewHolder) holder).btnCycleStatus.getText().toString().equals("未解压")) {
                         ((ViewHolder) holder).btnCycleStatus.setClickable(true);
+                        ((ViewHolder) holder).btnCycleStatus.setBackgroundColor(context.getResources().getColor(R.color.color_gray_eaeaea));
                         ((ViewHolder) holder).btnCycleStatus.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                if (!TextUtils.isEmpty(cyclePackRecordEntity.getPackID())) {
+                                    RequestParams params = new RequestParams();
+                                    params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+                                    params.addFormDataPart("packid", cyclePackRecordEntity.getPackID());
+                                    HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.EXTEACTCYCLEPACK, params, new CCFHttpRequestCallback() {
+                                        @Override
+                                        protected void onDataSuccess(JSONObject data) {
+                                            ((ViewHolder) holder).btnCycleStatus.setText("解压完成");
+                                            ((ViewHolder) holder).btnCycleStatus.setClickable(false);
+                                            DialogCreater.createTipsWithCancelDialog(context, "解压循环包", "成功解压" + cyclePackRecordEntity.getPackID() + "号循环包","确定",false, new OnBtnClickL() {
+                                                @Override
+                                                public void onBtnClick() {
+                                                    listener.extractRefresh();
+                                                }
+                                            }).show();
+                                        }
+
+                                        @Override
+                                        protected void onDataError(int code, boolean flag, String msg) {
+                                            EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
+                                        }
+
+                                        @Override
+                                        public void onFailure(int errorCode, String msg) {
+                                            super.onFailure(errorCode, msg);
+                                            EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
+                                        }
+                                    });
+                                }
 
                             }
                         });
-                    }else {
+                    } else {
                         ((ViewHolder) holder).btnCycleStatus.setClickable(false);
+                        ((ViewHolder) holder).btnCycleStatus.setBackgroundColor(context.getResources().getColor(R.color.color_gray_eae8db));
                     }
-                }else {
+                } else {
                     ((ViewHolder) holder).btnCycleStatus.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(cyclePackRecordEntity.getPackID())){
+                if (!TextUtils.isEmpty(cyclePackRecordEntity.getPackID())) {
                     ((ViewHolder) holder).tvCyclePackId.setText(cyclePackRecordEntity.getPackID());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvCyclePackId.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(cyclePackRecordEntity.getIsSuccess())){
+                if (!TextUtils.isEmpty(cyclePackRecordEntity.getIsSuccess())) {
                     ((ViewHolder) holder).tvConversionStatus.setText(cyclePackRecordEntity.getIsSuccess());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvConversionStatus.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(cyclePackRecordEntity.getMsg())){
+                if (!TextUtils.isEmpty(cyclePackRecordEntity.getMsg())) {
                     ((ViewHolder) holder).tvCyclePackInfo.setText(cyclePackRecordEntity.getMsg());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvCyclePackInfo.setText("暂无");
                 }
 
@@ -80,6 +126,16 @@ public class ConversionCyclePackRecordAdapter extends BaseRecyclerAdapter<CycleP
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    private ExtractRefreshListener listener;
+
+    public void setExtractRefreshListener(ExtractRefreshListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ExtractRefreshListener {
+        void extractRefresh();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -93,6 +149,7 @@ public class ConversionCyclePackRecordAdapter extends BaseRecyclerAdapter<CycleP
         TextView tvConversionStatus;
         @BindView(R.id.tv_cycle_pack_info)
         TextView tvCyclePackInfo;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

@@ -43,6 +43,7 @@ import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
 import cn.cnlinfo.ccf.fragment.MainPageFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
+import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
 import permissions.dispatcher.NeedsPermission;
@@ -410,6 +411,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = currentTime;
             } else {
+                AppManage.getInstance().finishOther();
                 finish();
                 System.exit(0);
             }
