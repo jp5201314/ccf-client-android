@@ -19,13 +19,12 @@ import cn.cnlinfo.ccf.entity.ItemNewsEntity;
  * Created by Administrator on 2017/12/22 0022.
  */
 
-public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> {
+public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> implements View.OnClickListener {
 
 
     private LayoutInflater inflater;
     private static final int VIEWTYPE1 = 0;
     private static final int VIEWTYPE2 = 1;
-
     public SystemNewsAdapter(Context context) {
         super(context);
         this.context = context;
@@ -52,6 +51,8 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> {
                 viewHolder = new ViewHolder2(inflater.inflate(R.layout.item_system_notice, parent, false));
                 break;
         }
+        //给每一项设置监听
+        viewHolder.itemView.setOnClickListener(this);
         return viewHolder;
     }
 
@@ -62,6 +63,7 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> {
             ItemNewsEntity itemNewsEntity = list.get(position);
             ((ViewHolder1) holder).tvInfo.setText("系统公告");
             if (itemNewsEntity.getNewsId()!=0){
+                holder.itemView.setTag(itemNewsEntity.getNewsId());
                 ((ViewHolder1) holder).tvNewsId.setText(String.valueOf(itemNewsEntity.getNewsId()));
             }else {
                 ((ViewHolder1) holder).tvNewsId.setText("暂无");
@@ -83,6 +85,7 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> {
         } else {
             ItemNewsEntity itemNewsEntity = list.get(position);
             if (itemNewsEntity.getNewsId()!=0){
+                holder.itemView.setTag(itemNewsEntity.getNewsId());
                 ((ViewHolder2) holder).tvNewsId.setText(String.valueOf(itemNewsEntity.getNewsId()));
             }else {
                 ((ViewHolder2) holder).tvNewsId.setText("暂无");
@@ -102,7 +105,16 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> {
                 ((ViewHolder2) holder).tvNewsSubject.setText("暂无");
             }
         }
+        holder.itemView.setTag(position);
     }
+
+    @Override
+    public void onClick(View v) {
+        if (itemClickCallback!=null){
+            itemClickCallback.onItemClicked((int)v.getTag(),list.get((int)v.getTag()));
+        }
+    }
+
 
     class ViewHolder2 extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_news_id)

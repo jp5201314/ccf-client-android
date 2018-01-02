@@ -1,9 +1,9 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,7 +14,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.adapter.BaseRecyclerAdapter;
 import cn.cnlinfo.ccf.adapter.SystemNewsAdapter;
 import cn.cnlinfo.ccf.entity.ItemNewsEntity;
 import cn.cnlinfo.ccf.mvc.datasource.SystemNewsDataSource;
@@ -65,21 +67,24 @@ public class SystemNoticeActivity extends BaseActivity {
         mvcHelper = new MVCUltraHelper<List<ItemNewsEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new SystemNewsDataSource());
-        final SystemNewsAdapter adapter = new SystemNewsAdapter(this);
+        SystemNewsAdapter adapter = new SystemNewsAdapter(this);
         mvcHelper.setAdapter(adapter);
         mvcHelper.refresh();
-
-        adapter.setItemClickCallback(new AdapterView.OnItemClickListener() {
+        adapter.setItemClickCallback(new BaseRecyclerAdapter.ItemClickCallback<ItemNewsEntity>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClicked(int position, ItemNewsEntity entity) {
+                Intent intent = new Intent(SystemNoticeActivity.this,WebActivity.class);
+                intent.putExtra("url",String.format(Constant.GET_DETAIL_HOST, entity.getNewsId()));
+                startActivity(intent);
             }
         });
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        mvcHelper.destory();
     }
 }
