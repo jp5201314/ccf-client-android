@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User1;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
 import cn.cnlinfo.ccf.utils.RxUtils;
@@ -90,7 +91,7 @@ public class LoginRegisterActivity extends BaseActivity {
                 RxUtils.getLoginObserable(Constant.getHost(),username,password).subscribe(new Observer<User1>() {
                     @Override
                     public void onCompleted() {
-                        Logger.d("onCompleted");
+                        toast("登录成功");
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -99,7 +100,12 @@ public class LoginRegisterActivity extends BaseActivity {
 
                     @Override
                     public void onNext(User1 user) {
-                        Logger.d(user.toString());
+                        UserSharedPreference.getInstance().setJwtToken("1");
+                        UserSharedPreference.getInstance().setIsFirstLogin(true);
+                        UserSharedPreference.getInstance().setUser(user);
+                        Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
+                        startActivity(intent);
+                        LoginRegisterActivity.this.finish();
                     }
                 });
             } else {
