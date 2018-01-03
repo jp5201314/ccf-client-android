@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
@@ -18,19 +16,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.Retrofit_Rxjava.ILoginService;
-import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.net_okhttp.CCFResponse;
-import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
-import cn.cnlinfo.ccf.net_okhttp.ResponseChecker;
+import cn.cnlinfo.ccf.entity.User1;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import cn.cnlinfo.ccf.utils.RxUtils;
+import rx.Observer;
 
 /**
  * Created by JP on 2017/10/11 0011.
@@ -94,108 +83,25 @@ public class LoginRegisterActivity extends BaseActivity {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
         String verificationCode = etVerificationCode.getText().toString();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constant.getHost()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create()).client(OKHttpManager.getInstance()).build();
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             toast("用户名或密码不能为空");
         } else {
             if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
-                ILoginService loginService = retrofit.create(ILoginService.class);
-
-                Subscription  userSubscription = loginService.getUser(username,password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Subscriber<JsonObject>() {
-
+                RxUtils.getLoginObserable(Constant.getHost(),username,password).subscribe(new Observer<User1>() {
                     @Override
                     public void onCompleted() {
-                        Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                        startActivity(intent);
-                        LoginRegisterActivity.this.finish();
-                        showMessage("登录成功");
                         Logger.d("onCompleted");
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
-                        toast(e.getMessage());
+                        Logger.d(e.getMessage());
                     }
 
                     @Override
-                    public void onNext(JsonObject jsonObject) {
-                        CCFResponse ccfResponse = ResponseChecker.explainResponse(jsonObject.toString());
-                        UserSharedPreference.getInstance().setJwtToken("1");
-                        UserSharedPreference.getInstance().setIsFirstLogin(true);
-                        JSONObject userinfoJsonobject = ccfResponse.getData().getJSONObject("userinfo");
-                        String jsonString = userinfoJsonobject.toJSONString();
-                        UserSharedPreference.getInstance().setUserInfo(jsonString);
-                        Logger.d(ccfResponse.getData().toJSONString());
+                    public void onNext(User1 user) {
+                        Logger.d(user.toString());
                     }
                 });
-
-
-              /*  OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFLOGIN);
-                okHttpPostRequestBuilder.put("username", username);
-                okHttpPostRequestBuilder.put("password", password);
-                OKHttpManager.post(okHttpPostRequestBuilder, "login", new UiHandlerCallBack() {
-
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                UserSharedPreference.getInstance().setJwtToken("0");
-                                call.cancel();
-                            }
-
-                            @Override
-                            public void success(JSONObject data) {
-                                UserSharedPreference.getInstance().setJwtToken("1");
-                                UserSharedPreference.getInstance().setIsFirstLogin(true);
-                                JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
-                                String jsonString = userinfoJsonobject.toJSONString();
-                                UserSharedPreference.getInstance().setUserInfo(jsonString);
-                                Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                                startActivity(intent);
-                                LoginRegisterActivity.this.finish();
-                                showMessage("登录成功");
-                            }
-
-                            @Override
-                            public void error(int status, String message) {
-                                showMessage(status, message);
-                            }
-
-                            @Override
-                            public void progress(int progress) {
-
-                            }
-
-                            @Override
-                            public void failed(int code, String msg) {
-                                showMessage(msg);
-                            }
-                        }
-                );*/
-/*
-                RequestParams params = new RequestParams();
-                params.addFormDataPart("username", username);
-                params.addFormDataPart("password", password);
-                HttpRequest.post(Constant.getHost() + API.CCFLOGIN, params, new CCFHttpRequestCallback() {
-                    @Override
-                    protected void onDataSuccess(JSONObject data) {
-                        showMessage("登录成功");
-                        UserSharedPreference.getInstance().setJwtToken("1");
-                        UserSharedPreference.getInstance().setIsFirstLogin(true);
-                        JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
-                        String jsonString = userinfoJsonobject.toJSONString();
-                        UserSharedPreference.getInstance().setUserInfo(jsonString);
-                        Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                        startActivity(intent);
-                        LoginRegisterActivity.this.finish();
-                    }
-                    @Override
-                    protected void onDataError(int code, boolean flag, String msg) {
-                        showMessage(code,msg);
-                        Logger.d(code + "  " + flag + "  " + msg);
-                    }
-                });*/
-
-
             } else {
                 toast("验证码不正确，请重新输入");
             }

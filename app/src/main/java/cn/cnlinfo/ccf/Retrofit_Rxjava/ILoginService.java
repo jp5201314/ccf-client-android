@@ -1,9 +1,9 @@
 package cn.cnlinfo.ccf.Retrofit_Rxjava;
 
 
-import com.google.gson.JsonObject;
-
 import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Retrofit_Rxjava.entity.DataEntity;
+import cn.cnlinfo.ccf.entity.User1;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -16,5 +16,5 @@ import rx.Observable;
 public interface ILoginService {
     @FormUrlEncoded
     @POST(API.CCFLOGIN)
-    Observable<JsonObject> getUser(@Field("username") String username, @Field("password") String password);
+    Observable<LoginResult<DataEntity<User1>>> getUser(@Field("username") String username, @Field("password") String password);
 }

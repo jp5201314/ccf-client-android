@@ -1,20 +1,18 @@
 package cn.cnlinfo.ccf.Retrofit_Rxjava.entity;
 
-import cn.cnlinfo.ccf.entity.User;
-
 /**
  * Created by Administrator on 2017/11/24 0024.
  */
 
-public class DataEntity {
+public class DataEntity<T> {
 
-    private User userinfo;
+    private T userinfo;
 
-    public User getUserinfo() {
+    public T getUserinfo() {
         return userinfo;
     }
 
-    public void setUserinfo(User userinfo) {
+    public void setUserinfo(T userinfo) {
         this.userinfo = userinfo;
     }
 
@@ -25,7 +23,7 @@ public class DataEntity {
                 '}';
     }
 
-    public DataEntity(User userinfo) {
+    public DataEntity(T userinfo) {
         this.userinfo = userinfo;
     }
 
