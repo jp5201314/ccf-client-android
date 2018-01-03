@@ -6,22 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.entity.TransactionRecord;
 
 
 /**
  * Created by Administrator on 2017/11/27 0027.
  */
 
-public class TransactionRecordAdapter extends RecyclerView.Adapter<TransactionRecordAdapter.ViewHolder>{
+public class TransactionRecordAdapter extends BaseRecyclerAdapter<TransactionRecord>{
 
     private static Context context;
 
-    public String[] datas = null;
-    public TransactionRecordAdapter(String[] datas,Context context) {
-        this.datas = datas;
+    public TransactionRecordAdapter(Context context) {
+        super(context);
         this.context = context;
     }
 
@@ -33,35 +32,20 @@ public class TransactionRecordAdapter extends RecyclerView.Adapter<TransactionRe
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_money.setText(datas[position]);
-        holder.tv_transaction_type.setText(datas[position]);
-        holder.tv_price.setText(datas[position]);
-        holder.tv_number.setText(datas[position]);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
     }
 
     @Override
     public int getItemCount() {
-        return datas.length;
+        return list.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView tv_time, tv_money, tv_transaction_type, tv_price, tv_number,tv_details;
-
         LinearLayout linearLayout;
         boolean visibility_Flag = false;
         public ViewHolder(View view) {
             super(view);
-            tv_time = (TextView) view.findViewById(R.id.tv_time);
-            tv_money = (TextView) view.findViewById(R.id.tv_money);
-            tv_transaction_type = (TextView) view.findViewById(R.id.tv_transaction_type);
-            tv_price = (TextView) view.findViewById(R.id.tv_price);
-            tv_number = (TextView) view.findViewById(R.id.tv_number);
-            tv_details = (TextView) view.findViewById(R.id.tv_details);
-            linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout);
-            tv_details.setOnClickListener(this);
-//          itemView.setOnClickListener(this);
         }
 
         @Override
@@ -74,6 +58,5 @@ public class TransactionRecordAdapter extends RecyclerView.Adapter<TransactionRe
                 visibility_Flag =true;
             }
         }
-
     }
 }

@@ -63,7 +63,6 @@ public class ItselfTransferRecordsActivity extends BaseActivity {
         mvcHelper = new MVCUltraHelper<List<TransferRecordEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new InTransferRecordDataSource());
-
         mvcHelper.setAdapter(  new OutInTransferRecordAdapter(this));
         mvcHelper.refresh();
     }

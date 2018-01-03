@@ -1,35 +1,40 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.shizhefei.mvc.MVCHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.TransactionRecordAdapter;
+import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
+import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 /**
  * Created by Administrator on 2017/11/27 0027.
  * 交易记录
  */
 
-public class TransactionRecordActivity  extends BaseActivity{
+public class TransactionRecordActivity extends BaseActivity {
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.pfl)
+    PtrClassicFrameLayout pfl;
     private Unbinder unbinder;
-    private RecyclerView mRecyclerview;
-    TransactionRecordAdapter adapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    String[] date = new String[10];
+    private MVCHelper mvcHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +47,17 @@ public class TransactionRecordActivity  extends BaseActivity{
                 finish();
             }
         });
-        setClickListener();
-
-        for (int i = 0; i < date.length; i++) {
-            date[i] = i+"";
-        }
-        adapter = new TransactionRecordAdapter(date,this);
-        mLayoutManager = new LinearLayoutManager(this);
-        //创建默认的线性LayoutManager
-        mRecyclerview.setLayoutManager(mLayoutManager);
-        //创建并设置Adapter
-        mRecyclerview.setAdapter(adapter);
+        getTransactionRecord();
     }
-    private void setClickListener() {
-        mRecyclerview = (RecyclerView) findViewById(R.id.rv);
+
+    private void getTransactionRecord() {
+        rv.setHasFixedSize(true);
+        rv.setNestedScrollingEnabled(false);
+        rv.setLayoutManager(new FullyLinearLayoutManager(this));
+        mvcHelper = new MVCUltraHelper(pfl);
+        //mvcHelper.setDataSource();
+        mvcHelper.setAdapter(new TransactionRecordAdapter(this));
+        mvcHelper.refresh();
     }
 
     @Override
