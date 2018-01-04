@@ -307,7 +307,7 @@
         <activity
             android:name=".activity.WalkRecordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
+            android:theme="@style/NormalFullScreen" />
         <!-- 基础贡献率记录 -->
         <activity
             android:name=".activity.BasicContributionRateRecordActivity"
@@ -419,7 +419,7 @@
         <activity
             android:name=".activity.DownLoadFileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"/>
+            android:theme="@style/NormalFullScreen" />
 
         <!-- 服务后台下载文件 -->
         <service
@@ -437,10 +437,14 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.PurchaseMealRecordActivity"
+        <activity
+            android:name=".activity.PurchaseMealRecordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"
-            />
+            android:theme="@style/NormalFullScreen" />
+        <!--挂买/挂卖记录-->
+        <activity android:name=".activity.HangBuyAndSellRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupMenuTheme"></activity>
     </application>
 
 </manifest>
