@@ -105,14 +105,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
 
     private void initData() {
         showWaitingDialog(true);
-        etConversionCyclePack.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    etConversionCyclePack.setText("");
-                }
-            }
-        });
+        setEditTextFocus(etConversionCyclePack);
         setOnClickListener();
         user = UserSharedPreference.getInstance().getUser();
         setControllerIntoSdvCycle();

@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.activity.TradingCenterActivity;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
@@ -47,7 +49,7 @@ import lecho.lib.hellocharts.view.LineChartView;
  * Created by JP on 2017/10/11 0011.
  */
 
-public class TradingCenterFragment extends BaseFragment {
+public class TradingCenterFragment extends BaseFragment implements View.OnClickListener{
 
     @BindView(R.id.chart_top)
     LineChartView chartTop;
@@ -57,6 +59,8 @@ public class TradingCenterFragment extends BaseFragment {
     CleanEditText etNum;
     @BindView(R.id.btn_ok)
     Button btnOk;
+    @BindView(R.id.btn_enter_trading_platform)
+    Button btnEnterTradingPlatform;
     private Unbinder unbinder;
     String[] date;//X轴的标注
     Float[] score;//图表的数据点
@@ -76,34 +80,9 @@ public class TradingCenterFragment extends BaseFragment {
         getAxisPoints();//获取坐标点
         initLineChart();//初始化
         startHangSellOrBuy();//挂卖/挂买
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String num = etNum.getText().toString();
-                if (!TextUtils.isEmpty(num)){
-                    if (type==0){//挂卖
-                        RequestParams params = new RequestParams();
-                        params.addFormDataPart("sellerID", UserSharedPreference.getInstance().getUser().getUserID());
-                        params.addFormDataPart("ccfValue",num);
-                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGSELL, params, new CCFHttpRequestCallback() {
-                            @Override
-                            protected void onDataSuccess(JSONObject data) {
-                                showMessage(0,"挂卖成功");
-                            }
-
-                            @Override
-                            protected void onDataError(int code, boolean flag, String msg) {
-                                showMessage(code,msg);
-                            }
-                        });
-                    }else {//挂买
-
-                    }
-                }else {
-                    toast("输入框不能为空");
-                }
-            }
-        });
+        setEditTextFocus(etNum);
+        btnEnterTradingPlatform.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
         return view;
     }
 
@@ -111,18 +90,20 @@ public class TradingCenterFragment extends BaseFragment {
      * 开始挂卖/挂买
      */
 
-    private void startHangSellOrBuy(){
+    private void startHangSellOrBuy() {
         spHangSellType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 type = position;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
     }
+
     /**
      * 设置X 轴的显示
      */
@@ -230,6 +211,61 @@ public class TradingCenterFragment extends BaseFragment {
         for (int i = 1; i <= day; i++) {
             date[i - 1] = month + "-" + i;
             score[i - 1] = i / 10f;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_ok:
+                String num = etNum.getText().toString();
+                if (!TextUtils.isEmpty(num)) {
+                    if (type == 0) {//挂卖
+                        RequestParams params = new RequestParams();
+                        params.addFormDataPart("sellerID", UserSharedPreference.getInstance().getUser().getUserID());
+                        params.addFormDataPart("ccfValue", num);
+                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGSELL, params, new CCFHttpRequestCallback() {
+                            @Override
+                            protected void onDataSuccess(JSONObject data) {
+                                showMessage(0, "挂卖成功");
+                                etNum.setText("");
+                                etNum.clearFocus();
+                                etNum.setFocusable(false);
+                            }
+
+                            @Override
+                            protected void onDataError(int code, boolean flag, String msg) {
+                                showMessage(code, msg);
+                            }
+                        });
+                    } else {//挂买
+                        RequestParams params = new RequestParams();
+                        params.addFormDataPart("userID", UserSharedPreference.getInstance().getUser().getUserID());
+                        params.addFormDataPart("ccfValue", num);
+                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGBUY, params, new CCFHttpRequestCallback() {
+                            @Override
+                            protected void onDataSuccess(JSONObject data) {
+                                showMessage(0, "挂买成功");
+                                etNum.setText("");
+                                etNum.clearFocus();
+                                etNum.setFocusable(false);
+                            }
+
+                            @Override
+                            protected void onDataError(int code, boolean flag, String msg) {
+                                showMessage(code, msg);
+                            }
+                        });
+                    }
+                } else {
+                    toast("输入框不能为空");
+                }
+                break;
+                case R.id.btn_enter_trading_platform:
+                    startActivity(new Intent(getActivity(), TradingCenterActivity.class));
+                    break;
+                    default:
+                        break;
         }
     }
 }

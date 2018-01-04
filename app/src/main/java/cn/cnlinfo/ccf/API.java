@@ -201,7 +201,15 @@ public class API {
     public static final String EXTEACTCYCLEPACK = "ExtractCircle";
 
     /**
-     * 商户挂卖
+     * 用户挂卖
      */
     public static final String HANGSELL = "PersonalAuction";
+    /**
+     * 用户挂买
+     */
+    public static final String HANGBUY = "HangBuyOperation";
+    /**
+     * 交易列表
+     */
+    public static final String TRADINGLIST = "GetJobberList";
 }

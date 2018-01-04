@@ -246,7 +246,7 @@ dependencies {
      支持选择图片数量上限
      支持图片选择顺序
      支持图片预览
-     *
+     * leakcanary 检测内存泄漏
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
@@ -286,4 +286,6 @@ dependencies {
     compile 'com.github.huzhenjie:ImageSelector:1.0.3'
     //分包设置
     compile 'com.android.support:multidex:1.0.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

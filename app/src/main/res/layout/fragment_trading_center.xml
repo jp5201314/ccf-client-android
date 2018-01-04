@@ -12,16 +12,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="17dp"
+            android:paddingLeft="38dp"
+            android:paddingRight="38dp"
+            android:paddingBottom="17dp">
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="17dp"
-                android:paddingLeft="38dp"
-                android:paddingRight="88dp"
-                android:paddingBottom="17dp"
-                android:orientation="vertical">
-
+                android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -29,8 +27,46 @@
                     android:textSize="20sp"
                     android:textColor="@color/color_black_0d0d0d"
                     />
-
+                <Button
+                    android:id="@+id/btn_enter_trading_platform"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="交易大厅"
+                    android:textSize="20sp"
+                    android:textColor="@color/color_black_0d0d0d"
+                    android:layout_gravity="end"
+                    android:background="@drawable/selector_btn_bg"
+                    />
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="当前价格"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="当前价格"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="当前价格"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+              <!--  <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp">
@@ -76,31 +112,7 @@
                         android:text="当前价格"
                         android:layout_weight="1"
                         />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="当前价格"
-                        android:layout_weight="1"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="当前价格"
-                        android:layout_weight="1"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="当前价格"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
+                </LinearLayout>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
