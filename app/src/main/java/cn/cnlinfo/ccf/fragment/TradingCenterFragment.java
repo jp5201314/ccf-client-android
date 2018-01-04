@@ -3,10 +3,15 @@ package cn.cnlinfo.ccf.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Spinner;
 
+import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 
@@ -18,7 +23,14 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
@@ -39,11 +51,19 @@ public class TradingCenterFragment extends BaseFragment {
 
     @BindView(R.id.chart_top)
     LineChartView chartTop;
+    @BindView(R.id.sp_hang_sell_type)
+    Spinner spHangSellType;
+    @BindView(R.id.et_num)
+    CleanEditText etNum;
+    @BindView(R.id.btn_ok)
+    Button btnOk;
     private Unbinder unbinder;
     String[] date;//X轴的标注
     Float[] score;//图表的数据点
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
+    private int type = 0;
+
 
     @Nullable
     @Override
@@ -55,8 +75,53 @@ public class TradingCenterFragment extends BaseFragment {
         getAxisXLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
         initLineChart();//初始化
+        startHangSellOrBuy();//挂卖/挂买
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String num = etNum.getText().toString();
+                if (!TextUtils.isEmpty(num)){
+                    if (type==0){//挂卖
+                        RequestParams params = new RequestParams();
+                        params.addFormDataPart("sellerID", UserSharedPreference.getInstance().getUser().getUserID());
+                        params.addFormDataPart("ccfValue",num);
+                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGSELL, params, new CCFHttpRequestCallback() {
+                            @Override
+                            protected void onDataSuccess(JSONObject data) {
+                                showMessage(0,"挂卖成功");
+                            }
 
+                            @Override
+                            protected void onDataError(int code, boolean flag, String msg) {
+                                showMessage(code,msg);
+                            }
+                        });
+                    }else {//挂买
+
+                    }
+                }else {
+                    toast("输入框不能为空");
+                }
+            }
+        });
         return view;
+    }
+
+    /**
+     * 开始挂卖/挂买
+     */
+
+    private void startHangSellOrBuy(){
+        spHangSellType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                type = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
     /**
      * 设置X 轴的显示
@@ -66,6 +131,7 @@ public class TradingCenterFragment extends BaseFragment {
             mAxisXValues.add(new AxisValue(i).setLabel(date[i]));
         }
     }
+
     /**
      * 图表的每个点的显示
      */
@@ -130,9 +196,9 @@ public class TradingCenterFragment extends BaseFragment {
         chartTop.setOnValueTouchListener(new LineChartOnValueSelectListener() {
             @Override
             public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-                Logger.d(lineIndex+":"+pointIndex);
-                Logger.d(date[pointIndex]+"的值为"+value.getY());
-                toast(date[pointIndex]+"的值为"+value.getY());
+                Logger.d(lineIndex + ":" + pointIndex);
+                Logger.d(date[pointIndex] + "的值为" + value.getY());
+                toast(date[pointIndex] + "的值为" + value.getY());
             }
 
             @Override
@@ -141,27 +207,29 @@ public class TradingCenterFragment extends BaseFragment {
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
         TCAgent.onPageEnd(getActivity(), "交易中心");
     }
-/*
-    *
-     * 根据当前月份获取当前月份的天数
-     * @return
-*/
-    private  void getDayOfMonth(){
+
+    /*
+        *
+         * 根据当前月份获取当前月份的天数
+         * @return
+    */
+    private void getDayOfMonth() {
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
         int month = aCalendar.get(Calendar.MONTH);
         int day = aCalendar.get(Calendar.DAY_OF_MONTH);
-        Logger.d(month+"-"+day);
+        Logger.d(month + "-" + day);
         date = new String[day];
         score = new Float[day];
-        for (int i = 1;i<=day;i++){
-            date[i-1] = month+"-"+i;
-            score[i-1] = i/10f;
+        for (int i = 1; i <= day; i++) {
+            date[i - 1] = month + "-" + i;
+            score[i - 1] = i / 10f;
         }
     }
 }

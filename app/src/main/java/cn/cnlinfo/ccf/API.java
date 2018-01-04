@@ -199,4 +199,9 @@ public class API {
      * 解压循环包
      */
     public static final String EXTEACTCYCLEPACK = "ExtractCircle";
+
+    /**
+     * 商户挂卖
+     */
+    public static final String HANGSELL = "PersonalAuction";
 }
