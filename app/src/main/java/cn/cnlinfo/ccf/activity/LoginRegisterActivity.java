@@ -62,6 +62,7 @@ public class LoginRegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        Logger.d("onDestroy");
     }
 
     public void toLogin(View view) {

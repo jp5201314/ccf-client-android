@@ -1,7 +1,6 @@
 package cn.cnlinfo.ccf.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,24 +12,19 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.activity.PurCCFActivity;
 import cn.cnlinfo.ccf.entity.TradingListItem;
 
 /**
  * Created by Administrator on 2018/1/4 0004.
  */
 
-public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem> {
+public class OrderListItemAdapter extends BaseRecyclerAdapter<TradingListItem> {
 
     private LayoutInflater inflater;
-    private int tradType;
-    private Context context;
 
-    public TradingListItemAdapter(Context context,int tradType) {
+    public OrderListItemAdapter(Context context) {
         super(context);
         inflater = LayoutInflater.from(context);
-        this.tradType = tradType;
-        this.context = context;
     }
 
     @Override
@@ -54,11 +48,7 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                 ((ViewHolder) holder).tvTime.setText("暂无");
             }
             if (!TextUtils.isEmpty(tradingListItem.getStatus())){
-                if (tradType==1){
-                    ((ViewHolder) holder).btnTradingStatus.setText("购买");
-                }else {
-                    ((ViewHolder) holder).btnTradingStatus.setText("出售");
-                }
+                ((ViewHolder) holder).btnTradingStatus.setText("购买");
             }else {
                 ((ViewHolder) holder).btnTradingStatus.setText("暂无");
                 ((ViewHolder) holder).btnTradingStatus.setClickable(false);
@@ -83,16 +73,15 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
             }else {
                 ((ViewHolder) holder).tvCurrentPrice.setText("暂无");
             }
-           /* if (!TextUtils.isEmpty(tradingListItem.getPurchaserID())){
+            if (!TextUtils.isEmpty(tradingListItem.getPurchaserID())){
                 ((ViewHolder) holder).tvTradingUser.setText(tradingListItem.getPurchaserID());
             }else {
                 ((ViewHolder) holder).tvTradingUser.setText("暂无");
-            }*/
-           holder.itemView.setTag(position);
+            }
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_trading_type)
         TextView tvTradingType;
         @BindView(R.id.tv_time)
@@ -109,36 +98,9 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
         TextView tvCurrentPrice;
         @BindView(R.id.tv_trading_user)
         TextView tvTradingUser;
-        private int position;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            btnTradingStatus.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.btn_trading_status:
-                    position = (int) itemView.getTag();
-                    if (tradType==1){
-                        clickBuy();
-                    }else {
-
-                    }
-                    break;
-            }
-        }
-
-        /**
-         * 点击购买
-         */
-        private void clickBuy(){
-            if (list!=null){
-                Intent intent = new Intent(context, PurCCFActivity.class);
-                intent.putExtra("roomId",list.get(position).getID());
-                context.startActivity(intent);
-            }
         }
     }
 }

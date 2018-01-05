@@ -40,6 +40,7 @@ public class TradingCenterActivity extends BaseActivity {
     ImageButton ibtAdd;
     private Unbinder unbinder;
     private MVCHelper mvcHelper;
+    private TradingListItemAdapter adapter;
 
 
     @Override
@@ -59,8 +60,9 @@ public class TradingCenterActivity extends BaseActivity {
         mRv.setNestedScrollingEnabled(false);
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mvcHelper = new MVCUltraHelper(mPfl);
-        mvcHelper.setDataSource(new TradingListDataSource("where(1=1) and Status=1"));
-        mvcHelper.setAdapter(new TradingListItemAdapter(this));
+        mvcHelper.setDataSource(new TradingListDataSource("where TranType=1 and Status=1"));
+        adapter = new TradingListItemAdapter(this,1);
+        mvcHelper.setAdapter(adapter);
         mvcHelper.refresh();
     }
 
@@ -96,16 +98,11 @@ public class TradingCenterActivity extends BaseActivity {
                 String type = "";
                 switch (itemId) {
                     case R.id.sell:
-                        type = "where TranType=1 and Status=1";
-                        mvcHelper.setDataSource(new TradingListDataSource(type));
                         break;
                     case R.id.buy:
                         type = "where TranType=2 and Status=1";
                         mvcHelper.setDataSource(new TradingListDataSource(type));
-                        break;
-                    case R.id.all:
-                        type = "where(1=1) and Status=1";
-                        mvcHelper.setDataSource(new TradingListDataSource(type));
+                        adapter = new TradingListItemAdapter(TradingCenterActivity.this,2);
                         break;
                 }
                 mvcHelper.refresh();
