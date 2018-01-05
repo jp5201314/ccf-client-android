@@ -117,6 +117,10 @@ android {
             url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 static def generateTime() {
@@ -221,24 +225,31 @@ dependencies {
     /**
      *   zxing 制作二维码
      */
+
     /**
      * lite-orm数据库存储
      */
+
     /**
      * RecycleView
      */
+
     /**
      * 省市县三级联动
      */
+
     /**
      *   MVCHelper 核心类库
      */
+
     /**
      * Retrofit+Rxjava+Gson
      */
+
     /**
      * HelloCharts
      */
+
     /**
      * 图片选择器 ImageSelector
      * 支持jitpack
@@ -281,9 +292,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
-
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.github.huzhenjie:ImageSelector:1.0.3'
+
     //分包设置
     compile 'com.android.support:multidex:1.0.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
