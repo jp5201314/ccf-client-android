@@ -1,7 +1,6 @@
 package cn.cnlinfo.ccf.mvc.datasource;
 
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IAsyncDataSource;
 import com.shizhefei.mvc.RequestHandle;
 import com.shizhefei.mvc.ResponseSender;
@@ -13,43 +12,48 @@ import java.util.List;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
+import cn.cnlinfo.ccf.entity.ItemHangSellAndBuyEntity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
- * Created by Administrator on 2017/12/27 0027.
+ * Created by Administrator on 2018/1/4 0004.
  */
 
-public class CyclePackRecordDataSource implements IAsyncDataSource<List<CyclePackRecordEntity>> {
-    private int page = 1 ;
+public class HangSellAndBuyRecordDataSource implements IAsyncDataSource<List<ItemHangSellAndBuyEntity>>{
+    private int page = 1;
     private int maxPage;
     private int number = 5;
-
-    @Override
-    public RequestHandle refresh(ResponseSender<List<CyclePackRecordEntity>> sender) throws Exception {
-        return loadOutTransferRecord(sender,1);
+    private String queryCondition = null;
+    public HangSellAndBuyRecordDataSource(int tradType){
+        this.queryCondition = String.format("where UserID=%s and TranType=%s", UserSharedPreference.getInstance().getUser().getUserID(), tradType);
     }
 
     @Override
-    public RequestHandle loadMore(ResponseSender<List<CyclePackRecordEntity>> sender) throws Exception {
-        Logger.d("loadmore");
-        return loadOutTransferRecord(sender,page+1);
+    public RequestHandle refresh(ResponseSender<List<ItemHangSellAndBuyEntity>> sender) throws Exception {
+        page = 1;
+        return loadGainHangRecord(sender,page);
     }
-    private RequestHandle loadOutTransferRecord(final ResponseSender<List<CyclePackRecordEntity>> sender, final int page){
+
+    @Override
+    public RequestHandle loadMore(ResponseSender<List<ItemHangSellAndBuyEntity>> sender) throws Exception {
+        return loadGainHangRecord(sender,page+1);
+    }
+
+    private RequestHandle loadGainHangRecord(final ResponseSender<List<ItemHangSellAndBuyEntity>> sender, final int page){
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
         params.addFormDataPart("CurrentPageIndex",page);
         params.addFormDataPart("PageSize",number);
-        params.addFormDataPart("Orderby","Order by Status asc,CreateTime desc");
-        HttpRequest.post(Constant.RECORD_CENTER_HOST + API.CONVERSIONCYCLEPACK, params, new CCFHttpRequestCallback() {
+        params.addFormDataPart("SearchItems",queryCondition);
+        params.addFormDataPart("Orderby","order by CreateTime desc");
+        HttpRequest.post(Constant.RECORD_CENTER_HOST + API.HANGBYSELLANDBUY, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                List<CyclePackRecordEntity> list = JSONObject.parseArray(data.getJSONArray("BuyPackRecordList").toJSONString(),CyclePackRecordEntity.class);
-                CyclePackRecordDataSource.this.page = page;
-                CyclePackRecordDataSource.this.maxPage = data.getIntValue("PageCount");
+                List<ItemHangSellAndBuyEntity> list = JSONObject.parseArray(data.getJSONArray("HangBuyRecordList").toJSONString(),ItemHangSellAndBuyEntity.class);
+                HangSellAndBuyRecordDataSource.this.page = page;
+                HangSellAndBuyRecordDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);
             }
 
@@ -66,7 +70,6 @@ public class CyclePackRecordDataSource implements IAsyncDataSource<List<CyclePac
                 EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
             }
         });
-
         return new OkHttpRequestHandler();
     }
 

@@ -38,6 +38,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     ImageButton ibtBack;
     @BindView(R.id.tv_pur_meal_record)
     TextView tvPurMealRecord;
+    @BindView(R.id.tv_hang_sell_buy_record)
+    TextView tvHangSellBuyRecord;
     private Unbinder unbinder;
 
     @Override
@@ -68,6 +70,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         tvEWalletRecord.setOnClickListener(this);
         tvShoppingRecord.setOnClickListener(this);
         tvPurMealRecord.setOnClickListener(this);
+        tvHangSellBuyRecord.setOnClickListener(this);
     }
 
     @Override
@@ -137,7 +140,14 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 购买套餐记录
              */
             case R.id.tv_pur_meal_record:
-                startActivity(new Intent(this,PurchaseMealRecordActivity.class));
+                startActivity(new Intent(this, PurchaseMealRecordActivity.class));
+                break;
+            /**
+             * 挂卖和挂买记录
+             */
+            case R.id.tv_hang_sell_buy_record:
+                startActivity(new Intent(this, HangBuyAndSellRecordActivity.class));
+                break;
             default:
                 break;
         }

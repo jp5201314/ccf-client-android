@@ -446,6 +446,10 @@
         <activity android:name=".activity.TradingCenterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PopupMenuTheme"/>
+        <!--挂买/挂卖记录-->
+        <activity android:name=".activity.HangBuyAndSellRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupMenuTheme"/>
     </application>
 
 </manifest>
