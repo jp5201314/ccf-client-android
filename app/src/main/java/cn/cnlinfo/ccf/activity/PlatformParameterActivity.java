@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.entity.PlatformInfo;
@@ -18,8 +19,6 @@ import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.finalteam.okhttpfinal.HttpRequest;
 
 public class PlatformParameterActivity extends BaseActivity {
-
-
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
@@ -71,6 +70,7 @@ public class PlatformParameterActivity extends BaseActivity {
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETPLATFORMINFO);
                 finish();
             }
         });
@@ -80,27 +80,29 @@ public class PlatformParameterActivity extends BaseActivity {
     /**
      * 设置平台参数
      */
-    private void setPlateformParamer(){
+    private  void setPlateformParamer(){
         HttpRequest.get(Constant.GET_DATA_HOST + API.GETPLATFORMINFO, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
                 PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
-                tvAliveTotal.setText(String.valueOf(platformInfo.getActiveCCF()));
-                tvTotalTba.setText(platformInfo.getTotalInertiaCCF());
-                tvCurrentAccountAmount.setText(platformInfo.getTotalAccount());
-                tvTotalCcf.setText(platformInfo.getTotalCCF());
-                tvInitTotalAmount.setText(platformInfo.getInitActiveCCF());
-                tvCurrentDifficultPoint.setText(String.valueOf(platformInfo.getCurrent_u()));
-                tvAvailableConsumePoints.setText(platformInfo.getActiveConsumeScore());
-                tvWaitFreeCyclePoints.setText(platformInfo.getInertiaCCScore());
-                tvWaitFreeConsumePoints.setText(platformInfo.getInertiaConsumeScore());
-                tvCycleCoupon.setText(platformInfo.getCircleTicket());
-                tvCcPoints.setText(platformInfo.getCCScore());
-                tvProvinceTotal.setText(platformInfo.getProvinceProxy());
-                tvCityTotal.setText(platformInfo.getCityProxy());
-                tvCountyTotal.setText(platformInfo.getCountyProxy());
-                tvCurrentCyclePackageAmount.setText(platformInfo.getHaschange());
+                if (platformInfo!=null){
+                    tvAliveTotal.setText(String.valueOf(platformInfo.getActiveCCF()));
+                    tvTotalTba.setText(platformInfo.getTotalInertiaCCF());
+                    tvCurrentAccountAmount.setText(platformInfo.getTotalAccount());
+                    tvTotalCcf.setText(platformInfo.getTotalCCF());
+                    tvInitTotalAmount.setText(platformInfo.getInitActiveCCF());
+                    tvCurrentDifficultPoint.setText(String.valueOf(platformInfo.getCurrent_u()));
+                    tvAvailableConsumePoints.setText(platformInfo.getActiveConsumeScore());
+                    tvWaitFreeCyclePoints.setText(platformInfo.getInertiaCCScore());
+                    tvWaitFreeConsumePoints.setText(platformInfo.getInertiaConsumeScore());
+                    tvCycleCoupon.setText(platformInfo.getCircleTicket());
+                    tvCcPoints.setText(platformInfo.getCCScore());
+                    tvProvinceTotal.setText(platformInfo.getProvinceProxy());
+                    tvCityTotal.setText(platformInfo.getCityProxy());
+                    tvCountyTotal.setText(platformInfo.getCountyProxy());
+                    tvCurrentCyclePackageAmount.setText(platformInfo.getHaschange());
+                }
             }
 
             @Override
@@ -120,5 +122,6 @@ public class PlatformParameterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        CCFApplication.getRefWatcher().watch(this);
     }
 }

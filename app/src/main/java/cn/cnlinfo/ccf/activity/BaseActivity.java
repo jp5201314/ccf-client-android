@@ -141,7 +141,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         }
         win.setAttributes(winParams);
     }
-
     @Override
     public void finish() {
         AppManage.getInstance().finishActivity(this);
@@ -216,7 +215,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      * @param text
      */
     protected void toast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -225,7 +224,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      * @param resource
      */
     protected void toast(int resource) {
-        Toast.makeText(this, resource, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), resource, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -32,7 +32,7 @@ public class TradingListDataSource implements IAsyncDataSource<List<TradingListI
 
     @Override
     public RequestHandle refresh(ResponseSender<List<TradingListItem>> sender) throws Exception {
-
+        page = 1;
         return loadGainTradingList(sender,page);
     }
 

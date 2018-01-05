@@ -52,7 +52,7 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
     TextView tvTitle;
     private Unbinder unbinder;
     private User user;
-    private  List<ContributeMapNode> treeList;
+    private List<ContributeMapNode> treeList;
 
 
     @Override
@@ -68,7 +68,7 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
 
     private void init(){
         showWaitingDialog(true);
-        user = JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        user = UserSharedPreference.getInstance().getUser();
         treeList = new ArrayList<>();
         getChildNodeData(user.getUserID());
     }
@@ -140,7 +140,15 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
+                    showMessage(code,msg);
                     showWaitingDialog(false);
+            }
+
+            @Override
+            public void onFailure(int errorCode, String msg) {
+                super.onFailure(errorCode, msg);
+                showMessage(errorCode,msg);
+                showWaitingDialog(false);
             }
         });
     }

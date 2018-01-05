@@ -98,7 +98,8 @@
         <activity
             android:name=".activity.WebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen">
+            android:theme="@style/NormalFullScreen"
+            android:process="cn.cnlinfo.ccf.webview">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 

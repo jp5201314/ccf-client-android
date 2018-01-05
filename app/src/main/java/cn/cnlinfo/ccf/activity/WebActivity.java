@@ -18,6 +18,7 @@ import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 
 public class WebActivity extends BaseActivity {
@@ -148,10 +149,25 @@ public class WebActivity extends BaseActivity {
                 finish();
             }
         });
-
-
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyWebView();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        super.onDestroy();
+        CCFApplication.getRefWatcher().watch(this);
+    }
+
+    private void destroyWebView() {
+        if (wv != null) {
+            wv.pauseTimers();
+            wv.removeAllViews();
+            wv.destroy();
+            wv = null;
+        }
+    }
    /* @JavascriptInterface
     public void getSource(String msg) {
         Logger.d(msg);

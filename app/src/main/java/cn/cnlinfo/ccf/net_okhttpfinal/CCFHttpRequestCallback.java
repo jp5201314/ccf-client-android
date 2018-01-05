@@ -9,12 +9,12 @@ import okhttp3.Headers;
  * Created by Administrator on 2017/10/25 0025.
  */
 
-public abstract class CCFHttpRequestCallback extends JsonHttpRequestCallback {
+public abstract  class CCFHttpRequestCallback extends JsonHttpRequestCallback {
 
-    private static final String status = "MessageID";
-    private static final String statusInfo = "Content";
-    private static final String isSuccess = "Success";
-    private static final String data = "Data";
+    private  final String status = "MessageID";
+    private  final String statusInfo = "Content";
+    private  final String isSuccess = "Success";
+    private  final String data = "Data";
 
     @Override
     public void onFinish() {
@@ -64,6 +64,5 @@ public abstract class CCFHttpRequestCallback extends JsonHttpRequestCallback {
     @Override
     public void onFailure(int errorCode, String msg) {
         super.onFailure(errorCode, msg);
-
     }
 }

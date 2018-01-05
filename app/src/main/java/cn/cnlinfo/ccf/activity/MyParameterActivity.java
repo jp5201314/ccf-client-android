@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
@@ -75,6 +76,7 @@ public class MyParameterActivity extends BaseActivity {
         ibtBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETMYPARAMETER);
                 finish();
             }
         });
@@ -124,5 +126,6 @@ public class MyParameterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        CCFApplication.getRefWatcher().watch(this);
     }
 }

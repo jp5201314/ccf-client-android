@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +32,8 @@ public class CCFApplication extends Application {
     private static Context mContext;
     private static CCFApplication INSTANCE;
 
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,7 +43,7 @@ public class CCFApplication extends Application {
             return;
         }
         //加入内存次泄漏检测
-        LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
         INSTANCE = this;
         mContext = getApplicationContext();
               /* 初始化talking data*/
@@ -59,6 +62,9 @@ public class CCFApplication extends Application {
         OkHttpFinal.getInstance().updateCommonHeader("Accept","application/json");
     }
 
+    public static RefWatcher getRefWatcher() {
+        return INSTANCE.refWatcher;
+    }
 
     @Override
     public void onTerminate() {

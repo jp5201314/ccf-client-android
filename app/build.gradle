@@ -28,10 +28,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(properties.getProperty("SIGNING_CONFINGS_DEBUG_STORE_FILE"))
+           /* storeFile file(properties.getProperty("SIGNING_CONFINGS_DEBUG_STORE_FILE"))
             storePassword properties.getProperty("SIGNING_CONFINGS_DEBUG_STORE_PASSWORD")
             keyAlias properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_ALIAS")
-            keyPassword properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_PASSWORD")
+            keyPassword properties.getProperty("SIGNING_CONFINGS_DEBUG_KEY_PASSWORD")*/
         }
         release {
             storeFile file(properties.getProperty("SIGNING_CONFINGS_REALEASE_STORE_FILE"))
@@ -85,23 +85,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        // 多个变体自定义输出配置
-//        applicationVariants.all { variant ->
-//            variant.outputs.each { output ->
-//                def outputFile = output.outputFile
-//                def fileName
-//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                    if (variant.buildType.name == "debug") {
-//                        fileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
-//                    } else if (variant.buildType.name == "release") {
-//                        fileName = "ccf_V${defaultConfig.versionName}_${variant.productFlavors[0].name}_${generateTime()}_release.apk"
-//                    }
-//                    def file = new File(fileName)
-//                    output.outputFile = file
-////                  output.outputFile = new File(outputFile.parent, fileName)
-//                }
-//            }
-//        }
+       /* // 多个变体自定义输出配置
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                def fileName
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    if (variant.buildType.name == "debug") {
+                        fileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
+                    } else if (variant.buildType.name == "release") {
+                        fileName = "ccf_V${defaultConfig.versionName}_${variant.productFlavors[0].name}_${generateTime()}_release.apk"
+                    }
+                    def file = new File(fileName)
+                    output.outputFile = file
+//                  output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }*/
 
         android.applicationVariants.all { variant ->
             variant.outputs.all {
