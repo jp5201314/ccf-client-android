@@ -3,7 +3,6 @@ package cn.cnlinfo.ccf;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import cn.cnlinfo.ccf.entity.User1;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.cnlinfo.ccf.entity.AccountInfo;
@@ -23,7 +22,7 @@ public class UserSharedPreference {
     private ACache mACache;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
-    private User1 user;
+    private User user;
 
     private static final String SHARED_PREFERENCE_NAME = "USER";
 
@@ -34,6 +33,7 @@ public class UserSharedPreference {
     private static final String USER_INFO_KEY = "userinfo";
     private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
+    private static final String USER_KEY = "user";
 
     public UserSharedPreference(Context context) {
         this.mContext = context;
@@ -50,10 +50,10 @@ public class UserSharedPreference {
     }
 
     public User getUser(){
-        return JSONObject.parseObject(UserSharedPreference.getInstance().getUserInfo(),User.class);
+        return (User) mACache.getAsObject(USER_KEY);
     }
-    public void setUser(User1 user){
-        this.user = user;
+    public void setUser(User user){
+        mACache.put(USER_KEY,user);
     }
 
     public AccountInfo getAccount(){

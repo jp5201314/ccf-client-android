@@ -1,6 +1,8 @@
 package cn.cnlinfo.ccf.entity;
 
-public class User{
+import java.io.Serializable;
+
+public class User implements Serializable{
 
     /**
      * UserID : 4

@@ -103,7 +103,6 @@ public class MainPageInfoFragment extends BaseFragment {
         HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINFO, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-               // Logger.d(data.toJSONString());
                 String accountInfoJsonString = data.getJSONObject("Userinfo").toJSONString();
                 UserSharedPreference.getInstance().setAccountInfo(accountInfoJsonString);
                 AccountInfo accountInfo = JSONObject.parseObject(accountInfoJsonString,AccountInfo.class);
