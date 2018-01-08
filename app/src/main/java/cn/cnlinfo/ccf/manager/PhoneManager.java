@@ -58,7 +58,7 @@ public class PhoneManager {
      * @return
      */
     public static boolean isSdCardExit() {
-        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        return !Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /**
@@ -85,7 +85,7 @@ public class PhoneManager {
     /**
      * 创建SD卡文件目录
      */
-    public static void checkPath() {
+    public static void createPath() {
         File dir = new File(Constant.IMAGE_CACHE_DIR_PATH);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -98,7 +98,6 @@ public class PhoneManager {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
     }
 
     /**

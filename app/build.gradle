@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.neenbedankt.android-apt'
 
 Properties properties = new Properties();
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -12,8 +12,15 @@ android {
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
+        multiDexEnabled true
+        flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     aaptOptions {
         //不允许压缩png图片
@@ -71,14 +78,16 @@ android {
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
-        // 多个变体自定义输出配置
+       /* // 多个变体自定义输出配置
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 def outputFile = output.outputFile
@@ -89,7 +98,19 @@ android {
                     } else if (variant.buildType.name == "release") {
                         fileName = "ccf_V${defaultConfig.versionName}_${variant.productFlavors[0].name}_${generateTime()}_release.apk"
                     }
-                    output.outputFile = new File(outputFile.parent, fileName)
+                    def file = new File(fileName)
+                    output.outputFile = file
+//                  output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }*/
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                if(variant.buildType.name=="debug"){
+                    outputFileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
+                }else if(variant.buildType.name=="release"){
+                    outputFileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_release.apk"
                 }
             }
         }
@@ -101,6 +122,10 @@ android {
         maven {
             url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -206,23 +231,46 @@ dependencies {
     /**
      *   zxing 制作二维码
      */
+
     /**
      * lite-orm数据库存储
      */
+
     /**
      * RecycleView
      */
+
     /**
      * 省市县三级联动
      */
+
     /**
      *   MVCHelper 核心类库
+     */
+
+    /**
+     * Retrofit+Rxjava+Gson
+     */
+
+    /**
+     * HelloCharts
+     */
+
+    /**
+     * 图片选择器 ImageSelector
+     * 支持jitpack
+     支持选择多张
+     支持选择图片数量上限
+     支持图片选择顺序
+     支持图片预览
+     * leakcanary 检测内存泄漏
      */
     compile 'com.flyco.dialog:FlycoDialog_Lib:1.2.6@aar'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -251,5 +299,17 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'//转换器，请求结果转换成Model
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'//配合Rxjava 使用
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.github.huzhenjie:ImageSelector:1.0.3'
 
+    //分包设置
+    compile 'com.android.support:multidex:1.0.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

@@ -1,21 +1,34 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +43,17 @@ import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
 import cn.cnlinfo.ccf.fragment.MainPageFragment;
 import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
-import cn.cnlinfo.ccf.manager.PhoneManager;
+import cn.cnlinfo.ccf.manager.AppManage;
+import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class MainPageActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.vp)
@@ -47,11 +68,20 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     TextView tvCcUnion;
     @BindView(R.id.tv_main_page)
     TextView tvMainPage;
-
+    @BindView(R.id.ibt_back)
+    ImageButton ibtBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private List<Fragment> fragmentList;
     private MainPageFragmentAdapter pageFragmentAdapter;
     private Unbinder unbinder;
     private AlertDialog alertDialog;
+    @BindView(R.id.ibt_add)
+    ImageButton ibtAdd;
+    private PopupMenu popupMenu;
+    private static final int REQUEST_CODE_SCAN = 100;
+    private long exitTime = 0;
+    private long currentTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +95,12 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         init();
     }
 
+
     /**
      * 验证是否加载引导页
      */
     private void validLoadGuidePage() {
-        if (!validNewVersion()) {
+        if (!validNewVersionByVersionCode()) {
             if (validLogin()) {
                 if (UserSharedPreference.getInstance().getIsFirstLogin()) {
                     showRiskWarningDialog();
@@ -82,7 +113,95 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             }
         }
     }
+    @SuppressLint("RestrictedApi")
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void setPopupMenu(View view) {
+        popupMenu = new PopupMenu(this, view, Gravity.END);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        Menu menu = popupMenu.getMenu();
+        menuInflater.inflate(R.menu.layout_menu, menu);
+        try {
+            /**
+             * 反射设置图片
+             */
+            Field field = popupMenu.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            MenuPopupHelper mHelper = (MenuPopupHelper) field.get(popupMenu);
+            mHelper.setForceShowIcon(true);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.sweep:
+                        MainPageActivityPermissionsDispatcher.toRichScanWithCheck(MainPageActivity.this);
+                        break;
+                    case R.id.my_qrcode:
+                        startActivity(new Intent(MainPageActivity.this, BuildQRCodeActivity.class));
+                        break;
+                    case R.id.exit:
+                        exit();
+                        break;
+                    case R.id.setting:
+                        startActivity(new Intent(MainPageActivity.this, SettingActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
 
+    /**
+     * 申请需要的权限
+     */
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void toRichScan() {
+        QRCodeUtil.toRichScan(this, REQUEST_CODE_SCAN);
+    }
+
+    /**
+     * 拒绝
+     */
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void refuse() {
+        toast("权限被拒绝");
+    }
+
+    /**
+     * 不再询问
+     */
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void neverEnquire() {
+        toast("拍照权限被禁用，如果要使用拍照请手动启用");
+    }
+
+    /**
+     * 当第一次申请权限时，用户选择拒绝，再次申请时调用此方法，在此方法中提示用户为什么需要这个权限，这需要展现给用户，而用户可以选择“继续”或者“中止”当前的权限许可
+     *
+     * @param request
+     */
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showRationale(final PermissionRequest request) {
+        new AlertDialog.Builder(this)
+                .setMessage("申请相机权限")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //再次执行请求
+                        request.proceed();// 提示用户权限使用的对话框
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainPageActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
     /**
      * 弹出风险提示dialog
      */
@@ -105,14 +224,24 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void init() {
+        ibtBack.setVisibility(View.INVISIBLE);
+        tvTitle.setText("主页");
+        registerOnClickListener();
+        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
+        ibtAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPopupMenu(v);
+                popupMenu.show();
+            }
+        });
         fragmentList = new ArrayList<>();
         fragmentList = setFragmentList();
         if (fragmentList != null && fragmentList.size() > 0) {
             pageFragmentAdapter = new MainPageFragmentAdapter(getSupportFragmentManager(), fragmentList);
             vp.setAdapter(pageFragmentAdapter);
         }
-        registerOnClickListener();
-        tvMainPage.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
+        vp.setOffscreenPageLimit(5);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -149,6 +278,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
+
     private List<Fragment> setFragmentList() {
         MainPageFragment mainPageFragment = new MainPageFragment();
         fragmentList.add(mainPageFragment);
@@ -181,23 +311,28 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_main_page:
                 vp.setCurrentItem(0, false);
                 setTvMainPageBackgroundColor();
+                tvTitle.setText("主页");
                 break;
             case R.id.tv_gauage_panel:
                 //smoothScroll为false就是去除切换fragment的动画效果
                 vp.setCurrentItem(1, false);
                 setTvGauagePanelBackgroundColor();
+                tvTitle.setText("仪表盘");
                 break;
             case R.id.tv_trading_center:
                 vp.setCurrentItem(2, false);
                 setTvTradingCenterBackgroundColor();
+                tvTitle.setText("交易中心");
                 break;
             case R.id.tv_cc_mall:
                 vp.setCurrentItem(3, false);
                 setTvCcMallBackgroundColor();
+                tvTitle.setText("CC商城");
                 break;
             case R.id.tv_cc_union:
                 vp.setCurrentItem(4, false);
                 setTvCcUnionBackgroundColor();
+                tvTitle.setText("CC联盟");
                 break;
 
         }
@@ -264,8 +399,24 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 Intent intent = new Intent(this,WebActivity.class);
                 intent.putExtra("url",content);
                 startActivity(intent);
-
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            currentTime = System.currentTimeMillis();
+            if((currentTime-exitTime) > 2000){
+                Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = currentTime;
+            } else {
+                AppManage.getInstance().finishOther();
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -9,17 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User1;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
 import cn.cnlinfo.ccf.utils.RxUtils;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 import rx.Observer;
 
 /**
@@ -56,6 +61,12 @@ public class LoginRegisterActivity extends BaseActivity {
         setVerificationCode();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
     public void toLogin(View view) {
         startLogin();
     }
@@ -84,39 +95,5 @@ public class LoginRegisterActivity extends BaseActivity {
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
         String verificationCode = etVerificationCode.getText().toString();
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-            toast("用户名或密码不能为空");
-        } else {
-            if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
-                RxUtils.getLoginObserable(Constant.getHost(),username,password).subscribe(new Observer<User1>() {
-                    @Override
-                    public void onCompleted() {
-                        toast("登录成功");
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        Logger.d(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(User1 user) {
-                        UserSharedPreference.getInstance().setJwtToken("1");
-                        UserSharedPreference.getInstance().setIsFirstLogin(true);
-                        UserSharedPreference.getInstance().setUser(user);
-                        Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
-                        startActivity(intent);
-                        LoginRegisterActivity.this.finish();
-                    }
-                });
-            } else {
-                toast("验证码不正确，请重新输入");
-            }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
 }

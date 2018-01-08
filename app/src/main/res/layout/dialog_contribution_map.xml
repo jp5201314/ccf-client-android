@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="总贡献(值):  "
+                    android:text="新增套数:"
                     android:layout_weight="1"
                     />
                 <TextView
@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="维护区:   "
+                    android:text="昨日贡献值:   "
                     android:layout_weight="1"
                     />
                 <TextView
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="贡献区:  "
+                    android:text="当前贡献值:  "
                     android:layout_weight="1"
                     />
                 <TextView

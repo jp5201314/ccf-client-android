@@ -16,76 +16,7 @@
         android:paddingBottom="17dp"
         android:orientation="vertical"
        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="用户名"
-                android:layout_weight="1"
-                />
-            <cn.cnlinfo.ccf.view.CleanEditText
-                android:id="@+id/et_user_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:digits="@string/input_impose_num_lower_case"
-                android:maxLines="1"
-                android:maxLength="11"
-                android:textColor="@drawable/selector_edit_text_color"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="登录密码" />
-
-            <cn.cnlinfo.ccf.view.CleanEditText
-                android:id="@+id/et_login_pass"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:maxLength="11"
-                android:textColor="@drawable/selector_edit_text_color"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="确认密码"
-                android:layout_weight="1"
-                />
-            <cn.cnlinfo.ccf.view.CleanEditText
-                android:id="@+id/et_verify_pass"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:maxLength="11"
-                android:textColor="@drawable/selector_edit_text_color"
-                />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

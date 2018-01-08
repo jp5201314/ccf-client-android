@@ -1,546 +1,108 @@
 package cn.cnlinfo.ccf.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
+public class User{
 
-import java.io.Serializable;
-/**
- * Created by Administrator on 2017/10/23 0023.
- */
+    /**
+     * UserID : 4
+     * UserCode : 1001
+     * NickName : 1001
+     * Mobile : 15982013088
+     */
 
-/**
- "ID": 4,
- "UCode": "1001",
- "NickName": "1001",
- "ParentID": 0,
- "DirectID": 0,
- "InvitationCode": "",
- "JID": 0,
- "MID": 0,
- "SID": 0,
- "HID": 0,
- "TID": 0,
- "IsFull": false,
- "Utype": 0,
- "Pwd": "",
- "Pwd2": "",
- "Mobile": "           ",
- "LogonTimes": 0,
- "RegisterIP": "",
- "RegDate": "/Date(1511325569242+0800)/",
- "Status": 2,
- "InLevel": 0,
- "LastLogonIP": "",
- "LastLogonDate": "/Date(1511325569242+0800)/",
- "IsOnLine": 0,
- "CCF": 0,
- "Circle": 0,
- "CarbonNum": 0,
- "CircleTicket": 0,
- "CircleTicketScore": 0,
- "ConsumeIntegral": 0,
- "CarbonIntegral": 0,
- "RegisterIntegral": 0,
- "ReleaseConsume": 0,
- "ReleaseCarbon": 0,
- "TotalStep": 0,
- "TodayStep": 0,
- "E_max": 0,
- "Praise": 0,
- "BusinessLev": 0,
- "TotalMealWeight": 0,
- "ServantID": 0,
- "EnableAutoToCCF": false,
- "ProductScore": 0
- */
-public class User implements Serializable {
+    private int UserID;
+    private String UserCode;
+    private String NickName;
+    private String Mobile;
+    /**
+     * UserID : 4
+     * InvitationCode : A7E3C79EB9C4BD07
+     */
 
-    @JSONField(name = "ID")
-    private int id;
+    private String InvitationCode;
+    /**
+     * UserID : 4
+     * TodayStep : 23
+     */
 
+    private int TodayStep;
 
-    @JSONField(name = "UCode")
-    private String username;
-
-
-    @JSONField(name = "NickName")
-    private String  nickName;
-
-
-    @JSONField(name = "Status")
-    private int status;
-
-
-    @JSONField(name = "ParentID")
-    private int parentId;
-
-
-    @JSONField(name = "DirectID")
-    private int directId;
-
-    @JSONField(name = "InvitationCode")
-    private String invitationCode;
-
-    @JSONField(name = "JID")
-    private int jId;
-
-    @JSONField(name = "MID")
-    private int mId;
-
-    @JSONField(name = "SID")
-    private int sId;
-
-    @JSONField(name = "HID")
-    private int hId;
-
-    @JSONField(name = "TID")
-    private int tId;
-
-    @JSONField(name = "IsFull")
-    private boolean isFull;
-
-    @JSONField(name = "Utype")
-    private int uType;
-
-    @JSONField(name = "Pwd")
-    private String pwd;
-
-    @JSONField(name = "Mobile")
-    private String mobile;
-
-    @JSONField(name = "LogonTimes")
-    private long loginTimes;
-
-    @JSONField(name = "RegisterIP")
-    private String registerIp;
-
-    @JSONField(name = "RegDate")
-    private String date;
-
-    @JSONField(name = "InLevel")
-    private int inLevel;
-
-    @JSONField(name = "LastLogonIP")
-    private String lastLogonIp;
-
-    @JSONField(name = "LastLogonDate")
-    private String lastLogonDate;
-
-    @JSONField(name = "IsOnLine")
-    private int isOnline;
-
-    @JSONField(name = "CCF")
-    private int ccf;
-
-    @JSONField(name = "Circle")
-    private int circle;
-
-    @JSONField(name = "CarbonNum")
-    private int carbonNum;
-
-    @JSONField(name = "ConsumeIntegral")
-    private int consumeIntegeral;
-    @JSONField(name = "RegisterIntegral")
-    private int registerIntegeral;
-
-    @JSONField(name = "CarbonIntegral")
-    private int carbonIntegral;
-
-    @JSONField(name = "ReleaseConsume")
-    private int releaseConsum;
-
-    @JSONField(name = "ReleaseCarbon")
-    private int releaseCarbon;
-
-    @JSONField(name = "TotalStep")
-    private int totalStep;
-
-    @JSONField(name = "CircleTicket")
-    private int circleTicket;
-
-    @JSONField(name = "E_max")
-    private int eMax;
-
-    @JSONField(name = "Praise")
-    private double praise;
-    @JSONField(name = "BusinessLev")
-    private double businessLev;
-    @JSONField(name = "TotalMealWeight")
-    private double  totalMealWeight;
-    @JSONField(name = "ServantID")
-    private double servantId;
-    @JSONField(name = "EnableAutoToCCF")
-    private boolean enableAutoToCCF;
-    @JSONField(name = "ProductScore")
-    private int productScore;
-
-
-    public User() {
+    public User(int userID, String userCode, String nickName, String mobile, String invitationCode, int todayStep) {
+        UserID = userID;
+        UserCode = userCode;
+        NickName = nickName;
+        Mobile = mobile;
+        InvitationCode = invitationCode;
+        TodayStep = todayStep;
     }
 
-    public int getProductScore() {
-        return productScore;
-    }
-
-    public void setProductScore(int productScore) {
-        this.productScore = productScore;
-    }
-
-    public int getRegisterIntegeral() {
-        return registerIntegeral;
-    }
-
-    public void setRegisterIntegeral(int registerIntegeral) {
-        this.registerIntegeral = registerIntegeral;
+    public User(int userID, String userCode, String nickName, String mobile, String invitationCode) {
+        UserID = userID;
+        UserCode = userCode;
+        NickName = nickName;
+        Mobile = mobile;
+        InvitationCode = invitationCode;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", status=" + status +
-                ", parentId=" + parentId +
-                ", directId=" + directId +
-                ", invitationCode='" + invitationCode + '\'' +
-                ", jId=" + jId +
-                ", mId=" + mId +
-                ", sId=" + sId +
-                ", hId=" + hId +
-                ", tId=" + tId +
-                ", isFull=" + isFull +
-                ", uType=" + uType +
-                ", pwd='" + pwd + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", loginTimes=" + loginTimes +
-                ", registerIp='" + registerIp + '\'' +
-                ", date='" + date + '\'' +
-                ", inLevel=" + inLevel +
-                ", lastLogonIp='" + lastLogonIp + '\'' +
-                ", lastLogonDate='" + lastLogonDate + '\'' +
-                ", isOnline=" + isOnline +
-                ", ccf=" + ccf +
-                ", circle=" + circle +
-                ", carbonNum=" + carbonNum +
-                ", consumeIntegeral=" + consumeIntegeral +
-                ", registerIntegeral=" + registerIntegeral +
-                ", carbonIntegral=" + carbonIntegral +
-                ", releaseConsum=" + releaseConsum +
-                ", releaseCarbon=" + releaseCarbon +
-                ", totalStep=" + totalStep +
-                ", circleTicket=" + circleTicket +
-                ", eMax=" + eMax +
-                ", praise=" + praise +
-                ", businessLev=" + businessLev +
-                ", totalMealWeight=" + totalMealWeight +
-                ", servantId=" + servantId +
-                ", enableAutoToCCF=" + enableAutoToCCF +
-                ", productScore=" + productScore +
+                "UserID=" + UserID +
+                ", UserCode='" + UserCode + '\'' +
+                ", NickName='" + NickName + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", InvitationCode='" + InvitationCode + '\'' +
+                ", TodayStep='" + TodayStep + '\'' +
                 '}';
     }
 
-    public double getPraise() {
-        return praise;
+    public User() {
     }
 
-    public void setPraise(double praise) {
-        this.praise = praise;
+    public int getUserID() {
+        return UserID;
     }
 
-    public double getBusinessLev() {
-        return businessLev;
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
     }
 
-    public void setBusinessLev(double businessLev) {
-        this.businessLev = businessLev;
+    public String getUserCode() {
+        return UserCode;
     }
 
-    public double getTotalMealWeight() {
-        return totalMealWeight;
-    }
-
-    public void setTotalMealWeight(double totalMealWeight) {
-        this.totalMealWeight = totalMealWeight;
-    }
-
-    public double getServantId() {
-        return servantId;
-    }
-
-    public void setServantId(double servantId) {
-        this.servantId = servantId;
-    }
-
-    public boolean isEnableAutoToCCF() {
-        return enableAutoToCCF;
-    }
-
-    public void setEnableAutoToCCF(boolean enableAutoToCCF) {
-        this.enableAutoToCCF = enableAutoToCCF;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserCode(String UserCode) {
+        this.UserCode = UserCode;
     }
 
     public String getNickName() {
-        return nickName;
+        return NickName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
-    public int getDirectId() {
-        return directId;
-    }
-
-    public void setDirectId(int directId) {
-        this.directId = directId;
-    }
-
-    public String getInvitationCode() {
-        return invitationCode;
-    }
-
-    public void setInvitationCode(String invitationCode) {
-        this.invitationCode = invitationCode;
-    }
-
-    public int getjId() {
-        return jId;
-    }
-
-    public void setjId(int jId) {
-        this.jId = jId;
-    }
-
-    public int getmId() {
-        return mId;
-    }
-
-    public void setmId(int mId) {
-        this.mId = mId;
-    }
-
-    public int getsId() {
-        return sId;
-    }
-
-    public void setsId(int sId) {
-        this.sId = sId;
-    }
-
-    public int gethId() {
-        return hId;
-    }
-
-    public void sethId(int hId) {
-        this.hId = hId;
-    }
-
-    public int gettId() {
-        return tId;
-    }
-
-    public void settId(int tId) {
-        this.tId = tId;
-    }
-
-    public boolean isFull() {
-        return isFull;
-    }
-
-    public void setFull(boolean full) {
-        isFull = full;
-    }
-
-    public int getuType() {
-        return uType;
-    }
-
-    public void setuType(int uType) {
-        this.uType = uType;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setNickName(String NickName) {
+        this.NickName = NickName;
     }
 
     public String getMobile() {
-        return mobile;
+        return Mobile;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setMobile(String Mobile) {
+        this.Mobile = Mobile;
     }
 
-    public long getLoginTimes() {
-        return loginTimes;
+    public String getInvitationCode() {
+        return InvitationCode;
     }
 
-    public void setLoginTimes(long loginTimes) {
-        this.loginTimes = loginTimes;
+    public void setInvitationCode(String InvitationCode) {
+        this.InvitationCode = InvitationCode;
     }
 
-    public String getRegisterIp() {
-        return registerIp;
+    public int getTodayStep() {
+        return TodayStep;
     }
 
-    public void setRegisterIp(String registerIp) {
-        this.registerIp = registerIp;
+    public void setTodayStep(int TodayStep) {
+        this.TodayStep = TodayStep;
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getInLevel() {
-        return inLevel;
-    }
-
-    public void setInLevel(int inLevel) {
-        this.inLevel = inLevel;
-    }
-
-    public String getLastLogonIp() {
-        return lastLogonIp;
-    }
-
-    public void setLastLogonIp(String lastLogonIp) {
-        this.lastLogonIp = lastLogonIp;
-    }
-
-    public String getLastLogonDate() {
-        return lastLogonDate;
-    }
-
-    public void setLastLogonDate(String lastLogonDate) {
-        this.lastLogonDate = lastLogonDate;
-    }
-
-    public int getIsOnline() {
-        return isOnline;
-    }
-
-    public void setIsOnline(int isOnline) {
-        this.isOnline = isOnline;
-    }
-
-    public int getCcf() {
-        return ccf;
-    }
-
-    public void setCcf(int ccf) {
-        this.ccf = ccf;
-    }
-
-    public int getCircle() {
-        return circle;
-    }
-
-    public void setCircle(int circle) {
-        this.circle = circle;
-    }
-
-    public int getCarbonNum() {
-        return carbonNum;
-    }
-
-    public void setCarbonNum(int carbonNum) {
-        this.carbonNum = carbonNum;
-    }
-
-    public int getConsumeIntegeral() {
-        return consumeIntegeral;
-    }
-
-    public void setConsumeIntegeral(int consumeIntegeral) {
-        this.consumeIntegeral = consumeIntegeral;
-    }
-
-    public int getCarbonIntegral() {
-        return carbonIntegral;
-    }
-
-    public void setCarbonIntegral(int carbonIntegral) {
-        this.carbonIntegral = carbonIntegral;
-    }
-
-    public int getReleaseConsum() {
-        return releaseConsum;
-    }
-
-    public void setReleaseConsum(int releaseConsum) {
-        this.releaseConsum = releaseConsum;
-    }
-
-    public int getReleaseCarbon() {
-        return releaseCarbon;
-    }
-
-    public void setReleaseCarbon(int releaseCarbon) {
-        this.releaseCarbon = releaseCarbon;
-    }
-
-    public int getTotalStep() {
-        return totalStep;
-    }
-
-    public void setTotalStep(int totalStep) {
-        this.totalStep = totalStep;
-    }
-
-    public int getCircleTicket() {
-        return circleTicket;
-    }
-
-    public void setCircleTicket(int circleTicket) {
-        this.circleTicket = circleTicket;
-    }
-
-    public int geteMax() {
-        return eMax;
-    }
-
-    public void seteMax(int eMax) {
-        this.eMax = eMax;
-    }
-
 }

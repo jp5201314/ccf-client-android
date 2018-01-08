@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by JP on 2017/11/21 0021.
  */
 
-public class ItemNews implements Serializable {
+public class ItemNewsEntity implements Serializable {
 
     @JSONField(name = "NewsID")
     /**
@@ -29,10 +29,10 @@ public class ItemNews implements Serializable {
      */
     private String classId;
 
-    public ItemNews() {
+    public ItemNewsEntity() {
     }
 
-    public ItemNews(int newsId, String subject, String classId) {
+    public ItemNewsEntity(int newsId, String subject, String classId) {
         this.newsId = newsId;
         this.subject = subject;
         this.classId = classId;

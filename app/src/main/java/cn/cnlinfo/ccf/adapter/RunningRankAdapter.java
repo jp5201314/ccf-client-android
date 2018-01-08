@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-import com.shizhefei.mvc.IDataAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,10 +39,10 @@ public class RunningRankAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
             RunningRankEntity runningRankEntity = runningRankEntityList.get(position);
-            ((MyViewHolder) holder).tvRank.setText(runningRankEntity.getId() + "");
-            ((MyViewHolder) holder).tvName.setText(runningRankEntity.getName());
-            ((MyViewHolder) holder).tvRankStep.setText(String.format(((MyViewHolder) holder).tvRankStep.getText().toString(), runningRankEntity.getStep()));
-            ((MyViewHolder) holder).tvPraise.setText(String.format(((MyViewHolder) holder).tvPraise.getText().toString(), runningRankEntity.getNum()));
+            ((MyViewHolder) holder).tvRank.setText(runningRankEntity.getRanking());
+            ((MyViewHolder) holder).tvName.setText(runningRankEntity.getUserCode());
+            ((MyViewHolder) holder).tvRankStep.setText(String.format(((MyViewHolder) holder).tvRankStep.getText().toString(), runningRankEntity.getStpeNum()));
+            //((MyViewHolder) holder).tvPraise.setText(String.format(((MyViewHolder) holder).tvPraise.getText().toString(), runningRankEntity.getNum()));
         }
     }
 
@@ -61,8 +58,8 @@ public class RunningRankAdapter extends RecyclerView.Adapter{
         TextView tvName;
         @BindView(R.id.tv_rank_step)
         TextView tvRankStep;
-        @BindView(R.id.tv_praise)
-        TextView tvPraise;
+       /* @BindView(R.id.tv_praise)
+        TextView tvPraise;*/
 
         public MyViewHolder(View itemView) {
             super(itemView);

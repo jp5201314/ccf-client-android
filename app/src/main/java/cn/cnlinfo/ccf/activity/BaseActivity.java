@@ -26,6 +26,7 @@ import com.orhanobut.logger.Logger;
 import org.greenrobot.eventbus.EventBus;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
+import cn.cnlinfo.ccf.CCFApplication;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
@@ -109,13 +110,16 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     protected void showMessage(int status, String message) {
-        EventBus.getDefault().post(new ErrorMessageEvent(message));
+        EventBus.getDefault().post(new ErrorMessageEvent(status,message));
     }
 
     protected void showMessage(String message) {
         EventBus.getDefault().post(new ErrorMessageEvent(message));
     }
 
+    protected void showEditTextNoNull(){
+        showMessage("输入框不能为空");
+    }
     protected void showWaitingDialog(boolean show, String waitingNotice) {
         if (!show) {
             waitingDialog.dismiss();
@@ -137,7 +141,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         }
         win.setAttributes(winParams);
     }
-
     @Override
     public void finish() {
         AppManage.getInstance().finishActivity(this);
@@ -212,7 +215,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      * @param text
      */
     protected void toast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -221,7 +224,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      * @param resource
      */
     protected void toast(int resource) {
-        Toast.makeText(this, resource, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), resource, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -255,15 +258,32 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
 
     /**
-     * 验证是否新版,如果新版,则跳转引导页
+     *根据版本号,验证是否新版,如果新版,则跳转引导页
      *
      * @return
      */
-    protected boolean validNewVersion() {
-        int nowVersionCode = PhoneManager.getVersionInfo().versionCode;
+    protected boolean validNewVersionByVersionCode() {
+        int newVersionCode = PhoneManager.getVersionInfo().versionCode;
         UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
-        if (userSharedPreference.isNewVersionCode(nowVersionCode)) {
-            userSharedPreference.setLatestVersionCode(nowVersionCode);
+        if (userSharedPreference.isNewVersionCode(newVersionCode)) {
+            userSharedPreference.setLatestVersionCode(newVersionCode);
+            startActivity(new Intent(BaseActivity.this, GuideActivity.class));
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 根据版本名,验证是否新版,如果新版,则跳转引导页
+     * @return
+     */
+    protected boolean validNewVersionByVersionName() {
+        String newVersionName = PhoneManager.getVersionInfo().versionName;
+        Logger.d(newVersionName);
+        UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
+        if (userSharedPreference.isNewVersionName(newVersionName)) {
+            userSharedPreference.setLatestVersionName(newVersionName);
             startActivity(new Intent(BaseActivity.this, GuideActivity.class));
             finish();
             return true;
@@ -290,6 +310,11 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
      */
     protected boolean cancelOkHttpFinalAfterDestory() {
         return true;
+    }
+    protected void exit(){
+        UserSharedPreference.getInstance().logout();
+        CCFApplication.getInstance().jumpToLogin();
+        finish();
     }
 
 }

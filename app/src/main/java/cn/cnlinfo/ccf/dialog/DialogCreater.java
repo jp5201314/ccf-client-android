@@ -1,12 +1,8 @@
 package cn.cnlinfo.ccf.dialog;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
@@ -19,8 +15,6 @@ import java.util.ArrayList;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
-import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.entity.ContributeMapNode;
 
 public class DialogCreater {
 
@@ -116,7 +110,7 @@ public class DialogCreater {
         OnBtnClickL cancelBtnClickL = new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-                dialog.dismiss();
+                dialog.cancel();
             }
         };
         dialog.setOnBtnClickL(cancelBtnClickL, l);
@@ -149,6 +143,31 @@ public class DialogCreater {
         return dialog;
     }
 
+
+    /**
+     * 创建一个确定按钮的dialog,点击后触发onBtnCLick方法并取消自身
+     *
+     * @param context
+     * @param title
+     * @param content
+     * @return
+     */
+    public static NormalDialog createTipsWithCancelDialog(Context context, String title, String content, String btnText, boolean cancelable, OnBtnClickL l) {
+        final NormalDialog dialog = new NormalDialog(context);
+        dialog.content(content)
+                .btnNum(1)
+                .title(title)
+                .btnText(btnText)
+                .titleTextSize(18)
+                .contentTextSize(14)
+                .style(NormalDialog.STYLE_ONE);
+        OnBtnClickL onBtnClickL = null;
+        dialog.setCancelable(cancelable);
+        dialog.setCanceledOnTouchOutside(cancelable);
+        dialog.setOnBtnClickL(onBtnClickL);
+        l.onBtnClick();
+        return dialog;
+    }
     /**
      *
      * @param context
@@ -163,6 +182,7 @@ public class DialogCreater {
                 .text(text)
                 .fadeColor(Color.DKGRAY)
                 .build();
+
     }
 
 

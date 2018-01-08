@@ -1,6 +1,5 @@
 package cn.cnlinfo.ccf.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,8 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.fragment.AgencyUpgradeFragment;
-import cn.cnlinfo.ccf.fragment.CallBackByPhoneNumFragment;
-import cn.cnlinfo.ccf.fragment.CallBackBySecurityQuestionFragment;
 import cn.cnlinfo.ccf.fragment.ComboUpgradeFragment;
 
 public class UserUpgradeActivity extends BaseActivity {

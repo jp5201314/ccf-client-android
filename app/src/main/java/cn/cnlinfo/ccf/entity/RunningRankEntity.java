@@ -1,65 +1,43 @@
 package cn.cnlinfo.ccf.entity;
 
 /**
- * Created by Administrator on 2017/11/7 0007.
+ * Created by JP on 2017/11/7 0007.
  */
 
 public class RunningRankEntity {
 
-    private int id;
-    private String name;
-    private String step;
-    private int num;
 
-    public RunningRankEntity(int id, String name, String step, int num) {
-        this.id = id;
-        this.name = name;
-        this.step = step;
-        this.num = num;
+    /**
+     * Ranking : 1
+     * UserCode : 1003
+     * StpeNum : 5000
+     */
+
+    private String Ranking;
+    private String UserCode;
+    private String StpeNum;
+
+    public String getRanking() {
+        return Ranking;
     }
 
-    public RunningRankEntity() {
+    public void setRanking(String Ranking) {
+        this.Ranking = Ranking;
     }
 
-    public int getId() {
-        return id;
+    public String getUserCode() {
+        return UserCode;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserCode(String UserCode) {
+        this.UserCode = UserCode;
     }
 
-    public String getName() {
-        return name;
+    public String getStpeNum() {
+        return StpeNum;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStep() {
-        return step;
-    }
-
-    public void setStep(String step) {
-        this.step = step;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    @Override
-    public String toString() {
-        return "RunningRankEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", step='" + step + '\'' +
-                ", num=" + num +
-                '}';
+    public void setStpeNum(String StpeNum) {
+        this.StpeNum = StpeNum;
     }
 }

@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.utils.CityPickerUtils;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
@@ -51,7 +51,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
     @BindView(R.id.tv_upgrade_agency_link)
     TextView tvUpgradeAgencyLink;
     private Unbinder unbinder;
-    private User user;
+    private AccountInfo accountInfo;
     private String safePass;
     private ProvinceBean provinceBean;
     private CityBean cityBean;
@@ -80,8 +80,8 @@ public class AgencyUpgradeFragment extends BaseFragment {
         tvUpgradeAgencyLink.setText(charSequence);
         tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
         tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
-        user = UserSharedPreference.getInstance().getUser();
-        int level = user.getInLevel();
+        accountInfo = UserSharedPreference.getInstance().getAccount();
+        int level = accountInfo.getInLevel();
         switch (level) {
             case 0:
                 tvMyRank.setText("体验用户");

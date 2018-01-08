@@ -63,6 +63,10 @@
         <item name="android:textColor">#333</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="text_66000000_15">
+        <item name="android:textColor">#66000000</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 
     <style name="text_515151_12">
         <item name="android:textColor">#515151</item>

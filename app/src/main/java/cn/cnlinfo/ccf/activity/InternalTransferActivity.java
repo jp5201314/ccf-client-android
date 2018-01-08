@@ -9,18 +9,27 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 public class InternalTransferActivity extends BaseActivity {
-
+    /**
+     * [3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
+     --7:消费积分转循环积分,8:碳控因子转产品积分,9:碳控因子转消费积分,10:碳控因子转循环积分,11:循环积分转产品积分]
+     */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
@@ -67,12 +76,36 @@ public class InternalTransferActivity extends BaseActivity {
         num = etTransferNumber.getText().toString();
         safePass = etSafePass.getText().toString();
         if (!TextUtils.isEmpty(num)&&!TextUtils.isEmpty(safePass)){
-            RequestParams params = new RequestParams();
-            params.addFormDataPart("type",typeId);
-            params.addFormDataPart("sendID",user.getId());
-            params.addFormDataPart("receiveID",user.getId());
-            params.addFormDataPart("largessValue",num);
+            int number = Integer.valueOf(num);
+            if (number>0){
+                RequestParams params = new RequestParams();
+                params.addFormDataPart("type",typeId);
+                params.addFormDataPart("sendID",user.getUserID());
+                params.addFormDataPart("receivecode",user.getUserCode());
+                params.addFormDataPart("num",num);
+                params.addFormDataPart("pass",safePass);
+                HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
 
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+                        showMessage(0,"互转成功");
+                        finish();
+                    }
+
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+                        showMessage(code,msg);
+                    }
+
+                    @Override
+                    public void onFailure(int errorCode, String msg) {
+                        super.onFailure(errorCode, msg);
+                        showMessage(errorCode,msg);
+                    }
+                });
+            }else {
+               toast("数量不能小于0");
+            }
         }else {
             toast("输入框不能为空");
         }
@@ -84,8 +117,34 @@ public class InternalTransferActivity extends BaseActivity {
         spTransferType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               if (transferType[position]=="碳控因子转碳控积分"){
-                   typeId = 4;
+               switch (transferType[position]){
+                   case "注册积分转产品积分":
+                       typeId = 3;
+                       break;
+                   case "注册积分转消费积分":
+                       typeId = 4;
+                       break;
+                   case "消费积分转产品积分":
+                       typeId = 5;
+                       break;
+                   case "消费积分转碳控因子":
+                       typeId = 6;
+                       break;
+                   case "消费积分转循环积分":
+                       typeId = 7;
+                       break;
+                   case "碳控因子转产品积分":
+                       typeId = 8;
+                       break;
+                   case "碳控因子转消费积分":
+                       typeId = 9;
+                       break;
+                   case "碳控因子转循环积分":
+                       typeId = 10;
+                       break;
+                   case "循环积分转产品积分":
+                       typeId = 11;
+                       break;
                }
             }
             @Override

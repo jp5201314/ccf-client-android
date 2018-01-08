@@ -81,6 +81,35 @@
                 android:layout_weight="2"/>
         </LinearLayout>
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="购买套餐" />
+            <cn.cnlinfo.ccf.view.CleanEditText
+                android:id="@+id/et_meal_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_style"
+                android:digits="@string/input_impose_num_limit"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:maxLength="1"
+                android:maxLines="1"
+                android:text="1"
+                android:textColor="@drawable/selector_edit_text_color" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="套"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/ll_integral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,31 +127,6 @@
 
                 <cn.cnlinfo.ccf.view.CleanEditText
                     android:id="@+id/et_register_integral"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/edit_text_style"
-                    android:digits="@string/input_impose_num"
-                    android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:maxLength="11"
-                    android:maxLines="1"
-                    android:text="0"
-                    android:textColor="@drawable/selector_edit_text_color" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="消费积分" />
-
-                <cn.cnlinfo.ccf.view.CleanEditText
-                    android:id="@+id/et_consume_integral"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -153,12 +157,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="@drawable/edit_text_style"
-                android:digits="@string/input_impose_num"
+                android:digits="@string/input_impose_num_lower_upper_case"
                 android:gravity="center"
                 android:inputType="textPassword"
                 android:maxLength="11"
                 android:maxLines="1"
                 android:textColor="@drawable/selector_edit_text_color" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="9dp">
+            <CheckBox
+                android:id="@+id/cb_is_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"/>
+            <TextView
+                android:id="@+id/tv_upgrade_agency_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
         </LinearLayout>
         <Button
             android:id="@+id/btn_upgrade_combo"

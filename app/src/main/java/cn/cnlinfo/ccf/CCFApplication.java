@@ -3,10 +3,13 @@ package cn.cnlinfo.ccf;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.support.multidex.MultiDex;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,7 +19,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
-import cn.finalteam.okhttpfinal.JsonHttpRequestCallback;
 import cn.finalteam.okhttpfinal.OkHttpFinal;
 import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 
@@ -30,9 +32,18 @@ public class CCFApplication extends Application {
     private static Context mContext;
     private static CCFApplication INSTANCE;
 
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        //加入内存次泄漏检测
+        refWatcher = LeakCanary.install(this);
         INSTANCE = this;
         mContext = getApplicationContext();
               /* 初始化talking data*/
@@ -49,6 +60,10 @@ public class CCFApplication extends Application {
         OkHttpFinal.getInstance().init(builder.build());
         builder.setDebug(true);
         OkHttpFinal.getInstance().updateCommonHeader("Accept","application/json");
+    }
+
+    public static RefWatcher getRefWatcher() {
+        return INSTANCE.refWatcher;
     }
 
     @Override
@@ -79,18 +94,25 @@ public class CCFApplication extends Application {
             case -2:
                 toast(msg);
                 break;
+                default:
+                    toast(msg);
+                    break;
         }
     }
-
+    //分包的application添加的方法
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     private void toast(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show();
     }
 
     protected boolean allowLogin(){
         return null==ACache.get(mContext).getAsString("isLogged");
     }
 
-    protected void jumpToLogin(){
+    public void jumpToLogin(){
         if (!allowLogin()) return;
         ACache.get(mContext).put("isLogged",true,5);
         Intent intent = new Intent(mContext, LoginRegisterActivity.class);

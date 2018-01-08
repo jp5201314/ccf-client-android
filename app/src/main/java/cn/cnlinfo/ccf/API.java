@@ -48,13 +48,22 @@ public class API {
     /**
      * 得到用户的子节点数据
      */
-    public static final String USERCHILDCODEDATA = "ChildNetwork";
+    public static final String USERSHARELIST = "GetShareList";
 
     /**
      * 用户兑换循环包
      */
-    public static final String CONVERSIONCYCLEPACKAGE = "BuyLoopPack";
+    public static final String CONVERSIONCYCLEPACKAGE = "ExchangePackage";
 
+    /**
+     *得到跑步排名
+     */
+    public static final String GETRUNNINGRANK = "GetTop10UserS";
+
+    /**
+     * 得到我的参数
+     */
+    public static final String GETMYPARAMETER = "GetMyCanshu";
     /**
      * 买家在拍卖行中点击购买
      */
@@ -107,6 +116,14 @@ public class API {
     public static final String GETNEWSNOTICE = "GetNewBody";
 
     /**
+     * 上传步数
+     */
+    public static final String UPLOADSTEP = "UpStep";
+    /**
+     * 对内外互转
+     */
+    public static final String USERTRANSFER = "UserTransfer";
+    /**
      *获取新闻公告列表
      */
 
@@ -115,11 +132,87 @@ public class API {
      * 获取平台信息
      */
     public static final String GETPLATFORMINFO = "Getplatforminfo";
+    /**
+     * 获取个人信息
+     */
+    public static final String GETPERSONINFO = "GetUserInfo";
+    /**
+     * 获取个人信息
+     */
+    public static final String GETUSERINFO = "GetUserinfo";
+    /**
+     * 获取兑换循环包参数
+     */
 
+    public static final String GETCIRCLE = "GetCircle";
     /**
      * 用户购买套餐
      */
 
     public static final String PURCHASEMEAL = "UpgradeToUserStar";
 
+    /**
+     * 发送短信验证码
+     * codeid:   3143331  密码找回
+     3126312 注册
+     */
+    public static final String SENDCODE = "SendCode";
+
+    /**
+     * 电话号码短信验证找回密码
+     */
+    public static final String RETRIEVEPASSWORD = "RetrievePassword";
+
+    /**
+     * 购买注册积分
+     */
+    public static final String PURCHASEREGISTERPOINTS = "UserBuyCredits";
+    /**
+     * 上传图片
+     */
+    public static final String UPLOADIMAGE = "uploadingImg";
+
+    /**
+     * 内外转账记录
+     *
+     * 类型type 1 对外转账,2内部互转
+     */
+
+    public static final String INOUTTRANSFERRECORD = "GetUserLargess";
+
+    /**
+     * 获取用户循环包兑换记录
+     */
+    public static final String CONVERSIONCYCLEPACK = "GetBuyPackRecord";
+
+    /**
+     * 获取用户购买套餐记录
+     */
+
+    public static final String PURCHASEMEALRECORD = "GetSetMealRecord";
+
+    /**
+     * 获取步行记录
+     */
+    public static final String STEPRECORD = "GetStepDayRecord";
+    /**
+     * 解压循环包
+     */
+    public static final String EXTEACTCYCLEPACK = "ExtractCircle";
+    /**
+     * 用户挂卖
+     */
+    public static final String HANGSELL = "PersonalAuction";
+    /**
+     * 用户挂买
+     */
+    public static final String HANGBUY = "HangBuyOperation";
+    /**
+     * 交易列表
+     */
+    public static final String TRADINGLIST = "GetJobberList";
+    /**
+     * 挂卖/挂买记录
+     */
+    public static final String HANGBYSELLANDBUY = "GetHangBuyRecord";
 }

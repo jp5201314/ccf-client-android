@@ -2,7 +2,6 @@ package cn.cnlinfo.ccf.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
@@ -21,9 +21,12 @@ import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
 import cn.cnlinfo.ccf.utils.EditTextInputFormatUtil;
-import cn.cnlinfo.ccf.utils.NotificationUtil;
-import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
+import cn.cnlinfo.ccf.utils.GetMessageCode;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.BaseHttpRequestCallback;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
+import okhttp3.Headers;
 
 /**
  * Created by JP on 2017/10/16 0016.
@@ -60,12 +63,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String phoneNum;
     private String verificationCode;
     private String code = null;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         tvTitle.setText("注册");
         ibtAdd.setVisibility(View.INVISIBLE);
         setClickListener();
@@ -92,12 +96,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.btn_get_verification_code:
                 phoneNum = etPhoneNum.getText().toString();
                 if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.verifyPhoneNumFormat(phoneNum)) {
-                    if (NotificationUtil.isNotificationEnabled(this)){
-                        code = ObtainVerificationCode.createNumVerificationCode();
-                        NotificationUtil.getInstance(this).sendNormalNotification(code);
-                    }else {
-                        startActivity(new Intent(Settings.ACTION_SETTINGS));
-                    }
+                    GetMessageCode.startTimer(btnGetVerificationCode);
+                    RequestParams params = new RequestParams();
+                    params.addFormDataPart("phone",phoneNum);
+                    params.addFormDataPart("codeid",3126312);
+                    HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST+API.SENDCODE,params,new BaseHttpRequestCallback(){
+                        @Override
+                        public void onResponse(String response, Headers headers) {
+                            JSONObject jsonObject = JSONObject.parseObject(response);
+                            code = (String) jsonObject.get("obj");
+                        }
+
+                        @Override
+                        public void onFailure(int errorCode, String msg) {
+                            super.onFailure(errorCode, msg);
+                            showMessage(errorCode,msg);
+                        }
+                    });
                 } else {
                     toast("电话号码不能为空或格式有误!");
                 }
@@ -106,11 +121,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 init();
                 if (!TextUtils.isEmpty(invitationCode) && !TextUtils.isEmpty(userName) && !TextUtils.isEmpty(loginPass) && !TextUtils.isEmpty(verifyPass) && !TextUtils.isEmpty(verificationCode) && !TextUtils.isEmpty(phoneNum)) {
                     if (loginPass.equals(verifyPass)) {
-                        if (verificationCode.equals(code)) {
-                            startToRegisterr(userName, invitationCode, phoneNum, loginPass);
-                        } else {
-                            toast("验证码错误,请重新输入!");
-                        }
+                            startToRegister(userName, invitationCode, phoneNum, loginPass);
                     } else {
                         toast("两次输入的密码不一致,请重新输入!");
                         return;
@@ -125,15 +136,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
     /**
      * 开始注册
      */
-    private void startToRegisterr(String userName, String invitationCode, String phoneNum, String pwd) {
+    private void startToRegister(String userName, String invitationCode, String phoneNum, String pwd) {
         OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFREGISTER);
         okHttpPostRequestBuilder.put("strAccounts", userName);
         okHttpPostRequestBuilder.put("strDirectAccounts", invitationCode);
         okHttpPostRequestBuilder.put("telephone", phoneNum);
         okHttpPostRequestBuilder.put("pwd", pwd);
+        okHttpPostRequestBuilder.put("code",code);
         OKHttpManager.post(okHttpPostRequestBuilder, "register", new UiHandlerCallBack() {
             @Override
             public void success(JSONObject data) {
@@ -178,4 +197,5 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
         });*/
     }
+
 }

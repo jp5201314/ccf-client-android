@@ -28,10 +28,10 @@
             android:layout_height="1dp"
             android:background="@color/color_gray_eae8db"/>
         <TextView
-            android:id="@+id/tv_cycle_coupon_conversion"
+            android:id="@+id/tv_production_points_conversion"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:text="循环劵兑换"
+            android:text="产品积分兑换"
             style="@style/text_0e1214_17"
             android:gravity="center_vertical"
             android:background="@drawable/selector_text_view_bg"

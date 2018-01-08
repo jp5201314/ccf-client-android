@@ -2,6 +2,9 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -34,6 +37,16 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
 
     }
 
+    public void setEditTextFocus(final EditText editTextFocus){
+        editTextFocus.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                editTextFocus.setFocusable(true);
+                editTextFocus.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
+    }
 
     @Override
     public void onLeave() {
@@ -78,7 +91,7 @@ public class BaseFragment extends LazyFragment implements IFragment, IComponentC
         this.mComponentContainer.onDestroy();
     }
     protected void showMessage(int status, String message) {
-        EventBus.getDefault().post(new ErrorMessageEvent(message));
+        EventBus.getDefault().post(new ErrorMessageEvent(status,message));
     }
 
     protected void showMessage(String message) {

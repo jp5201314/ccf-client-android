@@ -10,10 +10,6 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.animation.GlideAnimationFactory;
-
 import cn.cnlinfo.ccf.R;
 
 /**
