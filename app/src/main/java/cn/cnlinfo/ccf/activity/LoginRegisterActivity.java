@@ -87,7 +87,7 @@ public class LoginRegisterActivity extends BaseActivity {
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             toast("用户名或密码不能为空");
         } else {
-            if (verificationCode != null && verificationCode.equals(tvGetVerificationCode.getText().toString().trim())) {
+            if (verificationCode != null && verificationCode.toLowerCase().equals(tvGetVerificationCode.getText().toString().trim().toLowerCase())) {
               /*  OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFLOGIN);
                 okHttpPostRequestBuilder.put("username", username);
                 okHttpPostRequestBuilder.put("password", password);

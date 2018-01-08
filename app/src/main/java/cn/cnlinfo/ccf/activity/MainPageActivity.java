@@ -65,7 +65,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             public void onClick(View v) {
                 UserSharedPreference.getInstance().logout();
                 AppManage.getInstance().exit(MainPageActivity.this);
-
             }
         });
 

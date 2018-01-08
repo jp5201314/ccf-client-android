@@ -87,7 +87,8 @@ android {
             signingConfig signingConfigs.release
         }
 
-         //多个变体自定义输出配置
+         //多个变体自定义输出配置，这是android studio3.0以下配置
+/*
         applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 def outputFile = output.outputFile
@@ -98,16 +99,21 @@ android {
                     } else if (variant.buildType.name == "release") {
                         fileName = "ccf_V${defaultConfig.versionName}_code${defaultConfig.versionCode}_${generateTime()}_release.apk"
                     }
-                    //def file = new File(fileName)
-                    //output.outputFile = file
-                    //ourput.outputFile = new File(outputFile.parent, fileName)
+                    def file = new File(fileName)
+                    output.outputFile = file
+                    ourput.outputFile = new File(outputFile.parent, fileName)
                 }
             }
         }
-
+*/
         android.applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
+                if(variant.buildType.name=="debug"){
+                    outputFileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_debug.apk"
+                }else if(variant.buildType.name=="release"){
+                    outputFileName = "ccf_V${defaultConfig.versionName}_${generateTime()}_release.apk"
+                }
+
             }
         }
     }
