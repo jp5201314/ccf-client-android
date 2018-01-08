@@ -272,9 +272,9 @@ public class MainPageInfoFragment extends BaseFragment {
         //显示的图片
         images = new ArrayList<ImageView>();
         imageUrls = new ArrayList<>();
-        imageUrls.add("http://p5.so.qhimgs1.com/t0141715c1faed3a1bb.jpg");
-        imageUrls.add("http://p0.so.qhimgs1.com/t01e8b9d65f76ffef7c.jpg");
-        imageUrls.add("http://p0.so.qhimgs1.com/t01081973a5e398713c.jpg");
+        imageUrls.add("http://p1.so.qhimgs1.com/t01cb91bb70a9512091.jpg");
+        imageUrls.add("http://pic23.nipic.com/20120908/10639194_105138442151_2.jpg");
+        imageUrls.add("http://p3.so.qhmsg.com/t01795ea98344aa3848.jpg");
         for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getActivity());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
