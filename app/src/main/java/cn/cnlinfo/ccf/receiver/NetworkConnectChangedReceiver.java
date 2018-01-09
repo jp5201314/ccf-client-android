@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
-import android.widget.Toast;
 
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 
-import cn.cnlinfo.ccf.activity.BaseActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.manager.AppManage;
+import cn.cnlinfo.ccf.ui.activity.BaseActivity;
 
 /**
  * Created by Administrator on 2017/10/19 0019.

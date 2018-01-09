@@ -1,18 +1,10 @@
 package cn.cnlinfo.ccf.net_okhttp;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
-
 import java.io.IOException;
-
-import cn.cnlinfo.ccf.CCFApplication;
-import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.activity.BaseActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;

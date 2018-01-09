@@ -1,4 +1,4 @@
-package cn.cnlinfo.ccf.activity;
+package cn.cnlinfo.ccf.ui.activity;
 
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -38,6 +38,7 @@ import cn.cnlinfo.ccf.manager.SystemBarTintManager;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.receiver.GlobalErrorMessageReceiver;
 import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver;
+import cn.cnlinfo.ccf.ui.login.LoginRegisterActivity;
 import cn.cnlinfo.ccf.view.RefreshHeaderView;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -294,5 +295,4 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         UserSharedPreference.getInstance().logout();
         AppManage.getInstance().exit(this);
     }
-
 }

@@ -4,7 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import cn.cnlinfo.ccf.activity.BaseActivity;
+import cn.cnlinfo.ccf.ui.activity.BaseActivity;
+
 
 /**
  * Created by Administrator on 2017/10/19 0019.

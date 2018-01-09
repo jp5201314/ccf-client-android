@@ -39,7 +39,7 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreen">
         <activity
-            android:name=".activity.MainPageActivity"
+            android:name=".ui.activity.MainPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PopupMenuTheme">
             <intent-filter>
@@ -61,15 +61,15 @@
 
         <!-- 登录注册展示界面 -->
         <activity
-            android:name=".activity.LoginRegisterActivity"
+            android:name=".ui.login.LoginRegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 引导页 -->
         <activity
-            android:name=".activity.GuideActivity"
+            android:name=".ui.activity.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.WebActivity"
+            android:name=".ui.activity.WebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">

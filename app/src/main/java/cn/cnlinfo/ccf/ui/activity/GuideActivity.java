@@ -1,4 +1,4 @@
-package cn.cnlinfo.ccf.activity;
+package cn.cnlinfo.ccf.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import com.tendcloud.tenddata.TCAgent;
 import java.util.ArrayList;
 
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.ui.login.LoginRegisterActivity;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 

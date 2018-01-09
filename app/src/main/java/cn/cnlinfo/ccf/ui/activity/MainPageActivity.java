@@ -1,4 +1,4 @@
-package cn.cnlinfo.ccf.activity;
+package cn.cnlinfo.ccf.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;

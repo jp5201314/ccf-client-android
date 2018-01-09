@@ -13,9 +13,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
+import cn.cnlinfo.ccf.ui.login.LoginRegisterActivity;
 import cn.finalteam.okhttpfinal.OkHttpFinal;
 import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 

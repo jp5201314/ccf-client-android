@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import cn.cnlinfo.ccf.manager.ACache;
+import cn.cnlinfo.ccf.rx.response.entity.User;
 
 /**
  * Created by cj on 2016/9/8.
@@ -41,6 +42,13 @@ public class UserSharedPreference {
         return instance;
     }
 
+    public void setUser(User user){
+        mACache.put(CACHE_USER_KEY,user);
+    }
+
+    public User getUser(){
+        return (User) mACache.getAsObject(CACHE_USER_KEY);
+    }
     public void setUserInfo(String userinfo) {
         this.setUserInfoToSharedPreferences(userinfo.toString());
         this.setUserInfoToCache(userinfo);
