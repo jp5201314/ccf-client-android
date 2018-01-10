@@ -191,9 +191,9 @@ public class StepArcView extends View {
      */
     public void setCurrentCount(int totalStepNum, int currentCounts) {
         /**如果当前走的步数超过总步数则圆弧还是270度，不能成为圆*/
-        if (currentCounts > totalStepNum) {
+        /*if (currentCounts > totalStepNum) {
             currentCounts = totalStepNum;
-        }
+        }*/
 
         /**上次所走步数占用总共步数的百分比*/
         float scalePrevious = (float) Integer.valueOf(stepNumber) / totalStepNum;
