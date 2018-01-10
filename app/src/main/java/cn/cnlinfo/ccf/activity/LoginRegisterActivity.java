@@ -62,6 +62,11 @@ public class LoginRegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        //解决activity销毁后自定义view持有activity的引用发生内存泄漏
+        etUsername = null;
+        etPassword = null;
+        etVerificationCode = null;
+        Logger.d("onDestroy");
     }
 
     public void toLogin(View view) {

@@ -25,6 +25,15 @@ public class TradingListItem {
     private String Status;
     private String CreateTime;
     private String PurchaserID;
+    private String ID;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public String getTranType() {
         return TranType;

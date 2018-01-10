@@ -88,9 +88,9 @@ public class API {
     public static final String EXCHANGECCF = "SP_UserLargess";
 
     /**
-     * SellerClickToSale 卖家在拍卖行中点击出售
+     * SellerClickToSale 卖家在拍卖行中点击购买
      */
-    public static final String SELLERTOSELLINAUCTIONHOUSE = "SellerClickToSale";
+    public static final String CLICKBUYCCF = "BuyerClickToBuy";
 
     /**
      * SellerSendCCF 订单产生后,卖家手动确认打款金额并拨币
@@ -110,10 +110,10 @@ public class API {
     public static final String GETPACKAGELIST = "GetMealList";
 
     /**
-     *获取新闻公告内容
+     *获取购买ccf页面的详细信息
      */
 
-    public static final String GETNEWSNOTICE = "GetNewBody";
+    public static final String GETJOBBERINFO = "GetJobberInfo";
 
     /**
      * 上传步数

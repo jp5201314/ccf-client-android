@@ -97,9 +97,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebActivity"
+            android:process="cn.cnlinfo.ccf.webview"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"
-            android:process="cn.cnlinfo.ccf.webview">
+            android:theme="@style/NormalFullScreen">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -207,9 +207,9 @@
             android:name=".activity.SystemNoticeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <!-- 在线钱包 -->
+        <!-- 订单中心 -->
         <activity
-            android:name=".activity.OnlineWalletActivity"
+            android:name=".activity.OrderCenterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
         <!-- 对外互转 -->
@@ -437,19 +437,26 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--购买套餐记录-->
+        <!-- 购买套餐记录 -->
         <activity
             android:name=".activity.PurchaseMealRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <!--交易大厅-->
-        <activity android:name=".activity.TradingCenterActivity"
+        <!-- 交易大厅 -->
+        <activity
+            android:name=".activity.TradingCenterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PopupMenuTheme"/>
-        <!--挂买/挂卖记录-->
-        <activity android:name=".activity.HangBuyAndSellRecordActivity"
+            android:theme="@style/PopupMenuTheme" />
+        <!-- 挂买/挂卖记录 -->
+        <activity
+            android:name=".activity.HangBuyAndSellRecordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/PopupMenuTheme"/>
+            android:theme="@style/PopupMenuTheme" />
+        <!--购买碳控因子-->
+        <activity android:name=".activity.PurCCFActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"
+            />
     </application>
 
 </manifest>
