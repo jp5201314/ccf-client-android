@@ -313,8 +313,8 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
     }
     protected void exit(){
         UserSharedPreference.getInstance().logout();
+        AppManage.getInstance().finishOther();
         CCFApplication.getInstance().jumpToLogin();
-        finish();
     }
 
 }
