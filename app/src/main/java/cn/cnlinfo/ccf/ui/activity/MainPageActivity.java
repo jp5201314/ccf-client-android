@@ -146,28 +146,28 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_main_page:
                 vp.setCurrentItem(0, false);
                 setTvMainPageBackgroundColor();
-                tvTitle.setText("主页");
+
                 break;
             case R.id.tv_gauage_panel:
                 //smoothScroll为false就是去除切换fragment的动画效果
                 vp.setCurrentItem(1, false);
                 setTvGauagePanelBackgroundColor();
-                tvTitle.setText("仪表盘");
+
                 break;
             case R.id.tv_trading_center:
                 vp.setCurrentItem(2, false);
                 setTvTradingCenterBackgroundColor();
-                tvTitle.setText("交易中心");
+
                 break;
             case R.id.tv_cc_mall:
                 vp.setCurrentItem(3, false);
                 setTvCcMallBackgroundColor();
-                tvTitle.setText("CC商城");
+
                 break;
             case R.id.tv_cc_union:
                 vp.setCurrentItem(4, false);
                 setTvCcUnionBackgroundColor();
-                tvTitle.setText("CC联盟");
+
                 break;
 
         }
@@ -179,6 +179,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTitle.setText("主页");
     }
 
     private void setTvGauagePanelBackgroundColor() {
@@ -187,6 +188,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTitle.setText("仪表盘");
     }
 
     private void setTvCcUnionBackgroundColor() {
@@ -195,6 +197,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTitle.setText("CC联盟");
     }
 
     private void setTvCcMallBackgroundColor() {
@@ -203,6 +206,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
+        tvTitle.setText("CC商城");
     }
 
     private void setTvTradingCenterBackgroundColor() {
@@ -211,6 +215,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcUnion.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
+        tvTitle.setText("交易中心");
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
