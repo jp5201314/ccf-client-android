@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.LayoutBar;
@@ -82,6 +83,13 @@ public class MainPageFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
         TCAgent.onPageEnd(getActivity(), "主页");
+        Logger.d("onDestroyView");
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        Logger.d("onDestroyViewLazy");
     }
 
     class ItemViewPagerIndicator extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
