@@ -229,12 +229,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
             int currentStep = stepService.getStepCount();
             setCurrentStep(currentStep);
             //设置步数监听回调
-            stepService.registerCallback(new UpdateUiCallBack() {
-                @Override
-                public void updateUi(int stepCount) {
-                    setCurrentStep(stepCount);
-                }
-            });
+            stepService.registerCallback(callBack);
         }
 
         /**
@@ -246,6 +241,13 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onServiceDisconnected(ComponentName name) {
 
+        }
+    };
+
+    UpdateUiCallBack callBack = new UpdateUiCallBack() {
+        @Override
+        public void updateUi(int stepCount) {
+            setCurrentStep(stepCount);
         }
     };
 
@@ -288,12 +290,28 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        Logger.d("onDestroyViewLazy");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.d("onDestroy");
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Logger.d("onDestroyView");
         unbinder.unbind();
-        if (isBind) {
+        if (conn!=null&&isBind) {
             getActivity().unbindService(conn);
         }
+        showWaitingDialog(false);
+        conn = null;
+        callBack = null;
     }
 
     @Override

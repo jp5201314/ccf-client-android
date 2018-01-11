@@ -303,6 +303,11 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        //解决内存泄漏
+        if (alertDialog!=null&&alertDialog.isShowing()){
+            alertDialog.dismiss();
+            alertDialog = null;
+        }
         TCAgent.onPageEnd(this, "主页");
     }
 
