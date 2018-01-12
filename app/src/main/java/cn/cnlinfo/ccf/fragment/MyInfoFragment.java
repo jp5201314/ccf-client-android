@@ -2,9 +2,6 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -64,18 +61,20 @@ public class MyInfoFragment extends BaseFragment {
     Unbinder unbinder;
     private User user;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_fragment_three, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.item_fragment_three);
+        unbinder = ButterKnife.bind(this, getContentView());
         initData();
-        return view;
     }
 
     /**
      * 初始化个人信息数据
      */
     private void initData(){
+        showWaitingDialog(true);
         user = UserSharedPreference.getInstance().getUser();
         RequestParams params = new RequestParams();
         params.addFormDataPart("userid",user.getUserID());
@@ -133,18 +132,22 @@ public class MyInfoFragment extends BaseFragment {
                         tvWxNum.setText(userDetail.getWebChat());
                     }
                 }
+                showWaitingDialog(false);
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
                 showMessage(code,msg);
+                showWaitingDialog(false);
             }
         });
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
         unbinder.unbind();
+        showWaitingDialog(false);
     }
+
 }

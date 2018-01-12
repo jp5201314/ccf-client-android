@@ -143,9 +143,11 @@ public class StepService extends Service implements SensorEventListener {
     private void initTodayData() {
         user = UserSharedPreference.getInstance().getUser();
         CURRENT_DATE = getTodayDate();
+
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
+
         //获取当天的数据，用于展示
-        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUserCode()});
+        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, new String[]{"username","today"}, new String[]{user.getUserCode(),getTodayDate()});
         Logger.d("initTodayData  "+user.getUserCode()+"  "+list.size());
         if (list.size() == 0 || list.isEmpty()) {
             CURRENT_STEP = user.getTodayStep();
@@ -553,7 +555,7 @@ public class StepService extends Service implements SensorEventListener {
     private void save() {
         int tempStep = CURRENT_STEP;
         if (user!=null){
-            List<StepData> list = databaseManager.getQueryByWhere(StepData.class, "username", new String[]{user.getUserCode()});
+            List<StepData> list = databaseManager.getQueryByWhere(StepData.class,new String[]{ "username","today"}, new String[]{user.getUserCode(),getTodayDate()});
             if (list.size() == 0 || list.isEmpty()) {
                 StepData data = new StepData();
                 data.setUsername(user.getUserCode());

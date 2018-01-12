@@ -3,6 +3,7 @@ package cn.cnlinfo.ccf.step_count.utils;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -64,8 +65,18 @@ public class DatabaseManager {
      * @param value
      * @return
      */
-    public <T> List<T> getQueryByWhere(Class<T> cla, String field, String[] value) {
-        return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", value));
+    public <T> List<T> getQueryByWhere(Class<T> cla, String[] field, String[] value) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0;i<field.length;i++){
+            builder.append(field[i]+"=?");
+            if (i==field.length-1){
+                break;
+            }else {
+                builder.append(" and ");
+            }
+        }
+        Logger.d(builder.toString());
+        return liteOrm.<T>query(new QueryBuilder(cla).where(builder.toString(), value));
     }
 
     /**

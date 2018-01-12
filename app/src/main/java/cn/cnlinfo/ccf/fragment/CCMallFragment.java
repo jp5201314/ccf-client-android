@@ -19,6 +19,7 @@ import cn.cnlinfo.ccf.R;
 public class CCMallFragment extends BaseFragment {
     private Unbinder unbinder;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

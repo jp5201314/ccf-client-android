@@ -9,9 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -90,19 +88,21 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private User user;
     private Intent intent;
 
+
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cycle_package, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initData();
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_cycle_package);
         /**
          *  Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
          *  GlideDrawableImageViewTarget这个设置播放次数
          *  Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
          */
-        return view;
+        unbinder = ButterKnife.bind(this, getContentView());
+        initData();
     }
-
     private void initData() {
         showWaitingDialog(true);
         setEditTextFocus(etConversionCyclePack);
@@ -112,7 +112,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());
         startUpService();
     }
-
     /**
      * 注册监听事件
      */
@@ -264,8 +263,13 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void onFragmentStartLazy() {
+        super.onFragmentStartLazy();
+    }
+
+    @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
         gainConversionCyclePackData();
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
@@ -274,13 +278,19 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        Logger.d("onPause");
+    protected void onPauseLazy() {
+        super.onPauseLazy();
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.stop();
         }
+    }
+
+    @Override
+    protected void onFragmentStopLazy() {
+        super.onFragmentStopLazy();
+        Logger.d("onFragmentStopLazy");
+
     }
 
     @Override
@@ -293,6 +303,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
         Logger.d("onDestroyViewLazy");
+        unbinder.unbind();
     }
 
     @Override
@@ -305,13 +316,18 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     public void onDestroyView() {
         super.onDestroyView();
         Logger.d("onDestroyView");
-        unbinder.unbind();
         if (conn!=null&&isBind) {
             getActivity().unbindService(conn);
         }
         showWaitingDialog(false);
         conn = null;
         callBack = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Logger.d("onDetach");
     }
 
     @Override

@@ -73,7 +73,7 @@ public class MainPageFragment extends BaseFragment {
         indicatorViewPager = new IndicatorViewPager(indicator, vp);
         adapter = new ItemViewPagerIndicator(getChildFragmentManager());
         indicatorViewPager.setAdapter(adapter);
-        indicatorViewPager.setPageOffscreenLimit(3);
+        indicatorViewPager.setPageOffscreenLimit(2);
         indicator.setScrollBar(new LayoutBar(getActivity(), R.layout.indicator_scroll_bar, ScrollBar.Gravity.BOTTOM));
 
     }
@@ -81,14 +81,14 @@ public class MainPageFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
-        TCAgent.onPageEnd(getActivity(), "主页");
         Logger.d("onDestroyView");
     }
 
     @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
+        unbinder.unbind();
+        TCAgent.onPageEnd(getActivity(), "主页");
         Logger.d("onDestroyViewLazy");
     }
 

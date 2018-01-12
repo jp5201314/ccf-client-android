@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -79,12 +78,13 @@ public class MainPageInfoFragment extends BaseFragment {
     private List<String> accountAnswer;
     private List<String> platformAnswer;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_fragment_one, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.item_fragment_one);
+        unbinder = ButterKnife.bind(this, getContentView());
         init();
-        return view;
     }
 
     private void init() {
@@ -315,6 +315,12 @@ public class MainPageInfoFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    protected void onFragmentStartLazy() {
+        super.onFragmentStartLazy();
         /**
          * 开启线程池管理Banner
          */
@@ -327,8 +333,8 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    protected void onFragmentStopLazy() {
+        super.onFragmentStopLazy();
         if (scheduledExecutorService != null) {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
@@ -336,9 +342,21 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
+        unbinder.unbind();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+
     }
 
     class ViewPageTask implements Runnable {
