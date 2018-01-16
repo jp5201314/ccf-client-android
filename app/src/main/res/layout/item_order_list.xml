@@ -7,12 +7,11 @@
     android:background="@drawable/payment_voucher_shape">
 
         <TextView
-            android:id="@+id/tv_trading_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000"
-            android:text="挂卖"
+            android:text="订单记录凭证"
             />
 
         <TextView
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 style="@style/text_66000000_15"
-                android:text="用户ID："
+                android:text="出售用户："
                 />
 
             <TextView
@@ -76,30 +75,29 @@
                 />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="9dp"
+        >
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="9dp"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                style="@style/text_66000000_15"
-                android:text="用户级别："
-                />
+            android:layout_weight="3"
+            style="@style/text_66000000_15"
+            android:text="交易用户:"
+            />
 
-            <TextView
-                android:id="@+id/tv_user_level"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                style="@style/text_0e1214_15"
-                android:text="11111"
-                />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_trading_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            style="@style/text_0e1214_15"
+            android:text="11111"
+            />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,6 +121,30 @@
             android:text="11111"
             />
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="9dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                style="@style/text_66000000_15"
+                android:text="交易金额："
+                />
+
+            <TextView
+                android:id="@+id/tv_trad_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                style="@style/text_0e1214_15"
+                android:text="11111"
+                />
+        </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,17 +156,73 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             style="@style/text_66000000_15"
-            android:text="当前价格:"
+            android:text="交易间ID:"
             />
 
         <TextView
-            android:id="@+id/tv_current_price"
+            android:id="@+id/tv_room_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
             style="@style/text_0e1214_15"
             android:text="11111"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="9dp"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            style="@style/text_66000000_15"
+            android:text="交易类型:"
+            />
+
+        <TextView
+            android:id="@+id/tv_trad_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            style="@style/text_0e1214_15"
+            android:text="11111"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="9dp"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            style="@style/text_66000000_15"
+            android:text="交易凭证:"
+            />
+
+        <Button
+            android:id="@+id/btn_click"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            style="@style/text_0e1214_15"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+        <com.bm.library.PhotoView
+            android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_sweep"/>
     </LinearLayout>
         <View
             android:layout_width="match_parent"

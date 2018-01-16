@@ -452,11 +452,17 @@
             android:name=".activity.HangBuyAndSellRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/PopupMenuTheme" />
-        <!--购买碳控因子-->
-        <activity android:name=".activity.PurCCFActivity"
+        <!-- 购买碳控因子 -->
+        <activity
+            android:name=".activity.PurCCFActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen"
-            />
+            android:theme="@style/NormalFullScreen" />
+        <!-- 出售碳控因子 -->
+        <activity
+            android:name=".activity.SellCCFActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen" />
+        <activity android:name=".activity.PreviewSaveActivity"></activity>
     </application>
 
 </manifest>

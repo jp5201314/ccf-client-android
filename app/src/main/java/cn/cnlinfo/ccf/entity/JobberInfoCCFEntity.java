@@ -4,7 +4,10 @@ package cn.cnlinfo.ccf.entity;
  * Created by Administrator on 2018/1/5 0005.
  */
 
-public class PurCCFEntity {
+/**
+ * 购买碳控因子和出售碳控因子的详细信息
+ */
+public class JobberInfoCCFEntity {
 
     /**
      * UserName : 1002
