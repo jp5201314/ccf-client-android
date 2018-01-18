@@ -1,6 +1,7 @@
 package cn.cnlinfo.ccf.mvc.datasource;
 
 import com.alibaba.fastjson.JSONObject;
+import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IAsyncDataSource;
 import com.shizhefei.mvc.RequestHandle;
 import com.shizhefei.mvc.ResponseSender;
@@ -45,6 +46,7 @@ public class OrderListDataSource implements IAsyncDataSource<List<OrderListItem>
         HttpRequest.post(Constant.GET_DATA_HOST + API.ORDERLISTRECORD, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
+                Logger.d(data.toJSONString());
                 List<OrderListItem> list = JSONObject.parseArray(data.getJSONArray("AuctionOrderList").toJSONString(),OrderListItem.class);
                 OrderListDataSource.this.page = page;
                 OrderListDataSource.this.maxPage = data.getIntValue("PageCount");

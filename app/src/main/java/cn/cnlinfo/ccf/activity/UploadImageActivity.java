@@ -32,6 +32,7 @@ public class UploadImageActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private Unbinder unbinder;
+    //上传图片的结果码
     private static final int REQUEST_CODE_SELECT_IMG = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,6 +28,15 @@ public class OrderListItem {
     private String Status;
     private String BuyerScreenshot;
     private String ID;
+    /**
+     * BankCode : 暂无
+     * AliPay : 暂无
+     * WebChat : 暂无
+     */
+
+    private String BankCode;
+    private String AliPay;
+    private String WebChat;
 
     public String getTranType() {
         return TranType;
@@ -107,5 +116,29 @@ public class OrderListItem {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getBankCode() {
+        return BankCode;
+    }
+
+    public void setBankCode(String BankCode) {
+        this.BankCode = BankCode;
+    }
+
+    public String getAliPay() {
+        return AliPay;
+    }
+
+    public void setAliPay(String AliPay) {
+        this.AliPay = AliPay;
+    }
+
+    public String getWebChat() {
+        return WebChat;
+    }
+
+    public void setWebChat(String WebChat) {
+        this.WebChat = WebChat;
     }
 }

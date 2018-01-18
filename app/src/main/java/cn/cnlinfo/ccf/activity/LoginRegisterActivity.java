@@ -67,6 +67,7 @@ public class LoginRegisterActivity extends BaseActivity {
         etPassword = null;
         etVerificationCode = null;
         Logger.d("onDestroy");
+        HttpRequest.cancel(Constant.getHost() + API.CCFLOGIN);
     }
 
     public void toLogin(View view) {
