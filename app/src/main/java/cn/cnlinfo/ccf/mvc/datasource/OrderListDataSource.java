@@ -13,7 +13,7 @@ import java.util.List;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.UserSharedPreference;
-import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
+import cn.cnlinfo.ccf.entity.OrderListItem;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.finalteam.okhttpfinal.HttpRequest;
@@ -23,31 +23,31 @@ import cn.finalteam.okhttpfinal.RequestParams;
  * Created by Administrator on 2017/12/27 0027.
  */
 
-public class OrderListDataSource implements IAsyncDataSource<List<CyclePackRecordEntity>> {
+public class OrderListDataSource implements IAsyncDataSource<List<OrderListItem>> {
     private int page = 1 ;
     private int maxPage;
     private int number = 5;
 
     @Override
-    public RequestHandle refresh(ResponseSender<List<CyclePackRecordEntity>> sender) throws Exception {
+    public RequestHandle refresh(ResponseSender<List<OrderListItem>> sender) throws Exception {
         return loadOutTransferRecord(sender,1);
     }
 
     @Override
-    public RequestHandle loadMore(ResponseSender<List<CyclePackRecordEntity>> sender) throws Exception {
-        Logger.d("loadmore");
+    public RequestHandle loadMore(ResponseSender<List<OrderListItem>> sender) throws Exception {
         return loadOutTransferRecord(sender,page+1);
     }
-    private RequestHandle loadOutTransferRecord(final ResponseSender<List<CyclePackRecordEntity>> sender, final int page){
+    private RequestHandle loadOutTransferRecord(final ResponseSender<List<OrderListItem>> sender, final int page){
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
         params.addFormDataPart("CurrentPageIndex",page);
         params.addFormDataPart("PageSize",number);
-        params.addFormDataPart("Orderby","Order by Status asc,CreateTime desc");
-        HttpRequest.post(Constant.RECORD_CENTER_HOST + API.CONVERSIONCYCLEPACK, params, new CCFHttpRequestCallback() {
+        params.addFormDataPart("SearchItems", "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID());
+        params.addFormDataPart("Orderby","Order by CreateTime desc");
+        HttpRequest.post(Constant.GET_DATA_HOST + API.ORDERLISTRECORD, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                List<CyclePackRecordEntity> list = JSONObject.parseArray(data.getJSONArray("BuyPackRecordList").toJSONString(),CyclePackRecordEntity.class);
+                Logger.d(data.toJSONString());
+                List<OrderListItem> list = JSONObject.parseArray(data.getJSONArray("AuctionOrderList").toJSONString(),OrderListItem.class);
                 OrderListDataSource.this.page = page;
                 OrderListDataSource.this.maxPage = data.getIntValue("PageCount");
                 sender.sendData(list);

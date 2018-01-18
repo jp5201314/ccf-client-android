@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.activity.PurCCFActivity;
+import cn.cnlinfo.ccf.activity.SellCCFActivity;
 import cn.cnlinfo.ccf.entity.TradingListItem;
 
 /**
@@ -54,6 +55,10 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                 ((ViewHolder) holder).tvTime.setText("暂无");
             }
             if (!TextUtils.isEmpty(tradingListItem.getStatus())){
+                /**
+                 * 1是挂卖
+                 * 2是挂买
+                 */
                 if (tradType==1){
                     ((ViewHolder) holder).btnTradingStatus.setText("购买");
                 }else {
@@ -83,11 +88,6 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
             }else {
                 ((ViewHolder) holder).tvCurrentPrice.setText("暂无");
             }
-           /* if (!TextUtils.isEmpty(tradingListItem.getPurchaserID())){
-                ((ViewHolder) holder).tvTradingUser.setText(tradingListItem.getPurchaserID());
-            }else {
-                ((ViewHolder) holder).tvTradingUser.setText("暂无");
-            }*/
            holder.itemView.setTag(position);
         }
     }
@@ -107,8 +107,6 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
         TextView tvCcfNumber;
         @BindView(R.id.tv_current_price)
         TextView tvCurrentPrice;
-        @BindView(R.id.tv_trading_user)
-        TextView tvTradingUser;
         private int position;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -122,9 +120,11 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                 case R.id.btn_trading_status:
                     position = (int) itemView.getTag();
                     if (tradType==1){
+                        //购买
                         clickBuy();
                     }else {
-
+                        //出售
+                        clickSell();
                     }
                     break;
             }
@@ -136,6 +136,17 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
         private void clickBuy(){
             if (list!=null){
                 Intent intent = new Intent(context, PurCCFActivity.class);
+                intent.putExtra("roomId",list.get(position).getID());
+                context.startActivity(intent);
+            }
+        }
+
+        /**
+         * 点击出售
+         */
+        private void clickSell(){
+            if (list!=null){
+                Intent intent = new Intent(context, SellCCFActivity.class);
                 intent.putExtra("roomId",list.get(position).getID());
                 context.startActivity(intent);
             }

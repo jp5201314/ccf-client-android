@@ -16,12 +16,17 @@ import android.widget.TextView;
 
 import com.shizhefei.mvc.MVCHelper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.TradingListItemAdapter;
+import cn.cnlinfo.ccf.event.CloseActivityEvent;
 import cn.cnlinfo.ccf.mvc.datasource.TradingListDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -50,6 +55,7 @@ public class TradingCenterActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         mTvTitle.setText("交易大厅");
         showTradingCenterInfo();
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -98,11 +104,16 @@ public class TradingCenterActivity extends BaseActivity {
                 String type = "";
                 switch (itemId) {
                     case R.id.sell:
+                        type = "where TranType=1 and Status=1";
+                        mvcHelper.setDataSource(new TradingListDataSource(type));
+                        adapter = new TradingListItemAdapter(TradingCenterActivity.this,1);
+                        mvcHelper.setAdapter(adapter);
                         break;
                     case R.id.buy:
                         type = "where TranType=2 and Status=1";
                         mvcHelper.setDataSource(new TradingListDataSource(type));
                         adapter = new TradingListItemAdapter(TradingCenterActivity.this,2);
+                        mvcHelper.setAdapter(adapter);
                         break;
                 }
                 mvcHelper.refresh();
@@ -110,10 +121,21 @@ public class TradingCenterActivity extends BaseActivity {
             }
         });
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void closeActivityMessage(CloseActivityEvent closeActivityEvent){
+        int code = closeActivityEvent.getCode();
+        switch (code){
+            case 0:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 }

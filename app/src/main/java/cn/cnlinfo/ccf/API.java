@@ -88,9 +88,14 @@ public class API {
     public static final String EXCHANGECCF = "SP_UserLargess";
 
     /**
-     * SellerClickToSale 卖家在拍卖行中点击购买
+     * BuyerClickToBuy 买家在拍卖行中点击购买
      */
     public static final String CLICKBUYCCF = "BuyerClickToBuy";
+
+    /**
+     * SellerClickToSale 卖家在拍卖行中点击出售
+     */
+    public static final String CLICKSELL = "SellerClickToSale";
 
     /**
      * SellerSendCCF 订单产生后,卖家手动确认打款金额并拨币
@@ -215,4 +220,8 @@ public class API {
      * 挂卖/挂买记录
      */
     public static final String HANGBYSELLANDBUY = "GetHangBuyRecord";
+    /**
+     * 订单记录
+     */
+    public static final String ORDERLISTRECORD = "GetAuctionOrderList";
 }
