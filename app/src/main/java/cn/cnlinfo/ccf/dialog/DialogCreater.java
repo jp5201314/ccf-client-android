@@ -3,6 +3,8 @@ package cn.cnlinfo.ccf.dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 
 import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnBtnClickL;
@@ -225,5 +227,9 @@ public class DialogCreater {
         builder.setNegativeButton(negativeText, negativeTextColor, negativeClickListener
         );
         return builder;
+    }
+
+    public static AlertDialog showSelfDefineDialog(Context context, boolean cancelable, String title, View view){
+        return new AlertDialog.Builder(context).setCancelable(cancelable).setTitle(title).setView(view).create();
     }
 }

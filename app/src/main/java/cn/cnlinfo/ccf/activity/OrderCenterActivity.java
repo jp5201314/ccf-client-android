@@ -29,6 +29,7 @@ import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.OrderListItemAdapter;
 import cn.cnlinfo.ccf.event.ConfirmReceiveMoneyEvent;
+import cn.cnlinfo.ccf.event.ReceiveComplainEvent;
 import cn.cnlinfo.ccf.event.SendOrderIdEvent;
 import cn.cnlinfo.ccf.mvc.datasource.OrderListDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
@@ -99,6 +100,12 @@ public class OrderCenterActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveConfirmReceiveMoney(ConfirmReceiveMoneyEvent confirmReceiveMoneyEvent){
         showMessage(confirmReceiveMoneyEvent.getErrorCode(),confirmReceiveMoneyEvent.getMsg());
+        mvcHelper.refresh();
+    }
+    //接收到点击确认收款，刷新界面
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveConfirmReceiveMoney(ReceiveComplainEvent receiveComplainEvent){
+        showMessage(receiveComplainEvent.getErrorCode(),receiveComplainEvent.getMsg());
         mvcHelper.refresh();
     }
     //选择图片上传回调
