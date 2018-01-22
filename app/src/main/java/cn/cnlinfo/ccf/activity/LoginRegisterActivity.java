@@ -124,6 +124,12 @@ public class LoginRegisterActivity extends BaseActivity {
                         showMessage(code,msg);
                         Logger.d(code + "  " + flag + "  " + msg);
                     }
+
+                    @Override
+                    public void onFailure(int errorCode, String msg) {
+                        super.onFailure(errorCode, msg);
+                        showMessage(errorCode,msg);
+                    }
                 });
             } else {
                 toast("验证码不正确，请重新输入");

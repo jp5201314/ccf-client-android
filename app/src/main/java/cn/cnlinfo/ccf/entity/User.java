@@ -26,6 +26,18 @@ public class User{
 
     private int TodayStep;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserID=" + UserID +
+                ", UserCode='" + UserCode + '\'' +
+                ", NickName='" + NickName + '\'' +
+                ", Mobile='" + Mobile + '\'' +
+                ", InvitationCode='" + InvitationCode + '\'' +
+                ", TodayStep=" + TodayStep +
+                '}';
+    }
+
     public User(int userID, String userCode, String nickName, String mobile, String invitationCode, int todayStep) {
         UserID = userID;
         UserCode = userCode;
@@ -41,18 +53,6 @@ public class User{
         NickName = nickName;
         Mobile = mobile;
         InvitationCode = invitationCode;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "UserID=" + UserID +
-                ", UserCode='" + UserCode + '\'' +
-                ", NickName='" + NickName + '\'' +
-                ", Mobile='" + Mobile + '\'' +
-                ", InvitationCode='" + InvitationCode + '\'' +
-                ", TodayStep='" + TodayStep + '\'' +
-                '}';
     }
 
     public User() {

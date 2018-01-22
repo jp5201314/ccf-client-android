@@ -2,6 +2,9 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -65,9 +68,18 @@ public class MyInfoFragment extends BaseFragment {
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
-        setContentView(R.layout.item_fragment_three);
+
+     /*   setContentView(R.layout.item_fragment_three);
         unbinder = ButterKnife.bind(this, getContentView());
+        initData();*/
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_my_info,container,false);
+        unbinder = ButterKnife.bind(this, view);
         initData();
+        return view;
     }
 
     /**
@@ -149,5 +161,4 @@ public class MyInfoFragment extends BaseFragment {
         unbinder.unbind();
         showWaitingDialog(false);
     }
-
 }

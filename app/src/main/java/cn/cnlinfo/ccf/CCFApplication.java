@@ -86,7 +86,7 @@ public class CCFApplication extends Application {
         String msg = errorMessageEvent.getMsg();
         switch (code){
             case 500:
-                toast(msg);
+                toast("服务器正在维护，请稍后再试!!!");
                 break;
             case -1:
                 toast(msg);

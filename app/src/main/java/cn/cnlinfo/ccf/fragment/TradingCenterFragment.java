@@ -3,11 +3,8 @@ package cn.cnlinfo.ccf.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -68,12 +65,11 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
     private int type = 0;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_trading_center, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_trading_center);
+        unbinder = ButterKnife.bind(this,getContentView());
         TCAgent.onPageStart(getActivity(), "交易中心");
         getDayOfMonth();
         getAxisXLables();//获取x轴的标注
@@ -83,7 +79,6 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         setEditTextFocus(etNum);
         btnEnterTradingPlatform.setOnClickListener(this);
         btnOk.setOnClickListener(this);
-        return view;
     }
 
     /**
@@ -162,7 +157,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         //设置行为属性，支持缩放、滑动以及平移
         chartTop.setInteractive(true);
         chartTop.setZoomType(ZoomType.HORIZONTAL);
-        chartTop.setMaxZoom((float) 2);//最大方法比例
+        chartTop.setMaxZoom((float) 2);//最大放大比例
         chartTop.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
         chartTop.setLineChartData(data);
         chartTop.setVisibility(View.VISIBLE);
@@ -190,17 +185,17 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
         unbinder.unbind();
         TCAgent.onPageEnd(getActivity(), "交易中心");
     }
 
     /*
-        *
-         * 根据当前月份获取当前月份的天数
-         * @return
-    */
+            *
+             * 根据当前月份获取当前月份的天数
+             * @return
+        */
     private void getDayOfMonth() {
         Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
         int month = aCalendar.get(Calendar.MONTH);

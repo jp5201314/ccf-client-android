@@ -9,7 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -86,29 +88,36 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private Animatable animatable;
     private Intent intent;
 
-
-
-
-    @Override
+   /* @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_cycle_package);
-        /**
+        *//**
          *  Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
          *  GlideDrawableImageViewTarget这个设置播放次数
          *  Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
-         */
+         *//*
         unbinder = ButterKnife.bind(this, getContentView());
         initData();
+    }*/
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cycle_package,container,false);
+        unbinder = ButterKnife.bind(this, view);
+        initData();
+        return view;
     }
+
     private void initData() {
         showWaitingDialog(true);
         setEditTextFocus(etConversionCyclePack);
         setOnClickListener();
-
         setControllerIntoSdvCycle();
         sharedPreferencesUtils = new SharedPreferencesUtils(this.getApplicationContext());
         startUpService();
+        //获取循环包数据
+        gainConversionCyclePackData();
     }
     /**
      * 注册监听事件
@@ -265,7 +274,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     protected void onResumeLazy() {
         super.onResumeLazy();
-        gainConversionCyclePackData();
         animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.start();
@@ -275,7 +283,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     protected void onPauseLazy() {
         super.onPauseLazy();
-        animatable = sdvCycle.getController().getAnimatable();
         if (animatable != null) {
             animatable.stop();
         }

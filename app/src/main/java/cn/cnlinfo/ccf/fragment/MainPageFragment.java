@@ -1,10 +1,8 @@
 package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -39,16 +37,13 @@ public class MainPageFragment extends BaseFragment {
     private Unbinder unbinder;
     private final String[] TITLES = {"主页信息", "循环包", "个人信息"};
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_main_page, container, false);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_main_page);
+        unbinder = ButterKnife.bind(this,getContentView());
         TCAgent.onPageStart(getActivity(), "主页");
-        unbinder = ButterKnife.bind(this, view);
         init();
-        return view;
     }
 
     private void init() {
@@ -76,12 +71,6 @@ public class MainPageFragment extends BaseFragment {
         indicatorViewPager.setPageOffscreenLimit(2);
         indicator.setScrollBar(new LayoutBar(getActivity(), R.layout.indicator_scroll_bar, ScrollBar.Gravity.BOTTOM));
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Logger.d("onDestroyView");
     }
 
     @Override

@@ -342,21 +342,9 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
         unbinder.unbind();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
     }
 
     class ViewPageTask implements Runnable {

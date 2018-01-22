@@ -2,10 +2,7 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
@@ -57,17 +54,16 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
     private List<Map<String, Object>> list;
     private SimpleAdapter adapter;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_gauge_panel);
         TCAgent.onPageStart(getActivity(), "仪表盘");
-        View view = inflater.inflate(R.layout.fragment_gauge_panel, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, getContentView());
         adapter = new SimpleAdapter(getActivity(), getData(), R.layout.item_gv_panel, new String[]{"icon", "name"}, new int[]{R.id.item_iv_icon, R.id.item_tv_name});
         gvGaugePanel.setAdapter(adapter);
         gvGaugePanel.setOnItemClickListener(this);
-        return view;
-
     }
 
     private List<Map<String, Object>> getData() {
@@ -82,8 +78,8 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
         unbinder.unbind();
         TCAgent.onPageEnd(getActivity(), "仪表盘");
     }

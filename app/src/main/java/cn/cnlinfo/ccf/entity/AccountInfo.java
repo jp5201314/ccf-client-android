@@ -50,6 +50,7 @@ public class AccountInfo {
      * ServantID : 0
      * EnableAutoToCCF : true
      * ProductScore : 0
+     * IsChange  是否结算
      */
 
     private int ID;
@@ -95,6 +96,7 @@ public class AccountInfo {
     private int ServantID;
     private boolean EnableAutoToCCF;
     private int ProductScore;
+    private int IsChange;
 
     public int getID() {
         return ID;
@@ -438,5 +440,13 @@ public class AccountInfo {
 
     public void setProductScore(int ProductScore) {
         this.ProductScore = ProductScore;
+    }
+
+    public int getIsChange() {
+        return IsChange;
+    }
+
+    public void setIsChange(int IsChange) {
+        this.IsChange = IsChange;
     }
 }
