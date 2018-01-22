@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +18,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.activity.PurCCFActivity;
 import cn.cnlinfo.ccf.activity.SellCCFActivity;
 import cn.cnlinfo.ccf.entity.TradingListItem;
+import cn.cnlinfo.ccf.utils.DateUtil;
 
 /**
  * Created by Administrator on 2018/1/4 0004.
@@ -50,7 +53,8 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                 ((ViewHolder) holder).tvTradingType.setText("暂无");
             }
             if (!TextUtils.isEmpty(tradingListItem.getCreateTime())){
-                ((ViewHolder) holder).tvTime.setText(tradingListItem.getCreateTime());
+                ((ViewHolder) holder).tvTime.setText(DateUtil.formatTime(tradingListItem.getCreateTime(),"yyyy/MM/dd"));
+//                ((ViewHolder) holder).tvTime.setText(tradingListItem.getCreateTime());
             }else {
                 ((ViewHolder) holder).tvTime.setText("暂无");
             }
@@ -74,9 +78,36 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                 ((ViewHolder) holder).tvUserId.setText("暂无");
             }
             if (!TextUtils.isEmpty(tradingListItem.getBusinessLev())){
-                ((ViewHolder) holder).tvUserLevel.setText(tradingListItem.getBusinessLev());
+
+                switch (tradingListItem.getBusinessLev()){
+                    case "普通用户":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(0);
+                        ((ViewHolder) holder).tvUserLevel.setRating(0);
+                        break;
+                    case "一星交易商":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(1);
+                        ((ViewHolder) holder).tvUserLevel.setRating(1);
+                        break;
+                    case "二星交易商":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(2);
+                        ((ViewHolder) holder).tvUserLevel.setRating(2);
+                        break;
+                    case "三星交易商":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(3);
+                        ((ViewHolder) holder).tvUserLevel.setRating(3);
+                        break;
+                    case "四星交易商":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(4);
+                        ((ViewHolder) holder).tvUserLevel.setRating(4);
+                        break;
+                    case "五星交易商":
+                        ((ViewHolder) holder).tvUserLevel.setNumStars(5);
+                        ((ViewHolder) holder).tvUserLevel.setRating(5);
+                        break;
+                }
             }else {
-                ((ViewHolder) holder).tvUserLevel.setText("暂无");
+                ((ViewHolder) holder).tvUserLevel.setNumStars(0);
+                ((ViewHolder) holder).tvUserLevel.setRating(0);
             }
             if (!TextUtils.isEmpty(tradingListItem.getCCF())){
                 ((ViewHolder) holder).tvCcfNumber.setText(tradingListItem.getCCF());
@@ -102,7 +133,7 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
         @BindView(R.id.tv_user_id)
         TextView tvUserId;
         @BindView(R.id.tv_user_level)
-        TextView tvUserLevel;
+        RatingBar tvUserLevel;
         @BindView(R.id.tv_ccf_number)
         TextView tvCcfNumber;
         @BindView(R.id.tv_current_price)

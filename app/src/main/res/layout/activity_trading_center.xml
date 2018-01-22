@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/icon_background"
+    android:background="@color/color_gray_e1e1e1"
     tools:context="cn.cnlinfo.ccf.activity.TradingCenterActivity">
     <include layout="@layout/item_title"/>
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
@@ -23,9 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:layout_marginTop="9dp"
-            cube_ptr:showDividers="middle"
-            />
+            cube_ptr:showDividers="middle" />
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </LinearLayout>
