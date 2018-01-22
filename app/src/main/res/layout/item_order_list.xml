@@ -252,16 +252,22 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="1"
             style="@style/text_66000000_15"
             android:text="交易凭证:"
             />
-
+        <Button
+            android:id="@+id/btn_complain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/text_0e1214_15"
+            />
         <Button
             android:id="@+id/btn_click"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             style="@style/text_0e1214_15"
             />
     </LinearLayout>

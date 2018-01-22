@@ -212,7 +212,7 @@
         <activity
             android:name=".activity.OrderCenterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NormalFullScreen" />
+            android:theme="@style/PopupMenuTheme" />
         <!-- 对外互转 -->
         <activity
             android:name=".activity.ForeignTransferActivity"

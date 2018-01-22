@@ -21,7 +21,6 @@
         android:layout_gravity="center"
         android:singleLine="true"
         android:maxEms="15"
-        android:maxLength="20"
-        android:text="登录" />
+        android:maxLength="20" />
 
 </FrameLayout>

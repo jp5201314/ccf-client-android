@@ -37,6 +37,11 @@ public class OrderListItem {
     private String BankCode;
     private String AliPay;
     private String WebChat;
+    /**
+     * Contentrs :
+     */
+
+    private String Contentrs;
 
     public String getTranType() {
         return TranType;
@@ -140,5 +145,13 @@ public class OrderListItem {
 
     public void setWebChat(String WebChat) {
         this.WebChat = WebChat;
+    }
+
+    public String getContentrs() {
+        return Contentrs;
+    }
+
+    public void setContentrs(String Contentrs) {
+        this.Contentrs = Contentrs;
     }
 }

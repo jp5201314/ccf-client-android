@@ -37,8 +37,7 @@
                 android:padding="9dp"
                 android:hint="您的宝贵意见，就是我们进步的源泉！！"
                 android:background="@drawable/edit_text_style"
-                >
-            </EditText>
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

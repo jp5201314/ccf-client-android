@@ -2,12 +2,14 @@ package cn.cnlinfo.ccf.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -21,17 +23,21 @@ import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.OrderCenterActivity;
 import cn.cnlinfo.ccf.activity.PreviewSaveActivity;
+import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.OrderListItem;
 import cn.cnlinfo.ccf.event.ConfirmReceiveMoneyEvent;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.ReceiveComplainEvent;
 import cn.cnlinfo.ccf.event.SendOrderIdEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
- * Created by Administrator on 2018/1/4 0004.
+ * Created by JP on 2018/1/4 0004.
  */
 
 public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
@@ -55,7 +61,7 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        OrderListItem orderListItem = list.get(position);
+        OrderListItem orderListItem = getData().get(position);
         if (holder instanceof ViewHolder) {
             if (orderListItem != null) {
                 if (!TextUtils.isEmpty(orderListItem.getCreateTime())) {
@@ -98,13 +104,14 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                     ((ViewHolder) holder).tvTradType.setText(orderListItem.getTranType());
                     if (orderListItem.getTranType().equals("挂卖")) {
                         ((ViewHolder) holder).btnClick.setText("上传凭证");
+                        ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
                         ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
                             ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
                             EventBus.getDefault().post(new SendOrderIdEvent(orderListItem.getID()));
 
                         });
                     } else {
-                        if (orderListItem.getStatus().equals("打款中")){
+                        if (orderListItem.getStatus().equals("打款中")) {
                             Logger.d(orderListItem.getTranType());
                             //当订单状态为打款中时确认收款按钮才显示出来
                             /**
@@ -118,21 +125,21 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                                 @Override
                                 public void onClick(View v) {
                                     RequestParams params = new RequestParams();
-                                    params.addFormDataPart("orderID",orderListItem.getID());
+                                    params.addFormDataPart("orderID", orderListItem.getID());
                                     HttpRequest.post(Constant.OPERATE_CCF_HOST + API.SELLERSENDCCF, params, new CCFHttpRequestCallback() {
                                         @Override
                                         protected void onDataSuccess(JSONObject data) {
-                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(0,"成功收款"));
+                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(0, "成功收款"));
                                         }
 
                                         @Override
                                         protected void onDataError(int code, boolean flag, String msg) {
-                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(code,msg));
+                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(code, msg));
                                         }
                                     });
                                 }
                             });
-                        }else {
+                        } else {
                             ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
                         }
                     }
@@ -151,22 +158,81 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                         context.startActivity(intent);
                     });
                 } else {
+                    if (orderListItem.getTranType().equals("挂卖")){
+                        //没有凭证并且是挂卖单子
+                        ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
+                    }
                     ((ViewHolder) holder).btnShowProof.setText("暂无凭证");
                 }
-                if (!TextUtils.isEmpty(orderListItem.getAliPay())){
+                if (!TextUtils.isEmpty(orderListItem.getAliPay())) {
                     ((ViewHolder) holder).tvAlipayAccount.setText(orderListItem.getAliPay());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvAlipayAccount.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(orderListItem.getWebChat())){
+                if (!TextUtils.isEmpty(orderListItem.getWebChat())) {
                     ((ViewHolder) holder).tvWeixinAccount.setText(orderListItem.getWebChat());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvWeixinAccount.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(orderListItem.getBankCode())){
+                if (!TextUtils.isEmpty(orderListItem.getBankCode())) {
                     ((ViewHolder) holder).tvBankAccount.setText(orderListItem.getBankCode());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvBankAccount.setText("暂无");
+                }
+
+                if (!TextUtils.isEmpty(orderListItem.getContentrs())){
+                    ((ViewHolder) holder).btnComplain.setText("查看投诉");
+                    ((ViewHolder) holder).btnComplain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DialogCreater.createTipsDialog(context,"投诉内容",orderListItem.getContentrs(),"确定",false,null).show();
+                        }
+                    });
+                }else {
+                    ((ViewHolder) holder).btnComplain.setText("投诉他人");
+                    ((ViewHolder) holder).btnComplain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            View view = inflater.inflate(R.layout.dialog_complain,null);
+                            AlertDialog alertDialog = DialogCreater.showSelfDefineDialog(context,true,"投诉",view);
+                            alertDialog.show();
+                            EditText etComplainContent = view.findViewById(R.id.et_complain_content);
+                            Button btnSubmit = view.findViewById(R.id.btn_submit);
+                            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String tvContent = etComplainContent.getText().toString();
+                                    if (tvContent.length()<=50&&tvContent.length()>0){
+                                        RequestParams params = new RequestParams();
+                                        params.addFormDataPart("orderID",orderListItem.getID());
+                                        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+                                        params.addFormDataPart("value",tvContent);
+                                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.SELLERCOMPLAINSBUYER, params, new CCFHttpRequestCallback() {
+                                            @Override
+                                            protected void onDataSuccess(JSONObject data) {
+                                                EventBus.getDefault().post(new ReceiveComplainEvent(0,"投诉成功，请等待处理!"));
+                                                alertDialog.cancel();
+                                            }
+
+                                            @Override
+                                            protected void onDataError(int code, boolean flag, String msg) {
+                                                EventBus.getDefault().post(new ReceiveComplainEvent(code,msg));
+                                                alertDialog.cancel();
+                                            }
+                                        });
+
+                                    }else {
+                                        if (tvContent.length()==0){
+                                            EventBus.getDefault().post(new ErrorMessageEvent("投诉内容不能为空"));
+                                        }else {
+                                            EventBus.getDefault().post(new ErrorMessageEvent("投诉内容不能超过50字"));
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             }
         }
@@ -199,6 +265,8 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
         TextView tvWeixinAccount;
         @BindView(R.id.tv_bank_account)
         TextView tvBankAccount;
+        @BindView(R.id.btn_complain)
+        Button btnComplain;//投诉
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

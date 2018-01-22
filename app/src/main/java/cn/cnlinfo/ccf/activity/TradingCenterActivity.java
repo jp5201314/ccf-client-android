@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import cn.cnlinfo.ccf.adapter.TradingListItemAdapter;
 import cn.cnlinfo.ccf.event.CloseActivityEvent;
 import cn.cnlinfo.ccf.mvc.datasource.TradingListDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
+import cn.cnlinfo.ccf.view.RecyclerViewDivider;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 public class TradingCenterActivity extends BaseActivity {
@@ -65,6 +67,7 @@ public class TradingCenterActivity extends BaseActivity {
         mRv.setHasFixedSize(true);
         mRv.setNestedScrollingEnabled(false);
         mRv.setLayoutManager(new LinearLayoutManager(this));
+        mRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayout.HORIZONTAL,12,getResources().getColor(R.color.color_gray_e1e1e1)));
         mvcHelper = new MVCUltraHelper(mPfl);
         mvcHelper.setDataSource(new TradingListDataSource("where TranType=1 and Status=1"));
         adapter = new TradingListItemAdapter(this,1);

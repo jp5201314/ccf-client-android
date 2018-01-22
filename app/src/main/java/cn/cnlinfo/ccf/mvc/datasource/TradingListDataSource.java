@@ -22,7 +22,7 @@ import cn.finalteam.okhttpfinal.RequestParams;
  */
 
 public class TradingListDataSource implements IAsyncDataSource<List<TradingListItem>> {
-    private int num = 5;
+    private int num = 10;
     private int page = 1;
     private int maxPage;
     private String tradingStatus;
