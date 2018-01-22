@@ -71,7 +71,7 @@ public class DateUtil {
 
     //Date或者String转化为时间戳
     public static long dateToTimestamp(String time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.CHINA);
         Date date = null;
         try {
             date = format.parse(time);
