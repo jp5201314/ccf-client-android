@@ -2,7 +2,6 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +10,17 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IDataAdapter;
 import com.shizhefei.mvc.MVCHelper;
@@ -32,30 +42,20 @@ import cn.cnlinfo.ccf.mvc.datasource.PriceChartDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.cnlinfo.ccf.view.DataValueFormatter;
+import cn.cnlinfo.ccf.view.MyMarkerView;
+import cn.cnlinfo.ccf.view.MyYValueFormatter;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import lecho.lib.hellocharts.formatter.SimpleAxisValueFormatter;
-import lecho.lib.hellocharts.gesture.ContainerScrollType;
-import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.model.Viewport;
-import lecho.lib.hellocharts.view.LineChartView;
 
 /**
  * Created by JP on 2017/10/11 0011.
+ * http://www.cnblogs.com/wangfeng520/p/5984077.html  MPAndroidChart
  */
 
-public class TradingCenterFragment extends BaseFragment implements View.OnClickListener {
+public class TradingCenterFragment extends BaseFragment implements View.OnClickListener, OnChartValueSelectedListener {
 
-    @BindView(R.id.chart_top)
-    LineChartView chartTop;
     @BindView(R.id.sp_hang_sell_type)
     Spinner spHangSellType;
     @BindView(R.id.et_num)
@@ -66,13 +66,13 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     Button btnEnterTradingPlatform;
     @BindView(R.id.ptr)
     PtrClassicFrameLayout ptr;
+    @BindView(R.id.spread_pie_chart)
+    LineChart spreadPieChart;
     private Unbinder unbinder;
-    String[] date;//X轴的标注
-    Float[] score;//图表的数据点,y轴的数据标注
-    private List<PointValue> mPointValues = new ArrayList<PointValue>();
-    private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
     private int type = 0;
     private MVCHelper mvcHelper;
+    private ArrayList<String> xVals;
+    private ArrayList<Entry> entryArrayList;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -80,6 +80,9 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         setContentView(R.layout.fragment_trading_center);
         unbinder = ButterKnife.bind(this, getContentView());
         TCAgent.onPageStart(getActivity(), "交易中心");
+        xVals = new ArrayList<>();//x轴的数据集合
+        entryArrayList = new ArrayList<>();//y轴数据集合
+        setMPAndroidChart();
         getPriceList();//获取价格变动列表，绘制价格走势图
         startHangSellOrBuy();//挂卖/挂买
         setEditTextFocus(etNum);
@@ -88,7 +91,59 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
 
     }
 
-    private void getPriceList(){
+    //初始化MPAndroidChart
+    private void setMPAndroidChart() {
+        spreadPieChart.setOnChartValueSelectedListener(this);
+        spreadPieChart.setNoDataText("You need to provide data for the chart.");
+        spreadPieChart.setDrawBorders(false);//设置图表内格子外的边框是否显示
+        spreadPieChart.setPinchZoom(true);//挤压缩放为true
+        spreadPieChart.setDrawGridBackground(true);//是否绘制网格背景
+        spreadPieChart.setGridBackgroundColor(getContext().getResources().getColor(R.color.color_gray_e1e1e1));//网格背景颜色
+        spreadPieChart.setDrawMarkerViews(true);
+        spreadPieChart.setScaleYEnabled(true);//设置是否能缩放
+        spreadPieChart.setDoubleTapToZoomEnabled(true);//双击缩放
+        spreadPieChart.setDescription("CCF\np/d");//描述语言
+        spreadPieChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//x轴位置
+        // create a custom MarkerView (extend MarkerView) and specify the layout
+        // to use for it
+        //自定义   MarkerView
+        MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view);
+
+        // define an offset to change the original position of the marker
+        // (optional)
+        // mv.setOffsets(-mv.getMeasuredWidth() / 2, -mv.getMeasuredHeight());
+
+        // set the marker to the chart
+        spreadPieChart.setMarkerView(mv);
+        Legend l = spreadPieChart.getLegend();//图例
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
+        l.setTextSize(10f);
+        l.setFormSize(10f); // set the size of the legend forms/shapes
+        l.setForm(Legend.LegendForm.CIRCLE);
+        l.setWordWrapEnabled(true);
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+
+        XAxis xl = spreadPieChart.getXAxis();
+        xl.setDrawLabels(true);//设置为true打开绘制轴的标签。
+        xl.setDrawAxisLine(true);//设置为true，绘制轴线
+        xl.setLabelRotationAngle(-20);//设置x轴字体显示角度
+        xl.setDrawGridLines(true);//是否画线
+        xl.setGridColor(getContext().getResources().getColor(R.color.color_gray_d8d8d8));
+
+
+        YAxis leftAxis = spreadPieChart.getAxisLeft();
+        leftAxis.setDrawLabels(true);//设置为true打开绘制轴的标签。
+        leftAxis.setDrawAxisLine(true);//设置为true，绘制轴线
+        leftAxis.setGridColor(getContext().getResources().getColor(R.color.color_gray_d8d8d8));
+        //leftAxis.setValueFormatter(new LargeValueFormatter());//
+        leftAxis.setValueFormatter(new MyYValueFormatter());//自定义y数据格式化方式
+        leftAxis.setDrawGridLines(true);//是否画线
+        leftAxis.setSpaceTop(30f);
+        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+        spreadPieChart.getAxisRight().setEnabled(false);//设置轴是否被绘制。默认绘制,false不会被绘制。
+    }
+
+    private void getPriceList() {
         mvcHelper = new MVCUltraHelper<List<ItemPriceListEntity>>(ptr);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new PriceChartDataSource());
@@ -96,7 +151,28 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
             @Override
             public void notifyDataChanged(List<ItemPriceListEntity> itemPriceListEntities, boolean isRefresh) {
                 Logger.d(itemPriceListEntities.toString());
-                getDayOfMonth(itemPriceListEntities);
+
+                for (int i = 0; i < itemPriceListEntities.size(); i++) {
+                    xVals.add(itemPriceListEntities.get(i).getAddTime());
+                    entryArrayList.add(new BarEntry((float) itemPriceListEntities.get(i).getPrice(), i));
+                }
+                LineDataSet lineDataSet = new LineDataSet(entryArrayList, "价格p(美金)");
+                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(lineDataSet);
+                LineData data = new LineData(xVals, dataSets);
+                 //data.setValueFormatter(new LargeValueFormatter());
+                data.setValueFormatter(new DataValueFormatter());//设置数据显示格式
+                // add space between the dataset groups in percent of bar-width
+                // data.setValueFormatter(new CustomerValueFormatter());
+                data.setDrawValues(true);
+                data.setValueTextColor(Color.BLACK);
+                data.setValueTextSize(13);
+                //data.setValueTypeface(tf);
+
+                spreadPieChart.setData(data);
+                spreadPieChart.animateXY(800, 800);//图表数据显示动画
+                spreadPieChart.setVisibleXRangeMaximum(15);//设置屏幕显示条数
+                spreadPieChart.invalidate();
             }
 
             @Override
@@ -112,6 +188,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         mvcHelper.refresh();
 
     }
+
     /**
      * 开始挂卖/挂买
      */
@@ -130,99 +207,6 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         });
     }
 
-    /**
-     * 设置X 轴的显示
-     */
-    private void getAxisXLables() {
-        for (int i = 0; i < date.length; i++) {
-            Logger.d(date[i].toString());
-            mAxisXValues.add(new AxisValue(i).setLabel(date[i]));
-        }
-    }
-
-    /**
-     * 图表的每个点的显示
-     */
-    private void getAxisPoints() {
-        for (int i = 0; i < score.length; i++) {
-            Logger.d(score[i]);
-            mPointValues.add(new PointValue(i, score[i]));
-        }
-    }
-
-
-    private void initLineChart() {
-        Line line = new Line(mPointValues).setColor(getResources().getColor(R.color.color_blue_33b5e5));  //折线的颜色（橙色）
-        List<Line> lines = new ArrayList<Line>();
-        line.setShape(ValueShape.DIAMOND);//折线图上每个数据点的形状  这里是圆形 （有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
-        line.setCubic(true);//曲线是否平滑，即是曲线还是折线
-        line.setFilled(false);//是否填充曲线的面积
-        //line.setHasLabels(true);//曲线的数据坐标是否加上备注
-//      line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
-        line.setHasLines(true);//是否用线显示。如果为false 则没有曲线只有点显示
-        line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
-        lines.add(line);
-        LineChartData data = new LineChartData();
-        data.setLines(lines);
-
-        //坐标轴
-        Axis axisX = new Axis(); //X轴
-        axisX.setHasTiltedLabels(true);  //X坐标轴字体是斜的显示还是直的，true是斜的显示
-        axisX.setTextColor(Color.BLACK);  //设置字体颜色
-        axisX.setName("时间/天");  //表格名称
-        axisX.setTextSize(15);//设置字体大小
-        axisX.setMaxLabelChars(8); //最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length
-        axisX.setValues(mAxisXValues);  //填充X轴的坐标名称
-        data.setAxisXBottom(axisX); //x 轴在底部
-        //data.setAxisXTop(axisX);  //x 轴在顶部
-        axisX.setHasLines(true); //x 轴分割线,设置是否显示坐标网格。
-        //axisX.setInside(true);//设置是否将轴坐标的值显示在图表内侧。
-        //axisX.setAutoGenerated(true);//设置是否自动生成轴对象，自动适应表格的范围。
-        axisX.setHasSeparationLine(true);//设置是否显示轴标签与图表之间的分割线
-        // Y轴是根据数据的大小自动设置Y轴上限(在下面我会给出固定Y轴数据个数的解决方案)
-        Axis axisY = new Axis().setHasLines(true);  //Y轴
-        axisY.setName("价格P(美金)");//y轴标注
-        axisY.setTextSize(10);//设置字体大小
-        axisY.setTextColor(Color.BLACK);
-        //axisY.setInside(true);//设置是否将轴坐标的值显示在图表内侧。
-        axisY.setAutoGenerated(true);//设置是否自动生成轴对象，自动适应表格的范围。
-        axisY.setHasSeparationLine(true);//设置是否显示轴标签与图表之间的分割线
-        axisY.setFormatter(new SimpleAxisValueFormatter());//标签返回的数据格式
-        data.setAxisYLeft(axisY);  //Y轴设置在左边
-        //data.setAxisYRight(axisY);  //y轴设置在右边
-        data.setBaseValue(Float.NEGATIVE_INFINITY);
-        data.setValueLabelTypeface(Typeface.defaultFromStyle(Typeface.BOLD));//设置标签文字字体
-        data.setValueLabelBackgroundAuto(true);//设置是否自动绘制标签背景
-
-        //设置行为属性，支持缩放、滑动以及平移
-        chartTop.setInteractive(true);
-        chartTop.setZoomType(ZoomType.HORIZONTAL);
-        chartTop.setMaxZoom((float) 2);//最大放大比例
-        chartTop.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
-        chartTop.setLineChartData(data);
-        chartTop.setVisibility(View.VISIBLE);
-        /**注：下面的7，10只是代表一个数字去类比而已
-         * 当时是为了解决X轴固定数据个数。见（http://forum.xda-developers.com/tools/programming/library-hellocharts-charting-library-t2904456/page2）;
-         */
-        Viewport v = new Viewport(chartTop.getMaximumViewport());
-        v.left = 0;
-        v.right = 10;
-        chartTop.setCurrentViewport(v);
-
-        chartTop.setOnValueTouchListener(new LineChartOnValueSelectListener() {
-            @Override
-            public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-                Logger.d(lineIndex + ":" + pointIndex);
-                Logger.d(date[pointIndex] + "ccf的价格为  " + value.getY());
-                toast(date[pointIndex] + "ccf的价格为  " + value.getY()+"美元");
-            }
-
-            @Override
-            public void onValueDeselected() {
-
-            }
-        });
-    }
 
     @Override
     protected void onDestroyViewLazy() {
@@ -233,22 +217,6 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         HttpRequest.cancel(Constant.PRICE_LIST_HOST + API.PRICELIST);
     }
 
-    /*
-    *
-     * 根据当前月份获取当前月份的天数
-     * @return
-    */
-    private void getDayOfMonth(List<ItemPriceListEntity> itemPriceListEntities) {
-        date = new String[itemPriceListEntities.size()];
-        score = new Float[itemPriceListEntities.size()];
-        for (int i = 0; i < itemPriceListEntities.size(); i++) {
-            date[i] = itemPriceListEntities.get(i).getAddTime();
-            score[i] = (float) itemPriceListEntities.get(i).getPrice();
-        }
-        getAxisXLables();//获取x轴的标注
-        getAxisPoints();//获取坐标点
-        initLineChart();
-    }
 
     @Override
     public void onClick(View v) {
@@ -303,6 +271,17 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
             default:
                 break;
         }
+    }
+
+    //选择图表上的值的具体值
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+        //toast(xVals.get(e.getXIndex())+"的ccf价格为:"+e.getVal()+"$");
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Logger.d("Nothing selected");
     }
 
 }
