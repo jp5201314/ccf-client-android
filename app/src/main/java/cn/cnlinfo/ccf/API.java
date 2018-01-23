@@ -224,4 +224,8 @@ public class API {
      * 订单记录
      */
     public static final String ORDERLISTRECORD = "GetAuctionOrderList";
+    /**
+     * ccf价格浮动列表地址
+     */
+    public static final String PRICELIST = "GetPriceList";
 }

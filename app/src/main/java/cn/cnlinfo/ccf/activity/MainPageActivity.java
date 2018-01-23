@@ -309,6 +309,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
             alertDialog = null;
         }
         TCAgent.onPageEnd(this, "主页");
+        vp = null;
     }
 
     @Override

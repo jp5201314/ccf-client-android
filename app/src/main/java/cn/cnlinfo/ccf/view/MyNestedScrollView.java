@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-import com.orhanobut.logger.Logger;
-
 /**
  * Created by cj on 2016/9/20.
  */
@@ -41,13 +39,11 @@ public class MyNestedScrollView extends NestedScrollView {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) e.getRawX();
                 downY = (int) e.getRawY();
-                Logger.d(downX+":"+downY);
                 break;
                 case MotionEvent.ACTION_MOVE:
                     int moveY = (int) e.getRawY();
                     if (Math.abs(moveY - downY) > mTouchSlop) {
-                        Logger.d(moveY+":"+downY+":"+mTouchSlop);
-                        return false;
+                        return true;
                     }
         }
         return super.onInterceptTouchEvent(e);
