@@ -130,11 +130,11 @@
                     android:layout_gravity="end"
                     android:layout_margin="9dp"
                     android:text="ccf实时价格走势图" />
-                <lecho.lib.hellocharts.view.LineChartView
-                    android:id="@+id/chart_top"
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/spread_pie_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="512dp"
-                    android:layout_marginBottom="72dp" />
+                    android:layout_height="720dp"
+                    android:layout_above="@+id/seekBar1"/>
             </LinearLayout>
         </cn.cnlinfo.ccf.view.MyNestedScrollView>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
