@@ -18,7 +18,7 @@ public class DataValueFormatter implements ValueFormatter {
     public DataValueFormatter() {
         //保留三位小数点
         mFormat = new DecimalFormat("###,###,##0.000$");
-        //mFormat = new DecimalFormat("#.###E0$");
+        //mFormat = new DecimalFormat("#.###E0$");//科学计数法
 
     }
     @Override

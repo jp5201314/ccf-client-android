@@ -98,7 +98,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         spreadPieChart.setDrawBorders(false);//设置图表内格子外的边框是否显示
         spreadPieChart.setPinchZoom(true);//挤压缩放为true
         spreadPieChart.setDrawGridBackground(true);//是否绘制网格背景
-        spreadPieChart.setGridBackgroundColor(getContext().getResources().getColor(R.color.color_gray_e1e1e1));//网格背景颜色
+        spreadPieChart.setGridBackgroundColor(getContext().getResources().getColor(R.color.color_black_0e1214_alpha_75));//网格背景颜色
         spreadPieChart.setDrawMarkerViews(true);
         spreadPieChart.setScaleYEnabled(true);//设置是否能缩放
         spreadPieChart.setDoubleTapToZoomEnabled(true);//双击缩放
@@ -117,7 +117,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         spreadPieChart.setMarkerView(mv);
         Legend l = spreadPieChart.getLegend();//图例
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
-        l.setTextSize(10f);
+        l.setTextSize(10f);//set the size of text
         l.setFormSize(10f); // set the size of the legend forms/shapes
         l.setForm(Legend.LegendForm.CIRCLE);
         l.setWordWrapEnabled(true);
@@ -128,13 +128,17 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         xl.setDrawAxisLine(true);//设置为true，绘制轴线
         xl.setLabelRotationAngle(-20);//设置x轴字体显示角度
         xl.setDrawGridLines(true);//是否画线
-        xl.setGridColor(getContext().getResources().getColor(R.color.color_gray_d8d8d8));
+        xl.setTextColor(getContext().getResources().getColor(R.color.color_black_0e1214));//设置x轴文字的颜色
+        xl.setAxisLineColor(getContext().getResources().getColor(R.color.color_red_fe4a4a));//设置x轴线的颜色
+        xl.setGridColor(getContext().getResources().getColor(R.color.color_red_fe4a4a));//设置x轴网格线颜色
 
 
         YAxis leftAxis = spreadPieChart.getAxisLeft();
         leftAxis.setDrawLabels(true);//设置为true打开绘制轴的标签。
         leftAxis.setDrawAxisLine(true);//设置为true，绘制轴线
-        leftAxis.setGridColor(getContext().getResources().getColor(R.color.color_gray_d8d8d8));
+        leftAxis.setTextColor(getContext().getResources().getColor(R.color.color_black_0e1214));//设置y轴文字的颜色
+        leftAxis.setAxisLineColor(getContext().getResources().getColor(R.color.color_red_fe4a4a));//设置y轴线的颜色
+        leftAxis.setGridColor(getContext().getResources().getColor(R.color.color_red_fe4a4a));//设置y轴网格线颜色
         //leftAxis.setValueFormatter(new LargeValueFormatter());//
         leftAxis.setValueFormatter(new MyYValueFormatter());//自定义y数据格式化方式
         leftAxis.setDrawGridLines(true);//是否画线
@@ -143,6 +147,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         spreadPieChart.getAxisRight().setEnabled(false);//设置轴是否被绘制。默认绘制,false不会被绘制。
     }
 
+    //set the chart of ccf's price
     private void getPriceList() {
         mvcHelper = new MVCUltraHelper<List<ItemPriceListEntity>>(ptr);
         mvcHelper.setNeedCheckNetwork(true);
@@ -165,7 +170,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                 // add space between the dataset groups in percent of bar-width
                 // data.setValueFormatter(new CustomerValueFormatter());
                 data.setDrawValues(true);
-                data.setValueTextColor(Color.BLACK);
+                data.setValueTextColor(Color.WHITE);
                 data.setValueTextSize(13);
                 //data.setValueTypeface(tf);
 
