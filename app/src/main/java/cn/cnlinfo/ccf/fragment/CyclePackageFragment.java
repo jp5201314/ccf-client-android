@@ -20,7 +20,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.NormalDialog;
+import com.lljjcoder.citylist.Toast.ToastUtils;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +34,10 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.Exchangepackageinfo;
 import cn.cnlinfo.ccf.entity.Userstep;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.service.StepService;
@@ -87,6 +94,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private boolean isBind = false;
     private Animatable animatable;
     private Intent intent;
+    private NormalDialog dialog;//显示认证循环包的dialog
 
    /* @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -195,7 +203,8 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                     Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
                     if (userstep != null) {
                         tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(), userstep.getRanking()));
-                        tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(), userstep.getPraise()));
+                       // tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(), userstep.getPraise()));
+                        tvPraiseNum.setVisibility(View.GONE);//暂时把“赞”隐藏
                         if (!TextUtils.isEmpty(userstep.getF())) {
                             tvBasicContributeValue.setText(userstep.getF());
                         }
@@ -306,6 +315,10 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         super.onDestroyViewLazy();
         Logger.d("onDestroyViewLazy");
         unbinder.unbind();
+        //取消Http请求
+        HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE);
+        HttpRequest.cancel(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP);
+        HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK);
     }
 
     @Override
@@ -339,7 +352,32 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                 toConversionCyclePack();
                 break;
             case R.id.btn_at_once_transform:
+                dialog = DialogCreater.createNormalDialog(getContext(), getContext().getResources().getString(R.string.approve_cycle_pack),getContext().getResources().getString(R.string.approve_tip_content), new OnBtnClickL() {
+                    @Override
+                    public void onBtnClick() {
+                        RequestParams params = new RequestParams();
+                        params.addFormDataPart("userID",UserSharedPreference.getInstance().getUser().getUserID());
+                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK, params, new CCFHttpRequestCallback() {
+                            @Override
+                            protected void onDataSuccess(JSONObject data) {
+                                ToastUtils.showShortToast(getContext(),"认证成功");
+                            }
 
+                            @Override
+                            protected void onDataError(int code, boolean flag, String msg) {
+                                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                            }
+
+                            @Override
+                            public void onFailure(int errorCode, String msg) {
+                                super.onFailure(errorCode, msg);
+                                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                            }
+                        });
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
                 break;
         }
     }

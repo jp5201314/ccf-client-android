@@ -120,6 +120,8 @@
         <item>挂卖</item>
         <item>挂买</item>
     </string-array>
-
+    
+    <string name="approve_cycle_pack">认证循环包</string>
+    <string name="approve_tip_content">每天认证的次数仅为1次,提前认证后的步行数无效!!!</string>
 
 </resources>

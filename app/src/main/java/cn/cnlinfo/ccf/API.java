@@ -228,4 +228,8 @@ public class API {
      * ccf价格浮动列表地址
      */
     public static final String PRICELIST = "GetPriceList";
+    /**
+     * 认证循环包
+     */
+    public static final String APPROVECYCLEPACK = "ManualAuthenticatLoopPack";
 }
