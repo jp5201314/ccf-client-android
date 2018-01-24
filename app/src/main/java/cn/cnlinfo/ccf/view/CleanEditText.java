@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
+
 import cn.cnlinfo.ccf.R;
 
 /**
@@ -19,6 +21,7 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
     private Drawable mClearDrawable;
     //EditText是否聚焦
     private boolean hasFocus = true;
+    private String tipMsg;
 
     public CleanEditText(Context context) {
         super(context);
@@ -28,6 +31,7 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
     public CleanEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
+        tipMsg = attrs.getAttributeValue("http://schemas.android.com/apk/res-auto","tipMessage");
     }
 
     public CleanEditText(Context context, AttributeSet attrs, int defStyle) {
@@ -61,6 +65,8 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
         Drawable right = (visible ? mClearDrawable : null);
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1],
                 right, getCompoundDrawables()[3]);
+        Logger.d(visible);
+
     }
 
     public boolean onTouchEvent(MotionEvent event) {

@@ -232,4 +232,12 @@ public class API {
      * 认证循环包
      */
     public static final String APPROVECYCLEPACK = "ManualAuthenticatLoopPack";
+    /**
+     * 获取设置个人信息处的基本个人信息
+     */
+    public static final String GETSETPERSONINFO = "GetPersonalinfo";
+    /**
+     * 更新个人基本信息
+     */
+    public static final String UPDATEPERSIONINFO = "UpdataUserinfo";
 }

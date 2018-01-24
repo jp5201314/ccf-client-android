@@ -57,7 +57,7 @@ public class CallBackByPhoneNumFragment extends BaseFragment implements View.OnC
      */
     private void gainMessageCode(){
         phoneNum = etPhoneNum.getText().toString();
-        if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.verifyPhoneNumFormat(phoneNum)) {
+        if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.isLegalPhoneNum(phoneNum)) {
             GetMessageCode.startTimer(btnGetVerificationCode);
             RequestParams params = new RequestParams();
             params.addFormDataPart("phone",phoneNum);

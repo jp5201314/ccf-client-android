@@ -103,7 +103,7 @@ public class ForeignTransferActivity extends BaseActivity {
         String transNum = etTransferNumber.getText().toString();
         String safePass = etSafePass.getText().toString();
         if (accounrNum.length()==11){
-            if(!EditTextInputFormatUtil.verifyPhoneNumFormat(accounrNum)){
+            if(!EditTextInputFormatUtil.isLegalPhoneNum(accounrNum)){
                 showWaitingDialog(false);
                 return;
             }

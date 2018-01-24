@@ -95,7 +95,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.btn_get_verification_code:
                 phoneNum = etPhoneNum.getText().toString();
-                if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.verifyPhoneNumFormat(phoneNum)) {
+                if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.isLegalPhoneNum(phoneNum)) {
                     GetMessageCode.startTimer(btnGetVerificationCode);
                     RequestParams params = new RequestParams();
                     params.addFormDataPart("phone",phoneNum);

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="cn.cnlinfo.ccf.view.CleanEditText">
+        <attr name="tipMessage" format="string"></attr>
+    </declare-styleable>
+</resources>
