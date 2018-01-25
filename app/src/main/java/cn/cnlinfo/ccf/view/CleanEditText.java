@@ -4,14 +4,16 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.orhanobut.logger.Logger;
+import com.lljjcoder.citylist.Toast.ToastUtils;
 
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.utils.EditTextInputFormatUtil;
 
 /**
  * Created by cuijing on 2017/3/7.
@@ -21,7 +23,8 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
     private Drawable mClearDrawable;
     //EditText是否聚焦
     private boolean hasFocus = true;
-    private String tipMsg;
+    private int tipMsg;
+    private String type;
 
     public CleanEditText(Context context) {
         super(context);
@@ -30,12 +33,15 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
 
     public CleanEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
+        tipMsg = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res-auto","tipMessage",0);
+        type = attrs.getAttributeValue("http://schemas.android.com/apk/res-auto","type");
         init();
-        tipMsg = attrs.getAttributeValue("http://schemas.android.com/apk/res-auto","tipMessage");
     }
 
     public CleanEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        tipMsg = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res-auto","tipMessage",0);
+        type = attrs.getAttributeValue("http://schemas.android.com/apk/res-auto","type");
         init();//这个方法主要是初始化工作，比如将清除按钮画上去
     }
 
@@ -65,7 +71,6 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
         Drawable right = (visible ? mClearDrawable : null);
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1],
                 right, getCompoundDrawables()[3]);
-        Logger.d(visible);
 
     }
 
@@ -94,6 +99,27 @@ public class CleanEditText extends AppCompatEditText implements View.OnFocusChan
             setClearIconVisible(getText().length() > 0);//获取焦点且长度大于0时，清除图标显示
         } else {
             setClearIconVisible(false);
+            //失去焦点验证输入内容是否合法
+            if (getText().length()>0){
+                if (!TextUtils.isEmpty(type)){
+                    if (type.equals("phone")){
+                        if(!EditTextInputFormatUtil.isLegalPhoneNum(getText().toString())){
+                            ToastUtils.showShortToast(getContext(),getResources().getString(tipMsg));
+                            return;
+                        }
+                    }else if (type.equals("id")){
+                        if (!EditTextInputFormatUtil.isLegalId(getText().toString())){
+                            ToastUtils.showShortToast(getContext(),getResources().getString(tipMsg));
+                            return;
+                        }
+                    }else if (type.equals("bank_num")){
+                        if (!EditTextInputFormatUtil.isBankCard(getText().toString())){
+                            ToastUtils.showShortToast(getContext(),getResources().getString(tipMsg));
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
     }

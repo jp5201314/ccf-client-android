@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -21,6 +20,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
+import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
@@ -30,11 +30,11 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class LoginRegisterActivity extends BaseActivity {
     @BindView(R.id.et_username)
-    EditText etUsername;
+    CleanEditText etUsername;
     @BindView(R.id.et_password)
-    EditText etPassword;
+    CleanEditText etPassword;
     @BindView(R.id.et_verification_code)
-    EditText etVerificationCode;
+    CleanEditText etVerificationCode;
     @BindView(R.id.tv_get_verification_code)
     TextView tvGetVerificationCode;
     @BindView(R.id.btn_login)
@@ -61,13 +61,12 @@ public class LoginRegisterActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
         //解决activity销毁后自定义view持有activity的引用发生内存泄漏
-        etUsername = null;
-        etPassword = null;
-        etVerificationCode = null;
-        Logger.d("onDestroy");
+        etUsername.removeTextChangedListener(etUsername);
+        etPassword.removeTextChangedListener(etPassword);
+        etVerificationCode.removeTextChangedListener(etVerificationCode);
         HttpRequest.cancel(Constant.getHost() + API.CCFLOGIN);
+        unbinder.unbind();//解绑后对象自动为空 Logger.d(etUsername==null);true
     }
 
     public void toLogin(View view) {

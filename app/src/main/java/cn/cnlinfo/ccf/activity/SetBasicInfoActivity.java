@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lljjcoder.citylist.Toast.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,6 +25,7 @@ import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.entity.SetPersonInfo;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.utils.EditTextInputFormatUtil;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
@@ -72,8 +72,15 @@ public class SetBasicInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_basic_info);
         unbinder = ButterKnife.bind(this);
         tvTitle.setText("设置个人基本信息");
+        ibtBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         gainAndSetInfo();
         setSpinnerItemListener();
+
     }
 
     //设置spinner监听器
@@ -90,9 +97,6 @@ public class SetBasicInfoActivity extends BaseActivity {
             }
         });
     }
-
-    //设置编辑框的监听
-
 
     //获取并设置个人信息
     private void gainAndSetInfo() {
@@ -138,6 +142,18 @@ public class SetBasicInfoActivity extends BaseActivity {
                 !TextUtils.isEmpty(etAccountAddress.getText().toString())&& !TextUtils.isEmpty(etBankCardNumber.getText().toString())&&
                 !TextUtils.isEmpty(etAlipayAccountNumber.getText().toString()) &&!TextUtils.isEmpty(etAlipayNickname.getText().toString())&&
                 !TextUtils.isEmpty(etWechatNumber.getText().toString())&& !TextUtils.isEmpty(etWechatNickname.getText().toString())){
+            if (!EditTextInputFormatUtil.isLegalPhoneNum(etPhoneNum.getText().toString())){
+                toast(getResources().getString(R.string.id_tip));
+                return;
+            }
+            if (!EditTextInputFormatUtil.isLegalId(etIdNumber.getText().toString())){
+                toast(getResources().getString(R.string.id_tip));
+                return;
+            }
+            if (!EditTextInputFormatUtil.isBankCard(etBankCardNumber.getText().toString())){
+                toast(getResources().getString(R.string.bank_num_tip));
+                return;
+            }
             RequestParams params = new RequestParams();
             params.addFormDataPart("userid",UserSharedPreference.getInstance().getUser().getUserID());
             params.addFormDataPart("username",etName.getText().toString());
@@ -154,7 +170,7 @@ public class SetBasicInfoActivity extends BaseActivity {
             HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.UPDATEPERSIONINFO, params, new CCFHttpRequestCallback() {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
-                    ToastUtils.showShortToast(SetBasicInfoActivity.this,"更新成功");
+                    toast("更新成功");
                 }
 
                 @Override
@@ -176,7 +192,8 @@ public class SetBasicInfoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
         HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETSETPERSONINFO);
+        HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.UPDATEPERSIONINFO);
+        unbinder.unbind();
     }
 }

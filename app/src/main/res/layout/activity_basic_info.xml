@@ -72,7 +72,8 @@
                     android:gravity="center"
                     android:hint="11位手机号"
                     android:digits="@string/input_impose_num"
-                    jp:tipMessage = "手机号格式不正确，请重新输入"
+                    jp:tipMessage = "@string/phone_tip"
+                    jp:type = "phone"
                     android:inputType="text"
                     android:maxLength="11"
                     android:maxLines="1"
@@ -128,7 +129,8 @@
                     android:digits="@string/input_impose_num_upper_case"
                     android:inputType="text"
                     android:maxLength="18"
-                    jp:tipMessage = "证件号格式不正确，请重新输入"
+                    jp:tipMessage = "@string/id_tip"
+                    jp:type="id"
                     android:maxLines="1"
                     style="@style/text_0e1214_15"
                     />
@@ -213,9 +215,10 @@
                     android:gravity="center"
                     android:hint="银行卡号"
                     style="@style/text_0e1214_15"
-                    jp:tipMessage = "银行卡号格式不正确，请重新输入"
+                    jp:tipMessage = "@string/bank_num_tip"
+                    jp:type="bank_num"
                     android:inputType="text"
-                    android:maxLength="21"
+                    android:maxLength="18"
                     android:maxLines="1"
                     />
             </LinearLayout>

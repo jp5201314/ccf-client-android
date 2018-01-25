@@ -27,7 +27,7 @@
                 android:textColor="@color/color_blue_33b5e5"
                 />
 
-            <EditText
+            <cn.cnlinfo.ccf.view.CleanEditText
                 android:id="@+id/et_help_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +35,7 @@
                 android:lines="5"
                 android:gravity="top"
                 android:padding="9dp"
+                android:maxLength="200"
                 android:hint="您的宝贵意见，就是我们进步的源泉！！"
                 android:background="@drawable/edit_text_style"
                 />

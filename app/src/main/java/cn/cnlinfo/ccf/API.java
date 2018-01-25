@@ -240,4 +240,8 @@ public class API {
      * 更新个人基本信息
      */
     public static final String UPDATEPERSIONINFO = "UpdataUserinfo";
+    /**
+     * 用户留言
+     */
+    public static final String USERLEAVEMESSAGE = "UserLeave";
 }

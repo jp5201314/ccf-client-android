@@ -124,4 +124,7 @@
     <string name="approve_cycle_pack">认证循环包</string>
     <string name="approve_tip_content">每天认证的次数仅为1次,提前认证后的步行数无效!!!</string>
 
+    <string name="phone_tip">手机号格式不正确，请重新输入</string>
+    <string name="id_tip">证件号格式不正确，请重新输入</string>
+    <string name="bank_num_tip">银行卡号格式不正确，请重新输入</string>
 </resources>
