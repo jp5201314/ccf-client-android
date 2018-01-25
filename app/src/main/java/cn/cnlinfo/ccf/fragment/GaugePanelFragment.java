@@ -18,14 +18,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.activity.CCPublicBenefitActivity;
-import cn.cnlinfo.ccf.activity.CCServiceActivity;
 import cn.cnlinfo.ccf.activity.ContributionMapActivity;
-import cn.cnlinfo.ccf.activity.ConversionCenterActivity;
 import cn.cnlinfo.ccf.activity.ForeignTransferActivity;
 import cn.cnlinfo.ccf.activity.InternalTransferActivity;
 import cn.cnlinfo.ccf.activity.MyParameterActivity;
-import cn.cnlinfo.ccf.activity.OnlineServiceActivity;
 import cn.cnlinfo.ccf.activity.OrderCenterActivity;
 import cn.cnlinfo.ccf.activity.PlatformParameterActivity;
 import cn.cnlinfo.ccf.activity.RecommendNetActivity;
@@ -125,16 +121,20 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
                 startActivity(new Intent(getActivity(), RecordCenterActivity.class));
                 break;
             case 12:
-                startActivity(new Intent(getActivity(), CCPublicBenefitActivity.class));
+                //startActivity(new Intent(getActivity(), CCPublicBenefitActivity.class));
+                toast("用户等级不够");
                 break;
             case 13:
-                startActivity(new Intent(getActivity(), OnlineServiceActivity.class));
+                //startActivity(new Intent(getActivity(), OnlineServiceActivity.class));
+                toast("用户等级不够");
                 break;
             case 14:
-                startActivity(new Intent(getActivity(), CCServiceActivity.class));
+               // startActivity(new Intent(getActivity(), CCServiceActivity.class));
+                toast("用户等级不够");
                 break;
             case 15:
-                startActivity(new Intent(getActivity(), ConversionCenterActivity.class));
+                //startActivity(new Intent(getActivity(), ConversionCenterActivity.class));
+                toast("用户等级不够");
                 break;
         }
     }

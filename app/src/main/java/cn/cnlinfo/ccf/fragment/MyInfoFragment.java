@@ -137,6 +137,9 @@ public class MyInfoFragment extends BaseFragment {
                     if(!TextUtils.isEmpty(userDetail.getAliPayName())){
                         tvAlipayName.setText(userDetail.getAliPayName());
                     }
+                    if (!TextUtils.isEmpty(userDetail.getAliPay())){
+                        tvAlipayAccount.setText(userDetail.getAliPay());
+                    }
                     if(!TextUtils.isEmpty(userDetail.getWebChatName())){
                         tvWxNickname.setText(userDetail.getWebChatName());
                     }

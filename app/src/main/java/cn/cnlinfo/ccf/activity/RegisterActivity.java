@@ -2,9 +2,11 @@ package cn.cnlinfo.ccf.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -56,6 +58,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     TextView tvTitle;
     @BindView(R.id.ibt_add)
     ImageButton ibtAdd;
+    @BindView(R.id.cb_is_read)
+    CheckBox cbIsRead;
+    @BindView(R.id.tv_upgrade_agency_link)
+    TextView tvUpgradeAgencyLink;
     private String invitationCode;
     private String userName;
     private String loginPass;
@@ -73,8 +79,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         tvTitle.setText("注册");
         ibtAdd.setVisibility(View.INVISIBLE);
         setClickListener();
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
+        tvUpgradeAgencyLink.setText(charSequence);
+        tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, WebActivity.class);
+                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
+                startActivity(intent);
+            }
+        });
     }
 
+    //设置监听器
     private void setClickListener() {
         btnGetVerificationCode.setOnClickListener(this);
         btnRegisterUser.setOnClickListener(this);
@@ -82,6 +99,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    //点击注册初始化
     private void init() {
         invitationCode = etInvitationCode.getText().toString();
         userName = etUserName.getText().toString();
@@ -98,9 +116,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 if (!TextUtils.isEmpty(phoneNum) && phoneNum.length() == 11 && EditTextInputFormatUtil.isLegalPhoneNum(phoneNum)) {
                     GetMessageCode.startTimer(btnGetVerificationCode);
                     RequestParams params = new RequestParams();
-                    params.addFormDataPart("phone",phoneNum);
-                    params.addFormDataPart("codeid",3126312);
-                    HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST+API.SENDCODE,params,new BaseHttpRequestCallback(){
+                    params.addFormDataPart("phone", phoneNum);
+                    params.addFormDataPart("codeid", 3126312);//短信平台模板id
+                    HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.SENDCODE, params, new BaseHttpRequestCallback() {
                         @Override
                         public void onResponse(String response, Headers headers) {
                             JSONObject jsonObject = JSONObject.parseObject(response);
@@ -110,7 +128,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onFailure(int errorCode, String msg) {
                             super.onFailure(errorCode, msg);
-                            showMessage(errorCode,msg);
+                            showMessage(errorCode, msg);
                         }
                     });
                 } else {
@@ -121,7 +139,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 init();
                 if (!TextUtils.isEmpty(invitationCode) && !TextUtils.isEmpty(userName) && !TextUtils.isEmpty(loginPass) && !TextUtils.isEmpty(verifyPass) && !TextUtils.isEmpty(verificationCode) && !TextUtils.isEmpty(phoneNum)) {
                     if (loginPass.equals(verifyPass)) {
+                        if (cbIsRead.isChecked()){
                             startToRegister(userName, invitationCode, phoneNum, loginPass);
+                        }else {
+                            toast("请仔细阅读并同意代理协议");
+                        }
                     } else {
                         toast("两次输入的密码不一致,请重新输入!");
                         return;
@@ -130,9 +152,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     toast("输入框不能为空!");
                 }
                 break;
-                case R.id.ibt_back:
-                    finish();
-                    break;
+            case R.id.ibt_back:
+                finish();
+                break;
         }
     }
 
@@ -152,7 +174,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         okHttpPostRequestBuilder.put("strDirectAccounts", invitationCode);
         okHttpPostRequestBuilder.put("telephone", phoneNum);
         okHttpPostRequestBuilder.put("pwd", pwd);
-        okHttpPostRequestBuilder.put("code",code);
+        okHttpPostRequestBuilder.put("code", code);
         OKHttpManager.post(okHttpPostRequestBuilder, "register", new UiHandlerCallBack() {
             @Override
             public void success(JSONObject data) {

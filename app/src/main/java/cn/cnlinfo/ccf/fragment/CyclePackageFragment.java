@@ -202,7 +202,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                     Logger.d(data.toJSONString());
                     Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
                     if (userstep != null) {
-                        tvCurrentRank.setText(String.format(tvCurrentRank.getText().toString(), userstep.getRanking()));
+                        tvCurrentRank.setText("第"+userstep.getRanking()+"名");
                        // tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(), userstep.getPraise()));
                         tvPraiseNum.setVisibility(View.GONE);//暂时把“赞”隐藏
                         if (!TextUtils.isEmpty(userstep.getF())) {

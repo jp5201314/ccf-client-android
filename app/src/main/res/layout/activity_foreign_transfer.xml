@@ -18,12 +18,12 @@
         android:paddingRight="48dp"
         android:paddingTop="17dp">
 
-        <TextView
+      <!--  <TextView
             style="@style/text_0e1214_17"
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_level_height"
             android:text="对外互转" />
-
+-->
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,7 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,10 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.shizhefei.mvc.IDataAdapter;
-import com.shizhefei.mvc.ILoadViewFactory;
 import com.shizhefei.mvc.MVCHelper;
-import com.shizhefei.mvc.MVCNormalHelper;
-import com.shizhefei.mvc.OnRefreshStateChangeListener;
 
 import java.util.List;
 
@@ -23,9 +19,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.RunningRankAdapter;
 import cn.cnlinfo.ccf.entity.RunningRankEntity;
 import cn.cnlinfo.ccf.mvc.datasource.RunningRankDataSource;
-import cn.cnlinfo.ccf.mvc.factory.MyLoadViewFactory;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
-import cn.cnlinfo.ccf.view.RecyclerViewDivider;
 import cn.cnlinfo.ccf.view.SpacesItemDecoration;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
@@ -56,8 +50,8 @@ public class RunningRankActivity extends BaseActivity implements View.OnClickLis
         ibtBack.setOnClickListener(this);
         ibtAdd.setVisibility(View.INVISIBLE);
         tvTitle.setText("跑步排名");
-        MVCHelper.setLoadViewFractory(new MyLoadViewFactory());
-        this.setMaterialHeader(pfl);
+       // MVCHelper.setLoadViewFractory(new MyLoadViewFactory());
+       // this.setMaterialHeader(pfl);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setNestedScrollingEnabled(false);
         //rv.addItemDecoration(new RecyclerViewDivider(this,LinearLayoutManager.VERTICAL,8,ContextCompat.getColor(this, R.color.color_black_0e1214_alpha_75)));

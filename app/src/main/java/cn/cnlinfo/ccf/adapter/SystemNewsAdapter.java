@@ -61,7 +61,8 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> imple
         Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder1) {
             ItemNewsEntity itemNewsEntity = list.get(position);
-            ((ViewHolder1) holder).tvInfo.setText("系统公告");
+            //((ViewHolder1) holder).tvInfo.setText("系统公告");
+            ((ViewHolder1) holder).tvInfo.setVisibility(View.GONE);
             if (itemNewsEntity.getNewsId()!=0){
                 holder.itemView.setTag(itemNewsEntity.getNewsId());
                 ((ViewHolder1) holder).tvNewsId.setText(String.valueOf(itemNewsEntity.getNewsId()));

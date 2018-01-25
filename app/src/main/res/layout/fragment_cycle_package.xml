@@ -194,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="第%s名" />
+                    android:text="第0名" />
 
                 <TextView
                     android:id="@+id/tv_praise_num"
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="赞%s次" />
+                    android:text="赞0次" />
             </LinearLayout>
 
             <cn.cnlinfo.ccf.view.StepArcView

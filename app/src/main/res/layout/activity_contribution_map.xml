@@ -14,12 +14,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/ic_background">
-        <TextView
+       <!-- <TextView
             style="@style/text_0e1214_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
-            android:text="贡献图谱" />
+            android:text="贡献图谱" />-->
     <RelativeLayout
         android:id="@+id/rl_map"
         android:layout_width="300dp"

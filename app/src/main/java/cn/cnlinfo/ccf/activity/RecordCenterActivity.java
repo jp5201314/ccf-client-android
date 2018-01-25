@@ -49,6 +49,11 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         unbinder = ButterKnife.bind(this);
 
         tvTitle.setText("记录中心");
+        //隐藏
+        tvContributeValueRecord.setVisibility(View.GONE);
+        tvBasicContributionRateRecord.setVisibility(View.GONE);
+        tvEWalletRecord.setVisibility(View.GONE);
+
         setClickListener();
     }
 

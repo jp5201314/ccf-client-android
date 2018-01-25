@@ -43,7 +43,7 @@
                 android:layout_gravity="end|bottom"
                 android:layout_marginBottom="6dp"
                 android:layout_marginRight="10dp"
-                android:text="CC用户管理平台"
+                android:text="CCF用户管理平台"
                 android:textColor="@color/color_white_faf9f9"
                 android:textSize="12sp" />
         </FrameLayout>

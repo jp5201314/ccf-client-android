@@ -145,6 +145,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                         break;
                     case R.id.exit:
                         exit();
+                        finish();
                         break;
                     case R.id.setting:
                         startActivity(new Intent(MainPageActivity.this, SettingActivity.class));

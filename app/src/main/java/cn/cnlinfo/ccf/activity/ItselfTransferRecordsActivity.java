@@ -56,7 +56,7 @@ public class ItselfTransferRecordsActivity extends BaseActivity {
         getInTransferRecord();
     }
     private void getInTransferRecord(){
-        //MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());
+        //MVCHelper.setLoadViewFractory(new NormalNoLoadViewFactory());//只需要在一个地方设置，所有地方都可以用到这个设置
         //this.setMaterialHeader(pfl);
         rv.setLayoutManager(new FullyLinearLayoutManager(this));
         rv.setNestedScrollingEnabled(false);

@@ -19,6 +19,7 @@
         android:paddingRight="88dp"
         android:paddingBottom="17dp"
         android:orientation="vertical">
+<!--
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
             android:textSize="30sp"
             android:textColor="@color/color_black_0d0d0d"
             />
+-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -187,8 +189,25 @@
                     android:layout_marginLeft="18dp"
                     android:text="获取"/>
             </LinearLayout>
-        </LinearLayout>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="9dp">
+            <CheckBox
+                android:id="@+id/cb_is_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"/>
+            <TextView
+                android:id="@+id/tv_upgrade_agency_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
         <Button
             android:id="@+id/btn_register_user"
             android:layout_width="69dp"

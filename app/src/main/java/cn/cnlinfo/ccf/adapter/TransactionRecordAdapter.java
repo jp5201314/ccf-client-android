@@ -17,7 +17,7 @@ import cn.cnlinfo.ccf.entity.TransactionRecord;
 
 public class TransactionRecordAdapter extends BaseRecyclerAdapter<TransactionRecord>{
 
-    private static Context context;
+    private Context context;
 
     public TransactionRecordAdapter(Context context) {
         super(context);

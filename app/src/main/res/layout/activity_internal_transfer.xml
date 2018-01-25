@@ -20,13 +20,13 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <TextView
+      <!--  <TextView
             style="@style/text_0e1214_17"
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_level_height"
             android:text="内部互转" />
 
-
+-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

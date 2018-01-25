@@ -26,12 +26,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <include layout="@layout/item_image" />
-                <TextView
+             <!--   <TextView
                     style="@style/text_0e1214_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
-                    android:text="今日排行榜" />
+                    android:text="今日排行榜" />-->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
                     android:layout_width="match_parent"

@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
+       <!-- <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_level_height"
             android:text="平台参数"
             android:layout_marginLeft="18dp"
-            style="@style/text_0e1214_17" />
+            style="@style/text_0e1214_17" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

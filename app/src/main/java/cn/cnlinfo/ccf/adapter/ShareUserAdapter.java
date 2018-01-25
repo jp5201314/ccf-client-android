@@ -60,7 +60,8 @@ public class ShareUserAdapter extends BaseRecyclerAdapter<ShareUserEntity> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder1){
-            ((ViewHolder1) holder).tvInfo.setText("推荐人员层级列表");
+            //((ViewHolder1) holder).tvInfo.setText("推荐人员层级列表");
+            ((ViewHolder1) holder).tvInfo.setVisibility(View.GONE);//隐藏
             ShareUserEntity userEntity = list.get(position);
             if (!TextUtils.isEmpty(userEntity.getUserCode())) {
                 ((ViewHolder1) holder).mTvUserAccount.setText(userEntity.getUserCode());

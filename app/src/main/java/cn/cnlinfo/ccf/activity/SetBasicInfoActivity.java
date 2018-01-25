@@ -171,6 +171,7 @@ public class SetBasicInfoActivity extends BaseActivity {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
                     toast("更新成功");
+                    finish();
                 }
 
                 @Override
