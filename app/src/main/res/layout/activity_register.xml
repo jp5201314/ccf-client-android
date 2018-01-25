@@ -200,7 +200,8 @@
                 android:id="@+id/cb_is_read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"/>
+                android:layout_marginLeft="9dp"
+                android:checked="true"/>
             <TextView
                 android:id="@+id/tv_upgrade_agency_link"
                 android:layout_width="wrap_content"
