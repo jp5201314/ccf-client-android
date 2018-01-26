@@ -38,6 +38,7 @@ import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.ItemNewsEntity;
 import cn.cnlinfo.ccf.entity.PlatformInfo;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.utils.NetUtil;
 import cn.cnlinfo.ccf.view.UpDownTextView;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
@@ -88,7 +89,10 @@ public class MainPageInfoFragment extends BaseFragment {
     }
 
     private void init() {
-        showWaitingDialog(true);
+        //网络未连接，等待dialog不出现
+        if(NetUtil.isConnected(getContext())){
+            showWaitingDialog(true);
+        }
         setBannerData();
         setNoticeInfo();
         setAccountAnwserData();

@@ -42,9 +42,9 @@ public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferReco
             TransferRecordEntity transferRecordEntity = list.get(position);
             if (transferRecordEntity!=null){
                 if (!TextUtils.isEmpty(transferRecordEntity.getDateTime())){
-                    ((ViewHolder) holder).tvOutTransferTime.setText(transferRecordEntity.getDateTime());
+                    ((ViewHolder) holder).tvTime.setText(transferRecordEntity.getDateTime());
                 }else {
-                    ((ViewHolder) holder).tvOutTransferTime.setText("暂无");
+                    ((ViewHolder) holder).tvTime.setText("暂无");
                 }
                 if (!TextUtils.isEmpty(transferRecordEntity.getNum())){
                     ((ViewHolder) holder).tvNum.setText(transferRecordEntity.getNum());
@@ -81,8 +81,8 @@ public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferReco
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_out_transfer_time)
-        TextView tvOutTransferTime;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         @BindView(R.id.tv_num)
         TextView tvNum;
         @BindView(R.id.tv_transfer_send)

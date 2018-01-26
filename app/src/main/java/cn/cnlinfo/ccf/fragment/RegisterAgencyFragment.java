@@ -1,9 +1,7 @@
 package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,8 +13,6 @@ import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
 import com.orhanobut.logger.Logger;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,12 +62,13 @@ public class RegisterAgencyFragment extends BaseFragment {
     @BindView(R.id.tv_agency_address)
     TextView tvAgencyAddress;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register_agency, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_register_agency);
+        unbinder = ButterKnife.bind(this,getContentView());
         init();
-        return view;
     }
 
     private void init() {
@@ -160,8 +157,9 @@ public class RegisterAgencyFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
         unbinder.unbind();
     }
+
 }

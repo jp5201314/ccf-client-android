@@ -3,9 +3,12 @@ package cn.cnlinfo.ccf.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -75,7 +78,10 @@ public class WebActivity extends BaseActivity {
          * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
          */
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-
+        //设置WebView加载页面的模式
+       // webSettings.setLoadWithOverviewMode(true);
+        //设置是否使用WebView推荐使用的窗口
+        //webSettings.setUseWideViewPort(true);
         url = intent.getStringExtra("url");
       /*  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
             wv.addJavascriptInterface(new JsInterface(), "wv");
@@ -85,6 +91,7 @@ public class WebActivity extends BaseActivity {
         //wv.loadUrl("file:///android_asset/js_webView");
         wv.loadUrl(url);
        // wv.loadUrl("file:///android_asset/index.html");
+
         wv.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
@@ -126,10 +133,31 @@ public class WebActivity extends BaseActivity {
                 super.onPageFinished(view, url);
             }*/
 
+          //这种方式只支持android5.1及以上版本，在webview中跳转超链接，避免浏览器加载超链接
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                view.loadUrl(request.getUrl().toString());//不用系统默认浏览器
+                return true;
+            }
+
+            /**
+             * 过时的方法一般能够支持所有手机,这个方法支持android低版本和高版本
+             * @param view
+             * @param url
+             * @return
+             */
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);//不用系统默认浏览器
                 return true;
+            }
+
+
+            // 重写此方法可以让webview处理https请求
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, android.net.http.SslError error) {
+                handler.proceed();
             }
         });
 

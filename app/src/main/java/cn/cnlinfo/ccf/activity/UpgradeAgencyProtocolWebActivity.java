@@ -45,7 +45,6 @@ public class UpgradeAgencyProtocolWebActivity extends BaseActivity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         url = getIntent().getDataString();
-        Logger.d(url);
         wv.loadUrl(url);
         wv.setWebChromeClient(new WebChromeClient(){
             @Override

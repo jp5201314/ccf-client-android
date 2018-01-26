@@ -1,9 +1,7 @@
 package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,12 +55,13 @@ public class RegisterCustomerFragment extends BaseFragment {
     @BindView(R.id.tv_customer_address)
     TextView tvCustomerAddress;
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register_customer, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_register_customer);
+        unbinder = ButterKnife.bind(this,getContentView());
         init();
-        return view;
     }
 
     private void init() {
@@ -89,9 +88,10 @@ public class RegisterCustomerFragment extends BaseFragment {
             }
         });
     }
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestroyViewLazy() {
+        super.onDestroyViewLazy();
         unbinder.unbind();
     }
 

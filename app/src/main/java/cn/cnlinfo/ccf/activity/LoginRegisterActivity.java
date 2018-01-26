@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
@@ -18,6 +20,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.ObtainVerificationCode;
 import cn.cnlinfo.ccf.view.CleanEditText;
@@ -44,6 +47,8 @@ public class LoginRegisterActivity extends BaseActivity {
     @BindView(R.id.btn_forget_pass)
     Button btnForgetPass;
     private Unbinder unbinder;
+    private long exitTime = 0;
+    private long currentTime = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +61,23 @@ public class LoginRegisterActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setVerificationCode();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            currentTime = System.currentTimeMillis();
+            if ((currentTime - exitTime) > 2000) {
+                Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = currentTime;
+            } else {
+                AppManage.getInstance().finishOther();
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -168,7 +168,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         tvPackTime.setText(String.format(tvPackTime.getText().toString(), exchangepackageinfo.getPackTime()));
         tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(), exchangepackageinfo.getHaschange(), exchangepackageinfo.getResidue()));
         tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));
-        etConversionCyclePack.setHint(String.valueOf(exchangepackageinfo.getConvertible()));
+        etConversionCyclePack.setHint(String.valueOf(exchangepackageinfo.getConvertible()>0?exchangepackageinfo.getConvertible():0));//如果循环包为小于等于0则显示为0，大于0就显示原值
     }
 
     /**
