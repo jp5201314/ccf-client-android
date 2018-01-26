@@ -76,7 +76,6 @@ public class OrderCenterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_center);
-        ButterKnife.bind(this);
         unbinder = ButterKnife.bind(this);
         tvTitle.setText("订单中心");
         getCurrentOrderList();
@@ -161,6 +160,7 @@ public class OrderCenterActivity extends BaseActivity {
 
                     @Override
                     public void failed(int code, String msg) {
+
                         showMessage(code, msg);
                     }
                 });

@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.entity.ItemNewsEntity;
+import cn.cnlinfo.ccf.utils.DateUtil;
 
 /**
  * Created by Administrator on 2017/12/22 0022.
@@ -25,6 +26,7 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> imple
     private LayoutInflater inflater;
     private static final int VIEWTYPE1 = 0;
     private static final int VIEWTYPE2 = 1;
+
     public SystemNewsAdapter(Context context) {
         super(context);
         this.context = context;
@@ -58,52 +60,49 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> imple
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder1) {
             ItemNewsEntity itemNewsEntity = list.get(position);
-            //((ViewHolder1) holder).tvInfo.setText("系统公告");
-            ((ViewHolder1) holder).tvInfo.setVisibility(View.GONE);
-            if (itemNewsEntity.getNewsId()!=0){
-                holder.itemView.setTag(itemNewsEntity.getNewsId());
-                ((ViewHolder1) holder).tvNewsId.setText(String.valueOf(itemNewsEntity.getNewsId()));
-            }else {
-                ((ViewHolder1) holder).tvNewsId.setText("暂无");
-            }
-            if (!TextUtils.isEmpty(itemNewsEntity.getClassId())){
-                if (itemNewsEntity.getClassId()=="1"){
+            if (!TextUtils.isEmpty(String.valueOf(itemNewsEntity.getClassID()))) {
+                if (itemNewsEntity.getClassID()==2) {
                     ((ViewHolder1) holder).tvNewsType.setText("公告");
-                }else {
+                } else if (itemNewsEntity.getClassID()==1) {
                     ((ViewHolder1) holder).tvNewsType.setText("新闻");
                 }
-            }else {
+            } else {
                 ((ViewHolder1) holder).tvNewsType.setText("暂无");
             }
-            if (!TextUtils.isEmpty(itemNewsEntity.getSubject())){
+            if (!TextUtils.isEmpty(itemNewsEntity.getSubject())) {
                 ((ViewHolder1) holder).tvNewsSubject.setText(itemNewsEntity.getSubject());
-            }else {
+            } else {
                 ((ViewHolder1) holder).tvNewsSubject.setText("暂无");
+            }
+            if (!TextUtils.isEmpty(itemNewsEntity.getIssueDate())){
+                Logger.d(itemNewsEntity.getIssueDate());
+                ((ViewHolder1) holder).tvTime.setText(DateUtil.convert(itemNewsEntity.getIssueDate(),"yyyy/MM/dd HH:mm:ss","yyyy-MM-dd"));
+            }else {
+                ((ViewHolder1) holder).tvTime.setText("暂无");
             }
         } else {
             ItemNewsEntity itemNewsEntity = list.get(position);
-            if (itemNewsEntity.getNewsId()!=0){
-                holder.itemView.setTag(itemNewsEntity.getNewsId());
-                ((ViewHolder2) holder).tvNewsId.setText(String.valueOf(itemNewsEntity.getNewsId()));
-            }else {
-                ((ViewHolder2) holder).tvNewsId.setText("暂无");
-            }
-            if (!TextUtils.isEmpty(itemNewsEntity.getClassId())){
-                if (itemNewsEntity.getClassId()=="1"){
+
+            if (!TextUtils.isEmpty(String.valueOf(itemNewsEntity.getClassID()))) {
+                if (itemNewsEntity.getClassID()==2) {
                     ((ViewHolder2) holder).tvNewsType.setText("公告");
-                }else {
+                } else if (itemNewsEntity.getClassID()==1) {
                     ((ViewHolder2) holder).tvNewsType.setText("新闻");
                 }
-            }else {
+            } else {
                 ((ViewHolder2) holder).tvNewsType.setText("暂无");
             }
-            if (!TextUtils.isEmpty(itemNewsEntity.getSubject())){
+            if (!TextUtils.isEmpty(itemNewsEntity.getSubject())) {
                 ((ViewHolder2) holder).tvNewsSubject.setText(itemNewsEntity.getSubject());
-            }else {
+            } else {
                 ((ViewHolder2) holder).tvNewsSubject.setText("暂无");
+            }
+            if (!TextUtils.isEmpty(itemNewsEntity.getIssueDate())){
+                ((ViewHolder2) holder).tvTime.setText(DateUtil.convert(itemNewsEntity.getIssueDate(),"yyyy/MM/dd HH:mm:ss","yyyy-MM-dd"));
+            }else {
+                ((ViewHolder2) holder).tvTime.setText("暂无");
             }
         }
         holder.itemView.setTag(position);
@@ -111,19 +110,18 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> imple
 
     @Override
     public void onClick(View v) {
-        if (itemClickCallback!=null){
-            itemClickCallback.onItemClicked((int)v.getTag(),list.get((int)v.getTag()));
+        if (itemClickCallback != null) {
+            itemClickCallback.onItemClicked((int) v.getTag(), list.get((int) v.getTag()));
         }
     }
 
-
     class ViewHolder2 extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_news_id)
-        TextView tvNewsId;
         @BindView(R.id.tv_news_type)
         TextView tvNewsType;
         @BindView(R.id.tv_news_subject)
         TextView tvNewsSubject;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         public ViewHolder2(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -131,15 +129,12 @@ public class SystemNewsAdapter extends BaseRecyclerAdapter<ItemNewsEntity> imple
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_info)
-        TextView tvInfo;
-        @BindView(R.id.tv_news_id)
-        TextView tvNewsId;
         @BindView(R.id.tv_news_type)
         TextView tvNewsType;
         @BindView(R.id.tv_news_subject)
         TextView tvNewsSubject;
-
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         public ViewHolder1(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

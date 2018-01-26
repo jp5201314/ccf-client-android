@@ -27,6 +27,10 @@ public class API {
      * 注册
      */
     public static final String CCFREGISTER = "Register";
+    /**
+     * 注册成员
+     */
+    public static final String CCFREGISTERS = "Registers";
 
     /**
      * 设置密保
@@ -38,9 +42,13 @@ public class API {
     public static final String CCFVERFYENCRYPTED = "SecurityQuestionIsTrue";
 
     /**
-     * 重置密码
+     * 找回密码
      */
     public static final String CCFRESETPASSWORD = "ChangePwdByQuestion";
+    /**
+     * 更新密码
+     */
+    public static final String UPDATEPASSWORD = "ChangePassword";
     /**
      * 得到当前用户的贡献图
      */

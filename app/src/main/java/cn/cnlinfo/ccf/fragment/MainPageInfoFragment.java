@@ -114,7 +114,34 @@ public class MainPageInfoFragment extends BaseFragment {
                 accountAnswer = new ArrayList<>();
                 accountAnswer.add(accountInfo.getNickName());
                 accountAnswer.add(accountInfo.getUCode());
-                accountAnswer.add(String.valueOf(accountInfo.getInLevel()));
+                int level = accountInfo.getInLevel();
+                switch (level) {
+                    //用户级别是0，1，2，3，4，5总的套餐权值大于0则是普通用户
+                    case 0:
+                        if (accountInfo.getTotalMealWeight()>0){
+                            accountAnswer.add("普通用户");
+                        }else {
+                            accountAnswer.add("体验用户");
+                        }
+
+                        break;
+                    case 1:
+                        accountAnswer.add("1星用户");
+                        break;
+                    case 2:
+                        accountAnswer.add("2星用户");
+                        break;
+                    case 3:
+                        accountAnswer.add("3星用户");
+                        break;
+                    case 4:
+                        accountAnswer.add("4星用户");
+                        break;
+                    case 5:
+                        accountAnswer.add("5星用户");
+                        break;
+
+                }
                 accountAnswer.add(accountInfo.getInvitationCode());
                 accountAnswer.add(String.valueOf(accountInfo.getCCF()));
                 accountAnswer.add(String.valueOf(accountInfo.getCarbonIntegral()));
@@ -220,7 +247,7 @@ public class MainPageInfoFragment extends BaseFragment {
                 public void onClick(View v) {
                     if (itemNewsList!=null&&itemNewsList.size()>0){
                         ItemNewsEntity itemNews = itemNewsList.get(tvUpDown.getCurrentIndex());
-                        String uri = String.format(Constant.GET_DETAIL_HOST, itemNews.getNewsId());
+                        String uri = String.format(Constant.GET_DETAIL_HOST, itemNews.getNewsID());
                         Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra("url", uri);
                         startActivity(intent);

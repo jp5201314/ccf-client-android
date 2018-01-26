@@ -39,7 +39,7 @@ import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.manager.LifeCycleComponentManager;
 import cn.cnlinfo.ccf.manager.PhoneManager;
 import cn.cnlinfo.ccf.manager.SystemBarTintManager;
-import cn.cnlinfo.ccf.mvc.factory.MyLoadViewFactory;
+import cn.cnlinfo.ccf.mvc.factory.NormalLoadViewFactory;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.receiver.GlobalErrorMessageReceiver;
 import cn.cnlinfo.ccf.receiver.NetworkConnectChangedReceiver;
@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         receiver = new NetworkConnectChangedReceiver();
         registerNetworkConnectChangedReceiver();
         registerGlobalErrorMessageReceiver();
-        MVCHelper.setLoadViewFractory(new MyLoadViewFactory());//只需要在一个地方设置，所有地方都可以用到这个设置
+        MVCHelper.setLoadViewFractory(new NormalLoadViewFactory());//只需要在一个地方设置，所有地方都可以用到这个设置
     }
 
     private void registerNetworkConnectChangedReceiver() {

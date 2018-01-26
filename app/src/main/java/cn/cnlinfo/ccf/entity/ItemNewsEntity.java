@@ -1,7 +1,5 @@
 package cn.cnlinfo.ccf.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.io.Serializable;
 
 /**
@@ -10,64 +8,48 @@ import java.io.Serializable;
 
 public class ItemNewsEntity implements Serializable {
 
-    @JSONField(name = "NewsID")
+
     /**
-     * 公告id
+     * NewsID : 10
+     * Subject : 公告测试2
+     * ClassID : 2
+     * IssueDate : /Date(1509527396217+0800)/
      */
-    private int newsId;
 
-    @JSONField(name = "Subject")
-    /**
-     * 公告标题
-     */
-    private String subject;
+    private int NewsID;
+    private String Subject;
+    private int ClassID;
+    private String IssueDate;
 
-
-    @JSONField(name = "ClassID")
-    /**
-     * 1标识是新闻 2是公告
-     */
-    private String classId;
-
-    public ItemNewsEntity() {
+    public int getNewsID() {
+        return NewsID;
     }
 
-    public ItemNewsEntity(int newsId, String subject, String classId) {
-        this.newsId = newsId;
-        this.subject = subject;
-        this.classId = classId;
-    }
-
-    @Override
-    public String toString() {
-        return "ItemNews{" +
-                "newsId=" + newsId +
-                ", subject='" + subject + '\'' +
-                ", classId='" + classId + '\'' +
-                '}';
-    }
-
-    public int getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(int newsId) {
-        this.newsId = newsId;
+    public void setNewsID(int NewsID) {
+        this.NewsID = NewsID;
     }
 
     public String getSubject() {
-        return subject;
+        return Subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setSubject(String Subject) {
+        this.Subject = Subject;
     }
 
-    public String getClassId() {
-        return classId;
+    public int getClassID() {
+        return ClassID;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
+    public void setClassID(int ClassID) {
+        this.ClassID = ClassID;
+    }
+
+    public String getIssueDate() {
+        return IssueDate;
+    }
+
+    public void setIssueDate(String IssueDate) {
+        this.IssueDate = IssueDate;
     }
 }

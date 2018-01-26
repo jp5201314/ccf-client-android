@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -127,6 +128,7 @@ public class ForeignTransferActivity extends BaseActivity {
                    protected void onDataSuccess(JSONObject data) {
                        showMessage(0,"转出成功");
                        showWaitingDialog(false);
+                       startActivity(new Intent(ForeignTransferActivity.this,ExternalTransferActivity.class));
                        finish();
                    }
 

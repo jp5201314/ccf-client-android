@@ -87,35 +87,35 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
                         switch (size){
                             case 1:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
-                                rpvTop.setText("null");
-                                rpvLeftCenter.setText("null");
-                                rpvRightCenter.setText("null");
-                                rpvBottomLeft.setText("null");
-                                rpvBottomRight.setText("null");
+                                rpvTop.setText("暂无");
+                                rpvLeftCenter.setText("暂无");
+                                rpvRightCenter.setText("暂无");
+                                rpvBottomLeft.setText("暂无");
+                                rpvBottomRight.setText("暂无");
                                 break;
                             case 2:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
                                 rpvTop.setText(treeList.get(1).getuCode()+"\n"+"总:  "+treeList.get(1).getSumE());
-                                rpvLeftCenter.setText("null");
-                                rpvRightCenter.setText("null");
-                                rpvBottomLeft.setText("null");
-                                rpvBottomRight.setText("null");
+                                rpvLeftCenter.setText("暂无");
+                                rpvRightCenter.setText("暂无");
+                                rpvBottomLeft.setText("暂无");
+                                rpvBottomRight.setText("暂无");
                                 break;
                             case 3:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
                                 rpvTop.setText(treeList.get(1).getuCode()+"\n"+"总:  "+treeList.get(1).getSumE());
                                 rpvLeftCenter.setText(treeList.get(2).getuCode()+"\n"+"总:  "+treeList.get(2).getSumE());
-                                rpvRightCenter.setText("null");
-                                rpvBottomLeft.setText("null");
-                                rpvBottomRight.setText("null");
+                                rpvRightCenter.setText("暂无");
+                                rpvBottomLeft.setText("暂无");
+                                rpvBottomRight.setText("暂无");
                                 break;
                             case 4:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
                                 rpvTop.setText(treeList.get(1).getuCode()+"\n"+"总:  "+treeList.get(1).getSumE());
                                 rpvLeftCenter.setText(treeList.get(2).getuCode()+"\n"+"总:  "+treeList.get(2).getSumE());
                                 rpvRightCenter.setText(treeList.get(3).getuCode()+"\n"+"总:  "+treeList.get(3).getSumE());
-                                rpvBottomLeft.setText("null");
-                                rpvBottomRight.setText("null");
+                                rpvBottomLeft.setText("暂无");
+                                rpvBottomRight.setText("暂无");
                                 break;
                             case 5:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
@@ -123,7 +123,7 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
                                 rpvLeftCenter.setText(treeList.get(2).getuCode()+"\n"+"总:  "+treeList.get(2).getSumE());
                                 rpvRightCenter.setText(treeList.get(3).getuCode()+"\n"+"总:  "+treeList.get(3).getSumE());
                                 rpvBottomLeft.setText(treeList.get(4).getuCode()+"\n"+"总:  "+treeList.get(4).getSumE());
-                                rpvBottomRight.setText("null");
+                                rpvBottomRight.setText("暂无");
                                 break;
                             case 6:
                                 rpvCenter.setText(treeList.get(0).getuCode()+"\n"+"总:  "+treeList.get(0).getSumE());
@@ -186,38 +186,38 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.rpv_center:
-                if (rpvCenter.getText().toString()!="null"){
+                if (rpvCenter.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(0);
                     getChildNodeData(contributeMapNode.getId());
                 }
                 break;
             case R.id.rpv_top:
-                if (rpvTop.getText().toString()!="null"){
+                if (rpvTop.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(1);
                     getChildNodeData(contributeMapNode.getId());
                 }
                 break;
 
             case R.id.rpv_left_center:
-                if (rpvLeftCenter.getText().toString()!="null"){
+                if (rpvLeftCenter.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(2);
                     getChildNodeData(contributeMapNode.getId());
                 }
                 break;
             case R.id.rpv_right_center:
-                if (rpvRightCenter.getText().toString()!="null"){
+                if (rpvRightCenter.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(3);
                     getChildNodeData(contributeMapNode.getId());
                 }
                 break;
             case R.id.rpv_bottom_left:
-                if (rpvBottomLeft.getText().toString()!="null"){
+                if (rpvBottomLeft.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(4);
                     getChildNodeData(contributeMapNode.getId());
                 }
                 break;
             case R.id.rpv_bottom_right:
-                if (rpvBottomRight.getText().toString()!="null"){
+                if (rpvBottomRight.getText().toString()!="暂无"){
                     contributeMapNode = treeList.get(5);
                     getChildNodeData(contributeMapNode.getId());
                 }
@@ -235,38 +235,38 @@ public class ContributionMapActivity extends BaseActivity implements View.OnClic
         ContributeMapNode contributeMapNode = null;
         switch (view.getId()) {
             case R.id.rpv_center:
-                if (rpvCenter.getText().toString()!="null") {
+                if (rpvCenter.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(0);
                     showMapInfoDialog(contributeMapNode);
                 }
                 break;
 
             case R.id.rpv_top:
-                if (rpvTop.getText().toString()!="null") {
+                if (rpvTop.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(1);
                     showMapInfoDialog(contributeMapNode);
                 }
                 break;
             case R.id.rpv_left_center:
-                if (rpvLeftCenter.getText().toString()!="null") {
+                if (rpvLeftCenter.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(2);
                     showMapInfoDialog(contributeMapNode);
                 }
                 break;
             case R.id.rpv_right_center:
-                if (rpvRightCenter.getText().toString()!="null") {
+                if (rpvRightCenter.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(3);
                     showMapInfoDialog(contributeMapNode);
                 }
                 break;
             case R.id.rpv_bottom_left:
-                if (rpvBottomLeft.getText().toString()!="null") {
+                if (rpvBottomLeft.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(4);
                     showMapInfoDialog(contributeMapNode);
                 }
                 break;
             case R.id.rpv_bottom_right:
-                if (rpvBottomRight.getText().toString()!="null") {
+                if (rpvBottomRight.getText().toString()!="暂无") {
                     contributeMapNode = treeList.get(5);
                     showMapInfoDialog(contributeMapNode);
                 }

@@ -40,11 +40,11 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
     GridView gvGaugePanel;
     private Unbinder unbinder;
     private String[] names = {"注册会员", "贡献图谱", "推荐网络", "我的参数",
-            "平台参数", "跑步排名", "系统公告", "订单中心",
+            "平台参数", "跑步排名", "新闻公告", "订单中心",
             "对外互转", "内部互转", "用户升级", "记录中心",
             "碳控公益", "在线客服", "碳控服务", "兑换中心"};
     private int[] icons = {R.drawable.icon_register_member, R.drawable.icon_contribution_atlas, R.drawable.icon_recommend_net, R.drawable.icon_my_parameter,
-            R.drawable.icon_platform_parameter, R.drawable.icon_start_running, R.drawable.icon_system_notice, R.drawable.icon_order_center,
+            R.drawable.icon_platform_parameter, R.drawable.icon_start_running, R.drawable.icon_news_notice, R.drawable.icon_order_center,
             R.drawable.icon_external_each_other, R.drawable.icon_internal_each_other, R.drawable.icon_user_upgrade, R.drawable.icon_recode_centre,
             R.drawable.icon_cc_pf, R.drawable.icon_online_service, R.drawable.icon_cc_service, R.drawable.conversion_center};
     private List<Map<String, Object>> list;

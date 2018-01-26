@@ -142,11 +142,6 @@ public class PurCCFActivity extends BaseActivity {
                 showMessage(code,msg);
             }
 
-            @Override
-            public void onFailure(int errorCode, String msg) {
-                super.onFailure(errorCode, msg);
-                showMessage(errorCode,msg);
-            }
         });
     }
     @OnClick({R.id.ibt_back,R.id.btn_confirm_pur})

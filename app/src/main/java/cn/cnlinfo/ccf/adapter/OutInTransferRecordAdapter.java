@@ -19,7 +19,7 @@ import cn.cnlinfo.ccf.entity.TransferRecordEntity;
  * Created by Administrator on 2017/12/22 0022.
  */
 
-public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferRecordEntity>{
+public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferRecordEntity> {
 
     private Context context;
 
@@ -32,7 +32,7 @@ public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferReco
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_out_transfer_record, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_in_transfer_record, parent, false));
     }
 
     @Override
@@ -40,35 +40,35 @@ public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferReco
         Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder) {
             TransferRecordEntity transferRecordEntity = list.get(position);
-            if (transferRecordEntity!=null){
-                if (!TextUtils.isEmpty(transferRecordEntity.getDateTime())){
+            if (transferRecordEntity != null) {
+                if (!TextUtils.isEmpty(transferRecordEntity.getDateTime())) {
                     ((ViewHolder) holder).tvTime.setText(transferRecordEntity.getDateTime());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTime.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(transferRecordEntity.getNum())){
+                if (!TextUtils.isEmpty(transferRecordEntity.getNum())) {
                     ((ViewHolder) holder).tvNum.setText(transferRecordEntity.getNum());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvNum.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(transferRecordEntity.getSendCode())){
+                if (!TextUtils.isEmpty(transferRecordEntity.getSendCode())) {
                     ((ViewHolder) holder).tvTransferSend.setText(transferRecordEntity.getSendCode());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTransferSend.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(transferRecordEntity.getReceiveCode())){
+                if (!TextUtils.isEmpty(transferRecordEntity.getReceiveCode())) {
                     ((ViewHolder) holder).tvTransferReceive.setText(transferRecordEntity.getReceiveCode());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTransferReceive.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(transferRecordEntity.getType())){
+                if (!TextUtils.isEmpty(transferRecordEntity.getType())) {
                     ((ViewHolder) holder).tvTransferType.setText(transferRecordEntity.getType());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTransferType.setText("暂无");
                 }
-                if (!TextUtils.isEmpty(transferRecordEntity.getStatus())){
+                if (!TextUtils.isEmpty(transferRecordEntity.getStatus())) {
                     ((ViewHolder) holder).tvTransferStatus.setText(transferRecordEntity.getStatus());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvTransferStatus.setText("暂无");
                 }
             }
@@ -93,6 +93,7 @@ public class OutInTransferRecordAdapter extends BaseRecyclerAdapter<TransferReco
         TextView tvTransferType;
         @BindView(R.id.tv_transfer_status)
         TextView tvTransferStatus;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

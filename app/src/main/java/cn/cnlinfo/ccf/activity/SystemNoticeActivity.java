@@ -74,7 +74,7 @@ public class SystemNoticeActivity extends BaseActivity {
             @Override
             public void onItemClicked(int position, ItemNewsEntity entity) {
                 Intent intent = new Intent(SystemNoticeActivity.this,WebActivity.class);
-                intent.putExtra("url",String.format(Constant.GET_DETAIL_HOST, entity.getNewsId()));
+                intent.putExtra("url",String.format(Constant.GET_DETAIL_HOST, entity.getNewsID()));
                 startActivity(intent);
             }
         });

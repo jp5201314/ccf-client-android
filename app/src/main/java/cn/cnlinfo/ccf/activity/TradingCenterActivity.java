@@ -28,7 +28,9 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.TradingListItemAdapter;
 import cn.cnlinfo.ccf.event.CloseActivityEvent;
+import cn.cnlinfo.ccf.manager.PhoneManager;
 import cn.cnlinfo.ccf.mvc.datasource.TradingListDataSource;
+import cn.cnlinfo.ccf.mvc.factory.NormalLoadViewFactory;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.RecyclerViewDivider;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -64,14 +66,22 @@ public class TradingCenterActivity extends BaseActivity {
      * 显示交易大厅信息
      */
     private void showTradingCenterInfo() {
+        setMaterialHeader(mPfl);
+        MVCHelper.setLoadViewFractory(new NormalLoadViewFactory());
         mRv.setHasFixedSize(true);
         mRv.setNestedScrollingEnabled(false);
         mRv.setLayoutManager(new LinearLayoutManager(this));
-        mRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayout.HORIZONTAL,12,getResources().getColor(R.color.color_gray_e1e1e1)));
+        mRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayout.HORIZONTAL, PhoneManager.dip2px(8),getResources().getColor(R.color.color_black_0e1214_alpha_75)));
         mvcHelper = new MVCUltraHelper(mPfl);
         mvcHelper.setDataSource(new TradingListDataSource("where TranType=1 and Status=1"));
         adapter = new TradingListItemAdapter(this,1);
         mvcHelper.setAdapter(adapter);
+    }
+
+    //从其他页面返回界面执行刷新动作
+    @Override
+    protected void onResume() {
+        super.onResume();
         mvcHelper.refresh();
     }
 

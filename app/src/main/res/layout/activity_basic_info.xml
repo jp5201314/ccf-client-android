@@ -218,7 +218,7 @@
                     jp:tipMessage = "@string/bank_num_tip"
                     jp:type="bank_num"
                     android:inputType="text"
-                    android:maxLength="18"
+                    android:maxLength="21"
                     android:maxLines="1"
                     />
             </LinearLayout>

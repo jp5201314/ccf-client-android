@@ -100,6 +100,19 @@ public class AgencyUpgradeFragment extends BaseFragment {
             case 2:
                 tvMyRank.setText("2星用户");
                 break;
+            case 3:
+                tvMyRank.setText("3星用户");
+                break;
+            case 4:
+                tvMyRank.setText("4星用户");
+                break;
+            case 5:
+                tvMyRank.setText("5星用户");
+                break;
+
+        }
+        if (level==0&&accountInfo.getTotalMealWeight()>0){
+            tvMyRank.setText("普通用户");
         }
 
         spAgencyType.setAdapter(SpinnerUtils.getArrayAdapter(getActivity(), getResources().getStringArray(R.array.agency_type)));
