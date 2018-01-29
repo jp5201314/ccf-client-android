@@ -252,4 +252,12 @@ public class API {
      * 用户留言
      */
     public static final String USERLEAVEMESSAGE = "UserLeave";
+    /**
+     * 用户积分
+     */
+    public static final String GETUSERINTEGAL = "GetUserMoney";
+    /**
+     * 升级成为代理
+     */
+    public static final String UPDATETOAGENCY = "UpdateToAgent";
 }

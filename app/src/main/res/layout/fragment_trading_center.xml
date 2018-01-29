@@ -58,13 +58,53 @@
                             android:textColor="@color/color_black_0d0d0d"
                             android:textSize="20sp" />
                     </FrameLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:focusableInTouchMode="true"
                         android:focusable="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="当前ccf的实时价格为:" />
+
+                            <TextView
+                                android:id="@+id/tv_ccf_cur_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="当前用户ccf的数量为:"
+                                />
+                            <TextView
+                                android:id="@+id/tv_ccf_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ccf"
+                                />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -107,10 +147,32 @@
                                 android:background="@drawable/edit_text_style"
                                 android:gravity="center"
                                 android:hint="数量"
+                                android:maxLength="5"
+                                android:maxLines="1" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.2"
+                                android:gravity="center"
+                                android:text="安全密码" />
+
+                            <cn.cnlinfo.ccf.view.CleanEditText
+                                android:id="@+id/et_safe_pass"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:background="@drawable/edit_text_style"
+                                android:gravity="center"
+                                android:hint="安全密码"
                                 android:maxLength="11"
                                 android:maxLines="1" />
                         </LinearLayout>
-
                         <Button
                             android:id="@+id/btn_ok"
                             android:layout_width="64dp"

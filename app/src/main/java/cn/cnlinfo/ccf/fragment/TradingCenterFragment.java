@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.mikephil.charting.charts.LineChart;
@@ -26,6 +27,8 @@ import com.shizhefei.mvc.IDataAdapter;
 import com.shizhefei.mvc.MVCHelper;
 import com.tendcloud.tenddata.TCAgent;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +41,8 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.TradingCenterActivity;
 import cn.cnlinfo.ccf.entity.ItemPriceListEntity;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.UserMoneyEvent;
 import cn.cnlinfo.ccf.mvc.datasource.PriceChartDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
@@ -68,6 +73,12 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     PtrClassicFrameLayout ptr;
     @BindView(R.id.spread_pie_chart)
     LineChart spreadPieChart;
+    @BindView(R.id.et_safe_pass)
+    CleanEditText etSafePass;
+    @BindView(R.id.tv_ccf_cur_price)
+    TextView tvCcfCurPrice;
+    @BindView(R.id.tv_ccf_number)
+    TextView tvCcfNumber;
     private Unbinder unbinder;
     private int type = 0;
     private MVCHelper mvcHelper;
@@ -82,6 +93,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         TCAgent.onPageStart(getActivity(), "交易中心");
         xVals = new ArrayList<>();//x轴的数据集合
         entryArrayList = new ArrayList<>();//y轴数据集合
+        getCurrentUserIntegral();//获取当前用户的ccf数量和实时价格
         setMPAndroidChart();
         getPriceList();//获取价格变动列表，绘制价格走势图
         startHangSellOrBuy();//挂卖/挂买
@@ -89,6 +101,31 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         btnEnterTradingPlatform.setOnClickListener(this);
         btnOk.setOnClickListener(this);
 
+    }
+
+    //获取当前用户的ccf数量和实时价格,积分
+    private void getCurrentUserIntegral(){
+        RequestParams params = new RequestParams();
+        params.addFormDataPart("userid",UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
+            @Override
+            protected void onDataSuccess(JSONObject data) {
+                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(),UserMoneyEvent.class);
+                tvCcfCurPrice.setText(userMoney.getPrice());
+                tvCcfNumber.setText(userMoney.getCCF());
+            }
+
+            @Override
+            protected void onDataError(int code, boolean flag, String msg) {
+                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+            }
+
+            @Override
+            public void onFailure(int errorCode, String msg) {
+                super.onFailure(errorCode, msg);
+                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+            }
+        });
     }
 
     //初始化MPAndroidChart
@@ -165,7 +202,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                 ArrayList<ILineDataSet> dataSets = new ArrayList<>();
                 dataSets.add(lineDataSet);
                 LineData data = new LineData(xVals, dataSets);
-                 //data.setValueFormatter(new LargeValueFormatter());
+                //data.setValueFormatter(new LargeValueFormatter());
                 data.setValueFormatter(new DataValueFormatter());//设置数据显示格式
                 // add space between the dataset groups in percent of bar-width
                 // data.setValueFormatter(new CustomerValueFormatter());
@@ -217,9 +254,11 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     protected void onDestroyViewLazy() {
         super.onDestroyViewLazy();
         unbinder.unbind();
+        mvcHelper.destory();
         TCAgent.onPageEnd(getActivity(), "交易中心");
         HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.HANGSELL);
         HttpRequest.cancel(Constant.PRICE_LIST_HOST + API.PRICELIST);
+        HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
     }
 
 
@@ -228,11 +267,13 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         switch (v.getId()) {
             case R.id.btn_ok:
                 String num = etNum.getText().toString();
-                if (!TextUtils.isEmpty(num)) {
+                String safePass = etSafePass.getText().toString();
+                if (!TextUtils.isEmpty(num) && !TextUtils.isEmpty(safePass)) {
                     if (type == 0) {//挂卖
                         RequestParams params = new RequestParams();
                         params.addFormDataPart("sellerID", UserSharedPreference.getInstance().getUser().getUserID());
                         params.addFormDataPart("ccfValue", num);
+                        params.addFormDataPart("safepass", safePass);
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGSELL, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {
@@ -251,6 +292,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                         RequestParams params = new RequestParams();
                         params.addFormDataPart("userID", UserSharedPreference.getInstance().getUser().getUserID());
                         params.addFormDataPart("ccfValue", num);
+                        params.addFormDataPart("safepass", safePass);
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGBUY, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {

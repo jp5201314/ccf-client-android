@@ -122,7 +122,12 @@ public class StepArcView extends View {
         paintCurrent.setAntiAlias(true);//抗锯齿功能
         paintCurrent.setStrokeWidth(borderWidth);//设置画笔宽度
         paintCurrent.setColor(getResources().getColor(R.color.colorAccent));//设置画笔颜色
-        canvas.drawArc(rectF, startAngle, currentAngleLength, false, paintCurrent);
+        //Logger.d(currentAngleLength);
+        if (currentAngleLength<=angleLength){//设置当前度数高于angleLength则画angleLength这个角度
+            canvas.drawArc(rectF, startAngle, currentAngleLength, false, paintCurrent);
+        }else {
+            canvas.drawArc(rectF, startAngle, angleLength, false, paintCurrent);
+        }
     }
 
     /**
@@ -139,7 +144,6 @@ public class StepArcView extends View {
         Rect bounds_Number = new Rect();
         vTextPaint.getTextBounds(stepNumber, 0, stepNumber.length(), bounds_Number);
         canvas.drawText(stepNumber, centerX, getHeight() / 2 + bounds_Number.height() / 2, vTextPaint);
-
     }
 
     /**
@@ -208,7 +212,6 @@ public class StepArcView extends View {
         }
         /**换算成弧度最后要到达的角度的长度-->弧长*/
         float currentAngleLength = scale * angleLength;
-
         /**开始执行动画*/
         setAnimation(previousAngleLength, currentAngleLength, animationInterval);
         stepNumber = String.valueOf(currentCounts);
@@ -228,8 +231,11 @@ public class StepArcView extends View {
      * @param interval  动画时长
      */
     private void setAnimation(float start, float current, int interval) {
+        //Logger.d(current);
         ValueAnimator progressAnimator = ValueAnimator.ofFloat(start, current);
         progressAnimator.setDuration(interval);
+        //Logger.d(currentAngleLength);
+        //设置进度动画的终点值
         progressAnimator.setTarget(currentAngleLength);
         progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

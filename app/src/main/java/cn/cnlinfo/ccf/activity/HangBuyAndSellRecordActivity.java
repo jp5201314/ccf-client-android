@@ -15,18 +15,26 @@ import android.widget.TextView;
 
 import com.shizhefei.mvc.MVCHelper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.adapter.HangSellAndBuyAdapter;
 import cn.cnlinfo.ccf.entity.ItemHangSellAndBuyEntity;
+import cn.cnlinfo.ccf.event.CancelHangBuyAndSellEvent;
 import cn.cnlinfo.ccf.mvc.datasource.HangSellAndBuyRecordDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.view.FullyLinearLayoutManager;
+import cn.finalteam.okhttpfinal.HttpRequest;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 
 
@@ -49,8 +57,10 @@ public class HangBuyAndSellRecordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hang_buy_and_sell_record);
         unbinder = ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         tvTitle.setText("挂卖/挂买记录");
         getHangSellAndBuyRecord();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -68,6 +78,11 @@ public class HangBuyAndSellRecordActivity extends BaseActivity {
         }
     }
 
+    //接收到撤销挂卖挂买单的事件
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveCancelHangBuyAndSellEvent(CancelHangBuyAndSellEvent event){
+        toast(event.getMsg());
+    }
     /**
      * 获取挂买挂卖记录
      * tranType 1是挂卖2是挂买
@@ -116,5 +131,8 @@ public class HangBuyAndSellRecordActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        mvcHelper.destory();
+        EventBus.getDefault().unregister(this);
+        HttpRequest.cancel(Constant.RECORD_CENTER_HOST + API.HANGBYSELLANDBUY);
     }
 }

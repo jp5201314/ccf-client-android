@@ -26,7 +26,7 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
  * 对外转账记录
  */
 
-public class ExternalTransferActivity extends BaseActivity{
+public class ExternalTransferRecordActivity extends BaseActivity{
 
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;

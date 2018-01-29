@@ -55,10 +55,10 @@
 
 
     <string-array name="service_type">
-        <item>cc商城商家</item>
         <item>cc商城消费者</item>
-        <item>cc联盟商家</item>
+        <item>cc商城商家</item>
         <item>cc联盟消费者</item>
+        <item>cc联盟商家</item>
     </string-array>
 
     <string-array name="user_type">

@@ -20,17 +20,92 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-      <!--  <TextView
-            style="@style/text_0e1214_17"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/one_level_height"
-            android:text="内部互转" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
 
--->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前注册积分为:" />
+
+            <TextView
+                android:id="@+id/tv_register_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册积分" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前用户消费积分为:"
+                />
+            <TextView
+                android:id="@+id/tv_consume_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消费积分"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前用户循环积分为:" />
+
+            <TextView
+                android:id="@+id/tv_cycle_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="循环积分" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前用户ccf的数量为:"
+                />
+            <TextView
+                android:id="@+id/tv_ccf_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ccf"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="9dp"
+            android:layout_marginTop="9dp"
             android:orientation="horizontal">
 
             <TextView

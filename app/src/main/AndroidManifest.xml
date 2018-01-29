@@ -297,7 +297,7 @@
             android:theme="@style/NormalFullScreen" />
         <!-- 对外转账记录 -->
         <activity
-            android:name=".activity.ExternalTransferActivity"
+            android:name=".activity.ExternalTransferRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
         <!-- 自身转账记录 -->

@@ -7,26 +7,37 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lljjcoder.city_20170724.CityPickerView;
 import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.entity.AccountInfo;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.utils.CityPickerUtils;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by JP on 2017/11/20 0020.
@@ -56,6 +67,10 @@ public class AgencyUpgradeFragment extends BaseFragment {
     private ProvinceBean provinceBean;
     private CityBean cityBean;
     private DistrictBean districtBean;
+    private String agencyType = "1";//代理服务默认为第一种类型
+    private String serviceType = "1";
+
+
 
 
     @Override
@@ -78,8 +93,6 @@ public class AgencyUpgradeFragment extends BaseFragment {
     private void init() {
         CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
         tvUpgradeAgencyLink.setText(charSequence);
-       /* tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
-        tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);*/
         tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +129,29 @@ public class AgencyUpgradeFragment extends BaseFragment {
         }
 
         spAgencyType.setAdapter(SpinnerUtils.getArrayAdapter(getActivity(), getResources().getStringArray(R.array.agency_type)));
+        spAgencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                agencyType = String.valueOf(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         spServiceType.setAdapter(SpinnerUtils.getArrayAdapter(getActivity(), getResources().getStringArray(R.array.service_type)));
+        spServiceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                serviceType = String.valueOf(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         tvAgencyAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,11 +174,39 @@ public class AgencyUpgradeFragment extends BaseFragment {
         });
     }
 
+    //进行代理升级
     private void toUpgradeAgency() {
         if (cbIsRead.isChecked()) {
             safePass = etSafePass.getText().toString();
-            if (!TextUtils.isEmpty(safePass)) {
+            if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(tvAgencyAddress.getText().toString())) {
+                RequestParams params = new RequestParams();
+                //代理类型  1是省代2是市代3是县代4是服务中心
+                //服务类型 1是商城消费者2是商城商家3是联盟消费者4是联盟商家
+                params.addFormDataPart("userID",UserSharedPreference.getInstance().getUser().getUserID());
+                params.addFormDataPart("proxyType",agencyType);
+                params.addFormDataPart("serveType",serviceType);
+                params.addFormDataPart("area",tvAgencyAddress.getText().toString());
+                params.addFormDataPart("regions",provinceBean.getId()+"-"+cityBean.getId()+"-"+districtBean.getId());
+                params.addFormDataPart("pwd",safePass);
+                Logger.d(UserSharedPreference.getInstance().getUser().getUserID()+"\n"+agencyType+"\n"+serviceType+"\n"+provinceBean.getName()+"-"+cityBean.getName()+"-"+districtBean.getName()+"\n"+provinceBean.getId()+"-"+cityBean.getId()+"-"+districtBean.getId()+"\n"+safePass);
+                HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.UPDATETOAGENCY, params, new CCFHttpRequestCallback() {
+                    @Override
+                    protected void onDataSuccess(JSONObject data) {
+                        toast("成功升级成为代理");
+                        getActivity().finish();
+                    }
 
+                    @Override
+                    protected void onDataError(int code, boolean flag, String msg) {
+                        EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                    }
+
+                    @Override
+                    public void onFailure(int errorCode, String msg) {
+                        super.onFailure(errorCode, msg);
+                        EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                    }
+                });
             } else {
                 toast("输入框不能为空");
             }
@@ -156,5 +219,6 @@ public class AgencyUpgradeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.UPDATETOAGENCY);
     }
 }

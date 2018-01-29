@@ -68,8 +68,8 @@ public class OrderCenterActivity extends BaseActivity {
     //上传图片的结果码
     private static final int REQUEST_CODE_SELECT_IMG = 1;
     private OrderListItemAdapter orderListItemAdapter;
-    private static String tradTypeBuy = "where SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=2";
-    private static String tradTypeSell = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=1";
+    private static String tradTypeBuy = "where SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+" and  TranType=2";
+    private static String tradTypeSell = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=1";
 
 
     @Override

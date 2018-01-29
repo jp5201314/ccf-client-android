@@ -77,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="碳控因子或积分"
+                android:text="$等值碳控因子或积分"
                 android:layout_weight="2"/>
         </LinearLayout>
         <LinearLayout
@@ -173,7 +173,8 @@
                 android:id="@+id/cb_is_read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"/>
+                android:layout_marginLeft="9dp"
+                android:checked="true"/>
             <TextView
                 android:id="@+id/tv_upgrade_agency_link"
                 android:layout_width="wrap_content"

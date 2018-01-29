@@ -91,7 +91,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 对外转账记录
              * */
             case R.id.tv_to_out:
-                startActivity(new Intent(this, ExternalTransferActivity.class));
+                startActivity(new Intent(this, ExternalTransferRecordActivity.class));
                 break;
             /**
              * 自身转账记录

@@ -35,6 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.adapter.MainPageFragmentAdapter;
@@ -46,6 +47,7 @@ import cn.cnlinfo.ccf.fragment.TradingCenterFragment;
 import cn.cnlinfo.ccf.manager.AppManage;
 import cn.cnlinfo.ccf.utils.QRCodeUtil;
 import cn.cnlinfo.ccf.view.StopScrollViewPager;
+import cn.finalteam.okhttpfinal.HttpRequest;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -94,6 +96,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         vp.setStopScroll(true);
         init();
     }
+
 
 
     /**
@@ -226,6 +229,9 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         alertDialog.show();
     }
 
+    /**
+     * 初始化操作
+     */
     private void init() {
         ibtBack.setVisibility(View.INVISIBLE);
         tvTitle.setText("主页");
@@ -311,6 +317,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         }
         TCAgent.onPageEnd(this, "主页");
         vp = null;
+        HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
+
     }
 
     @Override
@@ -424,7 +432,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = currentTime;
             } else {
-                AppManage.getInstance().finishOther();
+                AppManage.getInstance().clearEverything();
                 finish();
                 System.exit(0);
             }
