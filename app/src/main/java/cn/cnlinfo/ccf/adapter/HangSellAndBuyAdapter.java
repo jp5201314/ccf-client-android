@@ -1,5 +1,6 @@
 package cn.cnlinfo.ccf.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,10 +19,13 @@ import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
+import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.ItemHangSellAndBuyEntity;
 import cn.cnlinfo.ccf.event.CancelHangBuyAndSellEvent;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
@@ -59,6 +63,55 @@ public class HangSellAndBuyAdapter extends BaseRecyclerAdapter<ItemHangSellAndBu
             }
             if (!TextUtils.isEmpty(itemHangSellAndBuyEntity.getStatus())) {
                 ((ViewHolder) holder).tvTradStatus.setText(itemHangSellAndBuyEntity.getStatus());
+                if (itemHangSellAndBuyEntity.getStatus().equals("挂卖中")||itemHangSellAndBuyEntity.getStatus().equals("挂买中")){
+                    ((ViewHolder) holder).btnCancel.setVisibility(View.VISIBLE);
+                    ((ViewHolder) holder).btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            RequestParams params = new RequestParams();
+                            params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+                            params.addFormDataPart("AuctionRoomID",itemHangSellAndBuyEntity.getAuctionRoomID());
+                            params.addFormDataPart("hangbuyrecordid",itemHangSellAndBuyEntity.getID());
+                            View view = inflater.inflate(R.layout.dialog_cancel,null);
+                            Dialog dialog = DialogCreater.showSelfDefineDialog(context,false,"撤销挂卖/挂买",view);
+                            dialog.show();
+                            CleanEditText ctSafePass = view.findViewById(R.id.ct_safe_pass);
+                            Button btnOk = view.findViewById(R.id.bt_positive_button);
+                            Button btnCancel = view.findViewById(R.id.bt_negative_button);
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.cancel();
+                                }
+                            });
+                            btnOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (!TextUtils.isEmpty(ctSafePass.getText().toString())){
+                                        params.addFormDataPart("pwd",ctSafePass.getText().toString());
+                                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.CANCELHANGBUYANDSELL, params, new CCFHttpRequestCallback() {
+                                            @Override
+                                            protected void onDataSuccess(JSONObject data) {
+                                                EventBus.getDefault().post(new CancelHangBuyAndSellEvent(0,"撤销成功"));
+                                                dialog.cancel();
+                                            }
+
+                                            @Override
+                                            protected void onDataError(int code, boolean flag, String msg) {
+                                                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                                                dialog.cancel();
+                                            }
+                                        });
+                                    }else {
+                                        EventBus.getDefault().post(new CancelHangBuyAndSellEvent(-1,"安全密码不能为空"));
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }else {
+                    ((ViewHolder) holder).btnCancel.setVisibility(View.GONE);
+                }
             } else {
                 ((ViewHolder) holder).tvTradStatus.setText("暂无");
             }
@@ -77,24 +130,6 @@ public class HangSellAndBuyAdapter extends BaseRecyclerAdapter<ItemHangSellAndBu
             } else {
                 ((ViewHolder) holder).tvTradId.setText("暂无");
             }
-            ((ViewHolder) holder).btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RequestParams params = new RequestParams();
-                    params.addFormDataPart("AuctionRoomID",itemHangSellAndBuyEntity.getAuctionRoomID());
-                    HttpRequest.post(Constant.getHost() + API.UPDATEPERSIONINFO, params, new CCFHttpRequestCallback() {
-                        @Override
-                        protected void onDataSuccess(JSONObject data) {
-                            EventBus.getDefault().post(new CancelHangBuyAndSellEvent("撤销成功"));
-                        }
-
-                        @Override
-                        protected void onDataError(int code, boolean flag, String msg) {
-                            EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
-                        }
-                    });
-                }
-            });
         }
     }
 

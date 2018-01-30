@@ -78,10 +78,18 @@ public class HangBuyAndSellRecordActivity extends BaseActivity {
         }
     }
 
-    //接收到撤销挂卖挂买单的事件
+    //接收到撤销挂卖挂买单的事件,并且进行刷新操作
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCancelHangBuyAndSellEvent(CancelHangBuyAndSellEvent event){
-        toast(event.getMsg());
+       switch (event.getCode()){
+           case -1:
+               toast(event.getMsg());
+               break;
+           case 0:
+               toast(event.getMsg());
+               mvcHelper.refresh();
+               break;
+       }
     }
     /**
      * 获取挂买挂卖记录
@@ -134,5 +142,6 @@ public class HangBuyAndSellRecordActivity extends BaseActivity {
         mvcHelper.destory();
         EventBus.getDefault().unregister(this);
         HttpRequest.cancel(Constant.RECORD_CENTER_HOST + API.HANGBYSELLANDBUY);
+        HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.CANCELHANGBUYANDSELL);
     }
 }

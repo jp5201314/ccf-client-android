@@ -260,4 +260,8 @@ public class API {
      * 升级成为代理
      */
     public static final String UPDATETOAGENCY = "UpdateToAgent";
+    /**
+     * 撤销挂卖挂买
+     */
+    public static final String CANCELHANGBUYANDSELL = "UserRevocation";
 }

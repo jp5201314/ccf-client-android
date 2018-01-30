@@ -39,7 +39,7 @@ public class GaugePanelFragment extends BaseFragment implements AdapterView.OnIt
     @BindView(R.id.gv_gauge_panel)
     GridView gvGaugePanel;
     private Unbinder unbinder;
-    private String[] names = {"注册会员", "贡献图谱", "推荐网络", "我的参数",
+    private String[] names = {"注册会员", "贡献图谱", "推荐列表", "我的参数",
             "平台参数", "跑步排名", "新闻公告", "订单中心",
             "对外互转", "内部互转", "用户升级", "记录中心",
             "碳控公益", "在线客服", "碳控服务", "兑换中心"};

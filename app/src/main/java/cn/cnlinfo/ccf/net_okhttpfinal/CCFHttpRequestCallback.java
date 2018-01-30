@@ -52,6 +52,8 @@ public abstract  class CCFHttpRequestCallback extends JsonHttpRequestCallback {
                 break;
         }
     }
+
+
     @Override
     protected void onSuccess(JSONObject jsonObject) {
         super.onSuccess(jsonObject);

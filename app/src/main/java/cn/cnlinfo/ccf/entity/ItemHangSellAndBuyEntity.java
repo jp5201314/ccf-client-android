@@ -22,6 +22,11 @@ public class ItemHangSellAndBuyEntity {
     private String Status;
     private String Msg;
     private String CreateTime;
+    /**
+     * ID : 6
+     */
+
+    private String ID;
 
     public String getTranType() {
         return TranType;
@@ -69,5 +74,13 @@ public class ItemHangSellAndBuyEntity {
 
     public void setCreateTime(String CreateTime) {
         this.CreateTime = CreateTime;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }

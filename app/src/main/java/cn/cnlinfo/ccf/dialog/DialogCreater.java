@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.flyco.dialog.entity.DialogMenuItem;
@@ -230,6 +231,10 @@ public class DialogCreater {
     }
 
     public static AlertDialog showSelfDefineDialog(Context context, boolean cancelable, String title, View view){
+        return new AlertDialog.Builder(context).setCancelable(cancelable).setTitle(title).setView(view).create();
+    }
+    public static AlertDialog showSelfDefineDialog(Context context, boolean cancelable, String title, int resLatyout){
+        View view = LayoutInflater.from(context).inflate(resLatyout,null);
         return new AlertDialog.Builder(context).setCancelable(cancelable).setTitle(title).setView(view).create();
     }
 }

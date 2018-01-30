@@ -128,7 +128,6 @@ public class PersistentCookieStore implements CookieStore {
         ArrayList<HttpCookie> ret = new ArrayList<HttpCookie>();
         for (String key : cookies.keySet())
             ret.addAll(cookies.get(key).values());
-
         return ret;
     }
 

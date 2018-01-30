@@ -130,7 +130,6 @@ public class LoginRegisterActivity extends BaseActivity {
                     @Override
                     protected void onDataSuccess(JSONObject data) {
                         toast("登录成功");
-                        Logger.d(data.toJSONString());
                         UserSharedPreference.getInstance().setJwtToken("1");
                         UserSharedPreference.getInstance().setIsFirstLogin(true);
                         JSONObject userinfoJsonobject = data.getJSONObject("userinfo");

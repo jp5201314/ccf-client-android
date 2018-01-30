@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +33,7 @@ import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.PurchaseMealRecordActivity;
 import cn.cnlinfo.ccf.activity.RechargeRegisterPointsActivity;
+import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.ItemMealEntity;
@@ -221,12 +220,17 @@ public class ComboUpgradeFragment extends BaseFragment {
 
     public void init() {
         showWaitingDialog(true);
-        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"https://www.pgyer.com/about/termofservice\">蒲公英协议");
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
         tvUpgradeAgencyLink.setText(charSequence);
-        tvUpgradeAgencyLink.setMovementMethod(LinkMovementMethod.getInstance());
-        tvUpgradeAgencyLink.setAutoLinkMask(Linkify.ALL);
+        tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra("url","http://ccf.hrkji.com/XY.aspx");
+                startActivity(intent);
+            }
+        });
         llIntegral.setVisibility(View.GONE);
-
         if (accountInfo != null) {
             re_integral = accountInfo.getRegisterIntegral();
             co_integral = accountInfo.getConsumeIntegral();

@@ -21,6 +21,7 @@ public class CCMallFragment extends BaseFragment {
         TCAgent.onPageStart(getActivity(),"CC商城");
         setContentView(R.layout.fragment_cc_mall);
         unbinder = ButterKnife.bind(this,getContentView());
+
     }
 
     @Override
