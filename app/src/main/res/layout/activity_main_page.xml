@@ -22,6 +22,7 @@
 
 
     <FrameLayout
+        android:id="@+id/fl_buttom_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="39dp"
         android:layout_gravity="bottom"

@@ -83,7 +83,7 @@ public class WebActivity extends BaseActivity {
         //设置是否使用WebView推荐使用的窗口
         //webSettings.setUseWideViewPort(true);
         url = intent.getStringExtra("url");
-      /*  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+       /* if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
             wv.addJavascriptInterface(new JsInterface(), "wv");
         } else {
             wv.addJavascriptInterface(this, "wv");
@@ -196,7 +196,7 @@ public class WebActivity extends BaseActivity {
             wv = null;
         }
     }
-   /* @JavascriptInterface
+/*    @JavascriptInterface
     public void getSource(String msg) {
         Logger.d(msg);
         toast(msg);

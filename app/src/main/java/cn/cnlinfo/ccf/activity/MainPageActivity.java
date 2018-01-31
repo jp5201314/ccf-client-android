@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,10 @@ import android.widget.Toast;
 import com.orhanobut.logger.Logger;
 import com.tendcloud.tenddata.TCAgent;
 import com.yzq.zxinglibrary.common.Constant;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -39,6 +44,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.adapter.MainPageFragmentAdapter;
+import cn.cnlinfo.ccf.event.ShowMainPageEvent;
 import cn.cnlinfo.ccf.fragment.CCMallFragment;
 import cn.cnlinfo.ccf.fragment.CCUnionFragment;
 import cn.cnlinfo.ccf.fragment.GaugePanelFragment;
@@ -74,6 +80,8 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.fl_buttom_nav_bar)
+    FrameLayout flButtomNavBar;
     private List<Fragment> fragmentList;
     private MainPageFragmentAdapter pageFragmentAdapter;
     private Unbinder unbinder;
@@ -89,6 +97,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this);
         TCAgent.onPageStart(this, "主页");
         validLoadGuidePage();
@@ -96,7 +105,6 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         vp.setStopScroll(true);
         init();
     }
-
 
 
     /**
@@ -311,14 +319,21 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         super.onDestroy();
         unbinder.unbind();
         //解决内存泄漏
-        if (alertDialog!=null&&alertDialog.isShowing()){
+        if (alertDialog != null && alertDialog.isShowing()) {
             alertDialog.dismiss();
             alertDialog = null;
         }
+        EventBus.getDefault().unregister(this);
         TCAgent.onPageEnd(this, "主页");
         vp = null;
         HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
+    }
 
+    //cc商城中点击主页切换到app主页
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ShowMainPageEvent event){
+        vp.setCurrentItem(0,false);
+        setTvMainPageBackgroundColor();
     }
 
     @Override
@@ -361,6 +376,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTitle.setText("主页");
+        flButtomNavBar.setVisibility(View.VISIBLE);
     }
 
     private void setTvGauagePanelBackgroundColor() {
@@ -370,6 +386,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTitle.setText("仪表盘");
+        flButtomNavBar.setVisibility(View.VISIBLE);
     }
 
     private void setTvCcUnionBackgroundColor() {
@@ -379,6 +396,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTitle.setText("CC联盟");
+        flButtomNavBar.setVisibility(View.VISIBLE);
     }
 
     private void setTvCcMallBackgroundColor() {
@@ -388,6 +406,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTitle.setText("CC商城");
+        flButtomNavBar.setVisibility(View.GONE);
     }
 
     private void setTvTradingCenterBackgroundColor() {
@@ -397,6 +416,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         tvCcMall.setBackgroundColor(getResources().getColor(R.color.color_white_faf9f9));
         tvTradingCenter.setBackgroundColor(getResources().getColor(R.color.color_blue_4d8cd6));
         tvTitle.setText("交易中心");
+        flButtomNavBar.setVisibility(View.VISIBLE);
     }
 
     @Override
