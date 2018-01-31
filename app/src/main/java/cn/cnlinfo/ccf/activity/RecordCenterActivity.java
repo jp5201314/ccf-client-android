@@ -22,14 +22,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     TextView tvToSelf;
     @BindView(R.id.tv_step_record)
     TextView tvStepRecord;
-    @BindView(R.id.tv_contribute_value_record)
-    TextView tvContributeValueRecord;
-    @BindView(R.id.tv_basic_contribution_rate_record)
-    TextView tvBasicContributionRateRecord;
     @BindView(R.id.tv_conversion_record)
     TextView tvConversionRecord;
-    @BindView(R.id.tv_e_wallet_record)
-    TextView tvEWalletRecord;
     @BindView(R.id.tv_shopping_record)
     TextView tvShoppingRecord;
     @BindView(R.id.tv_deal_record)
@@ -40,6 +34,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     TextView tvPurMealRecord;
     @BindView(R.id.tv_hang_sell_buy_record)
     TextView tvHangSellBuyRecord;
+    @BindView(R.id.tv_integral_record)
+    TextView tvIntegralRecord;
     private Unbinder unbinder;
 
     @Override
@@ -49,11 +45,6 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         unbinder = ButterKnife.bind(this);
 
         tvTitle.setText("记录中心");
-        //隐藏
-        tvContributeValueRecord.setVisibility(View.GONE);
-        tvBasicContributionRateRecord.setVisibility(View.GONE);
-        tvEWalletRecord.setVisibility(View.GONE);
-
         setClickListener();
     }
 
@@ -65,17 +56,15 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
 
     private void setClickListener() {
         ibtBack.setOnClickListener(this);
-        tvContributeValueRecord.setOnClickListener(this);
         tvDealRecord.setOnClickListener(this);
         tvToOut.setOnClickListener(this);
         tvToSelf.setOnClickListener(this);
         tvStepRecord.setOnClickListener(this);
-        tvBasicContributionRateRecord.setOnClickListener(this);
         tvConversionRecord.setOnClickListener(this);
-        tvEWalletRecord.setOnClickListener(this);
         tvShoppingRecord.setOnClickListener(this);
         tvPurMealRecord.setOnClickListener(this);
         tvHangSellBuyRecord.setOnClickListener(this);
+        tvIntegralRecord.setOnClickListener(this);
     }
 
     @Override
@@ -105,30 +94,30 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
             case R.id.tv_step_record:
                 startActivity(new Intent(this, WalkRecordActivity.class));
                 break;
-            /**
+          /*  *//**
              * 贡献值记录
-             * */
+             * *//*
             case R.id.tv_contribute_value_record:
                 startActivity(new Intent(this, ContributeValueRecordActivity.class));
                 break;
-            /**
+            *//**
              * 基础贡献率记录
-             * */
+             * *//*
             case R.id.tv_basic_contribution_rate_record:
                 startActivity(new Intent(this, BasicContributionRateRecordActivity.class));
-                break;
+                break;*/
             /**
              * 兑换循环包记录
              * */
             case R.id.tv_conversion_record:
                 startActivity(new Intent(this, ConversionCyclePackRecordActivity.class));
                 break;
-            /**
+         /*   *//**
              * 电子钱包转账记录
-             * */
+             * *//*
             case R.id.tv_e_wallet_record:
                 startActivity(new Intent(this, Wallet_Record_Activity.class));
-                break;
+                break;*/
             /**
              * 购物记录
              * */
@@ -152,6 +141,12 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              */
             case R.id.tv_hang_sell_buy_record:
                 startActivity(new Intent(this, HangBuyAndSellRecordActivity.class));
+                break;
+            /**
+             * 用户积分记录
+             */
+            case R.id.tv_integral_record:
+                startActivity(new Intent(this,UserIntegralRecordActivity.class));
                 break;
             default:
                 break;

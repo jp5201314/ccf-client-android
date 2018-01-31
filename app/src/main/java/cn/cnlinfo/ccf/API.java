@@ -267,4 +267,8 @@ public class API {
      * 撤销挂卖挂买
      */
     public static final String CANCELHANGBUYANDSELL = "UserRevocation";
+    /**
+     * 获取积分记录
+     */
+    public static final String GAININTEGRALRECORD = "GetScoreRecordList";
 }

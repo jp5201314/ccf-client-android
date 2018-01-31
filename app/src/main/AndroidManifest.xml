@@ -463,7 +463,16 @@
             android:name=".activity.SellCCFActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NormalFullScreen" />
-        <activity android:name=".activity.PreviewSaveActivity"></activity>
+        <!--查看凭证-->
+        <activity android:name=".activity.PreviewSaveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NormalFullScreen"
+            />
+        <!--用户积分记录-->
+        <activity android:name=".activity.UserIntegralRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupMenuTheme"
+            />
     </application>
 
 </manifest>

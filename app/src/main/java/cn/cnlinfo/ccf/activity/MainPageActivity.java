@@ -452,9 +452,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = currentTime;
             } else {
-                AppManage.getInstance().clearEverything();
-                finish();
-                System.exit(0);
+                AppManage.getInstance().exit(this);
             }
             return true;
         }

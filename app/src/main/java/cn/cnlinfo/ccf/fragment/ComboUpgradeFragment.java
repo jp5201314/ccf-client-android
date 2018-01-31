@@ -70,6 +70,8 @@ public class ComboUpgradeFragment extends BaseFragment {
     TextView tvUpgradeAgencyLink;
     @BindView(R.id.et_meal_num)
     CleanEditText etMealNum;
+    @BindView(R.id.tv_tip_text)
+    TextView tvTipText;
     private Unbinder unbinder;
     private AccountInfo accountInfo;
     private int serviceTypeId;
@@ -125,8 +127,8 @@ public class ComboUpgradeFragment extends BaseFragment {
         safePass = etSafePass.getText().toString();
         mealNum = Integer.valueOf(etMealNum.getText().toString());
         mealPrice = Integer.valueOf(tvMealPrice.getText().toString());
-        if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(etMealNum.getText().toString())){
-            if (re_integral<mealPrice*mealNum){
+        if (!TextUtils.isEmpty(safePass) && !TextUtils.isEmpty(etMealNum.getText().toString())) {
+            if (re_integral < mealPrice * mealNum) {
                 final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
@@ -140,7 +142,7 @@ public class ComboUpgradeFragment extends BaseFragment {
             RequestParams params = new RequestParams();
             params.addFormDataPart("userID", accountInfo.getID());
             params.addFormDataPart("setMealID", serviceTypeId);
-            params.addFormDataPart("num",mealNum );
+            params.addFormDataPart("num", mealNum);
             params.addFormDataPart("pwd2", safePass);
             params.addFormDataPart("registerScore", 0);
             HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
@@ -153,11 +155,11 @@ public class ComboUpgradeFragment extends BaseFragment {
                 }
 
                 @Override
-                protected void onDataError(int code,boolean flag, String msg) {
+                protected void onDataError(int code, boolean flag, String msg) {
                     showMessage(code, msg);
                 }
             });
-        }else {
+        } else {
             toast("输入框不能为空");
         }
 
@@ -172,10 +174,10 @@ public class ComboUpgradeFragment extends BaseFragment {
         registerIntegral = etRegisterIntegral.getText().toString();
         mealPrice = Integer.valueOf(tvMealPrice.getText().toString());
         String meal_num = etMealNum.getText().toString();
-        if (!TextUtils.isEmpty(registerIntegral)&& !TextUtils.isEmpty(safePass) && mealPrice > 0&&!TextUtils.isEmpty(meal_num)) {
+        if (!TextUtils.isEmpty(registerIntegral) && !TextUtils.isEmpty(safePass) && mealPrice > 0 && !TextUtils.isEmpty(meal_num)) {
             long rePrice = Integer.valueOf(registerIntegral);
             mealNum = Integer.valueOf(meal_num);
-            if (re_integral<mealPrice*mealNum){
+            if (re_integral < mealPrice * mealNum) {
                 final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
@@ -187,28 +189,28 @@ public class ComboUpgradeFragment extends BaseFragment {
                 return;
             }
             if (rePrice <= re_integral) {
-                if (rePrice >= mealPrice*mealNum * 0.3&&rePrice<=mealPrice*mealNum) {
-                        RequestParams params = new RequestParams();
-                        params.addFormDataPart("userID", accountInfo.getID());
-                        params.addFormDataPart("setMealID", serviceTypeId);
-                        params.addFormDataPart("registerScore", rePrice);
-                        params.addFormDataPart("pwd2", safePass);
-                        params.addFormDataPart("num",mealNum );
-                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
-                            @Override
-                            protected void onDataSuccess(JSONObject data) {
-                                toast("购买成功");
-                                startActivity(new Intent(getActivity(), PurchaseMealRecordActivity.class));
-                                getActivity().finish();
-                            }
+                if (rePrice >= mealPrice * mealNum * 0.3 && rePrice <= mealPrice * mealNum) {
+                    RequestParams params = new RequestParams();
+                    params.addFormDataPart("userID", accountInfo.getID());
+                    params.addFormDataPart("setMealID", serviceTypeId);
+                    params.addFormDataPart("registerScore", rePrice);
+                    params.addFormDataPart("pwd2", safePass);
+                    params.addFormDataPart("num", mealNum);
+                    HttpRequest.post(Constant.OPERATE_CCF_HOST + API.PURCHASEMEAL, params, new CCFHttpRequestCallback() {
+                        @Override
+                        protected void onDataSuccess(JSONObject data) {
+                            toast("购买成功");
+                            startActivity(new Intent(getActivity(), PurchaseMealRecordActivity.class));
+                            getActivity().finish();
+                        }
 
-                            @Override
-                            protected void onDataError(int code, boolean flag, String msg) {
-                                showMessage(code, msg);
-                            }
-                        });
+                        @Override
+                        protected void onDataError(int code, boolean flag, String msg) {
+                            showMessage(code, msg);
+                        }
+                    });
                 } else {
-                    toast("注册积分必须在" + mealPrice*mealNum * 0.3+"--"+mealPrice*mealNum+"之间");
+                    toast("注册积分必须在" + mealPrice * mealNum * 0.3 + "--" + mealPrice * mealNum + "之间");
                 }
             } else {
                 toast("注册积分不足,请重新输入!");
@@ -226,7 +228,7 @@ public class ComboUpgradeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url","http://ccf.hrkji.com/XY.aspx");
+                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
                 startActivity(intent);
             }
         });
@@ -243,8 +245,8 @@ public class ComboUpgradeFragment extends BaseFragment {
                 protected void onDataSuccess(JSONObject data) {
                     String accountInfoJsonString = data.getJSONObject("Userinfo").toJSONString();
                     UserSharedPreference.getInstance().setAccountInfo(accountInfoJsonString);
-                    AccountInfo account = JSONObject.parseObject(accountInfoJsonString,AccountInfo.class);
-                    tvIntegral.setText("你当前有" + account.getRegisterIntegral() + "注册积分和" + account.getConsumeIntegral() + "消费积分"+account.getCCF()+"碳控因子");
+                    AccountInfo account = JSONObject.parseObject(accountInfoJsonString, AccountInfo.class);
+                    tvIntegral.setText("你当前有" + account.getRegisterIntegral() + "注册积分和" + account.getConsumeIntegral() + "消费积分" + account.getCCF() + "碳控因子");
                 }
 
                 @Override
@@ -280,7 +282,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                     break;
 
             }
-            if (level==0&&accountInfo.getTotalMealWeight()>0){
+            if (level == 0 && accountInfo.getTotalMealWeight() > 0) {
                 tvMyRank.setText("普通用户");
             }
         }
@@ -331,11 +333,13 @@ public class ComboUpgradeFragment extends BaseFragment {
                                                 }
                                             });*/
                                         }
+                                        tvTipText.setText("等值的消费积分或注册积分");//选择起航套餐提示的支付积分文字
                                         break;
                                     case 2:
                                         if (llIntegral.getVisibility() == View.VISIBLE) {
                                             llIntegral.setVisibility(View.GONE);
                                         }
+                                        tvTipText.setText("$等值的碳控因子");//选择普通套餐提示的支付积分文字
                                         break;
                                 }
                             }

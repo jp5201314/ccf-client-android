@@ -66,7 +66,9 @@ public class AppManage {
     @SuppressWarnings("deprecation")
     public void exit(Context context) {
         clearEverything();
-
+        activities.removeAllElements();
+        activities.clear();
+        activities = null;
         System.exit(0);
     }
 
