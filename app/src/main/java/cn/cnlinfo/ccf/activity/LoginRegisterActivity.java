@@ -135,6 +135,7 @@ public class LoginRegisterActivity extends BaseActivity {
                         JSONObject userinfoJsonobject = data.getJSONObject("userinfo");
                         String jsonString = userinfoJsonobject.toJSONString();
                         UserSharedPreference.getInstance().setUserInfo(jsonString);
+                        UserSharedPreference.getInstance().setPhoneAndPassword(username,password);
                         Intent intent = new Intent(LoginRegisterActivity.this, MainPageActivity.class);
                         startActivity(intent);
                         LoginRegisterActivity.this.finish();

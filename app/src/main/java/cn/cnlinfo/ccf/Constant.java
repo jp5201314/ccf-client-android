@@ -14,7 +14,10 @@ public class Constant {
      * 贡献图谱主机地址
      */
     public static final String CONTRIBUTIONMAP_HOST = "http://ccf.hrkji.com/ChildNetwork.asmx/";
-
+    /**
+     * 商城主机地址
+     */
+    public static final String CCMALL_HOST = "http://ccf.hrkji.com/mall/";
     /**
      * 操作ccf主机地址
      */

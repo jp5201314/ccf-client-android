@@ -22,7 +22,10 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.event.ShowMainPageEvent;
 
 /**
@@ -34,6 +37,7 @@ public class CCMallFragment extends BaseFragment {
     WebView wv;
     private Unbinder unbinder;
     private static final String APP_CACAHE_DIRNAME = "/webcache";
+    private String phoneAndPassword;
 
     //收到html页面点击返回上一页执行显示上一页操作
     private Handler handler = new Handler(){
@@ -42,7 +46,6 @@ public class CCMallFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    Logger.d(msg.what);
                     wv.goBack();
                     break;
             }
@@ -53,7 +56,7 @@ public class CCMallFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cc_mall,container,false);
         unbinder = ButterKnife.bind(this,view);
-
+        phoneAndPassword = UserSharedPreference.getInstance().getPhoneAndPassword();
         setWvProperty();
         return view;
     }
@@ -78,7 +81,7 @@ public class CCMallFragment extends BaseFragment {
         } else {
             wv.addJavascriptInterface(this, "androidMethod");
         }
-        wv.loadUrl("http://ccf.hrkji.com/mall/successLogin.aspx?uCodes=1001&uPwd=123456");
+        wv.loadUrl(Constant.CCMALL_HOST+String.format(API.CCMALLLOGIN,phoneAndPassword.substring(0,phoneAndPassword.indexOf('/')),phoneAndPassword.substring(phoneAndPassword.indexOf('/')+1)));
         webSettings.setSaveFormData(true);// 保存表单数据
         String cacheDirPath =getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //缓存模式
@@ -129,6 +132,7 @@ public class CCMallFragment extends BaseFragment {
     public void setHomePage(){
         EventBus.getDefault().post(new ShowMainPageEvent());
     }
+    //android api18之前是定义类来设置本地方法的，在之后就是使用@JavascriptInterfece这样的方式来设置本地方法
     public class JsInterface {
         public void setHomePage() {
             EventBus.getDefault().post(new ShowMainPageEvent());

@@ -32,6 +32,7 @@ public class UserSharedPreference {
     private static final String USER_INFO_KEY = "userinfo";
     private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
+    private static final String CACHE_PASSWORD_KEY = "password";
 
     public UserSharedPreference(Context context) {
         this.mContext = context;
@@ -372,14 +373,15 @@ public class UserSharedPreference {
         this.putPhoneAndPasswordToSharedPreference(phoneNum, password);
     }
 
-    public void putPhoneAndPasswordToCache(String phoneNum, String password) {
+    private void putPhoneAndPasswordToCache(String phoneNum, String password) {
         mACache.put(CACHE_PHONE_PASSWORD_KEY, phoneNum + "/" + password, CACHE_SECONDS);
     }
 
-    public void putPhoneAndPasswordToSharedPreference(String phoneNum, String password) {
+    private void putPhoneAndPasswordToSharedPreference(String phoneNum, String password) {
         mEditor.putString(CACHE_PHONE_PASSWORD_KEY, phoneNum + "/" + password);
         mEditor.commit();
     }
+
 
     /**
      * 获取账号密码
@@ -391,7 +393,7 @@ public class UserSharedPreference {
             phoneAndPassword = this.getPhoneAndPasswordFromSharedPreference();
 
             if (null != phoneAndPassword) {
-                this.putPhoneAndPasswordToSharedPreference(phoneAndPassword.substring(0, 11), phoneAndPassword.substring(12));
+                this.putPhoneAndPasswordToCache(phoneAndPassword.substring(0,phoneAndPassword.lastIndexOf('/')-1), phoneAndPassword.substring(phoneAndPassword.lastIndexOf('/')+1));
             }
         }
         return phoneAndPassword;

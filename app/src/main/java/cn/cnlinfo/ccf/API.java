@@ -22,7 +22,10 @@ public class API {
      * 登录
      */
     public static final String CCFLOGIN = "Login";
-
+    /**
+     * 商城的登录地址
+     */
+    public static final String CCMALLLOGIN = "successLogin.aspx?uCodes=%s&uPwd=%s";
     /**
      * 注册
      */
