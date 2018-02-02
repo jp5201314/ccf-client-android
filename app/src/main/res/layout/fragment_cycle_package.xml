@@ -228,7 +228,9 @@
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"/>
+                    android:text="0"
+                    android:lines="1"
+                    android:maxEms="9"/>
 
                 <TextView
                     style="@style/text_0e1214_15"
@@ -242,7 +244,9 @@
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"/>
+                    android:text="0"
+                    android:lines="1"
+                    android:maxEms="9"/>
 
                 <TextView
                     style="@style/text_0e1214_15"
@@ -256,7 +260,9 @@
                     style="@style/text_0e1214_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"/>
+                    android:text="0"
+                    android:lines="1"
+                    android:ems="9"/>
             </LinearLayout>
 
         </LinearLayout>

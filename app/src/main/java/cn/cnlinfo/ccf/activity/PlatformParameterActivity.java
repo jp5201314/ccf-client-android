@@ -44,7 +44,7 @@ public class PlatformParameterActivity extends BaseActivity {
     @BindView(R.id.tv_current_account_amount)
     TextView tvCurrentAccountAmount;
     @BindView(R.id.tv_current_cycle_package_amount)
-    TextView tvCurrentCyclePackageAmount;
+    TextView tvTotalPack;
     @BindView(R.id.tv_frozen_amount)
     TextView tvFrozenAmount;
     @BindView(R.id.tv_init_total_amount)
@@ -101,7 +101,7 @@ public class PlatformParameterActivity extends BaseActivity {
                     tvProvinceTotal.setText(platformInfo.getProvinceProxy());
                     tvCityTotal.setText(platformInfo.getCityProxy());
                     tvCountyTotal.setText(platformInfo.getCountyProxy());
-                    tvCurrentCyclePackageAmount.setText(platformInfo.getHaschange());
+                    tvTotalPack.setText(platformInfo.getTotalPack());
                 }
             }
 
