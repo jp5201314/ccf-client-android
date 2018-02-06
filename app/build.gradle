@@ -275,7 +275,6 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
     provided 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
     compile files('libs/TalkingData_Analytics_Android_SDK_V2.2.37.jar')

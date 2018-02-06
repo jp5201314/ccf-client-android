@@ -70,8 +70,8 @@ public class OrderCenterActivity extends BaseActivity {
     private OrderListItemAdapter orderListItemAdapter;
     private static String tradTypeBuy = "where SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+" and  TranType=2";
     private static String tradTypeSell = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=1";
-
-
+    private static String tradTypeMatch = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=3";
+    private static String tradTypeAll = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  (TranType=3 or TranType=2 or TranType=1)";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,7 @@ public class OrderCenterActivity extends BaseActivity {
         rv.setNestedScrollingEnabled(false);
         rv.setLayoutManager(new FullyLinearLayoutManager(this));
         mvcHelper = new MVCUltraHelper(pfl);
-        mvcHelper.setDataSource(new OrderListDataSource(tradTypeBuy));
+        mvcHelper.setDataSource(new OrderListDataSource(tradTypeAll));
         orderListItemAdapter = new OrderListItemAdapter(this);
         mvcHelper.setAdapter(orderListItemAdapter);
         mvcHelper.refresh();
@@ -202,6 +202,11 @@ public class OrderCenterActivity extends BaseActivity {
                         break;
                     case R.id.buy:
                         mvcHelper.setDataSource(new OrderListDataSource(tradTypeBuy));
+                        orderListItemAdapter = new OrderListItemAdapter(OrderCenterActivity.this);
+                        mvcHelper.setAdapter(orderListItemAdapter);
+                        break;
+                    case R.id.match:
+                        mvcHelper.setDataSource(new OrderListDataSource(tradTypeMatch));
                         orderListItemAdapter = new OrderListItemAdapter(OrderCenterActivity.this);
                         mvcHelper.setAdapter(orderListItemAdapter);
                         break;

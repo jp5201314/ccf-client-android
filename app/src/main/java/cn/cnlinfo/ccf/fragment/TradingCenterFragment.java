@@ -273,7 +273,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                         RequestParams params = new RequestParams();
                         params.addFormDataPart("sellerID", UserSharedPreference.getInstance().getUser().getUserID());
                         params.addFormDataPart("ccfValue", num);
-                        params.addFormDataPart("safepass", safePass);
+                        params.addFormDataPart("pwd", safePass);
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGSELL, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {
@@ -292,7 +292,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                         RequestParams params = new RequestParams();
                         params.addFormDataPart("userID", UserSharedPreference.getInstance().getUser().getUserID());
                         params.addFormDataPart("ccfValue", num);
-                        params.addFormDataPart("safepass", safePass);
+                        params.addFormDataPart("pwd", safePass);
                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.HANGBUY, params, new CCFHttpRequestCallback() {
                             @Override
                             protected void onDataSuccess(JSONObject data) {

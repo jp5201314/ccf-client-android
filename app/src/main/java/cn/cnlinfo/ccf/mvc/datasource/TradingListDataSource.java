@@ -52,7 +52,7 @@ public class TradingListDataSource implements IAsyncDataSource<List<TradingListI
             protected void onDataSuccess(JSONObject data) {
                 List<TradingListItem> listItems = JSONObject.parseArray(data.getJSONArray("JobberList").toJSONString(),TradingListItem.class);
                 TradingListDataSource.this.page = page;
-                maxPage = data.getIntValue("PageCount");
+                //maxPage = data.getIntValue("PageCount");
                 sender.sendData(listItems);
             }
 

@@ -73,7 +73,7 @@ public class TradingCenterActivity extends BaseActivity {
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayout.HORIZONTAL, PhoneManager.dip2px(8),getResources().getColor(R.color.color_black_0e1214_alpha_75)));
         mvcHelper = new MVCUltraHelper(mPfl);
-        mvcHelper.setDataSource(new TradingListDataSource("where TranType=1 and Status=1"));
+        mvcHelper.setDataSource(new TradingListDataSource("where (TranType=1 or TranType=2) and Status=1 "));
         adapter = new TradingListItemAdapter(this,1);
         mvcHelper.setAdapter(adapter);
     }

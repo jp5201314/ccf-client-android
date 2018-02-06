@@ -37,7 +37,7 @@ public class CCMallFragment extends BaseFragment {
     WebView wv;
     private Unbinder unbinder;
     private static final String APP_CACAHE_DIRNAME = "/webcache";
-    private String phoneAndPassword;
+    private static String phoneAndPassword;
 
     //收到html页面点击返回上一页执行显示上一页操作
     private Handler handler = new Handler(){
