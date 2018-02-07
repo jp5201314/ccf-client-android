@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,6 +99,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="服务人员" />
+
+            <cn.cnlinfo.ccf.view.CleanEditText
+                android:id="@+id/et_service_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/edit_text_style"
+                android:digits="@string/input_impose_num"
+                android:gravity="center"
+                android:inputType="text"
+                android:hint="服务人员用户名"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textColor="@drawable/selector_edit_text_color" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="安全密码" />
 
             <cn.cnlinfo.ccf.view.CleanEditText
@@ -138,3 +168,4 @@
             android:text="确定" />
     </LinearLayout>
 </LinearLayout>
+</ScrollView>

@@ -199,7 +199,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
             HttpRequest.post(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP, params, new CCFHttpRequestCallback() {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
-                    Logger.d(data.toJSONString());
+                   // Logger.d(data.toJSONString());
                     Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
                     if (userstep != null) {
                         tvCurrentRank.setText("第"+userstep.getRanking()+"名");
