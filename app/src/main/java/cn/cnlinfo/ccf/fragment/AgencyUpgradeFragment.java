@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lljjcoder.city_20170724.CityPickerView;
 import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
@@ -33,7 +33,11 @@ import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
-import cn.cnlinfo.ccf.utils.CityPickerUtils;
+import cn.cnlinfo.ccf.province_city_zone.callback.GainAreaCallBack;
+import cn.cnlinfo.ccf.province_city_zone.entity.City;
+import cn.cnlinfo.ccf.province_city_zone.entity.Districts;
+import cn.cnlinfo.ccf.province_city_zone.entity.Province;
+import cn.cnlinfo.ccf.province_city_zone.popup_window.ChooseAreaPopup;
 import cn.cnlinfo.ccf.utils.SpinnerUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.finalteam.okhttpfinal.HttpRequest;
@@ -61,16 +65,20 @@ public class AgencyUpgradeFragment extends BaseFragment {
     CheckBox cbIsRead;
     @BindView(R.id.tv_upgrade_agency_link)
     TextView tvUpgradeAgencyLink;
+    @BindView(R.id.et_service_user)
+    CleanEditText etServiceUser;
     private Unbinder unbinder;
     private AccountInfo accountInfo;
     private String safePass;
     private ProvinceBean provinceBean;
     private CityBean cityBean;
     private DistrictBean districtBean;
+    private Province province;
+    private City city;
+    private Districts districts;
     private String agencyType = "1";//代理服务默认为第一种类型
     private String serviceType = "1";
-
-
+    private PopupWindow popupWindow;
 
 
     @Override
@@ -97,7 +105,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url","http://ccf.hrkji.com/XY.aspx");
+                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
                 startActivity(intent);
             }
         });
@@ -124,7 +132,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
                 break;
 
         }
-        if (level==0&&accountInfo.getTotalMealWeight()>0){
+        if (level == 0 && accountInfo.getTotalMealWeight() > 0) {
             tvMyRank.setText("普通用户");
         }
 
@@ -132,7 +140,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
         spAgencyType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                agencyType = String.valueOf(position+1);
+                agencyType = String.valueOf(position + 1);
             }
 
             @Override
@@ -144,7 +152,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
         spServiceType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                serviceType = String.valueOf(position+1);
+                serviceType = String.valueOf(position + 1);
             }
 
             @Override
@@ -155,7 +163,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
         tvAgencyAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CityPickerView cityPickerView = CityPickerUtils.showCityPicker(getActivity(), 0);
+ /*               CityPickerView cityPickerView = CityPickerUtils.showCityPicker(getActivity(), 0);
                 cityPickerView.setOnCityItemClickListener(new CityPickerView.OnCityItemClickListener() {
                     @Override
                     public void onSelected(ProvinceBean provinceBean, CityBean cityBean, DistrictBean districtBean) {
@@ -169,7 +177,17 @@ public class AgencyUpgradeFragment extends BaseFragment {
                     public void onCancel() {
 
                     }
+                });*/
+                popupWindow = ChooseAreaPopup.getInstance(AgencyUpgradeFragment.this.getActivity()).showPupopWindow(v,new GainAreaCallBack() {
+                    @Override
+                    public void gainArea(Province province, City city, Districts districts) {
+                        tvAgencyAddress.setText(province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName());
+                        AgencyUpgradeFragment.this.province = province;
+                        AgencyUpgradeFragment.this.city = city;
+                        AgencyUpgradeFragment.this.districts = districts;
+                    }
                 });
+
             }
         });
     }
@@ -178,17 +196,35 @@ public class AgencyUpgradeFragment extends BaseFragment {
     private void toUpgradeAgency() {
         if (cbIsRead.isChecked()) {
             safePass = etSafePass.getText().toString();
-            if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(tvAgencyAddress.getText().toString())) {
+            String serviceUser  = etServiceUser.getText().toString();
+            if (!TextUtils.isEmpty(safePass)&&!TextUtils.isEmpty(serviceUser) && !TextUtils.isEmpty(tvAgencyAddress.getText().toString())) {
+                String regions = null;
+                switch (agencyType) {
+                    case "1":
+                        regions = province.getId() + "-" + "0" + "-" + "0";
+                        break;
+                    case "2":
+                        regions = province.getId() + "-" + city.getCityId() + "-" + "0";
+                        break;
+                    case "3":
+                        regions = province.getId() + "-" + city.getCityId() + "-" + districts.getDistrictsId();
+                        break;
+                    case "4":
+                        regions = province.getId() + "-" + city.getCityId() + "-" + districts.getDistrictsId();
+                        break;
+                }
                 RequestParams params = new RequestParams();
                 //代理类型  1是省代2是市代3是县代4是服务中心
                 //服务类型 1是商城消费者2是商城商家3是联盟消费者4是联盟商家
-                params.addFormDataPart("userID",UserSharedPreference.getInstance().getUser().getUserID());
-                params.addFormDataPart("proxyType",agencyType);
-                params.addFormDataPart("serveType",serviceType);
-                params.addFormDataPart("area",tvAgencyAddress.getText().toString());
-                params.addFormDataPart("regions",provinceBean.getId()+"-"+cityBean.getId()+"-"+districtBean.getId());
-                params.addFormDataPart("pwd",safePass);
-                Logger.d(UserSharedPreference.getInstance().getUser().getUserID()+"\n"+agencyType+"\n"+serviceType+"\n"+provinceBean.getName()+"-"+cityBean.getName()+"-"+districtBean.getName()+"\n"+provinceBean.getId()+"-"+cityBean.getId()+"-"+districtBean.getId()+"\n"+safePass);
+                params.addFormDataPart("userID", UserSharedPreference.getInstance().getUser().getUserID());
+                params.addFormDataPart("proxyType", agencyType);
+                params.addFormDataPart("serveType", serviceType);
+                params.addFormDataPart("area", tvAgencyAddress.getText().toString());
+                params.addFormDataPart("servantusername",serviceUser);
+                params.addFormDataPart("regions", regions);
+                params.addFormDataPart("pwd", safePass);
+                Logger.d(regions);
+                Logger.d(UserSharedPreference.getInstance().getUser().getUserID() + "\n" + agencyType + "\n" + serviceType + "\n" + province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName() + "\n" + province.getId() + "-" + city.getCityId() + "-" + districts.getDistrictsId() + "\n" + safePass);
                 HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.UPDATETOAGENCY, params, new CCFHttpRequestCallback() {
                     @Override
                     protected void onDataSuccess(JSONObject data) {
@@ -198,13 +234,13 @@ public class AgencyUpgradeFragment extends BaseFragment {
 
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
-                        EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                        EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
                     }
 
                     @Override
                     public void onFailure(int errorCode, String msg) {
                         super.onFailure(errorCode, msg);
-                        EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                        EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
                     }
                 });
             } else {
@@ -216,9 +252,19 @@ public class AgencyUpgradeFragment extends BaseFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (popupWindow != null && popupWindow.isShowing()){
+            popupWindow.dismiss();
+            popupWindow = null;
+        }
+        Logger.d("onPause");
+    }
+
+    @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
         HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.UPDATETOAGENCY);
+        super.onDestroyView();
     }
 }
