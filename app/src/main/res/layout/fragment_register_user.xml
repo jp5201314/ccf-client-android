@@ -202,7 +202,24 @@
                 android:text="获取" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="9dp">
+        <CheckBox
+            android:id="@+id/cb_is_read"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:checked="true"/>
+        <TextView
+            android:id="@+id/tv_upgrade_agency_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
+    </LinearLayout>
     <Button
         android:id="@+id/btn_register_user"
         android:layout_width="69dp"

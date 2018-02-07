@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +82,9 @@ public class CCMallFragment extends BaseFragment {
         } else {
             wv.addJavascriptInterface(this, "androidMethod");
         }
-        wv.loadUrl(Constant.CCMALL_HOST+String.format(API.CCMALLLOGIN,phoneAndPassword.substring(0,phoneAndPassword.indexOf('/')),phoneAndPassword.substring(phoneAndPassword.indexOf('/')+1)));
+        if (!TextUtils.isEmpty(phoneAndPassword)){
+            wv.loadUrl(Constant.CCMALL_HOST+String.format(API.CCMALLLOGIN,phoneAndPassword.substring(0,phoneAndPassword.indexOf('/')),phoneAndPassword.substring(phoneAndPassword.indexOf('/')+1)));
+        }
         webSettings.setSaveFormData(true);// 保存表单数据
         String cacheDirPath =getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //缓存模式

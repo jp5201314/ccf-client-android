@@ -271,4 +271,8 @@ public class API {
      * 获取积分记录
      */
     public static final String GAININTEGRALRECORD = "GetScoreRecordList";
+    /**
+     * 升级成为交易商
+     */
+    public static final String UPGRADETOBETRADER = "UpdateToBusiness";
 }

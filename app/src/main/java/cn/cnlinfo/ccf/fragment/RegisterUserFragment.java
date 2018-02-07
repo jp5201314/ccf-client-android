@@ -2,9 +2,12 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
@@ -17,6 +20,7 @@ import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.activity.MainPageActivity;
+import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
 import cn.cnlinfo.ccf.net_okhttp.OkHttpPostRequestBuilder;
 import cn.cnlinfo.ccf.net_okhttp.UiHandlerCallBack;
@@ -52,6 +56,10 @@ public class RegisterUserFragment extends BaseFragment {
     Button btnGetVerificationCode;
     @BindView(R.id.btn_register_user)
     Button btnRegisterUser;
+    @BindView(R.id.cb_is_read)
+    CheckBox cbIsRead;
+    @BindView(R.id.tv_upgrade_agency_link)
+    TextView tvUpgradeAgencyLink;
     private Unbinder unbinder;
     private String invitationCode;
     private String userName;
@@ -67,6 +75,16 @@ public class RegisterUserFragment extends BaseFragment {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_register_user);
         unbinder = ButterKnife.bind(this, getContentView());
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
+        tvUpgradeAgencyLink.setText(charSequence);
+        tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -118,9 +136,13 @@ public class RegisterUserFragment extends BaseFragment {
                 break;
             case R.id.btn_register_user:
                 getEditString();
-                if (!TextUtils.isEmpty(invitationCode)&&!TextUtils.isEmpty(contactPerson) && !TextUtils.isEmpty(userName) && !TextUtils.isEmpty(loginPass) && !TextUtils.isEmpty(verifyPass) && !TextUtils.isEmpty(verificationCode) && !TextUtils.isEmpty(phoneNum)) {
+                if (!TextUtils.isEmpty(invitationCode) && !TextUtils.isEmpty(contactPerson) && !TextUtils.isEmpty(userName) && !TextUtils.isEmpty(loginPass) && !TextUtils.isEmpty(verifyPass) && !TextUtils.isEmpty(verificationCode) && !TextUtils.isEmpty(phoneNum)) {
                     if (loginPass.equals(verifyPass)) {
-                            startToRegister(userName, invitationCode, phoneNum, contactPerson,loginPass);
+                        if (cbIsRead.isChecked()){
+                            startToRegister(userName, invitationCode, phoneNum, contactPerson, loginPass);
+                        }else {
+                            toast("请仔细阅读并同意代理协议");
+                        }
                     } else {
                         toast("两次输入的密码不一致,请重新输入!");
                         return;
@@ -131,14 +153,15 @@ public class RegisterUserFragment extends BaseFragment {
                 break;
         }
     }
+
     /**
      * 开始注册
      */
-    private void startToRegister(String userName, String invitationCode, String phoneNum ,String contactPerson,String pwd) {
+    private void startToRegister(String userName, String invitationCode, String phoneNum, String contactPerson, String pwd) {
         OkHttpPostRequestBuilder okHttpPostRequestBuilder = new OkHttpPostRequestBuilder(Constant.getHost() + API.CCFREGISTERS);
         okHttpPostRequestBuilder.put("strAccounts", userName);
         okHttpPostRequestBuilder.put("strDirectAccounts", invitationCode);
-        okHttpPostRequestBuilder.put("Parentcode",contactPerson);
+        okHttpPostRequestBuilder.put("Parentcode", contactPerson);
         okHttpPostRequestBuilder.put("telephone", phoneNum);
         okHttpPostRequestBuilder.put("pwd", pwd);
         okHttpPostRequestBuilder.put("code", code);
@@ -168,5 +191,4 @@ public class RegisterUserFragment extends BaseFragment {
         });
 
     }
-
 }

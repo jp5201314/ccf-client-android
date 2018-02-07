@@ -22,10 +22,11 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.fragment.AgencyUpgradeFragment;
 import cn.cnlinfo.ccf.fragment.ComboUpgradeFragment;
+import cn.cnlinfo.ccf.fragment.TraderUpgradeFragment;
 
 public class UserUpgradeActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;
-    private static final String TITLES[] = {"代理升级", "套餐升级"};
+    private static final String TITLES[] = {"代理升级", "套餐升级","交易商升级"};
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
     @BindView(R.id.tv_title)
@@ -104,6 +105,9 @@ public class UserUpgradeActivity extends BaseActivity {
                     break;
                 case 1:
                     fragment = new ComboUpgradeFragment();
+                    break;
+                case 2:
+                    fragment = new TraderUpgradeFragment();
                     break;
             }
             return fragment;

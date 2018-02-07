@@ -61,6 +61,14 @@
         <item>cc联盟商家</item>
     </string-array>
 
+    <string-array name="trader_type">
+        <item>1星交易商</item>
+        <item>2星交易商</item>
+        <item>3星交易商</item>
+        <item>4星交易商</item>
+        <item>星交易商</item>
+    </string-array>
+
     <string-array name="user_type">
         <item>cc商城</item>
         <item>cc联盟</item>

@@ -20,8 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.fragment.RegisterAgencyFragment;
-import cn.cnlinfo.ccf.fragment.RegisterCustomerFragment;
 import cn.cnlinfo.ccf.fragment.RegisterUserFragment;
 
 public class RegisterMemberActivity extends BaseActivity {
@@ -37,7 +35,8 @@ public class RegisterMemberActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;
     private Unbinder unbinder;
     private RegisterMemberAdapter registerMemberAdapter;
-    private String[] TITLES = {"用户注册", "商家注册", "代理注册"};
+    //private String[] TITLES = {"用户注册", "商家注册", "代理注册"};
+    private String[] TITLES = {"用户注册"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class RegisterMemberActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 1;
         }
 
         @Override
@@ -101,12 +100,12 @@ public class RegisterMemberActivity extends BaseActivity {
                 case 0:
                     fragment = new RegisterUserFragment();
                     break;
-                case 1:
+             /*   case 1:
                     fragment = new RegisterCustomerFragment();
                     break;
                 case 2:
                     fragment = new RegisterAgencyFragment();
-                    break;
+                    break;*/
             }
             return fragment;
         }

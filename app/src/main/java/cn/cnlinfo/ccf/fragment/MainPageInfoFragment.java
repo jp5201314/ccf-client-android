@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -67,7 +66,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private SimpleAdapter simplePlatformAdapter;
     private ScheduledExecutorService scheduledExecutorService;
     private ViewPagerAdapter viewPagerAdapter;
-    private List<String> imageUrls;
+    private List<Integer> imageUrls;
     private List<ImageView> images;
     private int currentItem;
     //记录上一次点的位置
@@ -303,16 +302,15 @@ public class MainPageInfoFragment extends BaseFragment {
         //显示的图片
         images = new ArrayList<ImageView>();
         imageUrls = new ArrayList<>();
-        imageUrls.add("http://p1.so.qhimgs1.com/t01cb91bb70a9512091.jpg");
-        imageUrls.add("http://pic23.nipic.com/20120908/10639194_105138442151_2.jpg");
-        imageUrls.add("http://p3.so.qhmsg.com/t01795ea98344aa3848.jpg");
+        imageUrls.add(R.drawable.banner1);
+        imageUrls.add(R.drawable.banner2);
+        imageUrls.add(R.drawable.banner3);
         for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getActivity());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(this).load(imageUrls.get(i)).fitCenter().error(nums[i]).placeholder(nums[i]).into(imageView);
             images.add(imageView);
         }
-
         dots = new ArrayList<>();
         dots.add(dot0);
         dots.add(dot1);
@@ -419,7 +417,7 @@ public class MainPageInfoFragment extends BaseFragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "" + (position + 1), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "" + (position + 1), Toast.LENGTH_SHORT).show();
                 }
             });
             container.addView(imageView);
