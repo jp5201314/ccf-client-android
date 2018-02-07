@@ -100,11 +100,10 @@
         <item>注册积分转消费积分</item>
         <item>消费积分转产品积分</item>
         <item>消费积分转碳控因子</item>
-        <item>消费积分转循环积分</item>
         <item>碳控因子转产品积分</item>
         <item>碳控因子转消费积分</item>
-        <item>碳控因子转循环积分</item>
-        <item>循环积分转产品积分</item>
+        <item>碳控积分转产品积分</item>
+        <item>产品积分转消费积分</item>
     </string-array>
 
     <string name="purchase_meal_describe">注:\n\t\t起航套餐可以全部用注册积分购买消费套餐，也可以采用注册积分加消费积分购买消费套餐，但是注册积分比例不得低于购买套餐的30%!!!\n\t\t普通套餐只能使用碳控因子购买!!!\n\t\t套餐一次最多购买5套</string>

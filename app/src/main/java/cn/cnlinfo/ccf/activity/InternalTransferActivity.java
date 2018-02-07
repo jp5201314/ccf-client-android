@@ -30,8 +30,8 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class InternalTransferActivity extends BaseActivity {
     /**
-     * [3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
-     * --7:消费积分转循环积分,8:碳控因子转产品积分,9:碳控因子转消费积分,10:碳控因子转循环积分,11:循环积分转产品积分]
+     *:[3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
+     --,7:碳控因子转产品积分,8:碳控因子转消费积分,9:碳控积分转产品积分,10:产品积分转消费积分]
      */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -170,20 +170,17 @@ public class InternalTransferActivity extends BaseActivity {
                     case "消费积分转碳控因子":
                         typeId = 6;
                         break;
-                    case "消费积分转循环积分":
+                    case "碳控因子转产品积分":
                         typeId = 7;
                         break;
-                    case "碳控因子转产品积分":
+                    case "碳控因子转消费积分":
                         typeId = 8;
                         break;
-                    case "碳控因子转消费积分":
+                    case "碳控积分转产品积分":
                         typeId = 9;
                         break;
-                    case "碳控因子转循环积分":
+                    case "产品积分转消费积分":
                         typeId = 10;
-                        break;
-                    case "循环积分转产品积分":
-                        typeId = 11;
                         break;
                 }
             }
