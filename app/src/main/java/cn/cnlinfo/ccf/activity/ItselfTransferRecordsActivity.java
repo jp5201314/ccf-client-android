@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.cnlinfo.ccf.R;
-import cn.cnlinfo.ccf.adapter.OutInTransferRecordAdapter;
+import cn.cnlinfo.ccf.adapter.InTransferRecordAdapter;
 import cn.cnlinfo.ccf.entity.TransferRecordEntity;
 import cn.cnlinfo.ccf.mvc.datasource.InTransferRecordDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
@@ -63,7 +63,7 @@ public class ItselfTransferRecordsActivity extends BaseActivity {
         mvcHelper = new MVCUltraHelper<List<TransferRecordEntity>>(pfl);
         mvcHelper.setNeedCheckNetwork(true);
         mvcHelper.setDataSource(new InTransferRecordDataSource());
-        mvcHelper.setAdapter(  new OutInTransferRecordAdapter(this));
+        mvcHelper.setAdapter(  new InTransferRecordAdapter(this));
         mvcHelper.refresh();
     }
     @Override

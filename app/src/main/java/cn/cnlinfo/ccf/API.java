@@ -25,7 +25,7 @@ public class API {
     /**
      * 商城的登录地址
      */
-    public static final String CCMALLLOGIN = "successLogin.aspx?uCodes=%s&uPwd=%s";
+    public static final String CCMALLLOGIN = "index.aspx?param=%s&cmd=%s";
     /**
      * 注册
      */

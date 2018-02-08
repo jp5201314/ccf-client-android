@@ -108,7 +108,7 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onReceivedIcon(WebView view, Bitmap icon) {
                 super.onReceivedIcon(view, icon);
-                ibtBack.setImageBitmap(icon);
+                //ibtBack.setImageBitmap(icon);
             }
 
         });
