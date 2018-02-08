@@ -46,13 +46,14 @@
     <uses-feature
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
-
+    <!-- android:hardwareAccelerated="true"   开启硬件加速 app支持硬件加速：加载webview速度-->
     <application
         android:name=".CCFApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ccf"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/FullScreen"
         android:resizeableActivity="false">
         <activity
