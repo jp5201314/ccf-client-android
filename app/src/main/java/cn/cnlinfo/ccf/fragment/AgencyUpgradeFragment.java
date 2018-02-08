@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -223,8 +222,6 @@ public class AgencyUpgradeFragment extends BaseFragment {
                 params.addFormDataPart("servantusername",serviceUser);
                 params.addFormDataPart("regions", regions);
                 params.addFormDataPart("pwd", safePass);
-                Logger.d(regions);
-                Logger.d(UserSharedPreference.getInstance().getUser().getUserID() + "\n" + agencyType + "\n" + serviceType + "\n" + province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName() + "\n" + province.getId() + "-" + city.getCityId() + "-" + districts.getDistrictsId() + "\n" + safePass);
                 HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.UPDATETOAGENCY, params, new CCFHttpRequestCallback() {
                     @Override
                     protected void onDataSuccess(JSONObject data) {
@@ -258,7 +255,6 @@ public class AgencyUpgradeFragment extends BaseFragment {
             popupWindow.dismiss();
             popupWindow = null;
         }
-        Logger.d("onPause");
     }
 
     @Override

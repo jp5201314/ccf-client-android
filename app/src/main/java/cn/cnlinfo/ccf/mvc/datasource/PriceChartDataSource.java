@@ -1,7 +1,6 @@
 package cn.cnlinfo.ccf.mvc.datasource;
 
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 import com.shizhefei.mvc.IAsyncDataSource;
 import com.shizhefei.mvc.RequestHandle;
 import com.shizhefei.mvc.ResponseSender;
@@ -46,7 +45,7 @@ public class PriceChartDataSource implements IAsyncDataSource<List<ItemPriceList
         HttpRequest.post(Constant.PRICE_LIST_HOST + API.PRICELIST, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                Logger.d(data.toJSONString());
+//                Logger.d(data.toJSONString());
                 List<ItemPriceListEntity> list = JSONObject.parseArray(data.getJSONArray("PriceList").toJSONString(),ItemPriceListEntity.class);
                 PriceChartDataSource.this.page = page+1;
                 PriceChartDataSource.this.maxPage = data.getIntValue("PageCount");

@@ -228,8 +228,10 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
      */
     private void startUpService() {
         intent = new Intent(getActivity(), StepService.class);
-        isBind = getActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
-        getActivity().startService(intent);
+        if (conn!=null){
+            isBind = getActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
+            getActivity().startService(intent);
+        }
     }
 
 
@@ -307,7 +309,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onStop() {
         super.onStop();
-        Logger.d("onStop");
+//        Logger.d("onStop");
     }
 
     @Override
@@ -315,6 +317,24 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         super.onDestroyViewLazy();
         Logger.d("onDestroyViewLazy");
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        Logger.d("onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        Logger.d("onDestroyView");
+        if (conn!=null&&isBind) {
+            getActivity().unbindService(conn);
+        }
+        showWaitingDialog(false);
+        conn = null;
+        callBack = null;
         //取消Http请求
         HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE);
         HttpRequest.cancel(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP);
@@ -322,27 +342,9 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Logger.d("onDestroy");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Logger.d("onDestroyView");
-        if (conn!=null&&isBind) {
-            getActivity().unbindService(conn);
-        }
-        showWaitingDialog(false);
-        conn = null;
-        callBack = null;
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
-        Logger.d("onDetach");
+//        Logger.d("onDetach");
     }
 
     @Override

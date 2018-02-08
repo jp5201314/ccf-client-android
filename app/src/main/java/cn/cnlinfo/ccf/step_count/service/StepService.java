@@ -104,7 +104,7 @@ public class StepService extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
-        Logger.d("onCreate");
+//        Logger.d("onCreate");
     }
 
     /**
@@ -134,7 +134,7 @@ public class StepService extends Service implements SensorEventListener {
         Notification notification = mBuilder.build();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         startForeground(notifyId_Step, notification);
-        Logger.d("initNotification");
+//        Logger.d("initNotification");
     }
 
     /**
@@ -148,7 +148,7 @@ public class StepService extends Service implements SensorEventListener {
 
         //获取当天的数据，用于展示
         List<StepData> list = databaseManager.getQueryByWhere(StepData.class, new String[]{"username","today"}, new String[]{user.getUserCode(),getTodayDate()});
-        Logger.d("initTodayData  "+user.getUserCode()+"  "+list.size());
+//        Logger.d("initTodayData  "+user.getUserCode()+"  "+list.size());
         if (list.size() == 0 || list.isEmpty()) {
             CURRENT_STEP = user.getTodayStep();
         } else if (list.size() == 1) {
@@ -246,8 +246,7 @@ public class StepService extends Service implements SensorEventListener {
         String time = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("achieveTime", "21:00");
         String plan = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("planWalk_QTY", "10000");
         String remind = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("remind", "1");
-        Logger.d("time=" + time + "\n" +
-                "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
+       // Logger.d("time=" + time + "\n" + "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
         if (("1".equals(remind)) &&
                 (CURRENT_STEP < Integer.parseInt(plan)) &&
                 (time.equals(new SimpleDateFormat("HH:mm").format(new Date())))
@@ -284,7 +283,7 @@ public class StepService extends Service implements SensorEventListener {
             if (mCallback != null) {
                 mCallback.updateUi(CURRENT_STEP);
             }
-            Logger.d("updateNotification()");
+//            Logger.d("updateNotification()");
     }
 
     /**
@@ -380,7 +379,7 @@ public class StepService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.d("onStartCommand");
+//        Logger.d("onStartCommand");
         initNotification();
         initTodayData();
         initBroadcastReceiver();
@@ -514,7 +513,7 @@ public class StepService extends Service implements SensorEventListener {
                 //记录最后一次APP打开到现在的总步数
                 previousStepCount = thisStepCount;
             }
-            Logger.d("历史总步数tempStep = " + tempStep+"\n"+"当前的步数thisStepCount = "+previousStepCount+"当前用户的步数 = "+CURRENT_STEP);
+//            Logger.d("历史总步数tempStep = " + tempStep+"\n"+"当前的步数thisStepCount = "+previousStepCount+"当前用户的步数 = "+CURRENT_STEP);
         } else if (stepSensorType == Sensor.TYPE_STEP_DETECTOR) {
             if (event.values[0] == 1.0) {
                 if (UserSharedPreference.getInstance().getUser()!=null){
@@ -582,12 +581,12 @@ public class StepService extends Service implements SensorEventListener {
         databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
         mNotificationManager.cancel(notifyId_Step);
-        Logger.d("stepService关闭");
+       // Logger.d("stepService关闭");
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Logger.d("onUnbind");
+        //Logger.d("onUnbind");
         return super.onUnbind(intent);
     }
 }

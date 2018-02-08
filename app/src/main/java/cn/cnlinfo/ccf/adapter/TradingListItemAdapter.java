@@ -62,7 +62,7 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                  * 1是挂卖
                  * 2是挂买
                  */
-                if (tradType == 1) {
+                if (((ViewHolder) holder).tvTradingType.getText().toString().equals("挂卖")) {
                     ((ViewHolder) holder).btnTradingStatus.setText("购买");
                 } else {
                     ((ViewHolder) holder).btnTradingStatus.setText("出售");

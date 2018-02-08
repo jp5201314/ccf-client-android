@@ -150,6 +150,7 @@ public class OrderCenterActivity extends BaseActivity {
 
                     @Override
                     public void error(int status, String message) {
+                        Logger.d(status+":"+message);
                         showMessage(status, message);
                     }
 
@@ -160,7 +161,6 @@ public class OrderCenterActivity extends BaseActivity {
 
                     @Override
                     public void failed(int code, String msg) {
-
                         showMessage(code, msg);
                     }
                 });
@@ -188,7 +188,7 @@ public class OrderCenterActivity extends BaseActivity {
         PopupMenu popupMenu = new PopupMenu(this,view, Gravity.END);
         Menu menu = popupMenu.getMenu();
         MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.layout_trading_menu,menu);
+        inflater.inflate(R.menu.layout_order_menu,menu);
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override

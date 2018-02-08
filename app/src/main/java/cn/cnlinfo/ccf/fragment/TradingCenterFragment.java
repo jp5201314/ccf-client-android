@@ -192,7 +192,7 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         mvcHelper.setAdapter(new IDataAdapter<List<ItemPriceListEntity>>() {
             @Override
             public void notifyDataChanged(List<ItemPriceListEntity> itemPriceListEntities, boolean isRefresh) {
-                Logger.d(itemPriceListEntities.toString());
+//                Logger.d(itemPriceListEntities.toString());
 
                 for (int i = 0; i < itemPriceListEntities.size(); i++) {
                     xVals.add(itemPriceListEntities.get(i).getAddTime());
