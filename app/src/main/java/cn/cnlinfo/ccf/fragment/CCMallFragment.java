@@ -155,7 +155,7 @@ public class CCMallFragment extends BaseFragment {
                 if (url.startsWith("http://") || url.startsWith("https://")) {
                     //Logger.d(url);
                     wv.loadUrl(url);
-                    wv.stopLoading();
+                   // wv.stopLoading();//加上这句oppo手机不能点击网页跳转
                     return true;
                 }
                 return false;

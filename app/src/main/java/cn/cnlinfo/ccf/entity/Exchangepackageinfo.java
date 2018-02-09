@@ -18,8 +18,8 @@ public class Exchangepackageinfo {
      */
 
 
-    private long CCF;
-    private long CircleTicket;
+    private double CCF;
+    private double CircleTicket;
     private int Circle;
     private int TotalPack;
     private int PackTime;
@@ -28,7 +28,7 @@ public class Exchangepackageinfo {
     private int UpperLimit;
     private int Convertible;
 
-    public Exchangepackageinfo(long CCF, long circleTicket, int circle, int totalPack, int packTime, int haschange, int residue, int upperLimit, int convertible) {
+    public Exchangepackageinfo(double CCF, double circleTicket, int circle, int totalPack, int packTime, int haschange, int residue, int upperLimit, int convertible) {
         this.CCF = CCF;
         CircleTicket = circleTicket;
         Circle = circle;
@@ -58,19 +58,19 @@ public class Exchangepackageinfo {
     public Exchangepackageinfo() {
     }
 
-    public long getCCF() {
+    public double getCCF() {
         return CCF;
     }
 
-    public void setCCF(long CCF) {
+    public void setCCF(double CCF) {
         this.CCF = CCF;
     }
 
-    public long getCircleTicket() {
+    public double getCircleTicket() {
         return CircleTicket;
     }
 
-    public void setCircleTicket(long CircleTicket) {
+    public void setCircleTicket(double CircleTicket) {
         this.CircleTicket = CircleTicket;
     }
 

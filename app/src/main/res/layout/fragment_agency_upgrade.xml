@@ -86,6 +86,7 @@
             android:background="@drawable/selector_button_bg"
             android:drawableRight="@drawable/icon_order_in"
             android:hint="@string/spinner_tip"
+            android:maxEms="13"
             android:gravity="center"
             style="@style/text_0e1214_15"
             />

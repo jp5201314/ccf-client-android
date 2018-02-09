@@ -140,6 +140,7 @@ public class AgencyUpgradeFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 agencyType = String.valueOf(position + 1);
+                tvAgencyAddress.setText("");
             }
 
             @Override
@@ -180,7 +181,20 @@ public class AgencyUpgradeFragment extends BaseFragment {
                 popupWindow = ChooseAreaPopup.getInstance(AgencyUpgradeFragment.this.getActivity()).showPupopWindow(v,new GainAreaCallBack() {
                     @Override
                     public void gainArea(Province province, City city, Districts districts) {
-                        tvAgencyAddress.setText(province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName());
+                        switch (agencyType) {
+                            case "1":
+                                tvAgencyAddress.setText(province.getProvinceName());
+                                break;
+                            case "2":
+                                tvAgencyAddress.setText(province.getProvinceName() + "-" + city.getCityName());
+                                break;
+                            case "3":
+                                tvAgencyAddress.setText(province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName());
+                                break;
+                            case "4":
+                                tvAgencyAddress.setText(province.getProvinceName() + "-" + city.getCityName() + "-" + districts.getDistrictsName());
+                                break;
+                        }
                         AgencyUpgradeFragment.this.province = province;
                         AgencyUpgradeFragment.this.city = city;
                         AgencyUpgradeFragment.this.districts = districts;
@@ -200,10 +214,10 @@ public class AgencyUpgradeFragment extends BaseFragment {
                 String regions = null;
                 switch (agencyType) {
                     case "1":
-                        regions = province.getId() + "-" + "0" + "-" + "0";
+                        regions = province.getId();
                         break;
                     case "2":
-                        regions = province.getId() + "-" + city.getCityId() + "-" + "0";
+                        regions = province.getId() + "-" + city.getCityId();
                         break;
                     case "3":
                         regions = province.getId() + "-" + city.getCityId() + "-" + districts.getDistrictsId();

@@ -42,6 +42,13 @@ public class OrderListItem {
      */
 
     private String Contentrs;
+    /**
+     * TrueName : 1
+     * AliPayName : 111
+     */
+
+    private String TrueName;
+    private String AliPayName;
 
     public String getTranType() {
         return TranType;
@@ -153,5 +160,21 @@ public class OrderListItem {
 
     public void setContentrs(String Contentrs) {
         this.Contentrs = Contentrs;
+    }
+
+    public String getTrueName() {
+        return TrueName;
+    }
+
+    public void setTrueName(String TrueName) {
+        this.TrueName = TrueName;
+    }
+
+    public String getAliPayName() {
+        return AliPayName;
+    }
+
+    public void setAliPayName(String AliPayName) {
+        this.AliPayName = AliPayName;
     }
 }

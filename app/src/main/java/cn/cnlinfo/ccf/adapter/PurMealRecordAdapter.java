@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
@@ -38,7 +36,7 @@ public class PurMealRecordAdapter extends BaseRecyclerAdapter<PurMealRecordEntit
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Logger.d(list.get(position).toString());
+     //   Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder) {
             PurMealRecordEntity purMealRecordEntity = list.get(position);
             if (purMealRecordEntity != null) {

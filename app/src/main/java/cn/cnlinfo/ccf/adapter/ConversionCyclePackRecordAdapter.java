@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,7 +56,7 @@ public class ConversionCyclePackRecordAdapter extends BaseRecyclerAdapter<CycleP
                 }
                 if (!TextUtils.isEmpty(cyclePackRecordEntity.getStatus())) {
                     ((ViewHolder) holder).btnCycleStatus.setText(cyclePackRecordEntity.getStatus());
-                    Logger.d(cyclePackRecordEntity.getStatus());
+//                    Logger.d(cyclePackRecordEntity.getStatus());
                     if (((ViewHolder) holder).btnCycleStatus.getText().toString().equals("未解压")) {
                         ((ViewHolder) holder).btnCycleStatus.setClickable(true);
                         ((ViewHolder) holder).btnCycleStatus.setBackgroundColor(context.getResources().getColor(R.color.color_gray_eaeaea));

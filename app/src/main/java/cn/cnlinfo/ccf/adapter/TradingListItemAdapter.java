@@ -53,7 +53,6 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
             }
             if (!TextUtils.isEmpty(tradingListItem.getCreateTime())) {
                 ((ViewHolder) holder).tvTime.setText(DateUtil.formatTime(tradingListItem.getCreateTime(), "yyyy/MM/dd"));
-//                ((ViewHolder) holder).tvTime.setText(tradingListItem.getCreateTime());
             } else {
                 ((ViewHolder) holder).tvTime.setText("暂无");
             }
@@ -64,8 +63,28 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
                  */
                 if (((ViewHolder) holder).tvTradingType.getText().toString().equals("挂卖")) {
                     ((ViewHolder) holder).btnTradingStatus.setText("购买");
+                    ((ViewHolder) holder).btnTradingStatus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (tradingListItem != null) {
+                                Intent intent = new Intent(context, PurCCFActivity.class);
+                                intent.putExtra("roomId", tradingListItem.getID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
                 } else {
                     ((ViewHolder) holder).btnTradingStatus.setText("出售");
+                    ((ViewHolder) holder).btnTradingStatus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (tradingListItem != null) {
+                                Intent intent = new Intent(context, SellCCFActivity.class);
+                                intent.putExtra("roomId", tradingListItem.getID());
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
                 }
             } else {
                 ((ViewHolder) holder).btnTradingStatus.setText("暂无");
@@ -119,11 +138,10 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
             } else {
                 ((ViewHolder) holder).tvCurrentPrice.setText("暂无");
             }
-            holder.itemView.setTag(position);
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_trading_type)
         TextView tvTradingType;
         @BindView(R.id.tv_time)
@@ -140,50 +158,11 @@ public class TradingListItemAdapter extends BaseRecyclerAdapter<TradingListItem>
         TextView tvCurrentPrice;
         @BindView(R.id.tv_user_star)
         TextView tvUserStar;
-        private int position;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            btnTradingStatus.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_trading_status:
-                    position = (int) itemView.getTag();
-                    if (tradType == 1) {
-                        //购买
-                        clickBuy();
-                    } else {
-                        //出售
-                        clickSell();
-                    }
-                    break;
-            }
-        }
-
-        /**
-         * 点击购买
-         */
-        private void clickBuy() {
-            if (list != null) {
-                Intent intent = new Intent(context, PurCCFActivity.class);
-                intent.putExtra("roomId", list.get(position).getID());
-                context.startActivity(intent);
-            }
-        }
-
-        /**
-         * 点击出售
-         */
-        private void clickSell() {
-            if (list != null) {
-                Intent intent = new Intent(context, SellCCFActivity.class);
-                intent.putExtra("roomId", list.get(position).getID());
-                context.startActivity(intent);
-            }
-        }
     }
 }

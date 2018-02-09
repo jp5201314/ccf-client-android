@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -143,7 +142,7 @@ public class LoginRegisterActivity extends BaseActivity {
                     @Override
                     protected void onDataError(int code, boolean flag, String msg) {
                         showMessage(code,msg);
-                        Logger.d(code + "  " + flag + "  " + msg);
+//                        Logger.d(code + "  " + flag + "  " + msg);
                     }
 
                     @Override

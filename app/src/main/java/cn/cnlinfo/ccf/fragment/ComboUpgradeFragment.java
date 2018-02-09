@@ -312,7 +312,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                                 serviceTypeId = itemMealEntities.get(position).getId();
                                 typeId = itemMealEntities.get(position).getType();
                                 switch (typeId) {
-                                    case 1:
+                                    case 1://起航套餐
                                         if (llIntegral.getVisibility() == View.GONE) {
                                             llIntegral.setVisibility(View.VISIBLE);
                                           /*
@@ -335,7 +335,7 @@ public class ComboUpgradeFragment extends BaseFragment {
                                         }
                                         tvTipText.setText("等值的消费积分或注册积分");//选择起航套餐提示的支付积分文字
                                         break;
-                                    case 2:
+                                    case 2://普通套餐
                                         if (llIntegral.getVisibility() == View.VISIBLE) {
                                             llIntegral.setVisibility(View.GONE);
                                         }

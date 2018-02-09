@@ -28,8 +28,6 @@ import cn.cnlinfo.ccf.activity.OrderCenterActivity;
 import cn.cnlinfo.ccf.activity.PreviewSaveActivity;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.OrderListItem;
-import cn.cnlinfo.ccf.entity.User;
-import cn.cnlinfo.ccf.entity.UserDetail;
 import cn.cnlinfo.ccf.event.ConfirmReceiveMoneyEvent;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.event.ReceiveComplainEvent;
@@ -44,12 +42,9 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
 
+
     private LayoutInflater inflater;
     private Context context;
-    UserSharedPreference userSharedPreference;
-    User user;
-    RequestParams params;
-    UserDetail userDetail;
     //上传图片的结果码
     private static final int REQUEST_CODE_SELECT_IMG = 1;
 
@@ -57,22 +52,6 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
         super(context);
         this.context = context;
         inflater = LayoutInflater.from(context);
-
-        userSharedPreference = new UserSharedPreference(context);
-        user = UserSharedPreference.getInstance().getUser();
-        params = new RequestParams();
-        params.addFormDataPart("userid",user.getUserID());
-        HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.GETPERSONINFO, params, new CCFHttpRequestCallback() {
-            @Override
-            protected void onDataSuccess(JSONObject data) {
-                userDetail = JSONObject.parseObject(data.getJSONObject("userdetail").toJSONString(), UserDetail.class);
-            }
-
-            @Override
-            protected void onDataError(int code, boolean flag, String msg) {
-
-            }
-        });
     }
 
 
@@ -121,13 +100,21 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                     ((ViewHolder) holder).tvRoomId.setText(orderListItem.getAuctionRoomID());
                 } else {
                     ((ViewHolder) holder).tvRoomId.setText("暂无");
+                }if (!TextUtils.isEmpty(orderListItem.getAliPayName())){
+                    ((ViewHolder) holder).tvAlipayNickname.setText(orderListItem.getAliPayName());
+                }else {
+                    ((ViewHolder) holder).tvAlipayNickname.setText("暂无");
+                }if (!TextUtils.isEmpty(orderListItem.getTrueName())){
+                    ((ViewHolder) holder).tvRealName.setText(orderListItem.getTrueName());
+                }else {
+                    ((ViewHolder) holder).tvRealName.setText("暂无");
                 }
 
                 if (!TextUtils.isEmpty(orderListItem.getTranType())) {
                     //设置交易类型
                     ((ViewHolder) holder).tvTradType.setText(orderListItem.getTranType());
                     //判断卖家ID是不是当前用户，如果是那当前用户为卖家
-                    if(userDetail.getUserCode().equals(orderListItem.getSellerID())){
+                    if (UserSharedPreference.getInstance().getUser().getUserCode().equals(orderListItem.getSellerID())) {
                         Logger.d(orderListItem.getStatus());
                         if (orderListItem.getStatus().equals("确认中")) {
                             //当订单状态为打款中时确认收款按钮才显示出来
@@ -146,8 +133,9 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                                     HttpRequest.post(Constant.OPERATE_CCF_HOST + API.SELLERSENDCCF, params, new CCFHttpRequestCallback() {
                                         @Override
                                         protected void onDataSuccess(JSONObject data) {
-                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(0, "确认收款成功"));
+                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(0, "收款成功"));
                                         }
+
                                         @Override
                                         protected void onDataError(int code, boolean flag, String msg) {
                                             EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(code, msg));
@@ -157,8 +145,11 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                             });
                         } else {
                             ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
+                            if (orderListItem.getStatus().equals("完成")){
+                                ((ViewHolder) holder).btnComplain.setVisibility(View.GONE);
+                            }
                         }
-                    }else if (userDetail.getUserCode().equals(orderListItem.getPurchaserID())){//判断是买家
+                    } else if (UserSharedPreference.getInstance().getUser().getUserCode().equals(orderListItem.getPurchaserID())) {//判断是买家
                         ((ViewHolder) holder).btnClick.setText("上传凭证");
                         ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
                         ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
@@ -212,8 +203,7 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                 }
                 if (!TextUtils.isEmpty(orderListItem.getBuyerScreenshot())) {
 //                    if (orderListItem.getTranType().equals("挂卖")) {
-                        ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
-                        ((ViewHolder) holder).btnShowProof.setText("查看凭证");
+                    ((ViewHolder) holder).btnShowProof.setText("查看凭证");
 //                    }
                     String url = "http://ccf.hrkji.com/" + orderListItem.getBuyerScreenshot();
                     ((ViewHolder) holder).btnShowProof.setOnClickListener(v -> {
@@ -244,21 +234,21 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                     ((ViewHolder) holder).tvBankAccount.setText("暂无");
                 }
 
-                if (!TextUtils.isEmpty(orderListItem.getContentrs())){
+                if (!TextUtils.isEmpty(orderListItem.getContentrs())) {
                     ((ViewHolder) holder).btnComplain.setText("查看投诉");
                     ((ViewHolder) holder).btnComplain.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            DialogCreater.createTipsDialog(context,"投诉内容",orderListItem.getContentrs(),"确定",false,null).show();
+                            DialogCreater.createTipsDialog(context, "投诉内容", orderListItem.getContentrs(), "确定", false, null).show();
                         }
                     });
-                }else {
+                } else {
                     ((ViewHolder) holder).btnComplain.setText("投诉他人");
                     ((ViewHolder) holder).btnComplain.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            View view = inflater.inflate(R.layout.dialog_complain,null);
-                            AlertDialog alertDialog = DialogCreater.showSelfDefineDialog(context,true,"投诉",view);
+                            View view = inflater.inflate(R.layout.dialog_complain, null);
+                            AlertDialog alertDialog = DialogCreater.showSelfDefineDialog(context, true, "投诉", view);
                             alertDialog.show();
                             EditText etComplainContent = view.findViewById(R.id.et_complain_content);
                             Button btnSubmit = view.findViewById(R.id.btn_submit);
@@ -266,29 +256,29 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                                 @Override
                                 public void onClick(View v) {
                                     String tvContent = etComplainContent.getText().toString();
-                                    if (tvContent.length()<=50&&tvContent.length()>0){
+                                    if (tvContent.length() <= 50 && tvContent.length() > 0) {
                                         RequestParams params = new RequestParams();
-                                        params.addFormDataPart("orderID",orderListItem.getID());
+                                        params.addFormDataPart("orderID", orderListItem.getID());
                                         params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
-                                        params.addFormDataPart("value",tvContent);
+                                        params.addFormDataPart("value", tvContent);
                                         HttpRequest.post(Constant.OPERATE_CCF_HOST + API.SELLERCOMPLAINSBUYER, params, new CCFHttpRequestCallback() {
                                             @Override
                                             protected void onDataSuccess(JSONObject data) {
-                                                EventBus.getDefault().post(new ReceiveComplainEvent(0,"投诉成功，请等待处理!"));
+                                                EventBus.getDefault().post(new ReceiveComplainEvent(0, "投诉成功，请等待处理!"));
                                                 alertDialog.cancel();
                                             }
 
                                             @Override
                                             protected void onDataError(int code, boolean flag, String msg) {
-                                                EventBus.getDefault().post(new ReceiveComplainEvent(code,msg));
+                                                EventBus.getDefault().post(new ReceiveComplainEvent(code, msg));
                                                 alertDialog.cancel();
                                             }
                                         });
 
-                                    }else {
-                                        if (tvContent.length()==0){
+                                    } else {
+                                        if (tvContent.length() == 0) {
                                             EventBus.getDefault().post(new ErrorMessageEvent("投诉内容不能为空"));
-                                        }else {
+                                        } else {
                                             EventBus.getDefault().post(new ErrorMessageEvent("投诉内容不能超过50字"));
                                         }
 
@@ -303,6 +293,10 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_alipay_nickname)
+        TextView tvAlipayNickname;
+        @BindView(R.id.tv_real_name)
+        TextView tvRealName;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.btn_trading_status)
@@ -331,6 +325,7 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
         TextView tvBankAccount;
         @BindView(R.id.btn_complain)
         Button btnComplain;//投诉
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.cnlinfo.ccf.R;
@@ -37,7 +35,7 @@ public class OutTransferRecordAdapter extends BaseRecyclerAdapter<TransferRecord
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Logger.d(list.get(position).toString());
+//        Logger.d(list.get(position).toString());
         if (holder instanceof ViewHolder) {
             TransferRecordEntity transferRecordEntity = list.get(position);
             if (transferRecordEntity != null) {

@@ -94,11 +94,13 @@
             android:text="购物记录"
             style="@style/text_0e1214_17"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:background="@drawable/selector_text_view_bg"
             />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_gray_eae8db"/>
         <TextView
             android:id="@+id/tv_deal_record"

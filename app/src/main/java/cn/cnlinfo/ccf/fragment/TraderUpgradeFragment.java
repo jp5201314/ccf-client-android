@@ -71,6 +71,9 @@ public class TraderUpgradeFragment extends BaseFragment {
                 break;
 
         }
+        if (level == 0 && UserSharedPreference.getInstance().getAccount().getTotalMealWeight() > 0) {
+            tvMyRank.setText("普通用户");
+        }
         spTraderType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

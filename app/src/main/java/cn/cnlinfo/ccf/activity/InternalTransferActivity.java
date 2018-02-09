@@ -96,7 +96,7 @@ public class InternalTransferActivity extends BaseActivity {
                 tvRegisterIntegral.setText(userMoney.getRegisterIntegral());//注册积分
                 tvCcfNumber.setText(userMoney.getCCF());//碳控因子
                 tvCycleIntegral.setText(userMoney.getCircleTicketScore());//循环积分
-                tvConsumeIntegral.setText(userMoney.getConsumeIntegral());//消费积分
+                tvConsumeIntegral.setText(userMoney.getConsumeIntegral());//碳控积分
                 tvProductPoints.setText(userMoney.getProductScore());//产品积分
             }
 

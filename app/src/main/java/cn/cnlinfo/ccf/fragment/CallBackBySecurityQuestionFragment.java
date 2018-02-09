@@ -91,7 +91,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 questionOne = array_question[position];
-                Logger.d(questionOne);
+//                Logger.d(questionOne);
             }
 
             @Override
@@ -103,7 +103,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 questionTwo = array_question[position];
-                Logger.d(questionTwo);
+//                Logger.d(questionTwo);
             }
 
             @Override
@@ -115,7 +115,7 @@ public class CallBackBySecurityQuestionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 questionThree = array_question[position];
-                Logger.d(questionThree);
+//                Logger.d(questionThree);
             }
 
             @Override

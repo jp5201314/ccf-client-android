@@ -83,7 +83,7 @@ public class AccountInfo {
     private int CircleTicket;
     private int CircleTicketScore;
     private int ConsumeIntegral;
-    private int CarbonIntegral;
+    private double CarbonIntegral;
     private int RegisterIntegral;
     private int ReleaseConsume;
     private int ReleaseCarbon;
@@ -95,7 +95,7 @@ public class AccountInfo {
     private int TotalMealWeight;
     private int ServantID;
     private boolean EnableAutoToCCF;
-    private int ProductScore;
+    private double ProductScore;
     private int IsChange;
 
     public int getID() {
@@ -338,11 +338,11 @@ public class AccountInfo {
         this.ConsumeIntegral = ConsumeIntegral;
     }
 
-    public int getCarbonIntegral() {
+    public double getCarbonIntegral() {
         return CarbonIntegral;
     }
 
-    public void setCarbonIntegral(int CarbonIntegral) {
+    public void setCarbonIntegral(double CarbonIntegral) {
         this.CarbonIntegral = CarbonIntegral;
     }
 
@@ -434,11 +434,11 @@ public class AccountInfo {
         this.EnableAutoToCCF = EnableAutoToCCF;
     }
 
-    public int getProductScore() {
+    public double getProductScore() {
         return ProductScore;
     }
 
-    public void setProductScore(int ProductScore) {
+    public void setProductScore(double ProductScore) {
         this.ProductScore = ProductScore;
     }
 

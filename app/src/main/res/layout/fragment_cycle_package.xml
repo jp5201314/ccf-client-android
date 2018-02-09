@@ -202,7 +202,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="赞0次" />
+                    android:text="赞0次"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <cn.cnlinfo.ccf.view.StepArcView

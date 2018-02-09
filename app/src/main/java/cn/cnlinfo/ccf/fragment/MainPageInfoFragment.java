@@ -73,7 +73,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private int oldPosition = 0;
     private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
-    private String accountTitles[] = { "账号", "级别", "邀请码", "碳控因子", "消费积分", "产品积分", "注册积分","碳控积分"};
+    private String accountTitles[] = {  "账号", "级别", "邀请码", "碳控因子", "消费积分", "产品积分", "注册积分","碳控积分"};
     private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "待释放消费积分", "循环劵", "可用消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
@@ -97,6 +97,7 @@ public class MainPageInfoFragment extends BaseFragment {
         setAccountAnwserData();
         setPlatformAnwserData();
     }
+
     /**
      * 设置个人信息数据
      */

@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="循环积分:  " />
+                android:text="碳控积分:  " />
 
             <TextView
                 android:id="@+id/tv_cycle_integral"
