@@ -19,6 +19,7 @@ import butterknife.Unbinder;
 import cn.cnlinfo.ccf.API;
 import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
+import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.MainPageActivity;
 import cn.cnlinfo.ccf.activity.WebActivity;
 import cn.cnlinfo.ccf.net_okhttp.OKHttpManager;
@@ -75,6 +76,8 @@ public class RegisterUserFragment extends BaseFragment {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_register_user);
         unbinder = ButterKnife.bind(this, getContentView());
+        //默认设置邀请码
+        mEtInvitationCode.setText(UserSharedPreference.getInstance().getUser().getInvitationCode());
         CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
         tvUpgradeAgencyLink.setText(charSequence);
         tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {

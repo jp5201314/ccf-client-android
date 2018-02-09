@@ -80,8 +80,8 @@ public class CCMallFragment extends BaseFragment {
     @SuppressLint("JavascriptInterface")
     private void setWvProperty() {
         //清缓存和记录，缓存引起的白屏
-       // wv.clearCache(true);
-      //  wv.clearHistory();
+        wv.clearCache(true);
+        wv.clearHistory();
         wv.requestFocus();//获取请求焦点
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);//设置支持JavaScript代码
@@ -111,13 +111,13 @@ public class CCMallFragment extends BaseFragment {
             webSettings.setLoadsImagesAutomatically(false);
         }
         webSettings.setSaveFormData(true);// 保存表单数据
-     //   String cacheDirPath = getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
+        String cacheDirPath = getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //缓存模式
         webSettings.setAllowFileAccess(true);//允许文件访问
-      //  webSettings.setAppCachePath(cacheDirPath); //设置缓存路径
-       // webSettings.setDatabasePath(cacheDirPath); //设置数据库缓存路径
-      //  webSettings.setAppCacheEnabled(true); //开启缓存功能  可以通过setAppCacheEnabled方法来控制webview是否有缓存：
-       // webSettings.setDatabaseEnabled(true);//开启数据库缓存
+        webSettings.setAppCachePath(cacheDirPath); //设置缓存路径
+        webSettings.setDatabasePath(cacheDirPath); //设置数据库缓存路径
+        webSettings.setAppCacheEnabled(true); //开启缓存功能  可以通过setAppCacheEnabled方法来控制webview是否有缓存：
+        webSettings.setDatabaseEnabled(true);//开启数据库缓存
         wv.loadUrl(url);
         wv.setWebViewClient(new WebViewClient() {
             @Override
@@ -153,9 +153,9 @@ public class CCMallFragment extends BaseFragment {
                 // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不另跳浏览器
                 // 在2.3上面不加这句话，可以加载出页面，在4.0上面必须要加入，不然出现白屏
                 if (url.startsWith("http://") || url.startsWith("https://")) {
-                    Logger.d(url);
+                    //Logger.d(url);
                     wv.loadUrl(url);
-                    //wv.stopLoading();
+                    wv.stopLoading();
                     return true;
                 }
                 return false;
@@ -203,11 +203,11 @@ public class CCMallFragment extends BaseFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if(newProgress<80){
-                    //load.setVisibility(View.GONE);
+                if(newProgress>20){
+                   // load.setVisibility(View.GONE);
                 }
                 else{
-                    //load.setVisibility(View.VISIBLE);
+                   // load.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -246,9 +246,9 @@ public class CCMallFragment extends BaseFragment {
         if (wv != null) {
             wv.pauseTimers();
             wv.removeAllViews();
-           // wv.clearCache(true);
-            //wv.clearHistory();
-           // wv.clearFocus();
+            wv.clearCache(true);
+            wv.clearHistory();
+            wv.clearFocus();
             wv.destroy();
             wv = null;
             System.gc();

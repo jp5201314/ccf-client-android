@@ -18,6 +18,11 @@ public class UserMoneyEvent {
     private String ConsumeIntegral;
     private String CircleTicketScore;
     private String Price;
+    /**
+     * ProductScore : 0.00
+     */
+
+    private String ProductScore;
 
     public String getCCF() {
         return CCF;
@@ -57,5 +62,13 @@ public class UserMoneyEvent {
 
     public void setPrice(String Price) {
         this.Price = Price;
+    }
+
+    public String getProductScore() {
+        return ProductScore;
+    }
+
+    public void setProductScore(String ProductScore) {
+        this.ProductScore = ProductScore;
     }
 }

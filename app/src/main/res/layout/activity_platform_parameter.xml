@@ -217,7 +217,7 @@
                         style="@style/text_0e1214_15"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height"
-                        android:text="待释放循环积分：" />
+                        android:text="待释放循环劵积分：" />
 
                     <TextView
                         android:id="@+id/tv_wait_free_cycle_points"

@@ -30,8 +30,8 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class InternalTransferActivity extends BaseActivity {
     /**
-     *:[3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
-     --,7:碳控因子转产品积分,8:碳控因子转消费积分,9:碳控积分转产品积分,10:产品积分转消费积分]
+     * :[3:注册积分转产品积分,4:注册积分转消费积分,5:消费积分转产品积分,6:消费积分转碳控因子,
+     * --,7:碳控因子转产品积分,8:碳控因子转消费积分,9:碳控积分转产品积分,10:产品积分转消费积分]
      */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -53,6 +53,8 @@ public class InternalTransferActivity extends BaseActivity {
     TextView tvCycleIntegral;
     @BindView(R.id.tv_ccf_number)
     TextView tvCcfNumber;
+    @BindView(R.id.tv_product_points)
+    TextView tvProductPoints;
     private String num;
     private String safePass;
     private int typeId;
@@ -84,28 +86,29 @@ public class InternalTransferActivity extends BaseActivity {
 
 
     //获取当前用户的ccf数量和实时价格,积分
-    private void getCurrentUserIntegral(){
+    private void getCurrentUserIntegral() {
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",UserSharedPreference.getInstance().getUser().getUserID());
-        HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(),UserMoneyEvent.class);
-                tvRegisterIntegral.setText(userMoney.getRegisterIntegral());
-                tvCcfNumber.setText(userMoney.getCCF());
-                tvCycleIntegral.setText(userMoney.getCircleTicketScore());
-                tvConsumeIntegral.setText(userMoney.getConsumeIntegral());
+                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(), UserMoneyEvent.class);
+                tvRegisterIntegral.setText(userMoney.getRegisterIntegral());//注册积分
+                tvCcfNumber.setText(userMoney.getCCF());//碳控因子
+                tvCycleIntegral.setText(userMoney.getCircleTicketScore());//循环积分
+                tvConsumeIntegral.setText(userMoney.getConsumeIntegral());//消费积分
+                tvProductPoints.setText(userMoney.getProductScore());//产品积分
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
             }
 
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
-                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
             }
         });
     }
@@ -120,7 +123,7 @@ public class InternalTransferActivity extends BaseActivity {
                 RequestParams params = new RequestParams();
                 params.addFormDataPart("type", typeId);
                 params.addFormDataPart("sendID", UserSharedPreference.getInstance().getUser().getUserID());
-                params.addFormDataPart("receivecode",UserSharedPreference.getInstance().getUser().getUserCode());
+                params.addFormDataPart("receivecode", UserSharedPreference.getInstance().getUser().getUserCode());
                 params.addFormDataPart("num", num);
                 params.addFormDataPart("pass", safePass);
                 HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER, params, new CCFHttpRequestCallback() {
@@ -197,6 +200,6 @@ public class InternalTransferActivity extends BaseActivity {
         super.onDestroy();
         unbinder.unbind();
         HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER);
-        HttpRequest.cancel(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
+        HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
     }
 }
