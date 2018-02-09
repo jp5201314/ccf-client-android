@@ -73,7 +73,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private int oldPosition = 0;
     private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
-    private String accountTitles[] = {"昵称", "账号", "级别", "邀请码", "碳控因子", "消费积分", "产品积分", "注册积分"};
+    private String accountTitles[] = { "账号", "级别", "邀请码", "碳控因子", "消费积分", "产品积分", "注册积分","碳控积分"};
     private String platformTitles[] = {"总量", "已激活因子", "价格", "待激活因子", "碳控积分", "待释放消费积分", "循环劵", "可用消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
@@ -111,7 +111,6 @@ public class MainPageInfoFragment extends BaseFragment {
                 UserSharedPreference.getInstance().setAccountInfo(accountInfoJsonString);
                 AccountInfo accountInfo = JSONObject.parseObject(accountInfoJsonString,AccountInfo.class);
                 accountAnswer = new ArrayList<>();
-                accountAnswer.add(accountInfo.getNickName());
                 accountAnswer.add(accountInfo.getUCode());
                 int level = accountInfo.getInLevel();
                 switch (level) {
@@ -146,6 +145,7 @@ public class MainPageInfoFragment extends BaseFragment {
                 accountAnswer.add(String.valueOf(accountInfo.getConsumeIntegral()));
                 accountAnswer.add(String.valueOf(accountInfo.getProductScore()));
                 accountAnswer.add(String.valueOf(accountInfo.getRegisterIntegral()));
+                accountAnswer.add(String.valueOf(accountInfo.getCarbonIntegral()));
                 List<Map<String, String>> list = new ArrayList<>();
                 for (int i = 0; i < accountTitles.length; i++) {
                     Map<String, String> map = new HashMap<>();
