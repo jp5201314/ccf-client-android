@@ -27,6 +27,10 @@ import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -38,9 +42,12 @@ import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.Exchangepackageinfo;
 import cn.cnlinfo.ccf.entity.Userstep;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.UpdateStepEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
+import cn.cnlinfo.ccf.step_count.bean.StepData;
 import cn.cnlinfo.ccf.step_count.service.StepService;
+import cn.cnlinfo.ccf.step_count.utils.DatabaseManager;
 import cn.cnlinfo.ccf.step_count.utils.SharedPreferencesUtils;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.cnlinfo.ccf.view.StepArcView;
@@ -89,12 +96,13 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     TextView tvCurrentRank;
     @BindView(R.id.tv_praise_num)
     TextView tvPraiseNum;
-
+    private DatabaseManager databaseManager;
     private SharedPreferencesUtils sharedPreferencesUtils;
     private boolean isBind = false;
     private Animatable animatable;
     private Intent intent;
     private NormalDialog dialog;//显示认证循环包的dialog
+    private int currentStep;
 
    /* @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -118,6 +126,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void initData() {
+        databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
         showWaitingDialog(true);
         setEditTextFocus(etConversionCyclePack);
         setOnClickListener();
@@ -127,6 +136,8 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         //获取循环包数据
         gainConversionCyclePackData();
     }
+
+
     /**
      * 注册监听事件
      */
@@ -183,45 +194,10 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
             //设置当前步数为0
             selfStepArc.setCurrentCount(Integer.parseInt(planWalk_QTY), currentStep);
         }
-        uploadStep(currentStep);
+        this.currentStep = currentStep;
+        Logger.d(currentStep);
     }
 
-    /**
-     * 上传步数
-     *
-     * @param step
-     */
-    private void uploadStep(int step) {
-        if (UserSharedPreference.getInstance().getUser() != null && step != 0) {
-            RequestParams params = new RequestParams();
-            params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
-            params.addFormDataPart("step", step);
-            HttpRequest.post(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP, params, new CCFHttpRequestCallback() {
-                @Override
-                protected void onDataSuccess(JSONObject data) {
-                   // Logger.d(data.toJSONString());
-                    Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
-                    if (userstep != null) {
-                        tvCurrentRank.setText("第"+userstep.getRanking()+"名");
-                       // tvPraiseNum.setText(String.format(tvPraiseNum.getText().toString(), userstep.getPraise()));
-                        tvPraiseNum.setVisibility(View.GONE);//暂时把“赞”隐藏
-                        if (!TextUtils.isEmpty(userstep.getF())) {
-                            tvBasicContributeValue.setText(userstep.getF());
-                        }
-                        if (!TextUtils.isEmpty(userstep.getE())) {
-                            tvContributeValue.setText(userstep.getE());
-                        }
-                        tvWaitActValue.setText(userstep.getCarbonnum());
-                    }
-                }
-
-                @Override
-                protected void onDataError(int code, boolean flag, String msg) {
-                    showMessage(code, msg);
-                }
-            });
-        }
-    }
 
     /**
      * 开启计步服务
@@ -341,11 +317,6 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        Logger.d("onDetach");
-    }
 
     @Override
     public void onClick(View v) {
@@ -357,31 +328,67 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                 dialog = DialogCreater.createNormalDialog(getContext(), getContext().getResources().getString(R.string.approve_cycle_pack),getContext().getResources().getString(R.string.approve_tip_content), new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
-                        RequestParams params = new RequestParams();
-                        params.addFormDataPart("userID",UserSharedPreference.getInstance().getUser().getUserID());
-                        HttpRequest.post(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK, params, new CCFHttpRequestCallback() {
-                            @Override
-                            protected void onDataSuccess(JSONObject data) {
-                                ToastUtils.showShortToast(getContext(),"认证成功");
-                            }
+                        if (currentStep>=2018){
+                            RequestParams params = new RequestParams();
+                            params.addFormDataPart("userID",UserSharedPreference.getInstance().getUser().getUserID());
+                            params.addFormDataPart("Step", currentStep);
+                            HttpRequest.post(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK, params, new CCFHttpRequestCallback() {
+                                @Override
+                                protected void onDataSuccess(JSONObject data) {
+                                    Userstep userstep = JSONObject.parseObject(data.getJSONObject("Userstep").toJSONString(), Userstep.class);
+                                    if (userstep != null) {
+                                        tvCurrentRank.setText("第"+userstep.getRanking()+"名");
+                                        tvPraiseNum.setVisibility(View.GONE);//暂时把“赞”隐藏
+                                        if (!TextUtils.isEmpty(userstep.getF())) {
+                                            tvBasicContributeValue.setText(userstep.getF());
+                                        }
+                                        if (!TextUtils.isEmpty(userstep.getE())) {
+                                            tvContributeValue.setText(userstep.getE());
+                                        }
+                                        tvWaitActValue.setText(userstep.getCarbonnum());
+                                    }
+                                    ToastUtils.showShortToast(getContext(),"认证成功");
+                                    List<StepData> list =  databaseManager.getQueryByWhere(StepData.class,new String[]{ "username","today"}, new String[]{UserSharedPreference.getInstance().getUser().getUserCode(),getTodayDate()});
+                                    if (list!=null&&list.size()>0){
+                                        currentStep = 0;//认证后步数置为0
+                                        StepData stepData = list.get(0);
+                                        stepData.setStepNum(currentStep);
+                                        databaseManager.update(data);
+                                        setCurrentStep(currentStep);
+                                        EventBus.getDefault().post(new UpdateStepEvent(currentStep));
+                                    }
+                                }
 
-                            @Override
-                            protected void onDataError(int code, boolean flag, String msg) {
-                                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
-                            }
+                                @Override
+                                protected void onDataError(int code, boolean flag, String msg) {
+                                    EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                                }
 
-                            @Override
-                            public void onFailure(int errorCode, String msg) {
-                                super.onFailure(errorCode, msg);
-                                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
-                            }
-                        });
-                        dialog.cancel();
+                                @Override
+                                public void onFailure(int errorCode, String msg) {
+                                    super.onFailure(errorCode, msg);
+                                    EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                                }
+                            });
+                            dialog.cancel();
+                        }else {
+                            toast("当前步数未达到认证效能步数(2018步)!!!");
+                        }
                     }
                 });
                 dialog.show();
                 break;
         }
+    }
+    /**
+     * 获取当天日期
+     *
+     * @return
+     */
+    private String getTodayDate() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 
     /**

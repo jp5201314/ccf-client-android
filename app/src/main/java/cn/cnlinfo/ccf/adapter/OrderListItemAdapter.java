@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -41,7 +42,6 @@ import cn.finalteam.okhttpfinal.RequestParams;
  */
 
 public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
-
 
     private LayoutInflater inflater;
     private Context context;
@@ -100,13 +100,15 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                     ((ViewHolder) holder).tvRoomId.setText(orderListItem.getAuctionRoomID());
                 } else {
                     ((ViewHolder) holder).tvRoomId.setText("暂无");
-                }if (!TextUtils.isEmpty(orderListItem.getAliPayName())){
+                }
+                if (!TextUtils.isEmpty(orderListItem.getAliPayName())) {
                     ((ViewHolder) holder).tvAlipayNickname.setText(orderListItem.getAliPayName());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvAlipayNickname.setText("暂无");
-                }if (!TextUtils.isEmpty(orderListItem.getTrueName())){
+                }
+                if (!TextUtils.isEmpty(orderListItem.getTrueName())) {
                     ((ViewHolder) holder).tvRealName.setText(orderListItem.getTrueName());
-                }else {
+                } else {
                     ((ViewHolder) holder).tvRealName.setText("暂无");
                 }
 
@@ -145,8 +147,9 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                             });
                         } else {
                             ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
-                            if (orderListItem.getStatus().equals("完成")){
+                            if (orderListItem.getStatus().equals("完成")) {
                                 ((ViewHolder) holder).btnComplain.setVisibility(View.GONE);
+                                ((ViewHolder) holder).llAccount.setVisibility(View.GONE);
                             }
                         }
                     } else if (UserSharedPreference.getInstance().getUser().getUserCode().equals(orderListItem.getPurchaserID())) {//判断是买家
@@ -325,7 +328,8 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
         TextView tvBankAccount;
         @BindView(R.id.btn_complain)
         Button btnComplain;//投诉
-
+        @BindView(R.id.ll_account)
+        LinearLayout llAccount;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

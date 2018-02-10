@@ -18,21 +18,33 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import cn.cnlinfo.ccf.API;
+import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.MainPageActivity;
 import cn.cnlinfo.ccf.entity.User;
+import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.UpdateStepEvent;
+import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepCount;
 import cn.cnlinfo.ccf.step_count.accelerometer.StepValuePassListener;
 import cn.cnlinfo.ccf.step_count.bean.StepData;
 import cn.cnlinfo.ccf.step_count.utils.DatabaseManager;
+import cn.finalteam.okhttpfinal.HttpRequest;
+import cn.finalteam.okhttpfinal.RequestParams;
 
 /**
  * Created by JP on 17/11/2
@@ -94,17 +106,16 @@ public class StepService extends Service implements SensorEventListener {
      * 通知构建者
      */
     private NotificationCompat.Builder mBuilder;
-
     private DatabaseManager databaseManager;
-
     private Sensor countSensor;
     private Sensor detectorSensor;
     private User user;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
-//        Logger.d("onCreate");
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -141,17 +152,40 @@ public class StepService extends Service implements SensorEventListener {
      * 初始化当天的步数
      */
     private void initTodayData() {
+
         user = UserSharedPreference.getInstance().getUser();
         CURRENT_DATE = getTodayDate();
 
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
 
         //获取当天的数据，用于展示
-        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, new String[]{"username","today"}, new String[]{user.getUserCode(),getTodayDate()});
-//        Logger.d("initTodayData  "+user.getUserCode()+"  "+list.size());
+        List<StepData> list = databaseManager.getQueryByWhere(StepData.class, new String[]{"username", "today"}, new String[]{user.getUserCode(), getTodayDate()});
+        Logger.d("initTodayData  " + user.getUserCode() + "  " + list.size());
         if (list.size() == 0 || list.isEmpty()) {
-            CURRENT_STEP = user.getTodayStep();
-        } else if (list.size() == 1) {
+            RequestParams params = new RequestParams();
+            params.addFormDataPart("username", user.getUserCode());
+            params.addFormDataPart("password", UserSharedPreference.getInstance().getPhoneAndPassword().substring(UserSharedPreference.getInstance().getPhoneAndPassword().indexOf('/') + 1));
+            HttpRequest.post(Constant.getHost() + API.CCFLOGIN, params, new CCFHttpRequestCallback() {
+                @Override
+                protected void onDataSuccess(JSONObject data) {
+                    user = JSONObject.parseObject(data.getJSONObject("userinfo").toJSONString(), User.class);
+                    CURRENT_STEP = user.getTodayStep();
+                    updateNotification();
+                    Logger.d(CURRENT_STEP);
+                }
+
+                @Override
+                protected void onDataError(int code, boolean flag, String msg) {
+                    EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
+                }
+
+                @Override
+                public void onFailure(int errorCode, String msg) {
+                    super.onFailure(errorCode, msg);
+                    EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
+                }
+            });
+        } else if (list!=null&&list.size() == 1) {
             Logger.d("StepData=" + list.get(0).toString());
             CURRENT_STEP = list.get(0).getStepNum();
         } else {
@@ -231,11 +265,13 @@ public class StepService extends Service implements SensorEventListener {
     /**
      * 监听晚上0点变化初始化数据
      */
-    private void isNewDay() {
+    private boolean isNewDay() {
         String time = "00:00";
         if (time.equals(new SimpleDateFormat("HH:mm").format(new Date())) || !CURRENT_DATE.equals(getTodayDate())) {
             initTodayData();
+            return true;
         }
+        return false;
     }
 
 
@@ -246,7 +282,7 @@ public class StepService extends Service implements SensorEventListener {
         String time = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("achieveTime", "21:00");
         String plan = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("planWalk_QTY", "10000");
         String remind = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("remind", "1");
-       // Logger.d("time=" + time + "\n" + "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
+        // Logger.d("time=" + time + "\n" + "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
         if (("1".equals(remind)) &&
                 (CURRENT_STEP < Integer.parseInt(plan)) &&
                 (time.equals(new SimpleDateFormat("HH:mm").format(new Date())))
@@ -270,19 +306,19 @@ public class StepService extends Service implements SensorEventListener {
      * 更新步数通知
      */
     private void updateNotification() {
-            //设置点击跳转
-            Intent hangIntent = new Intent(this, MainPageActivity.class);
-            PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //设置点击跳转
+        Intent hangIntent = new Intent(this, MainPageActivity.class);
+        PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))
-                    .setContentText("今日步数" + CURRENT_STEP + " 步")
-                    .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
-                    .setContentIntent(hangPendingIntent)
-                    .build();
-            mNotificationManager.notify(notifyId_Step, notification);
-            if (mCallback != null) {
-                mCallback.updateUi(CURRENT_STEP);
-            }
+        Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))
+                .setContentText("今日步数" + CURRENT_STEP + " 步")
+                .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
+                .setContentIntent(hangPendingIntent)
+                .build();
+        mNotificationManager.notify(notifyId_Step, notification);
+        if (mCallback != null) {
+            mCallback.updateUi(CURRENT_STEP);
+        }
 //            Logger.d("updateNotification()");
     }
 
@@ -379,7 +415,7 @@ public class StepService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        Logger.d("onStartCommand");
+        Logger.d("onStartCommand");
         initNotification();
         initTodayData();
         initBroadcastReceiver();
@@ -389,10 +425,11 @@ public class StepService extends Service implements SensorEventListener {
                  * 获取传感器实例
                  */
                 gainStepDetectorInstance();
+
             }
         }).start();
-
         startTimeCount();
+
         return START_STICKY;
     }
 
@@ -428,8 +465,8 @@ public class StepService extends Service implements SensorEventListener {
      * 如果需要长事件的计步请使用TYPE_STEP_COUNTER。
      */
     private void addCountStepListener() {
-         countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-         detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
         if (countSensor != null) {
             stepSensorType = Sensor.TYPE_STEP_COUNTER;
             Logger.d("Sensor.TYPE_STEP_COUNTER");
@@ -459,22 +496,22 @@ public class StepService extends Service implements SensorEventListener {
         mStepCount.initListener(new StepValuePassListener() {
             @Override
             public void stepChanged(int steps) {
-                if (UserSharedPreference.getInstance().getUser()!=null){
+                if (UserSharedPreference.getInstance().getUser() != null) {
                     CURRENT_STEP = steps;
                     updateNotification();
                 }
             }
         });
         if (isAvailable) {
-            Logger.d( "加速度传感器可以使用");
+            Logger.d("加速度传感器可以使用");
         } else {
-            Logger.d( "加速度传感器无法使用");
+            Logger.d("加速度传感器无法使用");
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        Logger.d("onAccuracyChanged = "+accuracy+"");
+        Logger.d("onAccuracyChanged = " + accuracy + "");
     }
 
 
@@ -506,7 +543,7 @@ public class StepService extends Service implements SensorEventListener {
                 int thisStepCount = tempStep - hasStepCount;
                 //本次有效步数=（APP打开后所记录的总步数-上一次APP打开后所记录的总步数）
                 int thisStep = thisStepCount - previousStepCount;
-                if (UserSharedPreference.getInstance().getUser()!=null){
+                if (UserSharedPreference.getInstance().getUser() != null) {
                     //总步数=现有的步数+本次有效步数
                     CURRENT_STEP += (thisStep);
                 }
@@ -516,13 +553,19 @@ public class StepService extends Service implements SensorEventListener {
 //            Logger.d("历史总步数tempStep = " + tempStep+"\n"+"当前的步数thisStepCount = "+previousStepCount+"当前用户的步数 = "+CURRENT_STEP);
         } else if (stepSensorType == Sensor.TYPE_STEP_DETECTOR) {
             if (event.values[0] == 1.0) {
-                if (UserSharedPreference.getInstance().getUser()!=null){
+                if (UserSharedPreference.getInstance().getUser() != null) {
                     CURRENT_STEP++;
                 }
                 Logger.d(" Sensor.TYPE_STEP_DETECTOR");
             }
         }
         updateNotification();
+    }
+
+    //点击认证后，对当前步数进行赋值
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void clearStep(UpdateStepEvent event){
+        CURRENT_STEP = event.getStep();
     }
 
     /**
@@ -537,7 +580,7 @@ public class StepService extends Service implements SensorEventListener {
         public void onFinish() {
             // 如果计时器正常结束，则开始计步
             time.cancel();
-                save();
+            save();
             startTimeCount();
         }
 
@@ -553,8 +596,8 @@ public class StepService extends Service implements SensorEventListener {
      */
     private void save() {
         int tempStep = CURRENT_STEP;
-        if (user!=null){
-            List<StepData> list = databaseManager.getQueryByWhere(StepData.class,new String[]{ "username","today"}, new String[]{user.getUserCode(),getTodayDate()});
+        if (user != null) {
+            List<StepData> list = databaseManager.getQueryByWhere(StepData.class, new String[]{"username", "today"}, new String[]{user.getUserCode(), getTodayDate()});
             if (list.size() == 0 || list.isEmpty()) {
                 StepData data = new StepData();
                 data.setUsername(user.getUserCode());
@@ -572,6 +615,7 @@ public class StepService extends Service implements SensorEventListener {
     }
 
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -581,12 +625,13 @@ public class StepService extends Service implements SensorEventListener {
         databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
         mNotificationManager.cancel(notifyId_Step);
-       // Logger.d("stepService关闭");
+        Logger.d("onDestroy");
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
         //Logger.d("onUnbind");
+        EventBus.getDefault().unregister(this);
         return super.onUnbind(intent);
     }
 }

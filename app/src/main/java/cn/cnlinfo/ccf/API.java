@@ -275,4 +275,8 @@ public class API {
      * 升级成为交易商
      */
     public static final String UPGRADETOBETRADER = "UpdateToBusiness";
+    /**
+     * 获取用户当前的步数
+     */
+    public static final String GETCURRENTSTEP = "getUserCurStep";
 }

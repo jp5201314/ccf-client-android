@@ -17,8 +17,10 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import cn.cnlinfo.ccf.activity.LoginRegisterActivity;
+import cn.cnlinfo.ccf.entity.ExitLoginEvent;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.manager.ACache;
+import cn.cnlinfo.ccf.manager.AppManage;
 import cn.finalteam.okhttpfinal.OkHttpFinal;
 import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
 
@@ -98,6 +100,13 @@ public class CCFApplication extends Application {
                     toast(msg);
                     break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receivedExitLogin(ExitLoginEvent exitLoginEvent){
+        UserSharedPreference.getInstance().logout();
+        AppManage.getInstance().finishOther();
+        jumpToLogin();
     }
     //分包的application添加的方法
     protected void attachBaseContext(Context base) {

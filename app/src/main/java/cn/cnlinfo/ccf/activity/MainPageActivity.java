@@ -237,6 +237,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
         alertDialog.show();
     }
 
+
     /**
      * 初始化操作
      */

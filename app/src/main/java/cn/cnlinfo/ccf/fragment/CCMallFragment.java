@@ -80,8 +80,8 @@ public class CCMallFragment extends BaseFragment {
     @SuppressLint("JavascriptInterface")
     private void setWvProperty() {
         //清缓存和记录，缓存引起的白屏
-        wv.clearCache(true);
-        wv.clearHistory();
+       // wv.clearCache(true);
+       // wv.clearHistory();
         wv.requestFocus();//获取请求焦点
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);//设置支持JavaScript代码
@@ -111,13 +111,13 @@ public class CCMallFragment extends BaseFragment {
             webSettings.setLoadsImagesAutomatically(false);
         }
         webSettings.setSaveFormData(true);// 保存表单数据
-        String cacheDirPath = getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);  //缓存模式
+     //   String cacheDirPath = getActivity().getFilesDir().getAbsolutePath() + APP_CACAHE_DIRNAME; //缓存路径
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);  //缓存模式
         webSettings.setAllowFileAccess(true);//允许文件访问
-        webSettings.setAppCachePath(cacheDirPath); //设置缓存路径
-        webSettings.setDatabasePath(cacheDirPath); //设置数据库缓存路径
-        webSettings.setAppCacheEnabled(true); //开启缓存功能  可以通过setAppCacheEnabled方法来控制webview是否有缓存：
-        webSettings.setDatabaseEnabled(true);//开启数据库缓存
+    //    webSettings.setAppCachePath(cacheDirPath); //设置缓存路径
+       // webSettings.setDatabasePath(cacheDirPath); //设置数据库缓存路径
+       // webSettings.setAppCacheEnabled(true); //开启缓存功能  可以通过setAppCacheEnabled方法来控制webview是否有缓存：
+       // webSettings.setDatabaseEnabled(true);//开启数据库缓存
         wv.loadUrl(url);
         wv.setWebViewClient(new WebViewClient() {
             @Override
@@ -129,8 +129,6 @@ public class CCMallFragment extends BaseFragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Logger.d(url);
-                CCMallFragment.this.url = url;
                 wv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
                 if (!webSettings.getLoadsImagesAutomatically()) {
                     webSettings.setLoadsImagesAutomatically(true);//在页面加载完成后再加载图片

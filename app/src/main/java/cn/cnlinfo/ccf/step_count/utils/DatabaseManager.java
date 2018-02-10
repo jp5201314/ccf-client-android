@@ -24,6 +24,7 @@ public class DatabaseManager {
         liteOrm.setDebugged(true);
     }
 
+
     public static synchronized DatabaseManager createTableAndInstance(String tableName){
         TABLE_NAME = tableName+".db";
         if (databaseManager==null){
