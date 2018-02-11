@@ -82,7 +82,7 @@ public class CCMallFragment extends BaseFragment {
         //清缓存和记录，缓存引起的白屏
        // wv.clearCache(true);
        // wv.clearHistory();
-        wv.requestFocus();//获取请求焦点
+       // wv.requestFocus();//获取请求焦点
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);//设置支持JavaScript代码
         webSettings.setAllowContentAccess(true);//是否使用其内置的变焦机制
@@ -244,9 +244,9 @@ public class CCMallFragment extends BaseFragment {
         if (wv != null) {
             wv.pauseTimers();
             wv.removeAllViews();
-            wv.clearCache(true);
-            wv.clearHistory();
-            wv.clearFocus();
+          //  wv.clearCache(true);
+          //  wv.clearHistory();
+           // wv.clearFocus();
             wv.destroy();
             wv = null;
             System.gc();

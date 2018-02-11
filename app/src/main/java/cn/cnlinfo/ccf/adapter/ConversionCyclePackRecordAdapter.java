@@ -23,6 +23,7 @@ import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.CyclePackRecordEntity;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.RefreshCyclePackEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
@@ -76,6 +77,7 @@ public class ConversionCyclePackRecordAdapter extends BaseRecyclerAdapter<CycleP
                                                 @Override
                                                 public void onBtnClick() {
                                                     listener.extractRefresh();
+                                                    EventBus.getDefault().post(new RefreshCyclePackEvent());
                                                 }
                                             }).show();
                                         }

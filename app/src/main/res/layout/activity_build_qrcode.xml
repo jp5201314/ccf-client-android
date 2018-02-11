@@ -29,8 +29,8 @@
             android:gravity="center">
             <ImageView
                 android:id="@+id/iv_qrCode"
-                android:layout_width="164dp"
-                android:layout_height="164dp"
+                android:layout_width="196dp"
+                android:layout_height="196dp"
                 android:layout_margin="48dp"
                 />
         </LinearLayout>

@@ -124,6 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="9dp"
                 android:text="暂无" />
+
+            <TextView
+                android:id="@+id/tv_agency_type"
+                style="@style/text_0e1214_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"

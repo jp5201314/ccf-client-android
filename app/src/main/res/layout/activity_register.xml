@@ -47,11 +47,11 @@
                 android:gravity="center"
                 android:inputType="text"
                 android:maxLines="1"
-                android:maxLength="16"
+                android:maxLength="6"
                 android:textColor="@drawable/selector_edit_text_color"
                 android:background="@drawable/edit_text_style"
                 android:layout_weight="3"
-                android:hint="16位字母数字组合"
+                android:hint="6位字母数字组合"
                 />
         </LinearLayout>
         <LinearLayout

@@ -9,9 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -26,6 +24,8 @@ import com.lljjcoder.citylist.Toast.ToastUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +42,7 @@ import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.Exchangepackageinfo;
 import cn.cnlinfo.ccf.entity.Userstep;
 import cn.cnlinfo.ccf.event.ErrorMessageEvent;
+import cn.cnlinfo.ccf.event.RefreshCyclePackEvent;
 import cn.cnlinfo.ccf.event.UpdateStepEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
 import cn.cnlinfo.ccf.step_count.UpdateUiCallBack;
@@ -104,26 +105,26 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     private NormalDialog dialog;//显示认证循环包的dialog
     private int currentStep;
 
-   /* @Override
+    @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_cycle_package);
-        *//**
-         *  Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
-         *  GlideDrawableImageViewTarget这个设置播放次数
-         *  Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
-         *//*
-        unbinder = ButterKnife.bind(this, getContentView());
-        initData();
-    }*/
+ //Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
+// GlideDrawableImageViewTarget这个设置播放次数
+ //Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
 
-    @Override
+     unbinder = ButterKnife.bind(this, getContentView());
+     EventBus.getDefault().register(this);
+     initData();
+    }
+
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cycle_package,container,false);
         unbinder = ButterKnife.bind(this, view);
         initData();
         return view;
-    }
+    }*/
 
     private void initData() {
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
@@ -138,6 +139,11 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     }
 
 
+    //解压循环包后刷新获取循环包
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshCyclePack(RefreshCyclePackEvent refreshCyclePack){
+        gainConversionCyclePackData();
+    }
     /**
      * 注册监听事件
      */
@@ -176,6 +182,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         tvCycleStock.setText(String.valueOf(exchangepackageinfo.getCircleTicket()));
         tvCyclePack.setText(String.valueOf(exchangepackageinfo.getCircle()));
         tvCenter.setText(String.valueOf(exchangepackageinfo.getTotalPack()));
+        tvWaitActValue.setText(String.valueOf(exchangepackageinfo.getDCCF()));//设置待激活的量
         tvPackTime.setText(String.format(tvPackTime.getText().toString(), exchangepackageinfo.getPackTime()));
         tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(), exchangepackageinfo.getHaschange(), exchangepackageinfo.getResidue()));
         tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));
@@ -293,6 +300,17 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         super.onDestroyViewLazy();
         Logger.d("onDestroyViewLazy");
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+        if (conn!=null&&isBind) {
+            getActivity().unbindService(conn);
+        }
+        showWaitingDialog(false);
+        conn = null;
+        callBack = null;
+        //取消Http请求
+        HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE);
+        HttpRequest.cancel(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP);
+        HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK);
     }
 
     @Override
@@ -301,7 +319,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
 //        Logger.d("onDestroy");
     }
 
-    @Override
+  /*  @Override
     public void onDestroyView() {
         super.onDestroyView();
 //        Logger.d("onDestroyView");
@@ -315,7 +333,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE);
         HttpRequest.cancel(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP);
         HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK);
-    }
+    }*/
 
 
     @Override

@@ -74,7 +74,7 @@ public class MainPageInfoFragment extends BaseFragment {
     private int[] nums = {R.drawable.img_guide_one_cooperation, R.drawable.img_guide_two_advantage, R.drawable.img_guide_three_discount};
     private List<View> dots;
     private String accountTitles[] = {  "账号", "级别", "邀请码", "碳控因子", "消费积分", "产品积分", "注册积分","碳控积分"};
-    private String platformTitles[] = {"总量", "平台已激活", "价格", "平台待激活", "用户已激活", "用户待激活", "碳控积分", "可用消费积分"};
+    private String platformTitles[] = {"总量", "平台已激活", "价格", "平台待激活", "用户已激活", "用户待激活", "碳控积分", "消费积分"};
     private List<String> accountAnswer;
     private List<String> platformAnswer;
 
@@ -185,15 +185,16 @@ public class MainPageInfoFragment extends BaseFragment {
         HttpRequest.get(Constant.GET_DATA_HOST + API.GETPLATFORMINFO, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
+                String platformTitles[] = {"总量", "平台已激活", "价格", "平台待激活", "用户已激活", "用户待激活", "碳控积分", "消费积分"};
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
                 PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
-                platformAnswer.add(platformInfo.getTotalCCF());
-                platformAnswer.add(String.valueOf(platformInfo.getActiveCCF()));
-                platformAnswer.add(String.valueOf(platformInfo.getCurrentPrice()));
+                platformAnswer.add("1.2亿");
+                platformAnswer.add(platformInfo.getActiveCCF());
+                platformAnswer.add(platformInfo.getCurrentPrice());
                 platformAnswer.add(platformInfo.getTotalInertiaCCF());
+                platformAnswer.add(platformInfo.getUserCCF());
+                platformAnswer.add(platformInfo.getUserDCCF());
                 platformAnswer.add(platformInfo.getCCScore());
-                platformAnswer.add(platformInfo.getInertiaCCScore());
-                platformAnswer.add(platformInfo.getCircleTicket());
                 platformAnswer.add(platformInfo.getActiveConsumeScore());
                 List<Map<String, String>> list = new ArrayList<>();
                 if (platformAnswer != null && platformAnswer.size() > 0) {

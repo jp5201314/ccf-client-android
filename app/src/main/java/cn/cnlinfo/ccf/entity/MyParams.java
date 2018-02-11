@@ -65,6 +65,15 @@ public class MyParams {
     private String LimitCCF;
     private String AuctionNum;
     private String Avgdifficulty;
+    /**
+     * LimitCircle : 1
+     * LimitCarbonNum : 6000
+     * LimitE : 50
+     */
+
+    private String LimitCircle;//限持循环包
+    private String LimitCarbonNum;//限持碳控因子
+    private String LimitE;//贡献值封顶
 
 
     public MyParams() {
@@ -233,5 +242,29 @@ public class MyParams {
 
     public void setAvgdifficulty(String Avgdifficulty) {
         this.Avgdifficulty = Avgdifficulty;
+    }
+
+    public String getLimitCircle() {
+        return LimitCircle;
+    }
+
+    public void setLimitCircle(String LimitCircle) {
+        this.LimitCircle = LimitCircle;
+    }
+
+    public String getLimitCarbonNum() {
+        return LimitCarbonNum;
+    }
+
+    public void setLimitCarbonNum(String LimitCarbonNum) {
+        this.LimitCarbonNum = LimitCarbonNum;
+    }
+
+    public String getLimitE() {
+        return LimitE;
+    }
+
+    public void setLimitE(String LimitE) {
+        this.LimitE = LimitE;
     }
 }

@@ -28,18 +28,17 @@ package cn.cnlinfo.ccf.entity;
  */
 
 public class PlatformInfo {
-
     /**
      * ID : 1
      * TotalCCF : 120000000
-     * TotalPack : 3000
-     * CurrentPrice : 10.278
+     * TotalPack : 531
+     * CurrentPrice : 0.1
      * InitActiveCCF : 960000
-     * ActiveCCF : 958895.249968
-     * TotalInertiaCCF : 119039894
-     * TotalAccount : 0
+     * ActiveCCF : 959780.3
+     * TotalInertiaCCF : 1.190399767E8
+     * TotalAccount : 8
      * CCScore : 0
-     * Current_u : 0.00185
+     * Current_u : 1.333090120655E7
      * ActiveConsumeScore : 0
      * InertiaConsumeScore : 0
      * CircleTicket : 0
@@ -48,22 +47,24 @@ public class PlatformInfo {
      * CityProxy : 0
      * CountyProxy : 0
      * PackTime : 1024
-     * Haschange : 79
-     * SysRunDate : /Date(1510305888380+0800)/
-     * RuningDays : 613
-     * CurTrade : 2000
+     * Haschange : 6
+     * SysRunDate : /Date(1517414400000+0800)/
+     * RuningDays : 3
+     * CurTrade : 0
+     * UserCCF : 9
+     * UserDCCF : 9
      */
 
-    private int ID;
+    private String ID;
     private String TotalCCF;
     private String TotalPack;
-    private double CurrentPrice;
+    private String CurrentPrice;
     private String InitActiveCCF;
-    private double ActiveCCF;
+    private String ActiveCCF;
     private String TotalInertiaCCF;
     private String TotalAccount;
     private String CCScore;
-    private double Current_u;
+    private String Current_u;
     private String ActiveConsumeScore;
     private String InertiaConsumeScore;
     private String CircleTicket;
@@ -71,17 +72,19 @@ public class PlatformInfo {
     private String ProvinceProxy;
     private String CityProxy;
     private String CountyProxy;
-    private int PackTime;
+    private String PackTime;
     private String Haschange;
     private String SysRunDate;
     private String RuningDays;
     private String CurTrade;
+    private String UserCCF;
+    private String UserDCCF;
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -101,11 +104,11 @@ public class PlatformInfo {
         this.TotalPack = TotalPack;
     }
 
-    public double getCurrentPrice() {
+    public String getCurrentPrice() {
         return CurrentPrice;
     }
 
-    public void setCurrentPrice(double CurrentPrice) {
+    public void setCurrentPrice(String CurrentPrice) {
         this.CurrentPrice = CurrentPrice;
     }
 
@@ -117,11 +120,11 @@ public class PlatformInfo {
         this.InitActiveCCF = InitActiveCCF;
     }
 
-    public double getActiveCCF() {
+    public String getActiveCCF() {
         return ActiveCCF;
     }
 
-    public void setActiveCCF(double ActiveCCF) {
+    public void setActiveCCF(String ActiveCCF) {
         this.ActiveCCF = ActiveCCF;
     }
 
@@ -149,11 +152,11 @@ public class PlatformInfo {
         this.CCScore = CCScore;
     }
 
-    public double getCurrent_u() {
+    public String getCurrent_u() {
         return Current_u;
     }
 
-    public void setCurrent_u(double Current_u) {
+    public void setCurrent_u(String Current_u) {
         this.Current_u = Current_u;
     }
 
@@ -213,11 +216,11 @@ public class PlatformInfo {
         this.CountyProxy = CountyProxy;
     }
 
-    public int getPackTime() {
+    public String getPackTime() {
         return PackTime;
     }
 
-    public void setPackTime(int PackTime) {
+    public void setPackTime(String PackTime) {
         this.PackTime = PackTime;
     }
 
@@ -252,4 +255,21 @@ public class PlatformInfo {
     public void setCurTrade(String CurTrade) {
         this.CurTrade = CurTrade;
     }
+
+    public String getUserCCF() {
+        return UserCCF;
+    }
+
+    public void setUserCCF(String UserCCF) {
+        this.UserCCF = UserCCF;
+    }
+
+    public String getUserDCCF() {
+        return UserDCCF;
+    }
+
+    public void setUserDCCF(String UserDCCF) {
+        this.UserDCCF = UserDCCF;
+    }
+
 }

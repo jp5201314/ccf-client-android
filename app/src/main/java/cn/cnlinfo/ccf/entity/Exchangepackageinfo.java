@@ -27,6 +27,11 @@ public class Exchangepackageinfo {
     private int Residue;
     private int UpperLimit;
     private int Convertible;
+    /**
+     * DCCF : 14
+     */
+
+    private int DCCF;
 
     public Exchangepackageinfo(double CCF, double circleTicket, int circle, int totalPack, int packTime, int haschange, int residue, int upperLimit, int convertible) {
         this.CCF = CCF;
@@ -130,4 +135,11 @@ public class Exchangepackageinfo {
         this.Convertible = Convertible;
     }
 
+    public int getDCCF() {
+        return DCCF;
+    }
+
+    public void setDCCF(int DCCF) {
+        this.DCCF = DCCF;
+    }
 }

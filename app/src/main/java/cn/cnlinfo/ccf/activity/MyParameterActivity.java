@@ -65,6 +65,12 @@ public class MyParameterActivity extends BaseActivity {
     TextView tvAverageDifficultyCoefficient;
     @BindView(R.id.tv_acc_pur_meal)
     TextView tvAccPurMeal;
+    @BindView(R.id.tv_wait_ccf_limit)
+    TextView tvWaitCcfLimit;
+    @BindView(R.id.tv_cycle_pack_limit)
+    TextView tvCyclePackLimit;//循环包限制
+    @BindView(R.id.tv_contribute_value_limit)
+    TextView tvContributeValueLimit;//贡献封顶值
     private Unbinder unbinder;
 
     @Override
@@ -86,18 +92,21 @@ public class MyParameterActivity extends BaseActivity {
     /**
      * 设置我的参数数据
      */
-    private void setMyParameter(){
+    private void setMyParameter() {
         RequestParams params = new RequestParams();
         params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
         HttpRequest.post(Constant.GET_DATA_HOST + API.GETMYPARAMETER, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                MyParams myParams = JSONObject.parseObject(data.getJSONObject("Mycanshu").toJSONString(),MyParams.class);
-                if (myParams!=null){
+                MyParams myParams = JSONObject.parseObject(data.getJSONObject("Mycanshu").toJSONString(), MyParams.class);
+                if (myParams != null) {
                     tvCcf.setText(myParams.getCCF());
                     tvCyclePackage.setText(myParams.getCircle());
                     tvWaitAliveCcf.setText(myParams.getCarbonNum());
                     tvCycleCoupon.setText(myParams.getCircleTicket());
+                    tvWaitCcfLimit.setText(myParams.getLimitCarbonNum());
+                    tvCyclePackLimit.setText(myParams.getLimitCircle());
+                    tvContributeValueLimit.setText(myParams.getLimitE());
                     tvCurrentPrice.setText(myParams.getP());
                     tvWaitFreeCyclePoints.setText(myParams.getCircleTicketScore());
                     tvBonusPoints.setText(myParams.getConsumeIntegral());
@@ -117,7 +126,7 @@ public class MyParameterActivity extends BaseActivity {
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code,msg);
+                showMessage(code, msg);
             }
         });
     }

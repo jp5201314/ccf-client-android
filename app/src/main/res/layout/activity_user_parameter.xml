@@ -245,7 +245,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/height" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_gray_eae8db" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="32dp">
+
+                    <TextView
+                        style="@style/text_0e1214_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height"
+                        android:text="贡献封顶值：" />
+
+                    <TextView
+                        android:id="@+id/tv_contribute_value_limit"
+                        style="@style/text_0e1214_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height" />
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -400,44 +423,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/color_gray_eae8db" />
-                <!-- <LinearLayout
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="12dp"
-                     android:orientation="horizontal">
-
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="@dimen/height"
-                         android:text="冻结碳控因子："
-                         style="@style/text_0e1214_15" />
-
-                     <TextView
-                         android:id="@+id/tv_freeze_ccf"
-                         android:layout_width="wrap_content"
-                         android:layout_height="@dimen/height"
-                         style="@style/text_0e1214_15" />
-                 </LinearLayout>
-
                  <LinearLayout
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_marginTop="12dp"
-                     android:orientation="horizontal">
+                     android:orientation="horizontal"
+                     android:paddingLeft="32dp">
 
                      <TextView
                          android:layout_width="match_parent"
                          android:layout_height="@dimen/height"
-                         android:text="待激活额度："
+                         android:text="限持待激活碳控因子量："
                          style="@style/text_0e1214_15" />
 
                      <TextView
-                         android:id="@+id/tv_wait_alive_limit"
+                         android:id="@+id/tv_wait_ccf_limit"
+                         android:layout_width="wrap_content"
+                         android:layout_height="@dimen/height"
+                         style="@style/text_0e1214_15" />
+                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_gray_eae8db" />
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="12dp"
+                     android:orientation="horizontal"
+                     android:paddingLeft="32dp">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="@dimen/height"
+                         android:text="限持循环包："
+                         style="@style/text_0e1214_15" />
+
+                     <TextView
+                         android:id="@+id/tv_cycle_pack_limit"
                          android:layout_width="wrap_content"
                          android:layout_height="@dimen/height"
                          style="@style/text_0e1214_15"/>
                  </LinearLayout>
-    -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_gray_eae8db" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

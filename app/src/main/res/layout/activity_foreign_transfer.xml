@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当前注册积分数量为:" />
+                android:text="注册积分数量:" />
 
             <TextView
                 android:id="@+id/tv_register_integral"
@@ -34,8 +34,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注册积分" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="当前用户ccf的数量为:"
+                android:text="碳控因子数量:"
                 />
             <TextView
                 android:id="@+id/tv_ccf_number"
@@ -54,7 +53,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ccf"
                 />
         </LinearLayout>
 

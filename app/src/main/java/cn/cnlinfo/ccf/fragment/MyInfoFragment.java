@@ -2,9 +2,6 @@ package cn.cnlinfo.ccf.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -62,6 +59,8 @@ public class MyInfoFragment extends BaseFragment {
     @BindView(R.id.tv_wx_num)
     TextView tvWxNum;
     Unbinder unbinder;
+    @BindView(R.id.tv_agency_type)
+    TextView tvAgencyType;
     private User user;
 
 
@@ -69,81 +68,84 @@ public class MyInfoFragment extends BaseFragment {
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
 
-     /*   setContentView(R.layout.item_fragment_three);
+        setContentView(R.layout.fragment_my_info);
         unbinder = ButterKnife.bind(this, getContentView());
-        initData();*/
+        initData();
     }
 
-    @Override
+/*    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_info,container,false);
+        View view = inflater.inflate(R.layout.fragment_my_info, container, false);
         unbinder = ButterKnife.bind(this, view);
         initData();
         return view;
-    }
+    }*/
 
     /**
      * 初始化个人信息数据
      */
-    private void initData(){
+    private void initData() {
         showWaitingDialog(true);
         user = UserSharedPreference.getInstance().getUser();
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",user.getUserID());
+        params.addFormDataPart("userid", user.getUserID());
         HttpRequest.post(Constant.GET_MESSAGE_CODE_HOST + API.GETPERSONINFO, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 UserDetail userDetail = JSONObject.parseObject(data.getJSONObject("userdetail").toJSONString(), UserDetail.class);
-                if (userDetail!=null){
-                    if(!TextUtils.isEmpty(userDetail.getName())){
+                if (userDetail != null) {
+                    if (!TextUtils.isEmpty(userDetail.getName())) {
                         tvName.setText(userDetail.getName());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getUserCode())){
+                    if (!TextUtils.isEmpty(userDetail.getUserCode())) {
                         tvUsername.setText(userDetail.getUserCode());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getInvitationCode())){
+                    if (!TextUtils.isEmpty(userDetail.getInvitationCode())) {
                         tvInvitationCode.setText(userDetail.getInvitationCode());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getNickName())){
+                    if (!TextUtils.isEmpty(userDetail.getNickName())) {
                         tvNickName.setText(userDetail.getNickName());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getUtype())){
+                    if (!TextUtils.isEmpty(userDetail.getUtype())) {
                         tvUserType.setText(userDetail.getUtype());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getDirectID())){
+                    if (!TextUtils.isEmpty(userDetail.getUserType())){
+                        tvAgencyType.setText(userDetail.getUserType());
+                    }
+                    if (!TextUtils.isEmpty(userDetail.getDirectID())) {
                         tvShareUser.setText(userDetail.getDirectID());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getServantID())){
+                    if (!TextUtils.isEmpty(userDetail.getServantID())) {
                         tvServiceUser.setText(userDetail.getServantID());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getMobile())){
+                    if (!TextUtils.isEmpty(userDetail.getMobile())) {
                         tvPhoneNum.setText(userDetail.getMobile());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getIDtype())){
+                    if (!TextUtils.isEmpty(userDetail.getIDtype())) {
                         tvPaperType.setText(userDetail.getIDtype());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getIDcard())){
+                    if (!TextUtils.isEmpty(userDetail.getIDcard())) {
                         tvPaperNum.setText(userDetail.getIDcard());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getBankName())){
+                    if (!TextUtils.isEmpty(userDetail.getBankName())) {
                         tvBankName.setText(userDetail.getBankName());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getBankAddress())){
+                    if (!TextUtils.isEmpty(userDetail.getBankAddress())) {
                         tvAccountAddress.setText(userDetail.getBankAddress());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getBankCode())){
+                    if (!TextUtils.isEmpty(userDetail.getBankCode())) {
                         tvBankNum.setText(userDetail.getBankCode());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getAliPayName())){
+                    if (!TextUtils.isEmpty(userDetail.getAliPayName())) {
                         tvAlipayName.setText(userDetail.getAliPayName());
                     }
-                    if (!TextUtils.isEmpty(userDetail.getAliPay())){
+                    if (!TextUtils.isEmpty(userDetail.getAliPay())) {
                         tvAlipayAccount.setText(userDetail.getAliPay());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getWebChatName())){
+                    if (!TextUtils.isEmpty(userDetail.getWebChatName())) {
                         tvWxNickname.setText(userDetail.getWebChatName());
                     }
-                    if(!TextUtils.isEmpty(userDetail.getWebChat())){
+                    if (!TextUtils.isEmpty(userDetail.getWebChat())) {
                         tvWxNum.setText(userDetail.getWebChat());
                     }
                 }
@@ -152,7 +154,7 @@ public class MyInfoFragment extends BaseFragment {
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code,msg);
+                showMessage(code, msg);
                 showWaitingDialog(false);
             }
         });
@@ -164,4 +166,5 @@ public class MyInfoFragment extends BaseFragment {
         unbinder.unbind();
         showWaitingDialog(false);
     }
+
 }

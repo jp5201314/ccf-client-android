@@ -137,7 +137,7 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:maxLength="4"
-                            android:digits="@string/input_impose_num_lower_upper_case"
+                            android:digits="@string/input_impose_num"
                             android:textColor="@drawable/selector_edit_text_color"
                             android:background="@drawable/edit_text_style" />
 

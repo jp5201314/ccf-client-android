@@ -59,6 +59,10 @@ public class PlatformParameterActivity extends BaseActivity {
     TextView tvCountyTotal;
     @BindView(R.id.tv_service_center)
     TextView tvServiceCenter;
+    @BindView(R.id.tv_user_alive_total)
+    TextView tvUserAliveTotal;
+    @BindView(R.id.tv_user_wait_alive_total)
+    TextView tvUserWaitAliveTotal;
     private Unbinder unbinder;
 
     @Override
@@ -80,19 +84,21 @@ public class PlatformParameterActivity extends BaseActivity {
     /**
      * 设置平台参数
      */
-    private  void setPlateformParamer(){
+    private void setPlateformParamer() {
         HttpRequest.get(Constant.GET_DATA_HOST + API.GETPLATFORMINFO, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
                 PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
-                if (platformInfo!=null){
-                    tvAliveTotal.setText(String.valueOf(platformInfo.getActiveCCF()));
+                if (platformInfo != null) {
+                    tvAliveTotal.setText(platformInfo.getActiveCCF());
                     tvTotalTba.setText(platformInfo.getTotalInertiaCCF());
+                    tvUserAliveTotal.setText(platformInfo.getUserCCF());
+                    tvUserWaitAliveTotal.setText(platformInfo.getUserDCCF());
                     tvCurrentAccountAmount.setText(platformInfo.getTotalAccount());
                     tvTotalCcf.setText(platformInfo.getTotalCCF());
                     tvInitTotalAmount.setText(platformInfo.getInitActiveCCF());
-                    tvCurrentDifficultPoint.setText(String.valueOf(platformInfo.getCurrent_u()));
+                    tvCurrentDifficultPoint.setText(platformInfo.getCurrent_u());
                     tvAvailableConsumePoints.setText(platformInfo.getActiveConsumeScore());
                     tvWaitFreeCyclePoints.setText(platformInfo.getInertiaCCScore());
                     tvWaitFreeConsumePoints.setText(platformInfo.getInertiaConsumeScore());
@@ -107,13 +113,13 @@ public class PlatformParameterActivity extends BaseActivity {
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                showMessage(code,msg);
+                showMessage(code, msg);
             }
 
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
-                showMessage(errorCode,msg);
+                showMessage(errorCode, msg);
             }
         });
     }

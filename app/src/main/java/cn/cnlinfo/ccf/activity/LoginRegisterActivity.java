@@ -103,7 +103,7 @@ public class LoginRegisterActivity extends BaseActivity {
     }
 
     private void setVerificationCode() {
-        String str = ObtainVerificationCode.createVerificationCode();
+        String str = ObtainVerificationCode.createNumVerificationCode();
         tvGetVerificationCode.setText(str);
     }
 

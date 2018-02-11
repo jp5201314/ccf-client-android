@@ -44,6 +44,11 @@ public class UserDetail {
     private String AliPayName;
     private String WebChat;
     private String WebChatName;
+    /**
+     * UserType :
+     */
+
+    private String UserType;
 
     public UserDetail() {
     }
@@ -202,5 +207,13 @@ public class UserDetail {
 
     public void setWebChatName(String WebChatName) {
         this.WebChatName = WebChatName;
+    }
+
+    public String getUserType() {
+        return UserType;
+    }
+
+    public void setUserType(String UserType) {
+        this.UserType = UserType;
     }
 }

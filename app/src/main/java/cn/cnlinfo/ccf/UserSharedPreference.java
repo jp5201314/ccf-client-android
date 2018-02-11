@@ -33,6 +33,7 @@ public class UserSharedPreference {
     private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
     private static final String CACHE_PASSWORD_KEY = "password";
+    private static final String CACHE_STEP_KEY = "step";
 
     public UserSharedPreference(Context context) {
         this.mContext = context;
@@ -77,7 +78,37 @@ public class UserSharedPreference {
         mACache.put(ACCOUNT_INFO_KEY,accountInfoToCache);
     }
 
+    public int getStep(){
+        int step = 0;
+         if (mACache.getAsObject(CACHE_STEP_KEY)==null){
+            if (mSharedPreferences.contains(CACHE_STEP_KEY)){
+                step = mSharedPreferences.getInt(CACHE_STEP_KEY,0);
+                if (step!=0){
+                    setStepToCache(step);
+                }
+            }
+         }else {
+             step = (int)mACache.getAsObject(CACHE_STEP_KEY);
+         }
+         return step;
+    }
 
+
+    //存储步数
+    public void setStep(int step){
+        this.setStepToSharedPreferences(step);
+        this.setStepToCache(step);
+    }
+
+    private void setStepToSharedPreferences(int step){
+        mEditor.putInt(CACHE_STEP_KEY,step);
+        mEditor.commit();
+    }
+    private void setStepToCache(int step){
+        mACache.put(CACHE_STEP_KEY,step);
+    }
+
+    //存储用户信息
     public void setUserInfo(String userinfo) {
         this.setUserInfoToSharedPreferences(userinfo);
         this.setUserInfoToCache(userinfo);

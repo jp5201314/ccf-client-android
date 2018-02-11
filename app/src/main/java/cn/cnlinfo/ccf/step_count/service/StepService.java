@@ -169,7 +169,8 @@ public class StepService extends Service implements SensorEventListener {
                 @Override
                 protected void onDataSuccess(JSONObject data) {
                     user = JSONObject.parseObject(data.getJSONObject("userinfo").toJSONString(), User.class);
-                    CURRENT_STEP = user.getTodayStep();
+                    //上传一次后，步数累加到第二天的步数再上传，每天只能上传一次
+                    CURRENT_STEP = user.getTodayStep()+UserSharedPreference.getInstance().getStep();
                     updateNotification();
                     Logger.d(CURRENT_STEP);
                 }
@@ -268,6 +269,7 @@ public class StepService extends Service implements SensorEventListener {
     private boolean isNewDay() {
         String time = "00:00";
         if (time.equals(new SimpleDateFormat("HH:mm").format(new Date())) || !CURRENT_DATE.equals(getTodayDate())) {
+            UserSharedPreference.getInstance().setStep(CURRENT_STEP);
             initTodayData();
             return true;
         }
