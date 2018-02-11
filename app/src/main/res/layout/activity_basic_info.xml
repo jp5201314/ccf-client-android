@@ -63,7 +63,7 @@
                     style="@style/text_0e1214_15"
                     android:text="手机号码" />
 
-                <cn.cnlinfo.ccf.view.CleanEditText
+                <TextView
                     android:id="@+id/et_phone_num"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
@@ -72,8 +72,6 @@
                     android:gravity="center"
                     android:hint="11位手机号"
                     android:digits="@string/input_impose_num"
-                    jp:tipMessage = "@string/phone_tip"
-                    jp:type = "phone"
                     android:inputType="text"
                     android:maxLength="11"
                     android:maxLines="1"

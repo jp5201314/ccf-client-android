@@ -30,9 +30,9 @@
             android:layout_weight="3"
             android:background="@drawable/edit_text_style"
             android:gravity="center"
-            android:hint="16位字母数字组合"
+            android:hint="6位字母数字组合"
             android:inputType="text"
-            android:maxLength="16"
+            android:maxLength="6"
             android:maxLines="1"
             android:textColor="@drawable/selector_edit_text_color" />
     </LinearLayout>
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:background="@drawable/edit_text_style"
-            android:digits="@string/input_impose_num_lower_case"
+            android:digits="@string/input_impose_num_lower_upper_case"
             android:gravity="center"
             android:inputType="textPersonName"
             android:hint="用户名"

@@ -41,7 +41,7 @@ public class SetBasicInfoActivity extends BaseActivity {
     @BindView(R.id.et_name)
     CleanEditText etName;
     @BindView(R.id.et_phone_num)
-    CleanEditText etPhoneNum;
+    TextView etPhoneNum;
     @BindView(R.id.et_id_number)
     CleanEditText etIdNumber;
     @BindView(R.id.et_choose_bank)
