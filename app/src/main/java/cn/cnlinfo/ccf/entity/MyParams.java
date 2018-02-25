@@ -1,7 +1,7 @@
 package cn.cnlinfo.ccf.entity;
 
 /**
- * Created by Administrator on 2017/12/21 0021.
+ * Created by JP on 2017/12/21 0021.
  */
 
 public class MyParams {

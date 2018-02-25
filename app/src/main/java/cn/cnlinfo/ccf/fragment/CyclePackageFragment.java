@@ -185,7 +185,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
         tvWaitActValue.setText(String.valueOf(exchangepackageinfo.getDCCF()));//设置待激活的量
         tvPackTime.setText(String.format(tvPackTime.getText().toString(), exchangepackageinfo.getPackTime()));
         tvConversionCyclePack.setText(String.format(tvConversionCyclePack.getText().toString(), exchangepackageinfo.getHaschange(), exchangepackageinfo.getResidue()));
-        tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));
+        tvHoldCyclePack.setText(String.format(tvHoldCyclePack.getText().toString(), exchangepackageinfo.getUpperLimit()));//用户持有量，可兑换量
         etConversionCyclePack.setHint(String.valueOf(exchangepackageinfo.getConvertible()>0?exchangepackageinfo.getConvertible():0));//如果循环包为小于等于0则显示为0，大于0就显示原值
     }
 
@@ -373,6 +373,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                                         stepData.setStepNum(currentStep);
                                         databaseManager.update(data);
                                         setCurrentStep(currentStep);
+                                        //发送认证后的更新步数从0开始计数
                                         EventBus.getDefault().post(new UpdateStepEvent(currentStep));
                                     }
                                 }

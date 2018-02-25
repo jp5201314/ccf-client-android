@@ -40,9 +40,9 @@
     <!--风险提示语-->
 
     <string name="dialog_risk_warning_title">风险提示</string>
-    <string name="dialog_risk_warning_text">\t\t尊敬的用户，本平台意在打造为一个全民健身项目，通过碳控因子为用户搭建一个供消服务平台。成为体验会员可以免费通过该平台跑步锻炼身体，同时获取相应碳控因子，分享朋友免费参与可以提高自身步行认证效率。本项目非投资理财项目，循环包可以用消费积分免费兑换，如果您想兑换循环包，或者持有碳控因子。请务必保证自己有风险承担能力，请勿多账户参与。</string>
+    <string name="dialog_risk_warning_text">\t\t尊敬的用户，本平台意在打造一个全民健身项目。通过碳控因子为用户搭建一个供消服务平台。成为体验会员，可以免费通过该平台跑步锻炼身体，同时获取相应数量碳控因子，分享用户免费参与可以提高自身步行认证效率。兑换循环包可以加速认证效率，但需要扣相应碳控因子及循环卷，循环卷可以用碳控因子兑换平台普通套餐获取。平台非投资理财项目，可以全程免费参与，所有交易认购行为均为用户自愿行为，购买起航套餐可以获得平台赠与碳控因子和循环卷，从他人购买碳控因子兑换相应套餐存在风险，请务必保证自己有风险承担能力，请勿多账户参与。</string>
     <string name="dialog_risk_warning_name">碳控因子维护组</string>
-    <string name="dialog_risk_warning_date">2017-10-25</string>
+    <string name="dialog_risk_warning_date">2018-02-25</string>
 
 
     <string name="spinner_tip">--请选择--</string>

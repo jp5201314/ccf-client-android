@@ -144,7 +144,7 @@ public class StepService extends Service implements SensorEventListener {
                 .setSmallIcon(R.mipmap.ccf);
         Notification notification = mBuilder.build();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        startForeground(notifyId_Step, notification);
+        startForeground(notify_step_id, notification);
 //        Logger.d("initNotification");
     }
 
@@ -224,28 +224,35 @@ public class StepService extends Service implements SensorEventListener {
             @Override
             public void onReceive(final Context context, final Intent intent) {
                 String action = intent.getAction();
+                //屏幕开启广播
                 if (Intent.ACTION_SCREEN_ON.equals(action)) {
                     Logger.d("screen on");
+                    //屏幕关闭广播
                 } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                     Logger.d("screen off");
                     //改为60秒一存储
                     duration = 60000;
+                    //手机锁屏
                 } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
                     Logger.d("screen unlock");
 //                    save();
                     //改为30秒一存储
                     duration = 30000;
+                    //系统弹窗
                 } else if (Intent.ACTION_CLOSE_SYSTEM_DIALOGS.equals(intent.getAction())) {
                     Logger.d("receive Intent.ACTION_CLOSE_SYSTEM_DIALOGS");
                     //保存一次
                     save();
+                    //手机关机
                 } else if (Intent.ACTION_SHUTDOWN.equals(intent.getAction())) {
                     Logger.d("receive ACTION_SHUTDOWN");
                     save();
+                    //手机日期变化
                 } else if (Intent.ACTION_DATE_CHANGED.equals(action)) {//日期变化步数重置为0
 //                    Logger.d("重置步数" + StepDcretor.CURRENT_STEP);
                     save();
                     isNewDay();
+                    //手机日期变化
                 } else if (Intent.ACTION_TIME_CHANGED.equals(action)) {
                     //时间变化步数重置为0
                     isCall();
@@ -291,11 +298,10 @@ public class StepService extends Service implements SensorEventListener {
                 ) {
             remindNotify();
         }
-
     }
 
     /**
-     * 开始保存记步数据
+     * 开始保存计步数据
      */
     private void startTimeCount() {
         if (time == null) {
@@ -317,7 +323,7 @@ public class StepService extends Service implements SensorEventListener {
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
                 .setContentIntent(hangPendingIntent)
                 .build();
-        mNotificationManager.notify(notifyId_Step, notification);
+        mNotificationManager.notify(notify_step_id, notification);
         if (mCallback != null) {
             mCallback.updateUi(CURRENT_STEP);
         }
@@ -341,7 +347,7 @@ public class StepService extends Service implements SensorEventListener {
     /**
      * 记步Notification的ID
      */
-    int notifyId_Step = 100;
+    int notify_step_id = 100;
     /**
      * 提醒锻炼的Notification的ID
      */
@@ -431,7 +437,21 @@ public class StepService extends Service implements SensorEventListener {
             }
         }).start();
         startTimeCount();
+/**
+ * 值得注意的是在onStartCommand中返回值，常用的返回值有：START_NOT_STICKY、START_SICKY和START_REDELIVER_INTENT,这三个都是静态常理值。
 
+ START_NOT_STICKY：表示当Service运行的进程被Android系统强制杀掉之后，不会重新创建该Service，如果想重新实例化该Service，就必须重新调用startService来启动。
+
+ 使用场景：表示当Service在执行工作中被中断几次无关紧要或者对Android内存紧张的情况下需要被杀掉且不会立即重新创建这种行为也可接受的话，这是可以在onStartCommand返回值中设置该值。如在Service中定时从服务器中获取最新数据
+
+ START_STICKY：表示Service运行的进程被Android系统强制杀掉之后，Android系统会将该Service依然设置为started状态（即运行状态），但是不再保存onStartCommand方法传入的intent对象，然后Android系统会尝试再次重新创建该Service，并执行onStartCommand回调方法，这时onStartCommand回调方法的Intent参数为null，也就是onStartCommand方法虽然会执行但是获取不到intent信息。
+
+ 使用场景：如果你的Service可以在任意时刻运行或结束都没什么问题，而且不需要intent信息，那么就可以在onStartCommand方法中返回START_STICKY，比如一个用来播放背景音乐功能的Service就适合返回该值。
+
+ START_REDELIVER_INTENT：表示Service运行的进程被Android系统强制杀掉之后，与返回START_STICKY的情况类似，Android系统会将再次重新创建该Service，并执行onStartCommand回调方法，但是不同的是，Android系统会再次将Service在被杀掉之前最后一次传入onStartCommand方法中的Intent再次保留下来并再次传入到重新创建后的Service的onStartCommand方法中，这样我们就能读取到intent参数。
+
+ 使用场景：如果我们的Service需要依赖具体的Intent才能运行（需要从Intent中读取相关数据信息等），并且在强制销毁后有必要重新创建运行，那么这样的Service就适合返回START_REDELIVER_INTENT。
+ */
         return START_STICKY;
     }
 
@@ -626,7 +646,7 @@ public class StepService extends Service implements SensorEventListener {
         databaseManager.closeDatabase();
         databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
-        mNotificationManager.cancel(notifyId_Step);
+        mNotificationManager.cancel(notify_step_id);
         Logger.d("onDestroy");
     }
 
