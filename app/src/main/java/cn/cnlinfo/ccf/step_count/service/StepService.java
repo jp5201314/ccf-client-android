@@ -643,11 +643,14 @@ public class StepService extends Service implements SensorEventListener {
         super.onDestroy();
         //取消前台notification进程
         stopForeground(true);
+        //在用户手动关闭app杀死service前保存步数
+        UserSharedPreference.getInstance().setStep(CURRENT_STEP);
         databaseManager.closeDatabase();
         databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
         mNotificationManager.cancel(notify_step_id);
         Logger.d("onDestroy");
+
     }
 
     @Override

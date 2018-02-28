@@ -38,6 +38,13 @@ public class OutTransferRecordDataSource implements IAsyncDataSource<List<Transf
         Logger.d("loadmore");
         return loadOutTransferRecord(sender,page+1);
     }
+
+    /**
+     * type 1是用户转出  2是其他用户转入
+     * @param sender
+     * @param page
+     * @return
+     */
     private RequestHandle loadOutTransferRecord(final ResponseSender<List<TransferRecordEntity>> sender, final int page){
         RequestParams params = new RequestParams();
         params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());

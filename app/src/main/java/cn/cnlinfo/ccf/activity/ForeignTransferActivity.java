@@ -32,7 +32,7 @@ import cn.finalteam.okhttpfinal.RequestParams;
 
 public class ForeignTransferActivity extends BaseActivity {
     /**
-     * [1:碳控因子,2:注册积分,]
+     * [1:碳控因子,2:注册积分,11:消费积分]  定义转换积分的类型编码
      */
     @BindView(R.id.ibt_back)
     ImageButton ibtBack;
@@ -52,6 +52,8 @@ public class ForeignTransferActivity extends BaseActivity {
     TextView tvRegisterIntegral;
     @BindView(R.id.tv_ccf_number)
     TextView tvCcfNumber;
+    @BindView(R.id.tv_consumption_points_number)
+    TextView tvConsumptionPointsNumber;
 
     private Unbinder unbinder;
     private User user;
@@ -73,26 +75,27 @@ public class ForeignTransferActivity extends BaseActivity {
     }
 
     //获取当前用户的ccf数量和实时价格,积分
-    private void getCurrentUserIntegral(){
+    private void getCurrentUserIntegral() {
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",UserSharedPreference.getInstance().getUser().getUserID());
-        HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(),UserMoneyEvent.class);
+                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(), UserMoneyEvent.class);
                 tvRegisterIntegral.setText(userMoney.getRegisterIntegral());
                 tvCcfNumber.setText(userMoney.getCCF());
+                tvConsumptionPointsNumber.setText(userMoney.getConsumeIntegral());
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
             }
 
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
-                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
             }
         });
     }
@@ -111,6 +114,9 @@ public class ForeignTransferActivity extends BaseActivity {
                         break;
                     case "注册积分":
                         typeId = 2;
+                        break;
+                    case "消费积分":
+                        typeId = 11;
                         break;
                 }
             }
@@ -197,6 +203,6 @@ public class ForeignTransferActivity extends BaseActivity {
         super.onDestroy();
         unbinder.unbind();
         HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.USERTRANSFER);
-        HttpRequest.cancel(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
+        HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
     }
 }

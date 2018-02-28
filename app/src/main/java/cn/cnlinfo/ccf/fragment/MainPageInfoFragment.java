@@ -185,7 +185,6 @@ public class MainPageInfoFragment extends BaseFragment {
         HttpRequest.get(Constant.GET_DATA_HOST + API.GETPLATFORMINFO, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                String platformTitles[] = {"总量", "平台已激活", "价格", "平台待激活", "用户已激活", "用户待激活", "碳控积分", "消费积分"};
                 JSONObject jsonObject = data.getJSONObject("platforminfo");
                 PlatformInfo platformInfo = JSONObject.parseObject(jsonObject.toJSONString(), PlatformInfo.class);
                 platformAnswer.add("1.2亿");

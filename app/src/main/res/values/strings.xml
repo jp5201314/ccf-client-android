@@ -92,6 +92,7 @@
     <string-array name="spinner_foreign_transfer">
         <item>碳控因子</item>
         <item>注册积分</item>
+        <item>消费积分</item>
         <!--  <item>产品积分</item>-->
     </string-array>
 

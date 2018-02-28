@@ -109,6 +109,7 @@
             android:text="交易记录"
             style="@style/text_0e1214_17"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:background="@drawable/selector_text_view_bg"
             />
         <View

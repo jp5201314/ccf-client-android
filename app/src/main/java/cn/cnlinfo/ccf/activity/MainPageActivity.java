@@ -454,6 +454,7 @@ public class MainPageActivity extends BaseActivity implements View.OnClickListen
                 exitTime = currentTime;
             } else {
                 AppManage.getInstance().exit(this);
+                finish();
             }
             return true;
         }

@@ -18,8 +18,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.widget.NormalDialog;
+import com.lljjcoder.citylist.Toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,7 @@ import cn.cnlinfo.ccf.Constant;
 import cn.cnlinfo.ccf.R;
 import cn.cnlinfo.ccf.UserSharedPreference;
 import cn.cnlinfo.ccf.activity.PurchaseMealRecordActivity;
-import cn.cnlinfo.ccf.activity.RechargeRegisterPointsActivity;
 import cn.cnlinfo.ccf.activity.WebActivity;
-import cn.cnlinfo.ccf.dialog.DialogCreater;
 import cn.cnlinfo.ccf.entity.AccountInfo;
 import cn.cnlinfo.ccf.entity.ItemMealEntity;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
@@ -129,7 +126,7 @@ public class ComboUpgradeFragment extends BaseFragment {
         mealPrice = Integer.valueOf(tvMealPrice.getText().toString());
         if (!TextUtils.isEmpty(safePass) && !TextUtils.isEmpty(etMealNum.getText().toString())) {
             if (re_integral < mealPrice * mealNum) {
-                final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
+               /* final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         startActivity(new Intent(getActivity(), RechargeRegisterPointsActivity.class));
@@ -137,6 +134,8 @@ public class ComboUpgradeFragment extends BaseFragment {
                     }
                 });
                 dialog.show();
+                return;*/
+                ToastUtils.showShortToast(getActivity(),"现有的注册积分不足");
                 return;
             }
             RequestParams params = new RequestParams();
@@ -177,8 +176,10 @@ public class ComboUpgradeFragment extends BaseFragment {
         if (!TextUtils.isEmpty(registerIntegral) && !TextUtils.isEmpty(safePass) && mealPrice > 0 && !TextUtils.isEmpty(meal_num)) {
             long rePrice = Integer.valueOf(registerIntegral);
             mealNum = Integer.valueOf(meal_num);
-            if (re_integral < mealPrice * mealNum) {
-                final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
+            //re_integral 账户中的注册积分
+            //rePrice输入的注册积分
+           /* if (re_integral < mealPrice * mealNum) {
+               *//* final NormalDialog dialog = DialogCreater.createNormalDialog(getActivity(), "提示", "你现有的注册积分不足，是否去充值购买", new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         startActivity(new Intent(getActivity(), RechargeRegisterPointsActivity.class));
@@ -186,8 +187,10 @@ public class ComboUpgradeFragment extends BaseFragment {
                     }
                 });
                 dialog.show();
+                return;*//*
+                ToastUtils.showShortToast(getActivity(),"现有的注册积分不足");
                 return;
-            }
+            }*/
             if (rePrice <= re_integral) {
                 if (rePrice >= mealPrice * mealNum * 0.3 && rePrice <= mealPrice * mealNum) {
                     RequestParams params = new RequestParams();

@@ -148,8 +148,9 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                         } else {
                             ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
                             if (orderListItem.getStatus().equals("完成")) {
-                                ((ViewHolder) holder).btnComplain.setVisibility(View.GONE);
-                                ((ViewHolder) holder).llAccount.setVisibility(View.GONE);
+                                ((ViewHolder) holder).btnComplain.setVisibility(View.GONE);//完成订单后投诉按钮隐藏
+                                ((ViewHolder) holder).llAccount.setVisibility(View.GONE);//完成订单后账号信息隐藏
+                                ((ViewHolder) holder).btnShowProof.setVisibility(View.GONE);//完成订单后查看凭证隐藏
                             }
                         }
                     } else if (UserSharedPreference.getInstance().getUser().getUserCode().equals(orderListItem.getPurchaserID())) {//判断是买家
