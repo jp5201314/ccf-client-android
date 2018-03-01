@@ -68,10 +68,10 @@ public class OrderCenterActivity extends BaseActivity {
     //上传图片的结果码
     private static final int REQUEST_CODE_SELECT_IMG = 1;
     private OrderListItemAdapter orderListItemAdapter;
-    private static String tradTypeBuy = "where SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+" and  TranType=2";
-    private static String tradTypeSell = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=1";
-    private static String tradTypeMatch = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  TranType=3";
-    private static String tradTypeAll = "where SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+"and  (TranType=3 or TranType=2 or TranType=1)";
+    private static String tradTypeBuy = "where (SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  TranType=2";
+    private static String tradTypeSell = "where (SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  TranType=1";
+    private static String tradTypeMatch = "where (SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  TranType=3";
+    private static String tradTypeAll = "where (SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  (TranType=3 or TranType=2 or TranType=1)";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -154,61 +154,25 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                             }
                         }
                     } else if (UserSharedPreference.getInstance().getUser().getUserCode().equals(orderListItem.getPurchaserID())) {//判断是买家
-                        ((ViewHolder) holder).btnClick.setText("上传凭证");
-                        ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
-                        ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
-                            ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
-                            EventBus.getDefault().post(new SendOrderIdEvent(orderListItem.getID()));
-                        });
+                        if (orderListItem.getStatus().equals("完成")){
+                            ((ViewHolder) holder).btnClick.setVisibility(View.GONE);//完成订单后上传凭证按钮隐藏
+                            ((ViewHolder) holder).llAccount.setVisibility(View.GONE);//完成订单后账号信息隐藏
+                            ((ViewHolder) holder).btnShowProof.setVisibility(View.GONE);//完成订单后查看凭证隐藏
+                        }else {
+                            ((ViewHolder) holder).btnClick.setText("上传凭证");
+                            ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
+                            ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
+                                ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
+                                EventBus.getDefault().post(new SendOrderIdEvent(orderListItem.getID()));
+                            });
+                        }
+
                     }
-/// //                    if (orderListItem.getTranType().equals("挂卖")) {
-//                        ((ViewHolder) holder).btnClick.setText("上传凭证");
-//                        ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
-//                        ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
-//                            ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
-//                            EventBus.getDefault().post(new SendOrderIdEvent(orderListItem.getID()));
-//
-//                        });
-//                    } else {
-//                        if (orderListItem.getStatus().equals("打款中")) {
-//                            Logger.d(orderListItem.getTranType());
-//                            //当订单状态为打款中时确认收款按钮才显示出来
-//                            /**
-//                             * 状态有
-//                             * 未打款，投诉中，打款中，完成，无效
-//                             */
-//                            ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
-//                            ((ViewHolder) holder).btnClick.setText("确认收款");
-//                            //确认收款
-//                            ((ViewHolder) holder).btnClick.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    RequestParams params = new RequestParams();
-//                                    params.addFormDataPart("orderID", orderListItem.getID());
-//                                    HttpRequest.post(Constant.OPERATE_CCF_HOST + API.SELLERSENDCCF, params, new CCFHttpRequestCallback() {
-//                                        @Override
-//                                        protected void onDataSuccess(JSONObject data) {
-//                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(0, "成功收款"));
-//                                        }
-//
-//                                        @Override
-//                                        protected void onDataError(int code, boolean flag, String msg) {
-//                                            EventBus.getDefault().post(new ConfirmReceiveMoneyEvent(code, msg));
-//                                        }
-//                                    });
-//                                }
-//                            });
-//                        } else {
-//                            ((ViewHolder) holder).btnClick.setVisibility(View.GONE);
-//                        }
-//                    }
                 } else {
                     ((ViewHolder) holder).tvTradType.setText("暂无");
                 }
                 if (!TextUtils.isEmpty(orderListItem.getBuyerScreenshot())) {
-//                    if (orderListItem.getTranType().equals("挂卖")) {
                     ((ViewHolder) holder).btnShowProof.setText("查看凭证");
-//                    }
                     String url = "http://ccf.hrkji.com/" + orderListItem.getBuyerScreenshot();
                     ((ViewHolder) holder).btnShowProof.setOnClickListener(v -> {
                         Intent intent = new Intent(context, PreviewSaveActivity.class);
@@ -216,10 +180,6 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                         context.startActivity(intent);
                     });
                 } else {
-//                    if (orderListItem.getTranType().equals("挂卖")){
-//                        //没有凭证并且是挂卖单子
-//                        ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
-//                    }
                     ((ViewHolder) holder).btnShowProof.setText("暂无凭证");
                 }
                 if (!TextUtils.isEmpty(orderListItem.getAliPay())) {

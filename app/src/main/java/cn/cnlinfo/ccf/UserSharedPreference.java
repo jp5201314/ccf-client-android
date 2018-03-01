@@ -33,7 +33,6 @@ public class UserSharedPreference {
     private static final String ACCOUNT_INFO_KEY = "accountinfo";
     private static final String CACHE_PHONE_PASSWORD_KEY = "phone_password";
     private static final String CACHE_PASSWORD_KEY = "password";
-    private static final String CACHE_STEP_KEY = "step";
 
     public UserSharedPreference(Context context) {
         this.mContext = context;
@@ -78,34 +77,39 @@ public class UserSharedPreference {
         mACache.put(ACCOUNT_INFO_KEY,accountInfoToCache);
     }
 
-    public int getStep(){
+    /**
+     * 获取不同用户在本地缓存的步数
+     * @param userCode
+     * @return
+     */
+    public int getStep(String userCode){
         int step = 0;
-         if (mACache.getAsObject(CACHE_STEP_KEY)==null){
-            if (mSharedPreferences.contains(CACHE_STEP_KEY)){
-                step = mSharedPreferences.getInt(CACHE_STEP_KEY,0);
+         if (mACache.getAsObject(userCode)==null){
+            if (mSharedPreferences.contains(userCode)){
+                step = mSharedPreferences.getInt(userCode,0);
                 if (step!=0){
-                    setStepToCache(step);
+                    setStepToCache(userCode,step);
                 }
             }
          }else {
-             step = (int)mACache.getAsObject(CACHE_STEP_KEY);
+             step = (int)mACache.getAsObject(userCode);
          }
          return step;
     }
 
 
-    //存储步数
-    public void setStep(int step){
-        this.setStepToSharedPreferences(step);
-        this.setStepToCache(step);
+    //存储不同用户认证后每天的剩余步数,
+    public void setStep(String userCode,int step){
+        this.setStepToSharedPreferences(userCode,step);
+        this.setStepToCache(userCode,step);
     }
 
-    private void setStepToSharedPreferences(int step){
-        mEditor.putInt(CACHE_STEP_KEY,step);
+    private void setStepToSharedPreferences(String userCode,int step){
+        mEditor.putInt(userCode,step);
         mEditor.commit();
     }
-    private void setStepToCache(int step){
-        mACache.put(CACHE_STEP_KEY,step);
+    private void setStepToCache(String userCode,int step){
+        mACache.put(userCode,step);
     }
 
     //存储用户信息

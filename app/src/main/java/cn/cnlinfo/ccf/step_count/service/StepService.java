@@ -170,7 +170,7 @@ public class StepService extends Service implements SensorEventListener {
                 protected void onDataSuccess(JSONObject data) {
                     user = JSONObject.parseObject(data.getJSONObject("userinfo").toJSONString(), User.class);
                     //上传一次后，步数累加到第二天的步数再上传，每天只能上传一次
-                    CURRENT_STEP = user.getTodayStep()+UserSharedPreference.getInstance().getStep();
+                    CURRENT_STEP = user.getTodayStep()+UserSharedPreference.getInstance().getStep(user.getUserCode());
                     updateNotification();
                     Logger.d(CURRENT_STEP);
                 }
@@ -276,7 +276,8 @@ public class StepService extends Service implements SensorEventListener {
     private boolean isNewDay() {
         String time = "00:00";
         if (time.equals(new SimpleDateFormat("HH:mm").format(new Date())) || !CURRENT_DATE.equals(getTodayDate())) {
-            UserSharedPreference.getInstance().setStep(CURRENT_STEP);
+            //晚上12点app开启中存储当天认证后的剩余步数
+            UserSharedPreference.getInstance().setStep(user.getUserCode(),CURRENT_STEP);
             initTodayData();
             return true;
         }
@@ -644,7 +645,7 @@ public class StepService extends Service implements SensorEventListener {
         //取消前台notification进程
         stopForeground(true);
         //在用户手动关闭app杀死service前保存步数
-        UserSharedPreference.getInstance().setStep(CURRENT_STEP);
+        UserSharedPreference.getInstance().setStep(user.getUserCode(),CURRENT_STEP);
         databaseManager.closeDatabase();
         databaseManager = null;
         unregisterReceiver(mBatInfoReceiver);
