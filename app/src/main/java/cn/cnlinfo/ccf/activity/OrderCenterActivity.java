@@ -116,6 +116,7 @@ public class OrderCenterActivity extends BaseActivity {
     //接收到点击确认收款，刷新界面
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveConfirmReceiveMoney(ConfirmReceiveMoneyEvent confirmReceiveMoneyEvent) {
+        Logger.d(confirmReceiveMoneyEvent.getErrorCode()+"   "+confirmReceiveMoneyEvent.getMsg());
         showMessage(confirmReceiveMoneyEvent.getErrorCode(), confirmReceiveMoneyEvent.getMsg());
         mvcHelper.refresh();
     }

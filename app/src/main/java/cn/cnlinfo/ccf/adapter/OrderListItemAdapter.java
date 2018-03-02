@@ -158,6 +158,7 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                             ((ViewHolder) holder).btnClick.setVisibility(View.GONE);//完成订单后上传凭证按钮隐藏
                             ((ViewHolder) holder).llAccount.setVisibility(View.GONE);//完成订单后账号信息隐藏
                             ((ViewHolder) holder).btnShowProof.setVisibility(View.GONE);//完成订单后查看凭证隐藏
+                            ((ViewHolder) holder).btnComplain.setVisibility(View.GONE);//订单完成后投诉按钮隐藏
                         }else {
                             ((ViewHolder) holder).btnClick.setText("上传凭证");
                             ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);

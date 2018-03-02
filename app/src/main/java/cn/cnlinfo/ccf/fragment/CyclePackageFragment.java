@@ -366,6 +366,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                                         tvWaitActValue.setText(userstep.getCarbonnum());
                                     }
                                     ToastUtils.showShortToast(getContext(),"认证成功");
+                                    UserSharedPreference.getInstance().setStep(UserSharedPreference.getInstance().getUser().getUserCode(),0);//认证后清空本地持久化
                                     List<StepData> list =  databaseManager.getQueryByWhere(StepData.class,new String[]{ "username","today"}, new String[]{UserSharedPreference.getInstance().getUser().getUserCode(),getTodayDate()});
                                     if (list!=null&&list.size()>0){
                                         currentStep = 0;//认证后步数置为0
