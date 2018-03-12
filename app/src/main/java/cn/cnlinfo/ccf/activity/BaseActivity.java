@@ -68,7 +68,7 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         receiver = new NetworkConnectChangedReceiver();
         registerNetworkConnectChangedReceiver();
         registerGlobalErrorMessageReceiver();
-        MVCHelper.setLoadViewFractory(new NormalLoadViewFactory());//只需要在一个地方设置，所有地方都可以用到这个设置
+        MVCHelper.setLoadViewFractory(new NormalLoadViewFactory());
     }
 
     private void registerNetworkConnectChangedReceiver() {
@@ -260,11 +260,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         return true;
     }
 
-    /**
-     *根据版本号,验证是否新版,如果新版,则跳转引导页
-     *
-     * @return
-     */
     protected boolean validNewVersionByVersionCode() {
         int newVersionCode = PhoneManager.getVersionInfo().versionCode;
         UserSharedPreference userSharedPreference = UserSharedPreference.getInstance();
@@ -277,10 +272,6 @@ public class BaseActivity extends AppCompatActivity implements IComponentContain
         return false;
     }
 
-    /**
-     * 根据版本名,验证是否新版,如果新版,则跳转引导页
-     * @return
-     */
     protected boolean validNewVersionByVersionName() {
         String newVersionName = PhoneManager.getVersionInfo().versionName;
         Logger.d(newVersionName);

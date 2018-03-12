@@ -7,7 +7,6 @@ import android.support.multidex.MultiDex;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tendcloud.tenddata.TCAgent;
@@ -44,17 +43,15 @@ public class CCFApplication extends Application {
             // You should not init your app in this process.
             return;
         }
-        //加入内存次泄漏检测
         refWatcher = LeakCanary.install(this);
         INSTANCE = this;
         mContext = getApplicationContext();
-              /* 初始化talking data*/
+
         if (!BuildConfig.DEBUG) {
             TCAgent.LOG_ON = true;
             TCAgent.init(this);
             TCAgent.setReportUncaughtExceptions(true);
         }
-        Logger.init("CCFinal").hideThreadInfo();
         EventBus.getDefault().register(mContext);
         Fresco.initialize(mContext);
 
@@ -74,14 +71,7 @@ public class CCFApplication extends Application {
         EventBus.getDefault().unregister(mContext);
     }
 
-    /**
-     * 200是登陆成功
-     * -1是您的帐号不存在或者密码输入有误，请查证后再次尝试登录！
-     * -2是用户名已存在，请重新输入
-     * -14
-     * @param errorMessageEvent
-     */
-    //接收EventBus发送来的信息并作相应处理
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showErrorMessage(ErrorMessageEvent errorMessageEvent){
         int code = errorMessageEvent.getErrorCode();

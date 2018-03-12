@@ -109,22 +109,12 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_cycle_package);
- //Glide.with(getActivity()).load(R.drawable.icon_cycle).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(ivCycle, 1));
-// GlideDrawableImageViewTarget这个设置播放次数
- //Glide.with(this).load(R.drawable.icon_cycle).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivCycle);
 
      unbinder = ButterKnife.bind(this, getContentView());
      EventBus.getDefault().register(this);
      initData();
     }
 
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cycle_package,container,false);
-        unbinder = ButterKnife.bind(this, view);
-        initData();
-        return view;
-    }*/
 
     private void initData() {
         databaseManager = DatabaseManager.createTableAndInstance("DylanStepCount");
@@ -316,24 +306,8 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        Logger.d("onDestroy");
-    }
 
-  /*  @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        Logger.d("onDestroyView");
-        if (conn!=null&&isBind) {
-            getActivity().unbindService(conn);
-        }
-        showWaitingDialog(false);
-        conn = null;
-        callBack = null;
-        //取消Http请求
-        HttpRequest.cancel(Constant.GET_MESSAGE_CODE_HOST + API.GETCIRCLE);
-        HttpRequest.cancel(Constant.UPLOAD_STEP_HOST + API.UPLOADSTEP);
-        HttpRequest.cancel(Constant.OPERATE_CCF_HOST + API.APPROVECYCLEPACK);
-    }*/
+    }
 
 
     @Override
@@ -366,7 +340,7 @@ public class CyclePackageFragment extends BaseFragment implements View.OnClickLi
                                         tvWaitActValue.setText(userstep.getCarbonnum());
                                     }
                                     ToastUtils.showShortToast(getContext(),"认证成功");
-                                    UserSharedPreference.getInstance().setStep(UserSharedPreference.getInstance().getUser().getUserCode(),0);//认证后清空本地持久化
+                                    UserSharedPreference.getInstance().setStep(UserSharedPreference.getInstance().getUser().getUserCode(),0);
                                     List<StepData> list =  databaseManager.getQueryByWhere(StepData.class,new String[]{ "username","today"}, new String[]{UserSharedPreference.getInstance().getUser().getUserCode(),getTodayDate()});
                                     if (list!=null&&list.size()>0){
                                         currentStep = 0;//认证后步数置为0
