@@ -1,12 +1,15 @@
 package cn.cnlinfo.ccf.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ import com.tendcloud.tenddata.TCAgent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +50,7 @@ import cn.cnlinfo.ccf.event.UserMoneyEvent;
 import cn.cnlinfo.ccf.mvc.datasource.PriceChartDataSource;
 import cn.cnlinfo.ccf.mvc.helper.MVCUltraHelper;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.utils.DateUtil;
 import cn.cnlinfo.ccf.view.CleanEditText;
 import cn.cnlinfo.ccf.view.DataValueFormatter;
 import cn.cnlinfo.ccf.view.MyMarkerView;
@@ -79,11 +84,24 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     TextView tvCcfCurPrice;
     @BindView(R.id.tv_ccf_number)
     TextView tvCcfNumber;
+    @BindView(R.id.btn_choose_start_time)
+    Button btnChooseStartTime;
+    @BindView(R.id.btn_choose_end_time)
+    Button btnChooseEndTime;
+    @BindView(R.id.tv_start_time)
+    TextView tvStartTime;
+    @BindView(R.id.tv_end_time)
+    TextView tvEndTime;
     private Unbinder unbinder;
     private int type = 0;
     private MVCHelper mvcHelper;
     private ArrayList<String> xVals;
     private ArrayList<Entry> entryArrayList;
+    private String currentTime;
+    private PriceChartDataSource priceChartDataSource;
+    private IDataAdapter<List<ItemPriceListEntity>> adapter;
+    private String monthOfYear;
+    private String day;
 
     @Override
     protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -93,6 +111,10 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         TCAgent.onPageStart(getActivity(), "交易中心");
         xVals = new ArrayList<>();//x轴的数据集合
         entryArrayList = new ArrayList<>();//y轴数据集合
+        currentTime = DateUtil.format(Calendar.getInstance().getTime(), "yyyy-MM-dd");
+        tvStartTime.setText("2018-02-11");
+        tvEndTime.setText(currentTime);
+
         getCurrentUserIntegral();//获取当前用户的ccf数量和实时价格
         setMPAndroidChart();
         getPriceList();//获取价格变动列表，绘制价格走势图
@@ -100,30 +122,40 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         setEditTextFocus(etNum);
         btnEnterTradingPlatform.setOnClickListener(this);
         btnOk.setOnClickListener(this);
+        btnChooseStartTime.setOnClickListener(this);
+        btnChooseEndTime.setOnClickListener(this);
+    }
 
+    //给字符串添加单引号
+    @NonNull
+    private String addCharForString(String str) {
+        StringBuilder stringBuilder = new StringBuilder(str);
+        stringBuilder.insert(0, "\'");
+        stringBuilder.insert(stringBuilder.length(), "\'");
+        return stringBuilder.toString();
     }
 
     //获取当前用户的ccf数量和实时价格,积分
-    private void getCurrentUserIntegral(){
+    private void getCurrentUserIntegral() {
         RequestParams params = new RequestParams();
-        params.addFormDataPart("userid",UserSharedPreference.getInstance().getUser().getUserID());
-        HttpRequest.post(cn.cnlinfo.ccf.Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
+        params.addFormDataPart("userid", UserSharedPreference.getInstance().getUser().getUserID());
+        HttpRequest.post(Constant.GET_DATA_HOST + API.GETUSERINTEGAL, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {
-                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(),UserMoneyEvent.class);
+                UserMoneyEvent userMoney = JSONObject.parseObject(data.getJSONObject("UserMoney").toJSONString(), UserMoneyEvent.class);
                 tvCcfCurPrice.setText(userMoney.getPrice());
                 tvCcfNumber.setText(userMoney.getCCF());
             }
 
             @Override
             protected void onDataError(int code, boolean flag, String msg) {
-                EventBus.getDefault().post(new ErrorMessageEvent(code,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(code, msg));
             }
 
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
-                EventBus.getDefault().post(new ErrorMessageEvent(errorCode,msg));
+                EventBus.getDefault().post(new ErrorMessageEvent(errorCode, msg));
             }
         });
     }
@@ -188,12 +220,20 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
     private void getPriceList() {
         mvcHelper = new MVCUltraHelper<List<ItemPriceListEntity>>(ptr);
         mvcHelper.setNeedCheckNetwork(true);
-        mvcHelper.setDataSource(new PriceChartDataSource());
-        mvcHelper.setAdapter(new IDataAdapter<List<ItemPriceListEntity>>() {
+        priceChartDataSource = new PriceChartDataSource(addCharForString(tvStartTime.getText().toString()), addCharForString(tvEndTime.getText().toString()));
+        mvcHelper.setDataSource(priceChartDataSource);
+        adapter = new IDataAdapter<List<ItemPriceListEntity>>() {
             @Override
             public void notifyDataChanged(List<ItemPriceListEntity> itemPriceListEntities, boolean isRefresh) {
-//                Logger.d(itemPriceListEntities.toString());
+                Logger.d(itemPriceListEntities.toString());
 
+                if (!xVals.isEmpty() && xVals.size() > 0 && !entryArrayList.isEmpty() && entryArrayList.size() > 0) {
+                    xVals.clear();
+                    entryArrayList.clear();
+                }
+                if (itemPriceListEntities.isEmpty() || itemPriceListEntities.size() == 0) {
+                    toast("暂无数据");
+                }
                 for (int i = 0; i < itemPriceListEntities.size(); i++) {
                     xVals.add(itemPriceListEntities.get(i).getAddTime());
                     entryArrayList.add(new BarEntry((float) itemPriceListEntities.get(i).getPrice(), i));
@@ -226,7 +266,8 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
             public boolean isEmpty() {
                 return false;
             }
-        });
+        };
+        mvcHelper.setAdapter(adapter);
         mvcHelper.refresh();
 
     }
@@ -261,6 +302,60 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
         HttpRequest.cancel(Constant.GET_DATA_HOST + API.GETUSERINTEGAL);
     }
 
+    public void chooseDateRefresh(int year, int month, int dayOfMonth, TextView textView) {
+        if (Integer.valueOf(tvEndTime.getText().toString().substring(0, 3)) < Integer.valueOf(tvStartTime.getText().toString().substring(0, 3))) {
+            toast("起始日期不能超过结束日期");
+            return;
+        }
+        if (Integer.valueOf(tvEndTime.getText().toString().substring(0, 3)) == Integer.valueOf(tvStartTime.getText().toString().substring(0, 3))) {
+            if (Integer.valueOf(tvEndTime.getText().toString().substring(5, 6)) < Integer.valueOf(tvStartTime.getText().toString().substring(5, 6))) {
+                toast("起始日期不能超过结束日期");
+                return;
+            }
+        }
+        if (Integer.valueOf(tvEndTime.getText().toString().substring(0, 3)) == Integer.valueOf(tvStartTime.getText().toString().substring(0, 3))) {
+            if (Integer.valueOf(tvEndTime.getText().toString().substring(5, 6)) == Integer.valueOf(tvStartTime.getText().toString().substring(5, 6))) {
+                if (Integer.valueOf(tvEndTime.getText().toString().substring(8, 9)) < Integer.valueOf(tvStartTime.getText().toString().substring(8, 9))) {
+                    toast("起始日期不能超过结束日期");
+                    return;
+                }
+            }
+        }
+
+        if (year > Calendar.getInstance().get(Calendar.YEAR)) {
+            toast("年份不能超过当前年份");
+            return;
+        } else {
+            if (year == Calendar.getInstance().get(Calendar.YEAR)) {
+                if (month > Calendar.getInstance().get(Calendar.MONTH)) {
+                    toast("月份不能超过当前月份");
+                    return;
+                } else {
+                    if (month==Calendar.getInstance().get(Calendar.MONTH)){
+                        if (dayOfMonth > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+                            toast("选择的号数不能超过当前号数");
+                            return;
+                        } else {
+                            if (month < 10) {
+                                monthOfYear = "0" + String.valueOf(month + 1);
+                            } else {
+                                monthOfYear = String.valueOf(month + 1);
+                            }
+                            if (dayOfMonth < 10) {
+                                day = "0" + String.valueOf(dayOfMonth);
+                            } else {
+                                day = String.valueOf(dayOfMonth);
+                            }
+                            textView.setText(String.valueOf(year) + "-" + monthOfYear + "-" + day);
+                            priceChartDataSource = new PriceChartDataSource(addCharForString(tvStartTime.getText().toString()), addCharForString(tvEndTime.getText().toString()));
+                            mvcHelper.setDataSource(priceChartDataSource);
+                            mvcHelper.refresh();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -312,8 +407,29 @@ public class TradingCenterFragment extends BaseFragment implements View.OnClickL
                     toast("输入框不能为空");
                 }
                 break;
+            //进入交易大厅
             case R.id.btn_enter_trading_platform:
                 startActivity(new Intent(getActivity(), TradingCenterActivity.class));
+                break;
+            //选择开始时间查询数据
+            case R.id.btn_choose_start_time:
+                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        chooseDateRefresh(year, month, dayOfMonth, tvStartTime);
+                    }
+                }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)).show();
+
+                break;
+            //选择结束时间查询数据
+            case R.id.btn_choose_end_time:
+                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        chooseDateRefresh(year, month, dayOfMonth, tvEndTime);
+                    }
+                }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)).show();
+
                 break;
             default:
                 break;

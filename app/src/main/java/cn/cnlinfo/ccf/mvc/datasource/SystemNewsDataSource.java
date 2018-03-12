@@ -39,7 +39,7 @@ public class SystemNewsDataSource implements IAsyncDataSource<List<ItemNewsEntit
 
     private RequestHandle loadShareUserList(final ResponseSender<List<ItemNewsEntity>> sender, final int page){
         RequestParams params = new RequestParams();
-        params.addFormDataPart("CurrentPageIndex", 1);
+        params.addFormDataPart("CurrentPageIndex", page);
         params.addFormDataPart("PageSize", number);
         /**
          * 1是公告 2是新闻,0是前两者之和

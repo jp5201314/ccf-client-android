@@ -79,13 +79,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         tvTitle.setText("注册");
         ibtAdd.setVisibility(View.INVISIBLE);
         setClickListener();
-        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://www.ccfcc.cc/XY.aspx\">用户协议");
         tvUpgradeAgencyLink.setText(charSequence);
         tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, WebActivity.class);
-                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
+                intent.putExtra("url", "http://www.ccfcc.cc/XY.aspx");
                 startActivity(intent);
             }
         });

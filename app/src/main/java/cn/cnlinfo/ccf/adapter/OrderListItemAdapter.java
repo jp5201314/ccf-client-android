@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
-import com.scrat.app.selectorlibrary.ImageSelector;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,6 +33,7 @@ import cn.cnlinfo.ccf.event.ErrorMessageEvent;
 import cn.cnlinfo.ccf.event.ReceiveComplainEvent;
 import cn.cnlinfo.ccf.event.SendOrderIdEvent;
 import cn.cnlinfo.ccf.net_okhttpfinal.CCFHttpRequestCallback;
+import cn.cnlinfo.ccf.utils.RxHeadImageTool;
 import cn.finalteam.okhttpfinal.HttpRequest;
 import cn.finalteam.okhttpfinal.RequestParams;
 
@@ -163,7 +163,8 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                             ((ViewHolder) holder).btnClick.setText("上传凭证");
                             ((ViewHolder) holder).btnClick.setVisibility(View.VISIBLE);
                             ((ViewHolder) holder).btnClick.setOnClickListener(v -> {
-                                ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
+                                //ImageSelector.show((OrderCenterActivity) context, REQUEST_CODE_SELECT_IMG, 1);
+                                RxHeadImageTool.tunedUpSysAlbum((OrderCenterActivity) context);
                                 EventBus.getDefault().post(new SendOrderIdEvent(orderListItem.getID()));
                             });
                         }
@@ -174,7 +175,7 @@ public class OrderListItemAdapter extends BaseRecyclerAdapter<OrderListItem> {
                 }
                 if (!TextUtils.isEmpty(orderListItem.getBuyerScreenshot())) {
                     ((ViewHolder) holder).btnShowProof.setText("查看凭证");
-                    String url = "http://ccf.hrkji.com/" + orderListItem.getBuyerScreenshot();
+                    String url = "http://www.ccfcc.cc/" + orderListItem.getBuyerScreenshot();
                     ((ViewHolder) holder).btnShowProof.setOnClickListener(v -> {
                         Intent intent = new Intent(context, PreviewSaveActivity.class);
                         intent.putExtra("url", url);

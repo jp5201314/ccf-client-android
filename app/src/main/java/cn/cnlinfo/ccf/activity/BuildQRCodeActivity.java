@@ -41,7 +41,7 @@ public class BuildQRCodeActivity extends BaseActivity {
         });
         Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ccf);
         User user = UserSharedPreference.getInstance().getUser();
-        Bitmap bitmap = QRCodeUtil.buildQRCode("http://ccf.hrkji.com/regUsers.aspx?pm="+user.getInvitationCode(), 164, 164, logo);
+        Bitmap bitmap = QRCodeUtil.buildQRCode("http://www.ccfcc.cc/regUsers.aspx?pm="+user.getInvitationCode(), 164, 164, logo);
         ivQrCode.setImageBitmap(bitmap);
     }
 }

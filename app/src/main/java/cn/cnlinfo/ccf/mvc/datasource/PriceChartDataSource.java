@@ -22,10 +22,18 @@ import cn.finalteam.okhttpfinal.RequestParams;
  */
 
 public class PriceChartDataSource implements IAsyncDataSource<List<ItemPriceListEntity>> {
-    private int number = 20;
+    private int number = 31;
     private int page = 1;
     private int maxPage = 0;
 
+    private String timeQueryString = "where 1=1 AND AddTime BETWEEN %s AND %s";
+    private String startTiem;
+    private String endTime;
+
+    public PriceChartDataSource(String startTiem,String endTime){
+        this.startTiem = startTiem;
+        this.endTime = endTime;
+    }
     @Override
     public RequestHandle refresh(ResponseSender<List<ItemPriceListEntity>> sender) throws Exception {
         return loadPriceListItem(sender,page);
@@ -40,8 +48,8 @@ public class PriceChartDataSource implements IAsyncDataSource<List<ItemPriceList
         RequestParams params = new RequestParams();
         params.addFormDataPart("CurrentPageIndex",page);
         params.addFormDataPart("PageSize",number);
-        params.addFormDataPart("SearchItems","where 1=1");
-        params.addFormDataPart("Orderby","Order by  AddTime asc");
+        params.addFormDataPart("SearchItems", String.format(timeQueryString, startTiem, endTime));
+        params.addFormDataPart("Orderby","Order by AddTime asc");
         HttpRequest.post(Constant.PRICE_LIST_HOST + API.PRICELIST, params, new CCFHttpRequestCallback() {
             @Override
             protected void onDataSuccess(JSONObject data) {

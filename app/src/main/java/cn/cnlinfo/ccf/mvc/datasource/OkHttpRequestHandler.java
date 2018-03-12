@@ -4,7 +4,7 @@ import com.shizhefei.mvc.RequestHandle;
 
 /**
  *
- * Created by cuijing on 2017/2/7.
+ * Created by JP on 2017/2/7.
  */
 public class OkHttpRequestHandler implements RequestHandle {
     @Override

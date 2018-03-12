@@ -36,6 +36,8 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
     TextView tvHangSellBuyRecord;
     @BindView(R.id.tv_integral_record)
     TextView tvIntegralRecord;
+    @BindView(R.id.tv_leave_message_record)
+    TextView tvLeaveMessageRecord;
     private Unbinder unbinder;
 
     @Override
@@ -43,7 +45,6 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_center);
         unbinder = ButterKnife.bind(this);
-
         tvTitle.setText("记录中心");
         setClickListener();
     }
@@ -65,6 +66,7 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
         tvPurMealRecord.setOnClickListener(this);
         tvHangSellBuyRecord.setOnClickListener(this);
         tvIntegralRecord.setOnClickListener(this);
+        tvLeaveMessageRecord.setOnClickListener(this);
     }
 
     @Override
@@ -146,7 +148,13 @@ public class RecordCenterActivity extends BaseActivity implements View.OnClickLi
              * 用户积分记录
              */
             case R.id.tv_integral_record:
-                startActivity(new Intent(this,UserIntegralRecordActivity.class));
+                startActivity(new Intent(this, UserIntegralRecordActivity.class));
+                break;
+            /**
+             * 留言记录
+             */
+            case R.id.tv_leave_message_record:
+                startActivity(new Intent(this,LeaveMessageRecordActivity.class));
                 break;
             default:
                 break;

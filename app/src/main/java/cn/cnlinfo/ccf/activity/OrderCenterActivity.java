@@ -1,8 +1,11 @@
 package cn.cnlinfo.ccf.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -16,7 +19,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.orhanobut.logger.Logger;
-import com.scrat.app.selectorlibrary.ImageSelector;
 import com.shizhefei.mvc.MVCHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -67,6 +69,7 @@ public class OrderCenterActivity extends BaseActivity {
     private String orderId;
     //上传图片的结果码
     private static final int REQUEST_CODE_SELECT_IMG = 1;
+    public static  final int CODE_SELECT_IMAGE = 2;//相册RequestCode
     private OrderListItemAdapter orderListItemAdapter;
     private static String tradTypeBuy = "where (SellerID="+ UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  TranType=2";
     private static String tradTypeSell = "where (SellerID="+UserSharedPreference.getInstance().getUser().getUserID()+"or PurchaserID = "+ UserSharedPreference.getInstance().getUser().getUserID()+") and  TranType=1";
@@ -131,13 +134,32 @@ public class OrderCenterActivity extends BaseActivity {
     //选择图片上传回调
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SELECT_IMG) {
-            List<String> yourSelectImgPaths = ImageSelector.getImagePaths(data);
+        if (requestCode == CODE_SELECT_IMAGE) {
+            //List<String> yourSelectImgPaths = ImageSelector.getImagePaths(data);
             List<File> files = new ArrayList<>();
-            for (String yourSelectImgPath : yourSelectImgPaths) {
+           /* for (String yourSelectImgPath : yourSelectImgPaths) {
+                Logger.d(yourSelectImgPath);
                 File file = new File(yourSelectImgPath);
                 files.add(file);
+            }*/
+
+            Uri originalUri = data.getData();        //获得图片的uri
+            String[] proj = {MediaStore.Images.Media.DATA};
+            Cursor cursor = null;
+            //编译的sdk版本是否为Android4.4以后的版本,使用不同的方法获取Cursor
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                 cursor = getContentResolver().query(originalUri, proj, null, null, null);
+            }else {
+                cursor = managedQuery(originalUri, proj, null, null, null);
             }
+            if(cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                String path = cursor.getString(column_index);
+                Logger.d(path);
+                files.add(new File(path));
+            }
+            cursor.close();
+
             if (files != null && files.size() > 0) {
                 Map<String, String> map = new HashMap<>();
                 map.put("orderid", orderId);
@@ -162,6 +184,7 @@ public class OrderCenterActivity extends BaseActivity {
 
                     @Override
                     public void failed(int code, String msg) {
+                        Logger.d(code+":"+msg);
                         showMessage(code, msg);
                     }
                 });

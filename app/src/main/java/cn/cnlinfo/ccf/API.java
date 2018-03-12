@@ -13,7 +13,7 @@ public class API {
 
     /**
      * 测试post方法地址
-     * http://ccf.hrkji.com/RegUser.asmx/Login
+     * http://www.ccfcc.cc/RegUser.asmx/Login
      * username
      * password
      */
@@ -279,4 +279,9 @@ public class API {
      * 获取用户当前的步数
      */
     public static final String GETCURRENTSTEP = "getUserCurStep";
+
+    /**
+     * 获取用户的留言记录
+     */
+    public static final String USERLEAVEMESSAGERECORD = "GetsystemMsgList";
 }

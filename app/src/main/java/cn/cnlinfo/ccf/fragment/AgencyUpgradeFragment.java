@@ -98,13 +98,13 @@ public class AgencyUpgradeFragment extends BaseFragment {
      * 初始化操作
      */
     private void init() {
-        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://ccf.hrkji.com/XY.aspx\">用户协议");
+        CharSequence charSequence = Html.fromHtml("已同意并愿意接受:<a href=\"http://www.ccfcc.cc/XY.aspx\">用户协议");
         tvUpgradeAgencyLink.setText(charSequence);
         tvUpgradeAgencyLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra("url", "http://ccf.hrkji.com/XY.aspx");
+                intent.putExtra("url", "http://www.ccfcc.cc/XY.aspx");
                 startActivity(intent);
             }
         });
